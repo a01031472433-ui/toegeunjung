@@ -89,6 +89,11 @@ let emitT=null;
 function emit(){if(emitT)return;emitT=setTimeout(()=>{emitT=null;subs.forEach(f=>{try{f(S)}catch(e){console.error(e)}})},30)}
 let backend=null, lastPostAt=0;
 
+/* ---- 마을 프레젠스: 꾸민 모습·인사 (정해진 값만 통과) ---- */
+const EQ_OK={head:["beanie","headset","crown"],face:["glasses","shades"],body:["tie","hoodie","suit"]};
+const EMOTES=[{e:"👋",t:"안녕!"},{e:"☕",t:"커피 한잔?"},{e:"🔥",t:"힘내!"},{e:"😮‍💨",t:"퇴근하고 싶다"}];
+function cleanEq(e){const o={};if(e&&typeof e==="object")for(const k in EQ_OK){if(EQ_OK[k].includes(e[k]))o[k]=e[k]}return o}
+function cleanEmo(m){if(!m||typeof m!=="object"||!EMOTES.some(x=>x.e===m.e)||typeof m.at!=="number")return null;return {e:m.e,at:m.at,to:typeof m.to==="string"?m.to.slice(0,40):null}}
 /* ---- 로컬 저장소 ---- */
 function makeLocal(){
  const KEY="toegeunjung-community-v1";
@@ -161,7 +166,8 @@ async function makeShared(db,user,room){
     const count=ps=>new Set(ps.filter(p=>p.kind==="viewer").map(p=>p.by||p.peer)).size;
     room.onPeers(ch=>{S.online=count(ch.peers);
      /* 마을에 보이는 다른 돌: 위치·닉네임만 (계정 정보 없음) */
-     S.peers=ch.peers.filter(p=>!p.isMe&&p.kind==="viewer"&&p.presence&&typeof p.presence.x==="number"&&typeof p.presence.y==="number").map(p=>({key:p.peer,x:Math.max(0,Math.min(360,p.presence.x)),y:Math.max(0,Math.min(560,p.presence.y)),nick:String(p.presence.nick||"").slice(0,12)}));
+     S.peers=ch.peers.filter(p=>!p.isMe&&p.kind==="viewer"&&p.presence&&typeof p.presence.x==="number"&&typeof p.presence.y==="number").map(p=>({key:p.peer,x:Math.max(0,Math.min(360,p.presence.x)),y:Math.max(0,Math.min(560,p.presence.y)),nick:String(p.presence.nick||"").slice(0,12),
+      anon:typeof p.presence.anon==="string"?p.presence.anon.slice(0,40):null,eq:cleanEq(p.presence.eq),emo:cleanEmo(p.presence.emo)}));
      emit()},()=>{S.online=null;S.roomOff=true;S.peers=[];emit()});
     api.presence=patch=>room.presence(patch).catch(()=>{});
    }
@@ -349,6 +355,21 @@ async function unban(anon){if(!S.isOwner)return;const ref=backend.db.doc("ops/ba
 
 function presence(patch){if(backend&&backend.presence)backend.presence(patch)}
 
+/* ---- 돌퇴근 주간 랭킹 (함께 쓰는 저장소가 있을 때만. 로컬에선 null → 화면은 "내 기록"만 보여줘요) ----
+   SERVER TODO: 지금은 기기에서 검증(runner-core verify)한 뒤 올려요. 서버가 생기면 입력 기록(inputs)을 함께 올리고
+   서버에서 같은 runner-core.js로 다시 돌려 확인한 기록만 랭킹에 넣어야 조작을 막을 수 있어요. */
+async function runSubmit(r){
+ if(!backend||backend.mode!=="shared"||!S.canWrite||!S.me.anon)return false;
+ const wk=r.week+"_"+r.sid, id=(wk+"_"+S.me.anon).replace(/[^\w-]/g,"_");
+ try{const ref=backend.db.collection("runs").doc(id);const cur=await ref.get();if(cur.exists&&cur.data().ms<=r.ms)return true;
+  await ref.set({wk,week:r.week,sid:String(r.sid),ms:r.ms,score:r.score,nick:S.me.nick||"익명의 돌",anon:S.me.anon,at:Date.now()});return true}catch(e){return false}
+}
+async function runBoard(week,sid){
+ if(!backend||backend.mode!=="shared")return null;
+ try{const s=await backend.db.collection("runs").where("wk","==",week+"_"+sid).limit(300).get();
+  return s.docs.map(d=>d.data()).filter(x=>typeof x.ms==="number"&&!S.banned.includes(x.anon)).sort((a,b)=>a.ms-b.ms||a.at-b.at).map(x=>Object.assign({me:x.anon===S.me.anon},x))}catch(e){return []}
+}
+
 /* ---- 시작: 쓸 수 있는 저장소를 고름 ---- */
 async function init(){
  if(backend)return;
@@ -370,5 +391,5 @@ window.TG_COMMUNITY={SPACES,REPORT_REASONS,DM_REPORT_REASONS,CFG,state:S,subscri
  addPost,deletePost,addComment,deleteComment,toggleLike,report,
  nickProblem,nickChange,setNickname,contactRisk,
  setDmOpen,dmTarget,startDm,sendDm,acceptDm,declineDm,block,unblock,reportDm,convList,messages,markRead,unreadTotal,
- ban,unban,presence};
+ ban,unban,presence,runSubmit,runBoard,EMOTES,cleanEq};
 })();

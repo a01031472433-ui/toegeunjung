@@ -1,0 +1,246 @@
+/* 퇴근중 · 돌퇴근 — 게임 규칙 (화면과 분리된 순수 로직)
+   - 고정 틱(1/120초) 시뮬레이션이라 같은 시드 + 같은 입력이면 항상 같은 결과가 나와요.
+   - 그래서 기록 검증(verify)은 "입력 기록을 다시 돌려 보기"로 해요. 서버가 생기면 이 파일을 그대로 서버에서 돌리면 돼요.
+   - 단위: 1m = 20u. y는 땅에서 위로 잰 높이. */
+(function(root){
+"use strict";
+const TICK=1/120, M=20;
+const LIVES=3, INV=1.5; // v12: 목숨 3개, 부딪힌 뒤 1.5초 무적
+const PHY={G:2700,G_HOLD:1500,JV:640,DJV:560,HOLD:0.24,BUFFER:0.12,COYOTE:0.08,BOOST_SPEED:1.3,BOOST_JUMP:1.16,EFFECT:5,ACT:400,
+ DUCK_MIN:.35,FASTFALL:900};
+/* v13 방해 요소
+   - 거대 팀장님(talk): 다리를 벌리고 선 커다란 팀장님 → 점프로는 못 넘고 「숙이기」로 다리 사이를 통과
+   - 회식 2차 권유 구간(ZONE): 고기 냄새에 끌려 느려지고 「끌림」 게이지가 차요. 탭을 연타해서 버티면 탈출, 꽉 차면 ❤️ -1
+     (구간 안에서는 탭이 점프가 아니라 버티기예요)
+   - 단톡방 알림(NOTE): 화면 오른쪽을 가리는 알림이 1.1초마다 한 장씩(최대 3장) 쌓여요. 눌러서 닫기 → 목숨에는 영향 없고 점수만 +5 */
+const ZONE={len:720,rate:1,push:.2,slow:.72,esc:50}; // 초당 약 3.5번 이상 눌러야 버텨요
+const NOTE={grow:1.1,max:3,pts:5};
+/* 돌대리 충돌 상자 (그림보다 조금 작게 → 억울한 충돌 방지) */
+const PB={w:28,h:36,dh:17}; // dh = 숙였을 때 높이
+const PICK=8; // 아이템은 조금 넉넉하게 먹혀요
+
+/* 장애물: w,h = 충돌 상자 / y = 떠 있는 높이 / vx = 다가오는 속도 / bob = 위아래 흔들림 */
+const OBS={
+ papers:{name:"서류더미",w:24,h:30,low:1},
+ cup:{name:"커피컵",w:15,h:21,low:1},
+ chair:{name:"회의실 의자",w:30,h:36,vx:-45},
+ boss:{name:"팀장",w:22,h:56,tall:1},
+ crowd:{name:"출근길 사람",w:26,h:58,vx:-35,tall:1},
+ bag:{name:"가방",w:26,h:22,low:1},
+ stairs:{name:"계단",w:52,h:28,wide:1},
+ door:{name:"닫히는 문",w:16,h:70,tall:1},
+ puddle:{name:"물웅덩이",w:58,h:6,wide:1},
+ pigeon:{name:"비둘기",w:20,h:18,low:1},
+ fpig:{name:"날아오는 비둘기",w:24,h:14,y:66,vx:-70,fly:1},
+ cone:{name:"라바콘",w:20,h:32,low:1},
+ phone:{name:"업무 전화",w:22,h:28,y:18,bob:5,tall:1},
+ drunk:{name:"회식 권유",w:24,h:56,vx:-20,tall:1},
+ talk:{name:"거대 팀장님",w:34,h:300,y:24,duck:1},
+ plane:{name:"날아오는 결재 서류",w:24,h:12,y:62,vx:-85,fly:1},
+ moto:{name:"배달 오토바이",w:38,h:30,vx:-60,low:1},
+ squeeze:{name:"꽉 낀 인파",w:58,h:300,y:24,duck:1}, // v14.3 지옥철: 사람들 다리 사이로 숙여서 비집고 지나가기
+};
+const ITEMS={
+ coffee:{name:"커피",icon:"☕",desc:"5초 동안 속도 UP"},
+ shield:{name:"연차권",icon:"🛡️",desc:"5초 동안 충돌 방어"},
+ shoes:{name:"운동화",icon:"👟",desc:"5초 동안 점프력 UP"},
+};
+/* 스테이지: len = 거리(u), v0→v1 = 시작→끝 속도(u/s), pool = 장애물 비율, extra = 추가 간격(시작, 끝), pair = 2연속 장애물 확률 */
+const STAGES={
+ 1:{id:1,key:"office",name:"사무실 탈출",goal:"회사 출입문",win:"회사 탈출 성공!",len:9000,v0:233,v1:281,first:760,
+    pool:{papers:3,cup:3,chair:2,boss:2,talk:1.3,plane:1.2},extra:[135,70],pair:.08,clear:300,notes:[.42]},
+ 2:{id:2,key:"subway",name:"지옥철 탈출",goal:"지하철 출구",win:"지옥철 탈출 성공!",len:11000,v0:263,v1:316,first:760,
+    pool:{bag:3,crowd:2,stairs:2,door:2,squeeze:1.4},extra:[115,52],pair:.2,clear:400,notes:[.3,.72]},
+ 3:{id:3,key:"street",name:"집까지 질주",goal:"따뜻한 우리 집",win:"오늘도 칼퇴 성공!",len:13000,v0:288,v1:348,first:760,
+    pool:{puddle:3,pigeon:2,fpig:1,cone:2,phone:2,moto:1.3},extra:[98,44],pair:.26,clear:500,zones:[.55],notes:[.25,.8]},
+ fri:{id:"fri",key:"friday",name:"불금 탈출",goal:"불금 포차",win:"불금 탈출 성공!",len:13000,v0:314,v1:369,first:760,
+    pool:{drunk:2,phone:2,crowd:2,door:1,cone:2,cup:1,fpig:1,bag:1,stairs:1,talk:1,plane:1,moto:1},extra:[90,36],pair:.32,clear:700,title:"불금 탈출러",zones:[.36,.7],notes:[.2,.52,.86]},
+};
+STAGES[1].par=par(STAGES[1]);STAGES[2].par=par(STAGES[2]);STAGES[3].par=par(STAGES[3]);STAGES.fri.par=par(STAGES.fri);
+function par(S){return S.len/((S.v0+S.v1)/2)*1.12}
+
+function rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const lerp=(a,b,p)=>a+(b-a)*p;
+function speedAt(S,x){return lerp(S.v0,S.v1,Math.min(1,Math.max(0,x/S.len)))}
+function pick(r,pool){const e=Object.entries(pool);let t=e.reduce((a,[,w])=>a+w,0)*r();for(const [k,w] of e){if((t-=w)<0)return k}return e[0][0]}
+
+/* 점프 궤적 (아이템 배치용): 길게 누른 점프의 시간별 높이 */
+function arc(hold){const pts=[];let y=0,vy=PHY.JV,ht=0,t=0;while(t<2){const g=hold&&vy>0&&ht<PHY.HOLD?PHY.G_HOLD:PHY.G;if(hold&&vy>0)ht+=TICK;vy-=g*TICK;y+=vy*TICK;t+=TICK;if(y<=0)break;pts.push([t,y])}return pts}
+const ARC_HOLD=arc(true);
+
+/* ---- 코스 만들기 ----
+   장애물 사이 간격 = (커피 먹은 최고 속도) × (점프하고 착지해서 다시 반응할 시간) + 무작위 여유.
+   그래서 아무리 운이 나빠도 "넘을 수 없는 조합"은 나오지 않아요. (tests/runner-fair.js 로봇이 수천 판으로 확인) */
+const T_AFTER={low:.71,tall:.82,wide:.77,fly:.64,pair:.83,duck:.7}; // v12 리듬 조이기 → v17 한 번 더 (약 4%)
+function course(sid,seed){
+ const S=STAGES[sid], r=rng(seed>>>0), obs=[], items=[], zones=[], notes=(S.notes||[]).map(f=>({x:Math.round(S.len*f)}));
+ let x=S.first, n=0, lastKind="low", zq=(S.zones||[]).slice();
+ const kindOf=o=>o.duck?"duck":o.fly?"fly":o.tall?"tall":o.wide?"wide":"low";
+ while(x<S.len-520){
+  const p=x/S.len, vmax=speedAt(S,x+400)*PHY.BOOST_SPEED;
+  /* 회식 2차 권유 구간: 이 안에는 장애물이 없고 바닥에 자갈만 */
+  if(zq.length&&x>=S.len*zq[0]){zq.shift();
+   const z={x0:x,x1:x+ZONE.len};zones.push(z);
+   for(let zx=z.x0+60;zx<z.x1-40;zx+=48)items.push({t:"pebble",x:zx,y:12});
+   x=z.x1+speedAt(S,z.x1)*PHY.BOOST_SPEED*.8+120;lastKind="low";continue}
+  let t=pick(r,S.pool);
+  if(OBS[t].duck&&lastKind==="duck")t=Object.keys(S.pool)[0];
+  if(OBS[t].fly&&lastKind==="fly")t="cone"in S.pool?"cone":Object.keys(S.pool)[0];
+  const d=OBS[t];
+  const o={i:obs.length,t,x:x,w:d.w,h:d.h,y:d.y||0};obs.push(o);
+  let end=x+d.w, kind=kindOf(d);
+  /* 2연속: 낮은 장애물 두 개를 붙여서 → 길게 눌러야 넘을 수 있어요 */
+  if(d.low&&r()<S.pair*(.4+.6*p)){
+   const lows=Object.keys(S.pool).filter(k=>OBS[k].low);const t2=lows[Math.floor(r()*lows.length)]||t;
+   const gx=end+26+Math.floor(r()*10);const d2=OBS[t2];
+   obs.push({i:obs.length,t:t2,x:gx,w:d2.w,h:d2.h,y:0,pair:1});end=gx+d2.w;kind="pair";
+  }
+  /* 자갈: 장애물 위로 점프 궤적을 따라 */
+  if(kind!=="fly"&&r()<.62){
+   const v=speedAt(S,x), mid=(x+end)/2, apexT=ARC_HOLD.reduce((a,b)=>b[1]>a[1]?b:a)[0];
+   const n5=kind==="pair"?5:4;
+   for(let k=0;k<n5;k++){const tt=apexT*(0.3+1.4*k/(n5-1));const pt=ARC_HOLD[Math.min(ARC_HOLD.length-1,Math.round(tt/TICK))];
+    items.push({t:"pebble",x:mid-apexT*v+tt*v+PB.w/2-6,y:pt[1]+PB.h/2+4})}
+  }
+  lastKind=kind;
+  /* 다음 장애물까지 간격 */
+  let gap=vmax*T_AFTER[kind]+r()*lerp(S.extra[0],S.extra[1],p);
+  const nt=null; // 다음 종류는 아직 몰라요 → 움직이는 장애물 여유는 넉넉히 고정 반영
+  gap+=36;
+  /* 간격 안 아이템: 땅 위 자갈 줄 / 파워업 */
+  const g0=end+70, g1=end+gap-70;
+  if(g1-g0>120){
+   n++;
+   if(n%6===3){const types=["coffee","shield","shoes"];items.push({t:types[Math.floor(r()*3)],x:(g0+g1)/2-11,y:58})}
+   else if(r()<.5){const cnt=3+Math.floor(r()*3);for(let k=0;k<cnt;k++)items.push({t:"pebble",x:g0+20+k*26,y:12})}
+   else if(r()<.25){const cnt=3;const hx=(g0+g1)/2-26;for(let k=0;k<cnt;k++)items.push({t:"pebble",x:hx+k*26,y:150})} // 2단 점프 보너스
+  }
+  x=end+gap;
+ }
+ return {sid,seed:seed>>>0,obs,items,zones,notes,len:S.len};
+}
+
+/* ---- 한 판 상태 ---- */
+function newRun(sid,seed){
+ const S=STAGES[sid], C=course(sid,seed);
+ return {sid,seed:C.seed,S,C,tick:0,t:0,x:0,y:0,vy:0,ground:true,jumps:0,holdKey:false,holding:false,holdT:0,buffer:0,coyote:0,
+  fx:{coffee:0,shield:0,shoes:0},pebbles:0,items:0,smashed:0,state:"run",lives:LIVES,inv:0,hurts:0,
+  O:C.obs.map(o=>({x:o.x,act:false,gone:false})),got:new Uint8Array(C.items.length),ev:[],inputs:[],hitBy:null,hitKind:null,
+  duck:false,duckHold:false,duckT:0,zi:0,zin:false,zm:0,zEsc:0,resist:0,ni:0,nb:0,nbT:0,dism:0};
+}
+function speed(R){return speedAt(R.S,R.x)*(R.fx.coffee>0?PHY.BOOST_SPEED:1)*(R.zin?ZONE.slow:1)}
+function jump(R,v){R.duck=false;R.vy=v*(R.fx.shoes>0?PHY.BOOST_JUMP:1);R.holding=R.holdKey;R.holdT=0;R.ground=false;R.jumps++;R.ev.push(R.jumps>1?"jump2":"jump")}
+function obsY(R,i){const o=R.C.obs[i],d=OBS[o.t];return o.y+(d.bob?Math.sin(R.t*6+i)*d.bob:0)}
+function hurt(R,kind,ev){
+ R.lives--;R.hurts++;R.inv=INV;R.hitKind=kind;
+ if(R.lives<=0){R.state="dead";R.ev.push("hit:"+ev);return true}
+ R.ev.push((kind==="zone"?"zhurt:":"hurt:")+ev);return false;
+}
+/* 한 틱 진행. press/release = 이번 틱에 점프 누름/뗌, o = {dd:숙이기 누름, du:숙이기 뗌, dis:알림 닫기} */
+function step(R,press,release,o){
+ if(R.state!=="run")return;
+ const dt=TICK;o=o||{};
+ if(o.dis){R.inputs.push([R.tick,4]);if(R.nb>0){R.nb--;R.nbT=0;R.dism++;R.ev.push("dism")}}
+ if(o.dd){R.inputs.push([R.tick,2]);R.duckHold=true;R.duck=true;R.duckT=0;R.buffer=0;
+  if(!R.ground){R.vy=Math.min(R.vy,-PHY.FASTFALL);R.holding=false}R.ev.push("duck")}
+ if(o.du){R.inputs.push([R.tick,3]);R.duckHold=false}
+ if(press){R.inputs.push([R.tick,1]);R.holdKey=true;
+  if(R.zin){R.zm=Math.max(0,R.zm-ZONE.push);R.resist++;R.ev.push("resist")}
+  else if(R.ground||R.coyote>0){if(R.jumps===0)jump(R,PHY.JV);else R.buffer=PHY.BUFFER}
+  else if(R.jumps<2)jump(R,PHY.DJV);
+  else R.buffer=PHY.BUFFER;
+ }
+ if(release){R.inputs.push([R.tick,0]);R.holdKey=false;R.holding=false}
+ /* 이동 */
+ const v=speed(R);R.x+=v*dt;
+ if(!R.ground){
+  const g=R.holding&&R.vy>0&&R.holdT<PHY.HOLD?PHY.G_HOLD:PHY.G;
+  if(R.holding&&R.vy>0)R.holdT+=dt;
+  R.vy-=g*dt;R.y+=R.vy*dt;
+  if(R.y<=0){R.y=0;R.vy=0;R.ground=true;R.jumps=0;R.holding=false;R.ev.push("land");
+   if(R.buffer>0){R.buffer=0;jump(R,PHY.JV)}}
+ }
+ if(R.buffer>0)R.buffer-=dt;
+ if(R.duck){R.duckT+=dt;if(!R.duckHold&&R.duckT>=PHY.DUCK_MIN)R.duck=false}
+ /* 회식 2차 권유 구간 */
+ const Z=R.C.zones;
+ if(R.zi<Z.length){const z=Z[R.zi];
+  if(!R.zin&&R.x+PB.w>=z.x0&&R.x<z.x1){R.zin=true;R.zm=0;R.ev.push("zone:in")}
+  if(R.zin){
+   if(R.x>=z.x1){R.zin=false;R.zi++;R.zEsc++;R.ev.push("zone:out")}
+   else{R.zm+=ZONE.rate*dt;
+    if(R.zm>=1){R.zin=false;R.zi++;R.zm=1;
+     if(R.fx.shield>0){R.smashed++;R.ev.push("zone:shield")}
+     else if(R.inv>0){R.ev.push("zone:free")}
+     else if(hurt(R,"zone","zone"))return}}
+  }
+ }
+ /* 단톡방 알림 */
+ const NT=R.C.notes;
+ if(R.ni<NT.length&&R.x>=NT[R.ni].x){R.ni++;if(R.nb<1){R.nb=1;R.nbT=0}R.ev.push("note")}
+ else if(R.nb>0&&R.nb<NOTE.max){R.nbT+=dt;if(R.nbT>=NOTE.grow){R.nb++;R.nbT=0;R.ev.push("note")}}
+ for(const k in R.fx)if(R.fx[k]>0)R.fx[k]=Math.max(0,R.fx[k]-dt);
+ if(R.inv>0)R.inv=Math.max(0,R.inv-dt);
+ /* 장애물 */
+ const px0=R.x, px1=R.x+PB.w, py0=R.y, py1=R.y+(R.duck?PB.dh:PB.h);
+ const obs=R.C.obs;
+ for(let i=0;i<obs.length;i++){
+  const o=obs[i], s=R.O[i];
+  if(s.gone)continue;
+  if(s.x>R.x+PHY.ACT+60)break;
+  if(s.x+o.w<R.x-200)continue;
+  const d=OBS[o.t];
+  if(!s.act&&s.x-R.x<PHY.ACT)s.act=true;
+  if(s.act&&d.vx)s.x+=d.vx*dt;
+  const oy=obsY(R,i);
+  if(px1>s.x&&px0<s.x+o.w&&py1>oy&&py0<oy+o.h){
+   if(R.fx.shield>0){s.gone=true;R.smashed++;R.ev.push("smash:"+i)}
+   else if(R.inv>0){/* 무적 중: 통과 */}
+   else{s.gone=true;R.hitBy=i;if(hurt(R,o.t,i))return}
+  }
+ }
+ /* 아이템 */
+ const it=R.C.items;
+ for(let i=0;i<it.length;i++){
+  if(R.got[i])continue;const a=it[i];
+  if(a.x>R.x+80)break;
+  const sz=a.t==="pebble"?12:22;
+  if(a.x+sz<R.x-PICK)continue;
+  if(px1+PICK>a.x&&px0-PICK<a.x+sz&&py1+PICK>a.y&&py0-PICK<a.y+sz){
+   R.got[i]=1;
+   if(a.t==="pebble"){R.pebbles++;R.ev.push("pebble:"+i)}
+   else{R.items++;R.fx[a.t]=PHY.EFFECT;R.ev.push("item:"+a.t+":"+i);if(a.t==="coffee"&&R.lives<LIVES){R.lives++;R.ev.push("heal")}}
+  }
+ }
+ R.tick++;R.t=R.tick*TICK;
+ if(R.x>=R.S.len){R.x=R.S.len;R.state="win";R.ev.push("win")}
+}
+function meters(R){return Math.floor(Math.min(R.x,R.S.len)/M)}
+const NO_HIT=300; // 무사고 퇴근 보너스
+function score(R){
+ let s=meters(R)+R.pebbles*10+R.items*20+R.smashed*15+R.zEsc*ZONE.esc+R.dism*NOTE.pts;
+ if(R.state==="win")s+=R.S.clear+Math.max(0,Math.round((R.S.par-R.t)*20))+(R.hurts===0?NO_HIT:0);
+ return s;
+}
+function ms(R){return Math.round(R.tick*TICK*1000)}
+/* 기록 검증: 입력 기록을 처음부터 다시 돌려서 결과가 같은지 확인 */
+function verify(sid,seed,inputs,claim){
+ if(!STAGES[sid]||!Array.isArray(inputs)||inputs.length>12000)return {ok:false,why:"형식"};
+ const R=newRun(sid,seed);let k=0;const max=Math.ceil(R.S.len/(R.S.v0*ZONE.slow)/TICK)+10;
+ while(R.state==="run"&&R.tick<max){
+  let p=false,rl=false;const o={};
+  while(k<inputs.length&&inputs[k][0]===R.tick){const c=inputs[k][1];if(c===1)p=true;else if(c===0)rl=true;else if(c===2)o.dd=1;else if(c===3)o.du=1;else if(c===4)o.dis=1;k++}
+  if(k<inputs.length&&inputs[k][0]<R.tick)return {ok:false,why:"순서"};
+  step(R,p,rl,o);R.ev.length=0;
+ }
+ R.inputs=inputs;
+ const res={state:R.state,ms:ms(R),score:score(R),pebbles:R.pebbles,meters:meters(R),hurts:R.hurts};
+ const ok=!claim||(claim.state===res.state&&claim.ms===res.ms&&claim.score===res.score&&claim.pebbles===res.pebbles);
+ const minMs=R.S.len/(R.S.v1*PHY.BOOST_SPEED)*1000;
+ return {ok:ok&&(res.state!=="win"||res.ms>=minMs),res,why:ok?"":"불일치"};
+}
+
+const API={TICK,M,PHY,LIVES,INV,NO_HIT,PB,ZONE,NOTE,OBS,ITEMS,STAGES,rng,course,newRun,step,speed,score,meters,ms,verify,obsY,speedAt};
+if(typeof module!=="undefined"&&module.exports)module.exports=API;
+root.TG_RUNNER_CORE=API;
+})(typeof window!=="undefined"?window:globalThis);
