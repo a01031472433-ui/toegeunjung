@@ -1,6 +1,6 @@
 // 퇴근중 — 오프라인 캐시. 파일을 바꾸면 VERSION 숫자를 올려 주세요.
-const VERSION = "toegeunjung-v9";
-const CORE = ["./", "index.html", "game-words.js", "community.js", "luck.js", "village.js", "manifest.webmanifest", "images/poses/base.png", "icons/icon-192.png"];
+const VERSION = "toegeunjung-v24";
+const CORE = ["./", "index.html", "wordgame.js", "words-vocab.json", "community.js", "luck.js", "village.js", "runner-core.js", "runner-art.js", "runner.js", "manifest.webmanifest", "pose-base.png", "office-day.jpg", "office-night.jpg", "icon-192.png"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(VERSION).then(c => c.addAll(CORE))); self.skipWaiting(); });
 self.addEventListener("activate", e => {
   e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== VERSION).map(k => caches.delete(k)))));

@@ -33,6 +33,24 @@ const LINES={
   normal:["연애운은 잠시 휴가 중이돌. 대신 월급운에 집중하돌.","혼밥도 충분히 근사한 날이돌.","무리한 썸보다 편한 대화가 좋돌."],
   careful:["사내연애 티는 오늘 특히 조심하돌.","새벽 감성 메시지는 보내기 전에 저장만 하돌.","오늘은 거울 한 번 더 보고 나가돌."]},
 };
+/* v14: 분야 추가 — 금전운·인간관계운·건강운 */
+Object.assign(LINES,{
+ money:{
+  great:["통장에 예상 못 한 돈이 들어올 상이돌.","오늘 산 물건은 두고두고 잘 샀다 소리 듣돌.","경비 정산이 한 번에 통과되돌."],
+  good:["커피 쿠폰 하나쯤 굴러들어오돌.","작은 할인 운이 따르돌. 장바구니를 열어 보돌.","미뤄 둔 정산을 하기 좋은 날이돌."],
+  normal:["들어온 만큼 나가는 무난한 날이돌.","점심은 가성비 메뉴가 정답이돌.","오늘은 지갑을 닫아 두면 본전이돌."],
+  careful:["'이번 달만'이 반복되는 날이돌. 결제 버튼 조심하돌.","충동구매 경보! 장바구니에서 하루만 재우돌.","빌려준 돈 얘기는 오늘 꺼내지 않는 게 좋돌."]},
+ people:{
+  great:["오늘 건넨 말 한마디가 든든한 동료를 만들돌.","도움을 청하면 생각보다 많이 도와주돌.","회의에서 내 의견에 고개 끄덕이는 사람이 많돌."],
+  good:["점심 같이 먹자는 제안이 들어오돌.","오래 연락 안 한 동기에게 먼저 인사하면 좋돌.","팀 메신저 분위기가 훈훈하돌."],
+  normal:["무난한 관계가 이어지는 날이돌.","굳이 끼어들지 않아도 되는 대화가 있돌.","오늘은 듣는 쪽이 더 이득이돌."],
+  careful:["농담이 진담으로 들릴 수 있돌. 말끝을 부드럽게 하돌.","뒷담화 자리에는 오늘 빠지돌.","단톡방 답장은 한 번 더 읽고 보내돌."]},
+ health:{
+  great:["몸이 가벼워 계단도 거뜬하돌.","오늘 잠이 잘 오는 밤이 되돌.","점심 산책이 최고의 보약이돌."],
+  good:["물 두 잔 더 마시면 컨디션이 확 살아나돌.","스트레칭 3분이 오후를 살리돌.","가벼운 걷기가 기분까지 올려 주돌."],
+  normal:["무리만 안 하면 괜찮은 날이돌.","눈이 쉽게 피로해지니 화면 밝기를 낮추돌.","커피는 두 잔까지만 하돌."],
+  careful:["어깨·목 결림 주의보이돌. 자세 한 번 고치돌.","야식은 오늘 참는 게 좋돌.","피곤하면 오늘은 일찍 눕돌."]},
+});
 const ITEMS=["아이스 아메리카노","포스트잇","무선 이어폰","텀블러","손목 보호대","초코바","사원증 목걸이","보조배터리","립밤","형광펜","탕비실 믹스커피","우산"];
 
 /* ---- 자갈복권 확률표 (합 100) ---- */
@@ -126,6 +144,17 @@ function sajuFortune(birth,date){
  const workN=(rs==="support"?2:rs==="same"?1:rs==="pressure"?-1:rs==="wealth"?1:0)+(rb==="support"?1:0)-(chung?1:0);
  const offN=(rs==="wealth"||rb==="wealth"?2:0)+(rs==="output"?1:0)-(rs==="pressure"?1:0)-(chung?1:0);
  const loveN=hap?2:chung?-1:(rs==="support"||rb==="support"?1:0);
+ /* 금전운=재성(내가 다스리는 기운)·식상(성과), 비견이 겹치면 나눠 쓰는 날 / 인간관계운=비견·합 / 건강운=부족한 오행이 채워지는지 */
+ const cntT=[0,0,0,0,0];[P.year,P.month,P.day,P.hour].filter(Boolean).forEach(x=>{cntT[stemEl(x.s)]++;cntT[BR_EL[x.b]]++});
+ const tEl=stemEl(T.s), weak=Math.min(...cntT);
+ const moneyN=(rs==="wealth"?2:0)+(rb==="wealth"?1:0)+(rs==="output"?1:0)-(rs==="same"&&rb==="same"?1:0)-(chung?1:0)-(rs==="pressure"?1:0);
+ const peopleN=(rs==="same"||rb==="same"?1:0)+(hap?1:0)+(rs==="support"?1:0)-(chung?1:0)-(rs==="pressure"?1:0);
+ const healthN=(rs==="support"?1:0)+(cntT[tEl]===weak?1:0)-(rs==="pressure"?1:0)-(chung?1:0);
+ const why={work:rs==="pressure"?"관성(나를 누르는 기운)이 들어와 책임이 무거운 날":rs==="support"?"인성(나를 돕는 기운)이 일을 받쳐 주는 날":rs==="wealth"?"재성이 들어와 성과를 챙기기 좋은 날":rs==="same"?"비견이 들어와 함께 일하기 좋은 날":"식상이 들어와 아이디어가 나오는 날",
+  money:rs==="wealth"||rb==="wealth"?"재성(내가 다스리는 기운)이 들어온 날":rs==="output"?"식상이 재물을 낳는 날":rs==="same"&&rb==="same"?"비견이 겹쳐 나갈 돈이 생기기 쉬운 날":"재물 기운이 잔잔한 날",
+  love:hap?"내 일지와 오늘 일진이 합하는 날":chung?"내 일지와 오늘 일진이 충하는 날":"합도 충도 없는 잔잔한 날",
+  people:hap?"합이 들어 사람과 엮이기 좋은 날":rs==="same"||rb==="same"?"나와 같은 기운이 모이는 날":chung?"충이 있어 부딪히기 쉬운 날":"무난한 관계의 날",
+  health:cntT[tEl]===weak?`내 사주에 적은 ${EL_KO[tEl]} 기운이 채워지는 날`:rs==="pressure"?"누르는 기운에 몸이 지치기 쉬운 날":chung?"충으로 리듬이 흔들리기 쉬운 날":"기운이 고르게 흐르는 날"};
  const g=GRADES.find(x=>x.id===grade), r=rng(hash(birth.date+"|"+(birth.time||"")+"|saju|"+date));
  /* 5단계 점수, 행운 오행(나를 돕는 기운), 좋은/조심할 시간(일지와 합·충하는 시) */
  const lv=n=>n>=2?5:n>=1?4:n>=0?3:n>=-1?2:1;
@@ -136,7 +165,8 @@ function sajuFortune(birth,date){
  const counts=[0,0,0,0,0];[P.year,P.month,P.day,P.hour].filter(Boolean).forEach(x=>{counts[stemEl(x.s)]++;counts[BR_EL[x.b]]++});
  return {date,grade,gradeName:g.name,emoji:g.emoji,mood:g.mood,summary:pick(r,g.summary),
   work:pick(r,LINES.work[tier(workN)]),off:pick(r,LINES.off[tier(offN)]),love:pick(r,LINES.love[tier(loveN)]),item:pick(r,ITEMS),
-  levels:{total:lv(score>=5?2:score>=2?1:score>=-1?0:-1),work:lv(workN),off:lv(offN),love:lv(loveN)},
+  money:pick(r,LINES.money[tier(moneyN)]),people:pick(r,LINES.people[tier(peopleN)]),health:pick(r,LINES.health[tier(healthN)]),why,
+  levels:{total:lv(score>=5?2:score>=2?1:score>=-1?0:-1),work:lv(workN),off:lv(offN),love:lv(loveN),money:lv(moneyN),people:lv(peopleN),health:lv(healthN)},
   lucky:{el:luckyEl,color:["초록","빨강","노랑","흰색","남색"][luckyEl],nums:[[3,8],[2,7],[5,10],[4,9],[1,6]][luckyEl],dir:["동쪽","남쪽","가운데","서쪽","북쪽"][luckyEl]},
   hours:(()=>{ /* 직장인 활동 시간(진시 07:30 ~ 술시 21:30) 중에서 고름: 시지 오행이 나를 돕는지 + 일지와 합·충 */
    const sc=b=>REL[relation(P.meEl,BR_EL[b])].score+(b===hapB?2:0)-(b===chungB?3:0);

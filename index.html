@@ -10,8 +10,8 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="퇴근중">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" type="image/png" href="icons/icon-192.png">
-<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&display=swap">
@@ -325,7 +325,7 @@ details .law{font-size:12.5px;color:var(--blue);margin-top:6px}
 .vhit{position:absolute;border:0;background:transparent;padding:0;cursor:pointer;border-radius:14px}
 .vhit:focus-visible{outline:3px solid #FFF7E6}
 .vbadge{position:absolute;right:2px;top:-2px;background:#E35D5D;color:#fff;font-size:11px;border-radius:999px;padding:1px 7px;border:2px solid #FFF7E6}
-.vme,.vpeer{position:absolute;width:14%;transform:translate(-50%,-92%);pointer-events:none;z-index:2}
+.vme,.vpeer{position:absolute;width:9.5%;transform:translate(-50%,-92%);pointer-events:none;z-index:2}
 .vme::before,.vpeer::before{content:"";position:absolute;left:12%;right:12%;bottom:-2%;height:12%;border-radius:50%;background:rgba(0,0,0,.14)}
 .bod img{width:100%;display:block}
 .vme.left .bod,.vpeer.left .bod{transform:scaleX(-1)}
@@ -334,7 +334,9 @@ details .law{font-size:12.5px;color:var(--blue);margin-top:6px}
 .vname{position:absolute;left:50%;top:-14px;transform:translateX(-50%);background:#FFF7E6;color:#4A3B2C;font-size:11px;line-height:1.5;padding:0 7px;border-radius:999px;white-space:nowrap;border:1.5px solid #8E6440}
 .vme .vname{background:#F6C34A}
 .vpeer{transition:left .45s linear,top .45s linear;opacity:.9}
-.venter{position:absolute;transform:translate(-50%,-100%);background:#FFF7E6;color:#4A3B2C;border:2px solid #8E6440;border-radius:999px;padding:7px 14px;font-size:15px;box-shadow:0 3px 0 #8E6440;white-space:nowrap;z-index:3;animation:bob 1.2s ease-in-out infinite;cursor:pointer}
+.venter.al{transform:translate(-14%,-100%);animation-name:bobL}.venter.ar{transform:translate(-86%,-100%);animation-name:bobR}
+@keyframes bobL{50%{transform:translate(-14%,-112%)}}@keyframes bobR{50%{transform:translate(-86%,-112%)}}
+.venter{position:absolute;transform:translate(-50%,-100%);animation-name:bob;background:#FFF7E6;color:#4A3B2C;border:2px solid #8E6440;border-radius:999px;padding:7px 14px;font-size:15px;box-shadow:0 3px 0 #8E6440;white-space:nowrap;z-index:3;animation:bob 1.2s ease-in-out infinite;cursor:pointer}
 @keyframes bob{50%{transform:translate(-50%,-112%)}}
 .village.entering::after{content:attr(data-enter);position:absolute;inset:0;background:rgba(255,247,230,.94);display:grid;place-items:center;font-size:19px;color:#4A3B2C;animation:fade .35s ease;z-index:5}
 @keyframes fade{from{opacity:0}}
@@ -431,7 +433,7 @@ details .law{font-size:12.5px;color:var(--blue);margin-top:6px}
 #scratch{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:grab;transition:opacity .5s ease}
 #scratch.gone{opacity:0;pointer-events:none}
 .lc-msg{margin:0;font-size:16px;text-align:center}
-.pop{position:absolute;left:50%;top:60%;width:22px;height:20px;border-radius:50%;background:url(images/poses/base.png) center 58%/170% no-repeat;animation:pop 1.1s cubic-bezier(.2,.8,.3,1) forwards;pointer-events:none;z-index:3}
+.pop{position:absolute;left:50%;top:60%;width:22px;height:20px;border-radius:50%;background:url(pose-base.png) center 58%/170% no-repeat;animation:pop 1.1s cubic-bezier(.2,.8,.3,1) forwards;pointer-events:none;z-index:3}
 @keyframes pop{0%{transform:translate(-50%,-50%) scale(.4);opacity:0}15%{opacity:1}100%{transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy) + 140px)) rotate(var(--r)) scale(1);opacity:0}}
 .odds summary{font-size:14px;color:var(--muted)}
 .odds summary::after{font-size:18px}
@@ -461,6 +463,178 @@ details .law{font-size:12.5px;color:var(--blue);margin-top:6px}
 .bub span{display:block;font-size:11px;opacity:.7;margin-top:2px}
 .entry.ops{font-size:17px;padding:12px 16px}
 .chk{background:transparent!important;padding:4px 2px!important}
+/* v14: 생년월일로 여는 돌운세 + 분야별 운세 */
+.flip.locked{aspect-ratio:auto;max-height:none;height:auto}
+.flip.locked .flip-in{height:auto}.flip.locked .face{position:relative;inset:auto}
+.flip.locked .f-front{background:linear-gradient(160deg,#2E4FBF,#4B6FE0);padding:18px 16px 20px}
+.flip.locked .mys i{font-size:30px}
+.lock-cta{margin-top:6px;background:#fff;color:#2E4FBF;border-radius:999px;padding:7px 16px;font-size:15px}
+.fort .why{display:block;margin-top:2px;font-size:12px;color:var(--muted)}
+/* v17: 칼퇴상사 · 오늘 탭 다이어트 */
+.badge .whob{border:0;background:none;padding:0;text-align:left;font:inherit;color:inherit;cursor:pointer;gap:2px}
+.badge .whob .prof{font-style:normal;font-size:12.5px;color:var(--muted);margin-top:4px}
+.nowcard{background:var(--paper);border-radius:22px;padding:18px 18px 16px;display:flex;flex-direction:column;gap:12px;box-shadow:inset 0 0 0 2px var(--blue)}
+.nowcard .nc-k{font-size:12.5px;letter-spacing:.08em;color:var(--blue);font-weight:600}
+.nowcard .nc-row{display:flex;gap:12px;align-items:center}
+.nowcard .nc-i{width:52px;height:52px;border-radius:16px;background:#E6EEFF;display:grid;place-items:center;font-size:27px;flex:none}
+.nowcard .nc-row b{display:block;font-weight:400;font-size:21px;line-height:1.25}
+.nowcard .nc-row span{font-size:14px;color:var(--muted)}
+.nowcard .btn+.btn{margin-top:-4px}
+.steps-d{background:var(--paper);border-radius:18px;padding:0 14px}
+.steps-d>summary{list-style:none;display:flex;justify-content:space-between;align-items:center;padding:14px 2px;cursor:pointer}
+.steps-d>summary::-webkit-details-marker{display:none}
+.steps-d>summary b{font-weight:400;font-size:16px}.steps-d>summary span{font-size:13px;color:var(--muted)}
+.steps-d>summary::after{content:"⌄";font-size:18px;color:var(--muted);margin-left:8px}
+.steps-d[open]>summary::after{content:"⌃"}
+.steps-d .steps{box-shadow:none;background:none;padding:0 0 12px}
+.playcard{background:var(--paper);border-radius:22px;padding:14px 14px 16px;display:flex;flex-direction:column;gap:10px}
+.playcard .pc-h{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.playcard .pc-h b{font-weight:400;font-size:17px}
+.pc-seg{display:flex;background:var(--surface-2);border-radius:999px;padding:3px}
+.pc-seg button{border:0;background:none;border-radius:999px;padding:6px 11px;font-size:13.5px;color:var(--muted);font-family:inherit}
+.pc-seg button[aria-selected="true"]{background:var(--blue);color:#fff}
+.playcard .gcard{box-shadow:none;margin:0;padding:0;background:none;border:0}
+.playcard .gcard>.gc-h{display:none}
+/* v15: 돌대리 따라 하기 미션 */
+.mx{gap:10px;padding:10px 12px}
+.mx-t{font-size:13px;color:var(--muted);flex:none;width:40px}
+.mx-i{width:34px;height:34px;border-radius:50%;background:var(--paper);display:grid;place-items:center;font-size:18px;flex:none;box-shadow:inset 0 0 0 2px var(--line)}
+.mission.on .mx-i{background:var(--good);color:#fff;box-shadow:none;font-size:16px}
+.mx-b{flex:1;min-width:0;display:flex;flex-direction:column}
+.mx-b b{font-weight:400;font-size:15.5px}.mx-b small{font-size:12.5px;color:var(--muted)}
+.mission.on .mx-b b{text-decoration:line-through;color:var(--muted)}
+.mx.due{background:#E6EEFF;box-shadow:inset 0 0 0 2px var(--blue);animation:mxPulse 1.6s ease-in-out infinite}
+.mx.due .mx-b small{color:var(--blue);font-weight:600}
+@keyframes mxPulse{50%{box-shadow:inset 0 0 0 2px var(--blue),0 0 0 4px rgba(53,87,216,.15)}}
+.mx-tools{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+.chip-btn{border:0;background:var(--surface-2);border-radius:999px;padding:6px 12px;font-size:13px;color:var(--ink)}
+.sx{position:relative;height:228px;margin:12px 0 10px;border-radius:18px;overflow:hidden;background:linear-gradient(180deg,#DCEBFF 0,#EEF5FF 70%,#D8E2F2 70%,#CFDAEC 100%)}
+.sx-peb{position:absolute;left:50%;bottom:12px;width:138px;margin-left:-69px;transform-origin:50% 92%}
+.sx-peb svg{display:block;width:100%;height:auto}
+.sx-hint{position:absolute;left:50%;top:12px;transform:translateX(-50%);background:#fff;border-radius:999px;padding:5px 12px;font-size:14px;white-space:nowrap;box-shadow:0 2px 6px rgba(20,40,90,.08)}
+.sx-win{position:absolute;right:16px;top:44px;width:62px;height:62px;border-radius:8px;background:linear-gradient(180deg,#9FD0FF,#E5F3FF);box-shadow:inset 0 0 0 4px #fff;opacity:0;transition:opacity .4s}
+.sx-win::after{content:"⛰️";position:absolute;bottom:4px;left:50%;transform:translateX(-50%);font-size:24px}
+.sx-lid{position:absolute;inset:0;background:#18212F;opacity:0;pointer-events:none}
+.sx-cup{position:absolute;left:calc(50% + 44px);bottom:62px;font-size:28px;opacity:0;transition:opacity .3s}
+.sx[data-mv="far"] .sx-win{opacity:1}
+.sx[data-mv="drink"] .sx-cup,.sx[data-mv="walk"] .sx-cup{opacity:1}
+.sx[data-mv="blink"] .sx-lid{animation:sxLid 4s ease-in-out infinite}
+@keyframes sxLid{0%,15%{opacity:0}35%,65%{opacity:.78}85%,100%{opacity:0}}
+.sx[data-mv="blink"] .sx-peb{animation:sxBreath 4s ease-in-out infinite}
+@keyframes sxBreath{50%{transform:scale(1.03,.97)}}
+.sx[data-mv="far"] .sx-peb{animation:sxFar 6s ease-in-out infinite}
+@keyframes sxFar{0%,100%{transform:translateX(0) rotate(0)}40%,70%{transform:translateX(-14px) rotate(6deg)}}
+.sx[data-mv="walk"] .sx-peb{animation:sxWalk 2.4s ease-in-out infinite}.sx[data-mv="walk"] .sx-cup{animation:sxWalk 2.4s ease-in-out infinite}
+@keyframes sxWalk{0%,100%{transform:translate(-40px,0)}12.5%{transform:translate(-20px,-6px)}25%{transform:translate(0,0)}37.5%{transform:translate(20px,-6px)}50%{transform:translate(40px,0)}62.5%{transform:translate(20px,-6px)}75%{transform:translate(0,0)}87.5%{transform:translate(-20px,-6px)}}
+.sx[data-mv="drink"] .sx-peb{animation:sxDrink 2s ease-in-out infinite}.sx[data-mv="drink"] .sx-cup{animation:sxCup 2s ease-in-out infinite}
+@keyframes sxDrink{0%,100%{transform:rotate(0)}40%,70%{transform:rotate(-9deg) translateY(-2px)}}
+@keyframes sxCup{0%,100%{transform:translate(0,0) rotate(0)}40%,70%{transform:translate(-26px,-38px) rotate(-40deg)}}
+.sx[data-mv="tiltR"] .sx-peb{animation:sxTiltR 5s ease-in-out infinite}
+@keyframes sxTiltR{0%,100%{transform:rotate(0)}30%,75%{transform:rotate(16deg)}}
+.sx[data-mv="tiltL"] .sx-peb{animation:sxTiltL 5s ease-in-out infinite}
+@keyframes sxTiltL{0%,100%{transform:rotate(0)}30%,75%{transform:rotate(-16deg)}}
+.sx[data-mv="nod"] .sx-peb{animation:sxNod 5s ease-in-out infinite}
+@keyframes sxNod{0%,100%{transform:none}30%,75%{transform:translateY(8px) scale(1.02,.9)}}
+.sx[data-mv="shrug"] .sx-peb{animation:sxShrug 1.6s ease-in-out infinite}
+@keyframes sxShrug{0%,100%{transform:none}35%,55%{transform:translateY(-14px) scale(.96,1.08)}}
+.sx[data-mv="roll"] .sx-peb{animation:sxRoll 2.4s linear infinite}
+@keyframes sxRoll{0%{transform:translate(0,-8px)}25%{transform:translate(-8px,0)}50%{transform:translate(0,6px)}75%{transform:translate(8px,0)}100%{transform:translate(0,-8px)}}
+.sx[data-mv="reach"] .sx-peb{animation:sxReach 4s ease-in-out infinite}
+@keyframes sxReach{0%,100%{transform:none}30%,75%{transform:translateY(-10px) scale(.92,1.16)}}
+.sx[data-mv="sideR"] .sx-peb{animation:sxSideR 5s ease-in-out infinite}
+@keyframes sxSideR{0%,100%{transform:none}30%,75%{transform:rotate(12deg) skewX(-8deg)}}
+.sx[data-mv="sideL"] .sx-peb{animation:sxSideL 5s ease-in-out infinite}
+@keyframes sxSideL{0%,100%{transform:none}30%,75%{transform:rotate(-12deg) skewX(8deg)}}
+.sx[data-mv="shake"] .sx-peb{animation:sxShake .28s linear infinite}
+@keyframes sxShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px) rotate(-2deg)}75%{transform:translateX(5px) rotate(2deg)}}
+.sx[data-mv="done"] .sx-peb{animation:sxJoy .7s ease-out 2}
+@keyframes sxJoy{40%{transform:translateY(-22px) scale(.95,1.06)}70%{transform:translateY(0) scale(1.06,.94)}}
+.sx-now{display:flex;align-items:center;gap:12px}
+.sx-ring{width:56px;height:56px;flex:none;transform:rotate(-90deg)}
+.sx-ring circle{fill:none;stroke:var(--surface-2);stroke-width:4}
+.sx-ring #sxring{stroke:var(--blue);stroke-linecap:round;transition:stroke-dashoffset .1s linear}
+.sx-rw{position:relative;width:56px;height:56px;flex:none}.sx-rw b{position:absolute;inset:0;display:grid;place-items:center;font-size:18px}
+.sx-now p{margin:0;font-size:16px;flex:1}
+.sx-steps{list-style:none;margin:12px 0;padding:0;display:flex;flex-direction:column;gap:4px}
+.sx-steps li{display:flex;justify-content:space-between;padding:7px 10px;border-radius:10px;font-size:14px;color:var(--muted)}
+.sx-steps li.on{background:#E6EEFF;color:var(--ink)}
+.sx-steps li.ok{color:var(--good)}.sx-steps li.ok span::before{content:"✓ "}
+@media (prefers-reduced-motion:reduce){.sx-peb,.sx-cup,.sx-lid,.mx.due{animation-duration:0s!important;animation-iteration-count:1!important}}
+/* v13: 돌마을 = 회사 2층 (3D 렌더 이미지) */
+.village .vmap{object-fit:cover;user-select:none;-webkit-user-drag:none}
+.village{background:#CFE3F7}
+.vsign{position:absolute;transform:translate(-50%,-50%);display:inline-flex;align-items:center;gap:5px;background:#fff;color:#22304A;border-radius:999px;padding:3px 10px 3px 7px;font-size:12.5px;white-space:nowrap;box-shadow:0 2px 6px rgba(40,70,120,.18);pointer-events:none;z-index:1}
+.vsign i{display:inline-flex;width:15px;height:15px;color:#2E3D5C}
+.vsign svg{width:100%;height:100%}
+/* v12: 퇴근각 힌트 */
+.ghints{display:flex;flex-direction:column;gap:6px}
+.ghint{margin:0;background:var(--gold-soft);border-radius:12px;padding:8px 12px;font-size:15px}
+.ghint b{font-weight:400;color:var(--blue)}
+.ghint-b{font-size:15px;padding:9px 12px}
+.gnear{margin:0;font-size:12.5px}
+/* v11: 돌마을 — 꾸민 돌, 인사, 낚시 */
+.bod svg{width:100%;display:block;overflow:visible}
+.vme.walk .bod svg{animation:vwalk .34s ease-in-out infinite alternate;transform-origin:50% 90%}
+@keyframes vwalk{0%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-14%) rotate(0)}100%{transform:translateY(0) rotate(6deg)}}
+.vpuff{position:absolute;width:2.2%;aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.85);transform:translate(-50%,-50%);pointer-events:none;z-index:1;animation:vpuff .52s ease-out forwards}
+@keyframes vpuff{from{opacity:.9;transform:translate(-50%,-50%) scale(.6)}to{opacity:0;transform:translate(-50%,-90%) scale(1.6)}}
+.vme .bod,.vpeer .bod{pointer-events:auto;cursor:pointer}
+.vbub{position:absolute;left:50%;bottom:150%;transform:translateX(-50%);background:#fff;color:#4A3B2C;border:1.5px solid #8E6440;border-radius:12px;padding:3px 9px;font-size:13px;white-space:nowrap;animation:vbub 2.8s ease forwards;z-index:4;pointer-events:none}
+.vbub::after{content:"";position:absolute;left:50%;bottom:-6px;width:8px;height:8px;background:#fff;border-right:1.5px solid #8E6440;border-bottom:1.5px solid #8E6440;transform:translateX(-50%) rotate(45deg)}
+@keyframes vbub{0%{opacity:0;transform:translate(-50%,6px) scale(.8)}12%{opacity:1;transform:translate(-50%,0) scale(1)}85%{opacity:1}100%{opacity:0;transform:translate(-50%,-6px)}}
+.vemo{position:absolute;transform:translate(-50%,calc(-100% - 64px));z-index:6;background:#FFF7E6;border:2px solid #8E6440;border-radius:16px;padding:6px 8px;box-shadow:0 3px 0 #8E6440;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:default}
+.vemo-t{font-size:12px;color:#8B7F70;white-space:nowrap}
+.vemo-b{display:flex;gap:4px}
+.vemo button{width:40px;height:40px;border-radius:12px;border:0;background:#fff;font-size:21px;cursor:pointer;box-shadow:inset 0 0 0 1.5px #E8D7B8}
+.vemo button:active{transform:scale(.92)}
+.fscene{position:relative;border-radius:16px;overflow:hidden;border:2px solid #E8D7B8}
+.fscene svg{width:100%;display:block}
+.fscene .fline,.fscene .fbob,.fscene .fripple{opacity:0;transition:opacity .3s}
+.fscene .fcatch{opacity:0}
+.fscene[data-ph="wait"] .fline,.fscene[data-ph="wait"] .fbob,.fscene[data-ph="bite"] .fline,.fscene[data-ph="bite"] .fbob,.fscene[data-ph="bite"] .fripple{opacity:1}
+.fscene[data-ph="wait"] .fbob{animation:fbob 1.6s ease-in-out infinite}
+.fscene[data-ph="bite"] .fbob{transform:translateY(7px);transition:transform .08s}
+.fscene[data-ph="bite"] .fripple{animation:frip .6s ease-out infinite;transform-origin:170px 100px}
+.fscene[data-ph="caught"] .fcatch{opacity:1;animation:fcatch .7s cubic-bezier(.2,.9,.3,1.3) both;transform-origin:170px 72px}
+.fbang{position:absolute;left:52%;top:18%;font-size:34px;color:#E8574F;opacity:0;font-weight:700}
+.fscene[data-ph="bite"] .fbang{opacity:1;animation:fbang .4s ease infinite alternate}
+@keyframes fbob{50%{transform:translateY(2px)}}
+@keyframes frip{from{transform:scale(.6);opacity:1}to{transform:scale(1.6);opacity:0}}
+@keyframes fcatch{from{transform:translateY(30px) scale(.4)}to{transform:none}}
+@keyframes fbang{to{transform:scale(1.2)}}
+.fmsg{margin:0;font-size:16.5px;text-align:center;line-height:1.45}
+.fmsg b{font-weight:400;color:var(--blue)}
+@media (prefers-reduced-motion:reduce){.fscene *{animation:none!important}}
+/* v10.1: 돌마을 정리 — 헤더 한 줄, 이름표는 가까운 건물만 */
+.vbar{display:flex;align-items:center;gap:6px}
+.vbar h2{margin:0 auto 0 0;font-weight:400;font-size:22px;white-space:nowrap}
+.vbar .vnick{max-width:34vw;overflow:hidden;text-overflow:ellipsis}
+.vbar .vwrite{padding:8px 13px;font-size:15px;white-space:nowrap;flex:none}
+.vbar .mail{flex:none}
+.vlabel{position:absolute;transform:translate(-50%,0);background:#FFF7E6;color:#4A3B2C;border:1.5px solid #8E6440;border-radius:8px;padding:1px 8px;font-size:12px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .25s;z-index:1}
+.vlabel.on,.village.intro .vlabel{opacity:1}
+.vonline{position:absolute;left:10px;bottom:10px;z-index:3;display:inline-flex;align-items:center;gap:6px;background:rgba(255,247,230,.92);color:#4A3B2C;border-radius:999px;padding:3px 10px;font-size:13px;pointer-events:none}
+.vonline b{font-weight:400}
+/* v10: 돌퇴근 카드 (앱의 파란 UI 그대로, 게임 화면만 크림색) */
+.rc-hero{position:relative;height:66px;border-radius:14px;background:var(--surface-2);overflow:hidden}
+.rc-hero::after{content:"";position:absolute;left:0;right:0;bottom:12px;border-top:2px dashed var(--line)}
+.rc-peb{position:absolute;left:20%;bottom:13px;width:34px;height:34px;background:url(pose-base.png) center 62%/150% no-repeat;border-radius:50%;animation:rcjump 1.6s linear infinite}
+.rc-o{position:absolute;bottom:13px;width:14px;height:18px;border-radius:3px;background:var(--line);animation:rcob 1.6s linear infinite}
+.rc-o.o2{width:10px;height:12px;animation-delay:-.8s;opacity:.7}
+.rc-door{position:absolute;right:10px;bottom:13px;width:40px;height:44px;border-radius:6px 6px 0 0;background:var(--good);color:#fff;font-size:12px;display:grid;place-items:center}
+@keyframes rcob{from{left:100%}to{left:-10%}}
+@keyframes rcjump{0%,58%{transform:translateY(0)}69%{transform:translateY(-22px)}80%{transform:translateY(0)}83%{transform:translateY(0) scale(1.08,.92)}86%,100%{transform:none}}
+@media (prefers-reduced-motion:reduce){.rc-peb,.rc-o{animation:none}.rc-o{left:60%}}
+.rc-sts{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.rc-st{border:2px solid transparent;background:var(--surface-2);border-radius:14px;padding:8px 8px 7px;text-align:left;display:flex;flex-direction:column;gap:1px;color:var(--ink);font-family:inherit;cursor:pointer;min-width:0}
+.rc-st span{font-size:11.5px;color:var(--muted);letter-spacing:.04em}
+.rc-st b{font-weight:400;font-size:15.5px;line-height:1.2;word-break:keep-all}
+.rc-st small{font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rc-st.on{border-color:var(--blue);background:var(--blue-soft)}
+.rc-st.lock{opacity:.55;cursor:default}
+.rc-fri{font-size:15.5px;word-break:keep-all}
+.rc-frih{margin:0}
+.rc-title{background:#3D2C4A;color:#FFB8CF;border-radius:999px;font-size:12.5px;padding:2px 10px}
 /* v3: 오늘의 퇴근각 */
 .gcard{background:var(--paper);border-radius:20px;padding:16px;display:flex;flex-direction:column;gap:12px}
 .gc-h{display:flex;align-items:center;justify-content:space-between}
@@ -474,7 +648,7 @@ details .law{font-size:12.5px;color:var(--blue);margin-top:6px}
 .gc-copy b{font-weight:400;color:var(--blue)}
 .gc-track{position:relative;height:30px;border-radius:999px;background:var(--surface-2);margin-right:52px}
 .gc-track::before{content:"";position:absolute;left:14px;right:6px;top:50%;border-top:2px dashed var(--line)}
-.gc-peb{position:absolute;top:50%;width:26px;height:26px;border-radius:50%;background:url(images/poses/base.png) center 60%/150% no-repeat;transform:translate(-50%,-50%);transition:left .6s ease}
+.gc-peb{position:absolute;top:50%;width:26px;height:26px;border-radius:50%;background:url(pose-base.png) center 60%/150% no-repeat;transform:translate(-50%,-50%);transition:left .6s ease}
 .gc-exit{position:absolute;right:-52px;top:0;height:30px;width:46px;border-radius:8px;background:var(--good);color:#fff;font-size:12px;display:grid;place-items:center;letter-spacing:.06em}
 .gc-count{margin:0}
 .pv{font-size:11px;letter-spacing:.06em;color:var(--blue);background:var(--blue-soft);border-radius:999px;padding:1px 7px;vertical-align:middle}
@@ -542,10 +716,13 @@ details .law{font-size:12.5px;color:var(--blue);margin-top:6px}
 <div id="modal"></div>
 <div id="onb"></div>
 
-<script src="game-words.js"></script>
+<script src="wordgame.js"></script>
 <script src="community.js"></script>
 <script src="luck.js"></script>
 <script src="village.js"></script>
+<script src="runner-core.js"></script>
+<script src="runner-art.js"></script>
+<script src="runner.js"></script>
 <script>
 (function(){
 "use strict";
@@ -598,17 +775,29 @@ const EVENTS=[
  {t:"동기가 커피를 샀다",d:"아이스 아메리카노, 샷 추가.",fx:{happy:12},w:3},
  {t:"고장 난 프린터를 내가 고쳤다",d:"오늘부터 비공식 IT 담당.",fx:{coins:80,happy:3},w:2},
 ];
+/* v15: 하루 미션 2개 = 오전 1개 + 오후 1개. 체크박스가 아니라 돌대리를 따라 하면서 타이머가 끝나야 완료.
+   steps: [안내 문장, 초, 돌대리 동작 클래스] — 동작은 CSS .sx-<동작> 애니메이션 */
 const MISSIONS=[
- {id:"water",t:"물 두 잔 마시기",c:40,fx:{mental:2}},
- {id:"walk",t:"점심 후 10분 산책",c:40,fx:{happy:3}},
- {id:"inbox",t:"메일함 정리하기",c:50,fx:{mental:3}},
- {id:"stretch",t:"오후에 스트레칭 한 번",c:40,fx:{mental:2}},
- {id:"todo",t:"오늘 할 일 3개 적기",c:30,fx:{mental:2}},
- {id:"thanks",t:"동료에게 고맙다고 말하기",c:40,fx:{happy:4}},
- {id:"stairs",t:"한 층은 계단으로",c:40,fx:{happy:2}},
- {id:"desk",t:"퇴근 전 책상 정리",c:30,fx:{mental:3}},
- {id:"meeting",t:"회의 5분 일찍 끝내기",c:50,fx:{happy:3}},
+ {id:"eyes",slot:"am",ico:"👀",t:"눈 쉬기 20초",sub:"모니터에서 눈을 떼고 먼 곳 보기",c:60,fx:{mental:3},
+  steps:[["눈을 꼭 감았다가 천천히 뜨기",8,"blink"],["창밖이나 먼 곳 바라보기",12,"far"]]},
+ {id:"water",slot:"am",ico:"💧",t:"물 한 잔 마시기",sub:"자리에서 일어나 물 한 잔",c:60,fx:{mental:2,happy:1},
+  steps:[["컵에 물 받아 오기",8,"walk"],["천천히 한 잔 다 마시기",12,"drink"]]},
+ {id:"neck",slot:"pm",ico:"🧘",t:"목 스트레칭 30초",sub:"굳은 목을 천천히 풀기",c:60,fx:{mental:3},
+  steps:[["오른쪽으로 목 기울이기",10,"tiltR"],["왼쪽으로 목 기울이기",10,"tiltL"],["고개를 천천히 앞으로 숙이기",10,"nod"]]},
+ {id:"shoulder",slot:"pm",ico:"🙆",t:"어깨 스트레칭 30초",sub:"으쓱 · 돌리기 · 기지개",c:60,fx:{mental:2,happy:1},
+  steps:[["어깨를 귀까지 으쓱 올렸다 내리기",10,"shrug"],["어깨를 뒤로 크게 돌리기",10,"roll"],["두 팔을 위로 쭉 기지개",10,"reach"]]},
+ {id:"side",slot:"pm",ico:"🤸",t:"허리·손목 스트레칭 30초",sub:"오래 앉아 굳은 몸 깨우기",c:60,fx:{mental:2,happy:1},
+  steps:[["오른쪽 옆구리 늘리기",10,"sideR"],["왼쪽 옆구리 늘리기",10,"sideL"],["손목을 털털 털기",10,"shake"]]},
 ];
+/* 미션 시간: 출근 시각(아직이면 퇴근 시간 − 9시간) 기준. 오전 = 출근 + 1시간 30분, 오후 = 퇴근 3시간 전 */
+function missionTimes(){
+ const off=mins(state.offTime||"18:00"), d=state.day;
+ const start=d&&d.inAt?mins(d.inAt):off-540;
+ const r10=x=>Math.round(x/10)*10;
+ const am=r10(start+90), pm=Math.max(r10(off-180),am+120);
+ return {am,pm};
+}
+const hm=m=>{m=((m%1440)+1440)%1440;return String(Math.floor(m/60)).padStart(2,"0")+":"+String(m%60).padStart(2,"0")};
 /* v2: 시즌 1 「고시원 탈출기」 — 출근일 기준 인사발령 */
 const SEASON=[
  {d:1,t:"입사식",s:"사원증과 고시원 열쇠를 받았어요",c:100},
@@ -642,7 +831,11 @@ ensureDay();
 
 function hash(s){let h=2166136261;for(const ch of s){h^=ch.charCodeAt(0);h=Math.imul(h,16777619)}return h>>>0}
 function rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
-function todaysMissions(){const r=rng(hash(state.day.date));const pool=MISSIONS.slice();const out=[];while(out.length<3){out.push(pool.splice(Math.floor(r()*pool.length),1)[0])}return out}
+function todaysMissions(){
+ const n=Math.floor(Date.parse(state.day.date+"T00:00:00Z")/864e5);
+ const am=MISSIONS.filter(m=>m.slot==="am"), pm=MISSIONS.filter(m=>m.slot==="pm"), t=missionTimes();
+ return [Object.assign({at:t.am},am[n%am.length]),Object.assign({at:t.pm},pm[n%pm.length])];
+}
 const nowHM=()=>{const d=new Date();return pad(d.getHours())+":"+pad(d.getMinutes())};
 const mins=hm=>{const [h,m]=hm.split(":").map(Number);return h*60+m};
 function mood(){const m=(state.happy+state.mental)/2;return m>=65?"happy":m>=40?"ok":"tired"}
@@ -684,9 +877,9 @@ const FRAME='x="41.7" y="-6.9" width="250.6" height="232.1" preserveAspectRatio=
 const CLIPS=`<clipPath id="bodyClip"><ellipse cx="177" cy="122" rx="77" ry="80"/></clipPath>`+
  `<clipPath id="limbClip"><ellipse cx="155" cy="158" rx="15" ry="10"/><ellipse cx="168" cy="181" rx="17" ry="15"/><ellipse cx="237" cy="153" rx="14" ry="11"/><ellipse cx="235" cy="180" rx="15" ry="15"/></clipPath>`;
 function buildDefs(){document.getElementById("charDefs").innerHTML=Object.keys(POSES).map(k=>`<image id="pose-${k}" href="${POSES[k]}" ${FRAME}/>`).join("")+CLIPS}
-POSES.base="images/poses/base.png";buildDefs();
-/* images/poses/<key>.png 파일이 있으면 자동으로 사용 */
-POSE_KEYS.slice(1).forEach(k=>{const url=`images/poses/${k}.png`;const im=new Image();im.onload=()=>{POSES[k]=url;buildDefs();if(typeof render==="function")render()};im.src=url});
+POSES.base="pose-base.png";buildDefs();
+/* pose-<key>.png 파일이 있으면 자동으로 사용 */
+POSE_KEYS.slice(1).forEach(k=>{const url=`pose-${k}.png`;const im=new Image();im.onload=()=>{POSES[k]=url;buildDefs();if(typeof render==="function")render()};im.src=url});
 function poseKey(){
  const d=state.day, m=mood();
  if(d.boxOpen)return "payday";
@@ -780,9 +973,9 @@ function hero(){
  const hb=state.happy,mb=state.mental;
  const col=v=>v>=60?"var(--good)":v>=35?"var(--coral)":"var(--bad)";
  return `<section class="hero"><div class="scene">${scene({})}<div class="status"><span class="dot ${cls}"></span>${st}</div></div>
- <div class="badge"><div class="who"><span>Pebble Corp.</span><b>돌대리 <i class="lv mono" title="경험치 ${state.xp%LV_XP}/${LV_XP}">Lv.${level()}</i></b></div>
+ <div class="badge"><button class="who whob" data-act="tab:drawer" aria-label="돌대리 프로필 · 출근부 보기"><span>(주)칼퇴상사</span><b>돌대리 <i class="lv mono" title="경험치 ${state.xp%LV_XP}/${LV_XP}">Lv.${level()}</i></b><em class="prof">프로필 · 출근부 ›</em></button>
  <div class="chips"><span class="chip">근속 ${state.daysWorked}일</span><span class="chip">연속 출근 ${state.streak}일</span><span class="chip">${HOUSES[state.house].name}</span></div>
- <div class="chips"><span class="chip">${state.district} 근무</span></div>
+ <div class="chips"><span class="chip">${state.district} 근무</span>${state.runner&&state.runner.titles&&state.runner.titles.includes("불금 탈출러")?`<span class="chip">🔥 불금 탈출러</span>`:""}</div>
  <div class="bars"><div class="bar"><label>행복 <b>${hb}</b></label><div class="track"><div class="fill" style="width:${hb}%;background:${col(hb)}"></div></div></div>
  <div class="bar"><label>멘탈 <b>${mb}</b></label><div class="track"><div class="fill" style="width:${mb}%;background:${col(mb)}"></div></div></div></div>${seasonBar()}</div></section>`;
 }
@@ -800,27 +993,45 @@ function todayView(){
   h+=`<section class="panel"><div class="sec-h"><h2>주말엔 돌도 쉬어요</h2><small>${WD[wd(d)]}요일</small></div>
   <p class="hint" style="margin:0">출근 기록은 평일에만 쌓여요. 대신 쉬면 행복과 멘탈이 회복됩니다.</p>
   ${day.rest?`<div class="event"><q>푹 쉬었다</q>${fxChips({happy:15,mental:20})}</div>`:`<button class="btn wide" data-act="rest">이불 속에서 쉬기</button>`}</section>`;
-  return h+gameCard();
+  return h+playCard();
  }
  const lunchOpen=state.demo||new Date().getHours()>=11;
  const ms=todaysMissions();
- const s1=day.inAt?"done":"now", s2=day.lunch!=null?"done":day.inAt&&!day.outAt?"now":"", s3=Object.keys(day.missions).length===3?"done":day.inAt&&!day.outAt?"now":"", s4=day.outAt?"done":day.inAt?"now":"";
+ const s1=day.inAt?"done":"now", s2=day.lunch!=null?"done":day.inAt&&!day.outAt?"now":"", s3=ms.every(m=>day.missions[m.id])?"done":day.inAt&&!day.outAt?"now":"", s4=day.outAt?"done":day.inAt?"now":"";
  const ev=day.lunch!=null?EVENTS[day.lunch]:null;
- h+=`<div class="sec-h"><h2>오늘의 근무</h2><small>${Object.keys(day.missions).length}/3 미션</small></div><section class="steps">
+ const nDone=[day.inAt,day.lunch!=null,ms.every(m=>day.missions[m.id]),day.outAt].filter(Boolean).length;
+ h+=nowCard(day,ms);
+ h+=`<details class="steps-d" ${state.stepsOpen?"open":""}><summary data-act="stepsToggle"><b>오늘의 근무 전체 보기</b><span class="mono">${nDone}/4 완료</span></summary><section class="steps">
  <div class="step ${s1}"><div class="num">1</div><div class="step-b"><div class="step-t"><b>출근</b><span>${day.inAt?day.inAt+" 도착":"출근 수당 +100"}</span></div>
  ${day.inAt?"":`<button class="btn wide" data-act="clockIn">회사 도착, 출근하기</button><span class="hint">${wd(d)===1?"월요일은 월요병으로 멘탈 -10":"출근하면 멘탈이 조금 닳아요 (-3)"}</span>`}</div></div>
  <div class="step ${s2}"><div class="num">2</div><div class="step-b"><div class="step-t"><b>점심 이벤트</b><span>랜덤 회사생활</span></div>
  ${ev?`<div class="event"><q>${ev.t}</q><span class="hint">${ev.d}</span>${fxChips(ev.fx)}</div>`:day.inAt&&!day.outAt?(lunchOpen?`<button class="btn ghost wide" data-act="lunch">점심 먹으러 가기</button>`:`<span class="hint">11:00부터 점심 이벤트가 열려요</span>`):`<span class="hint">${day.outAt?"오늘은 점심 이벤트를 놓쳤어요":"출근하면 열려요"}</span>`}</div></div>
- <div class="step ${s3}"><div class="num">3</div><div class="step-b"><div class="step-t"><b>오늘의 미션</b><span>직접 체크</span></div>
- ${ms.map(m=>{const on=!!day.missions[m.id];const dis=!day.inAt||(day.outAt&&!on);return `<button class="mission ${on?"on":""}" data-act="mission:${m.id}" ${dis||on?"disabled":""} aria-pressed="${on}"><span class="box">${on?"✓":""}</span><span class="m">${m.t}</span><span class="r">+${m.c}</span></button>`}).join("")}</div></div>
+ <div class="step ${s3}"><div class="num">3</div><div class="step-b"><div class="step-t"><b>오늘의 미션</b><span>돌대리 따라 하기</span></div>
+ ${missionList(ms,day)}</div></div>
  <div class="step ${s4}"><div class="num">4</div><div class="step-b"><div class="step-t"><b>퇴근</b><span>${day.outAt?day.outAt+" 퇴근":"월급 지급 + DAY CLEAR"}</span></div>
- ${day.inAt&&!day.outAt?`<button class="btn wide" data-act="clockOut">퇴근하기</button><span class="hint">17~19시 퇴근은 칼퇴 보너스, 21시 이후는 야근 수당</span>`:day.outAt?`<button class="btn ghost wide" data-act="slip">오늘 급여명세서 보기</button>`:`<span class="hint">출근부터 해주세요</span>`}</div></div></section>`;
- if(day.outAt){
-  const fri=wd(d)===5;
-  h+=`<section class="clear"><h3>DAY CLEAR</h3><p>${fri?"금요일까지 버텼습니다. 월급상자가 도착했어요.":"돌대리도 무사히 퇴근했어요. 내일 또 출근하면 돌대리도 먹고삽니다."}</p>
-  <div class="row">${fri&&!day.box?`<button class="btn gold" data-act="box">월급상자 열기</button>`:""}${state.demo?`<button class="btn ghost" data-act="nextDay" >다음 날 출근 →</button>`:""}</div></section>`;
+ ${day.inAt&&!day.outAt?`<button class="btn wide" data-act="clockOut">퇴근하기</button><span class="hint">17~19시 퇴근은 칼퇴 보너스, 21시 이후는 야근 수당</span>`:day.outAt?`<button class="btn ghost wide" data-act="slip">오늘 급여명세서 보기</button>`:`<span class="hint">출근부터 해주세요</span>`}</div></div></section></details>`;
+ return h+playCard();
+}
+/* v17: 「지금 할 일」 하나만 크게 */
+function nowCard(day,ms){
+ const t=mins(nowHM()), off=mins(state.offTime||"18:00"), fri=wd(day.date)===5;
+ let ic,title,sub,btn="";
+ if(!day.inAt){ic="🏢";title="회사 도착하면 출근부터!";sub=(wd(day.date)===1?"월요병 주의 · ":"")+"출근 수당 +100";btn=`<button class="btn wide nc-btn" data-act="clockIn">출근하기</button>`}
+ else if(day.outAt){ic="🎉";title="DAY CLEAR";sub=fri?"금요일까지 버텼어요. 월급상자가 도착했어요":"돌대리도 무사히 퇴근했어요. 내일 또 만나요";
+  btn=`${fri&&!day.box?`<button class="btn gold wide nc-btn" data-act="box">월급상자 열기</button>`:""}<button class="btn ${fri&&!day.box?"ghost":""} wide nc-btn" data-act="slip">오늘 급여명세서 보기</button>${state.demo?`<button class="btn ghost wide" data-act="nextDay">다음 날 출근 →</button>`:""}`}
+ else{
+  const due=ms.find(m=>!day.missions[m.id]&&missionDue(m)), nx=ms.find(m=>!day.missions[m.id]);
+  if(due){ic=due.ico;title=`지금 할 시간: ${due.t}`;sub=`돌대리 따라 하면 월급코인 +${due.c}`;btn=`<button class="btn wide nc-btn" data-act="stretch:${due.id}">따라 하기</button>`}
+  else if(day.lunch==null&&(state.demo||new Date().getHours()>=11)&&(state.demo||t<off-60)){ic="🍚";title="점심시간이에요";sub="오늘 회사에선 무슨 일이 생길까?";btn=`<button class="btn wide nc-btn" data-act="lunch">점심 먹으러 가기</button>`}
+  else if(state.demo||t>=off-30){ic="🏃";title="퇴근 시간이 다가와요";sub="17~19시 퇴근은 칼퇴 보너스";btn=`<button class="btn wide nc-btn" data-act="clockOut">퇴근하기</button>`}
+  else{ic="💻";title="열일 중이에요";sub=nx?`다음 미션 ${hm(nx.at)} · ${nx.t}`:"오늘 미션 다 했어요! 퇴근까지 버티돌";btn=`<button class="btn ghost wide" data-act="clockOut">퇴근하기</button>`}
  }
- return h+gameCard();
+ return `<section class="nowcard" aria-labelledby="nc-t"><span class="nc-k">지금 할 일</span><div class="nc-row"><span class="nc-i" aria-hidden="true">${ic}</span><div><b id="nc-t">${title}</b><span>${sub}</span></div></div>${btn}</section>`;
+}
+/* v17: 게임 두 개를 카드 하나로 */
+function playCard(){
+ const t=state.gameTab==="word"?"word":"run";
+ return `<section class="playcard" aria-labelledby="pc-t"><div class="pc-h"><b id="pc-t">🎮 오늘의 게임</b><div class="pc-seg" role="tablist"><button role="tab" data-act="gameTab:run" aria-selected="${t==="run"}">🏃 돌퇴근</button><button role="tab" data-act="gameTab:word" aria-selected="${t==="word"}">🔤 퇴근각</button></div></div>${t==="word"?gameCard():runnerCard()}</section>`;
 }
 function bookView(){
  const t=today(), cur=t.slice(0,7), ym=state.calMonth&&state.calMonth<=cur?state.calMonth:cur;
@@ -842,7 +1053,7 @@ function bookView(){
  const coins=done.reduce((a,r)=>a+(r.total||0),0);
  const st=[[rows.length+"일","이번 달 출근"],[avg("in"),"평균 출근"],[avg("out"),"평균 퇴근"],[done.filter(r=>r.kal).length+"번","칼퇴"],[done.filter(r=>r.night).length+"번","야근"],[won(coins),"퇴근 지급 코인"]];
  const prev=addDays(ym+"-01",-1).slice(0,7), next=addDays(ym+"-"+pad(days),1).slice(0,7);
- return `<button class="back" data-act="tab:drawer">‹ 서랍으로</button><div class="sec-h"><h2>출근부</h2><small>근속 ${state.daysWorked}일 · 연속 ${state.streak}일</small></div>
+ return `<button class="back" data-act="tab:drawer">‹ 프로필</button><div class="sec-h"><h2>출근부</h2><small>근속 ${state.daysWorked}일 · 연속 ${state.streak}일</small></div>
  <section class="panel"><div class="cal-h"><button class="cal-nav" data-act="cal:${prev}" aria-label="이전 달">‹</button><b class="mono">${y}년 ${m}월</b><button class="cal-nav" data-act="cal:${next}" aria-label="다음 달" ${ym>=cur?"disabled":""}>›</button></div>
  <div class="cal">${cells}</div>
  <div class="legend"><span><i style="background:var(--blue)"></i>출근</span><span><i style="background:var(--blue-soft)"></i>조퇴</span><span><i style="background:var(--night-bg)"></i>야근</span><span><i style="background:var(--gold-soft)"></i>주말 휴식</span></div></section>
@@ -876,7 +1087,7 @@ function shopView(){
 const CM=window.TG_COMMUNITY;
 const esc=x=>String(x==null?"":x).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 function ago(ts){const m=Math.floor((Date.now()-ts)/6e4);if(m<1)return "방금 전";if(m<60)return m+"분 전";const h=Math.floor(m/60);if(h<24)return h+"시간 전";const d=Math.floor(h/24);if(d<7)return d+"일 전";const t=new Date(ts);return (t.getMonth()+1)+"."+pad(t.getDate())}
-const spaceOf=id=>CM.SPACES.find(x=>x.id===id)||{emoji:"🪨",name:"동네"};
+const spaceOf=id=>CM.SPACES.find(x=>x.id===id)||{emoji:"🪨",name:"회사"};
 function hood(){if(!state.hood)state.hood={v:"main",space:null,pid:null,sort:"new"};return state.hood}
 function postRow(p,showSpace){const sp=spaceOf(p.space),hid=CM.isHidden(p);
  return `<button class="prow ${hid?"hid":""}" data-act="hoodPost:${esc(p.id)}"><span class="pmeta">${showSpace?`${sp.emoji} ${sp.name} · `:""}${ago(p.createdAt)}${hid?` · <b class="flag">신고로 가려짐</b>`:""}</span><b class="ptitle">${esc(p.title)}</b><span class="pstat"><span>♡ ${CM.likeCount(p.id)}</span><span>댓글 ${CM.commentCount(p.id)}</span></span></button>`}
@@ -906,30 +1117,43 @@ const pct=(v,max)=>(v/max*100).toFixed(2)+"%";
 function placeNew(p){if(p.kind!=="space")return p.kind==="inbox"?CM.unreadTotal():0;const since=Date.now()-864e5;return CM.bySpace(p.id,"new").filter(x=>x.createdAt>=since&&!CM.isHidden(x)).length}
 function villageView(){
  const S=CM.state,h=hood(),pos=h.pos||VG.SPAWN;
- return `<section class="cm-head vhead"><div><h2>🪨 우리 동네</h2><p>일하기 싫은 돌들의 아지트</p>${onlineChip()}</div>
-  <button class="btn" data-act="hoodWrite" ${S.canWrite?"":"disabled"}>글쓰기</button></section>
- ${myBar()}
- ${modeNote()}
+ return `${vBar()}
+ ${S.notice?`<p class="cm-note">${esc(S.notice)}</p>`:""}
  <div class="village" id="village" style="aspect-ratio:${VG.W}/${VG.H}">
+  ${S.mode==="shared"&&S.online!=null?`<span class="vonline"><i class="dot on"></i><b class="mono">${won(S.online)}</b>돌 접속 중</span>`:""}
   ${VG.svg()}
   ${VG.PLACES.map(p=>{const n=placeNew(p);return `<button class="vhit" data-vplace="${p.id}" style="left:${pct(p.hit.x,VG.W)};top:${pct(p.hit.y,VG.H)};width:${pct(p.hit.w,VG.W)};height:${pct(p.hit.h,VG.H)}" aria-label="${p.name}(으)로 걸어가기"><span class="vbadge" data-vbadge="${p.id}" ${n?"":"hidden"}>${n}</span></button>`}).join("")}
+  ${VG.PLACES.map(p=>`<span class="vsign" style="left:${pct(p.lab.x,VG.W)};top:${pct(p.lab.y,VG.H)}"><i>${VICON[p.id]||""}</i>${p.name}</span>`).join("")}
   <div class="vpeers" id="vpeers"></div>
-  <div class="vme" id="vme" style="left:${pct(pos.x,VG.W)};top:${pct(pos.y,VG.H)}"><div class="bod"><img src="images/poses/base.png" alt=""></div><span class="vname">나</span></div>
+  <div class="vme" id="vme" style="left:${pct(pos.x,VG.W)};top:${pct(pos.y,VG.H)}"><div class="bod" role="button" tabindex="0" aria-label="내 돌 · 인사 보내기">${stoneSvg(myEq())}</div><span class="vname">나</span></div>
+  <div class="vemo" id="vemo" hidden></div>
   <button class="venter" id="venter" hidden></button>
  </div>
- <p class="hint vhint">땅을 누르면 걸어가요 · 건물을 누르면 문 앞까지 가요 · 방향키로도 움직여요</p>
+ <p class="hint vhint">복도든 방 안이든 누르는 곳으로 걸어가요 · 말풍선을 누르면 들어가기 · 돌을 누르면 인사</p>
  ${S.isOwner&&S.mode==="shared"?`<button class="entry ops" data-act="hoodGo:ops"><span><b>🛡 운영자 신고함</b><span class="hint">쪽지 신고 ${S.opsReports.length}건 · 이용 제한 ${S.banned.length}명</span></span><span aria-hidden="true">›</span></button>`:""}`;
 }
 function boardView(){
  const hot=CM.hot(3), rec=CM.recent(5), S=CM.state;
- return `<button class="back" data-act="hoodHome">‹ 마을로</button>
- <section class="cm-head"><div><h2>📋 마을 게시판</h2><p>동네 소식이 한눈에</p></div><button class="btn" data-act="hoodWrite" ${S.canWrite?"":"disabled"}>글쓰기</button></section>
- <section class="panel cm-block"><b class="cm-h">🔥 지금 동네에서 핫한 이야기</b>
+ return `<button class="back" data-act="hoodHome">‹ 회사로</button>
+ <section class="cm-head"><div><h2>📋 회사 게시판</h2><p>칼퇴상사 사람들 이야기가 한눈에</p>${onlineChip()}</div><button class="btn" data-act="hoodWrite" ${S.canWrite?"":"disabled"}>글쓰기</button></section>
+ ${modeNote()}
+ <section class="panel cm-block"><b class="cm-h">🔥 지금 회사에서 핫한 이야기</b>
   ${hot.length?`<div class="plist">${hot.map(p=>postRow(p,true)).join("")}</div>`:`<p class="hint" style="margin:0">아직 반응이 쌓인 글이 없어요. 돌이뻐요와 댓글이 모이면 여기에 올라와요.</p>`}</section>
  <div class="spaces">${CM.SPACES.map(sp=>`<button class="space" data-act="hoodSpace:${sp.id}"><b><span class="sp-e" aria-hidden="true">${sp.emoji}</span> ${sp.name}</b><span class="sp-t">${sp.tags}</span><span class="sp-d">“${sp.desc}”</span></button>`).join("")}</div>
  <section class="panel cm-block"><b class="cm-h">💬 지금 올라온 글</b>
   ${rec.length?`<div class="plist">${rec.map(p=>postRow(p,true)).join("")}</div>`:`<p class="hint" style="margin:0">아직 올라온 글이 없어요. 첫 글을 남겨 보세요.</p>`}</section>`;
 }
+const VICON=(()=>{const g=d=>`<svg viewBox="0 0 24 24" aria-hidden="true">${d}</svg>`,st='fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"';return {
+ work:g(`<rect x="3" y="4" width="18" height="12" rx="2" ${st}/><path d="M9 20h6M12 16v4" ${st}/>`),
+ meeting:g(`<circle cx="8" cy="9" r="3" fill="currentColor"/><circle cx="16" cy="9" r="3" fill="currentColor"/><path d="M2.5 19c.6-3 2.8-4.5 5.5-4.5s4.9 1.5 5.5 4.5M10.5 19c.6-3 2.8-4.5 5.5-4.5s4.9 1.5 5.5 4.5" fill="currentColor"/>`),
+ pantry:g(`<path d="M4 9h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z" fill="currentColor"/><path d="M16 10h1.5a2.5 2.5 0 0 1 0 5H16" ${st}/><path d="M8 3c-1 1.2 1 2 0 3.5M12 3c-1 1.2 1 2 0 3.5" ${st}/>`),
+ cafeteria:g(`<path d="M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10M16 3c-2 1-3 4-3 7h3v11" ${st}/>`),
+ toilet:g(`<circle cx="7" cy="5" r="2" fill="currentColor"/><circle cx="17" cy="5" r="2" fill="currentColor"/><path d="M5 9h4l1 7H8v5H6v-5H4zM15 9h4v7h-1v5h-2v-5h-1z" fill="currentColor"/>`),
+ pond:g(`<path d="M12 21V11M12 11c0-4 3-7 7-7 0 4-3 7-7 7zM12 14c0-3-2.5-5.5-6-5.5 0 3 2.5 5.5 6 5.5z" fill="currentColor"/>`),
+ commute:g(`<rect x="4" y="3" width="16" height="18" rx="2" ${st}/><path d="M12 3v18M8.5 10l-1.5 2 1.5 2M15.5 10l1.5 2-1.5 2" ${st}/>`),
+ board:g(`<rect x="3" y="4" width="18" height="13" rx="2" ${st}/><path d="M7 9h6M7 12h9M8 17l-1 4M16 17l1 4" ${st}/>`)}})();
+function vBar(){const S=CM.state,n=CM.unreadTotal();
+ return `<section class="vbar"><h2>🏢 (주)칼퇴상사</h2><button class="chipbtn vnick" data-act="hoodGo:nick" aria-label="닉네임 바꾸기">✏️ ${esc(S.me.nick||"…")}</button><button class="chipbtn mail" data-act="hoodGo:inbox" aria-label="쪽지함">✉️${n?` <i class="nbadge">${n}</i>`:""}</button><button class="btn vwrite" data-act="hoodWrite" ${S.canWrite?"":"disabled"}>글쓰기</button></section>`}
 function myBar(){const S=CM.state,n=CM.unreadTotal();
  return `<div class="mybar"><span class="mynick">내 닉네임 <b>${esc(S.me.nick||"…")}</b></span><button class="chipbtn" data-act="hoodGo:nick">바꾸기</button><span class="grow"></span><button class="chipbtn mail" data-act="hoodGo:inbox">✉️ 쪽지${n?` <i class="nbadge">${n}</i>`:""}</button></div>`}
 function nickBtn(anon,nick){const S=CM.state,cur=CM.nickOf(anon)||nick;
@@ -1025,6 +1249,7 @@ const coinLabel=n=>`월급코인 +${won(n)}`;
 function pebbleFace(mood){return `<svg viewBox="88 18 180 192" aria-hidden="true">${potato(state.equipped,mood,{pose:"base"})}</svg>`}
 function todaysFortune(){const L=luckState();
  if(L.fortune.result&&!L.fortune.result.saju&&L.birth&&!L.fortune.upgraded){L.fortune.result=JSON.parse(JSON.stringify(LK.sajuFortune(L.birth,L.fortune.date)));L.fortune.upgraded=true;save()}
+ if(L.fortune.result&&L.fortune.result.saju&&!L.fortune.result.money&&L.birth){L.fortune.result=JSON.parse(JSON.stringify(LK.sajuFortune(L.birth,L.fortune.date)));save()}
  if(L.fortune.result)return L.fortune.result;return L.birth?LK.sajuFortune(L.birth,L.fortune.date):LK.fortune(L.secret,L.fortune.date)}
 const EL_CLS=["el-wood","el-fire","el-earth","el-metal","el-water"];
 function pillarBox(label,p,isMe){if(!p)return `<div class="pil none"><span class="pl">${label}</span><b>?</b><span>시간 미입력</span></div>`;
@@ -1035,9 +1260,7 @@ function fortuneDetail(F){
  const S=F.saju,P=S.pillars,meEl=LK.stemEl(P.me),EL5="목화토금수",cnt=F.counts||[0,0,0,0,0],max=Math.max(...cnt,1);
  return `<div class="ki"><span class="ki-l">오늘의 기운</span><p><b>${S.today.ko}일(${S.today.hanja})</b> · 나는 <b>${LK.STEMS_KO[P.me]}${EL5[meEl]}(${LK.STEMS[P.me]}${LK.EL[meEl]})</b><br>${S.rel}(${S.relWord}) · ${S.basis}${S.hap?" · 일지와 합 🤝":""}${S.chung?" · 일지와 충 ⚡":""}</p></div>
  <dl class="fort flv">
-  <div><dt>💼 직장운 ${dots(F.levels.work)}</dt><dd>${F.work}</dd></div>
-  <div><dt>🏃 퇴근운 ${dots(F.levels.off)}</dt><dd>${F.off}</dd></div>
-  <div><dt>💘 연애운 ${dots(F.levels.love)}</dt><dd>${F.love}</dd></div>
+  ${[["work","💼 직장운"],["money","💰 금전운"],["love","💘 연애운"],["people","🤝 인간관계운"],["health","💪 건강운"],["off","🏃 퇴근운"]].filter(([k])=>F[k]).map(([k,t])=>`<div><dt>${t} ${dots(F.levels[k])}</dt><dd>${F[k]}${F.why&&F.why[k]?`<small class="why">${F.why[k]}</small>`:""}</dd></div>`).join("")}
  </dl>
  <div class="lucky"><div><span>행운 색</span><b>${F.lucky.color}</b></div><div><span>행운 숫자</span><b class="mono">${F.lucky.nums.join(" · ")}</b></div><div><span>행운 방향</span><b>${F.lucky.dir}</b></div><div><span>행운 아이템</span><b>${F.item}</b></div></div>
  <div class="hours">${F.hours.good?`<div class="good"><span>잘 풀리는 시간</span><b class="mono">${F.hours.good}</b></div>`:""}<div class="bad"><span>조심할 시간</span><b class="mono">${F.hours.bad}</b></div></div>
@@ -1059,14 +1282,14 @@ function luckView(){
  const fDone=L.fortune.flipped, tDone=L.lotto.scratched;
  return `<div class="luck-h"><h2>오늘의 운을 뽑아돌!</h2><p>오늘은 어떤 행운이 기다릴까?</p></div>
  <section class="lcard" aria-labelledby="lf-t"><div class="lc-h"><b id="lf-t">🔮 오늘의 돌운세</b>${fDone?`<span class="done-chip">오늘 완료</span>`:`<span class="free-chip">하루 1번 무료</span>`}</div>
-  <button class="flip ${fDone?"open":""}" id="flip" data-act="luckFlip" ${fDone?'tabindex="-1"':""} aria-label="${fDone?"오늘의 운세 결과":"운세 카드 뒤집기"}">
+  ${!L.birth&&!fDone?`<button class="flip locked" data-act="luckBirth" aria-label="생년월일 넣고 운세 카드 열기"><span class="flip-in"><span class="face f-front"><span class="mys">${pebbleFace("ok")}<i>🔒</i></span><b>생년월일을 넣으면<br>내 돌운세 카드가 열려요</b><span class="hint">사주로 보는 직장운·금전운·연애운·인간관계운·건강운 · ${coinLabel(F.coins)}</span><span class="lock-cta">🎂 생년월일 넣기</span></span></span></button>`:`<button class="flip ${fDone?"open":""}" id="flip" data-act="luckFlip" ${fDone?'tabindex="-1"':""} aria-label="${fDone?"오늘의 운세 결과":"운세 카드 뒤집기"}">
    <span class="flip-in">
-    <span class="face f-front"><span class="mys">${pebbleFace("ok")}<i>?</i></span><b>카드를 눌러 뒤집어 보돌</b><span class="hint">${L.birth?"내 사주로 보는 오늘의 운세":"오늘의 운세"} · ${coinLabel(F.coins)}</span></span>
+    <span class="face f-front"><span class="mys">${pebbleFace("ok")}<i>?</i></span><b>카드를 눌러 뒤집어 보돌</b><span class="hint">${L.birth?`${L.birth.date.replace(/-/g,".")}생 · 내 사주로 보는 오늘의 운세`:"오늘의 운세"} · ${coinLabel(F.coins)}</span></span>
     <span class="face f-back g-${F.grade}"><span class="grade"><span class="ge">${F.emoji}</span><b>${F.gradeName}</b></span><span class="face-pb ${F.grade}">${pebbleFace(F.mood)}</span><span class="sum">${F.summary}</span></span>
-   </span></button>
+   </span></button>`}
   ${fDone?`${fortuneDetail(F)}
   <div class="lc-f"><span class="fx"><span class="c">${coinLabel(F.coins)} 받음</span></span><button class="btn ghost" data-act="luckShare">이미지로 공유</button></div>`:""}
-  ${L.birth?`<p class="hint" style="margin:0;text-align:center">🎂 내 사주로 보는 운세예요 · <button class="linkbtn sm" data-act="luckBirth">생년월일 수정</button></p>`:sajuBlock(null)}
+  ${L.birth?`<p class="hint" style="margin:0;text-align:center">🎂 내 사주로 보는 운세예요 · <button class="linkbtn sm" data-act="luckBirth">생년월일 수정</button></p>`:fDone?sajuBlock(null):""}
   <p class="lcd-row hint">${fDone?"다음 운세까지":"오늘 남은 시간"} <span class="mono lcd">${left}</span></p></section>
  <section class="lcard lotto-c" aria-labelledby="lt-t"><div class="lc-h"><b id="lt-t">🎟️ 자갈복권</b>${tDone?`<span class="done-chip">오늘 완료</span>`:`<span class="free-chip">하루 1번 무료</span>`}</div>
   <div class="ticket ${tDone?"open":""} t-${T.id}" id="ticket">
@@ -1076,7 +1299,7 @@ function luckView(){
   ${tDone?`<p class="lc-msg">${T.coins?`🎉 ${T.name}! ${coinLabel(T.coins)} 바로 들어갔어요.`:"다음엔 꼭 당첨되돌!"}</p>`:`<div class="lc-f"><span class="hint">손가락으로 긁어 보세요. 결과는 이미 정해져 있어요.</span><button class="linkbtn sm" data-act="luckScratchAll">한 번에 긁기</button></div>`}
   <details class="odds"><summary>당첨 확률 보기</summary><table>${LK.LOTTO.map(x=>`<tr><td>${x.name}</td><td class="mono">${x.p}%</td><td class="mono">${x.coins!=null?"":""}${x.pebbles?won(x.pebbles*LK.PEBBLE_TO_COIN)+" 코인":"–"}</td></tr>`).join("")}</table></details>
   <p class="lcd-row hint">${tDone?"다음 무료 복권까지":"오늘 남은 시간"} <span class="mono lcd">${left}</span></p></section>
- <button class="entry" data-act="tab:drawer"><span><b>🗄 내 서랍</b><span class="hint">출근부 · 퇴근 시간 · 업무지구 · 회사생활 가이드 · 체험 모드</span></span><span aria-hidden="true">›</span></button>`;
+ `;
 }
 function claimFortune(){const L=luckState();if(L.fortune.claimed)return 0;const F=todaysFortune();L.fortune.result=JSON.parse(JSON.stringify(F));L.fortune.flipped=true;L.fortune.claimed=true;state.coins+=F.coins;save();return F.coins}
 function claimLotto(){const L=luckState();if(L.lotto.claimed)return 0;const T=LK.lotto(L.secret,L.lotto.date);L.lotto.scratched=true;L.lotto.claimed=true;state.coins+=T.coins;save();return T.coins}
@@ -1109,7 +1332,7 @@ function rrect(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,
 async function makeFortuneCard(F){
  const W=1080,H=1920,cv=document.createElement("canvas");cv.width=W;cv.height=H;const c=cv.getContext("2d");
  const FF='"Jua","Apple SD Gothic Neo","Malgun Gothic",sans-serif';try{await document.fonts.load('48px "Jua"')}catch(e){}
- const img=new Image();img.src="images/poses/base.png";try{await img.decode()}catch(e){}
+ const img=new Image();img.src="pose-base.png";try{await img.decode()}catch(e){}
  c.fillStyle="#EDF2F8";c.fillRect(0,0,W,H);
  c.fillStyle="#18212F";c.font=`72px ${FF}`;c.fillText("퇴근중",90,170);
  c.fillStyle="#5A6576";c.font=`36px ${FF}`;c.textAlign="right";c.fillText(F.date.replace(/-/g,".")+" 오늘의 돌운세",W-90,165);c.textAlign="left";
@@ -1131,7 +1354,7 @@ function drawerView(){
  const dist=state.district;
  const q=w=>"https://map.naver.com/p/search/"+encodeURIComponent(dist+" "+w);
  const lm=Object.keys(state.log).filter(k=>k.slice(0,7)===today().slice(0,7)&&state.log[k].in).length;
- return `<button class="back" data-act="tab:luck">‹ 돌뽑기</button><div class="sec-h"><h2>돌대리의 서랍</h2><small>게임 밖에서도 쓸 것들</small></div>
+ return `<button class="back" data-act="tab:today">‹ 오늘</button><div class="sec-h"><h2>돌대리 프로필</h2><small>(주)칼퇴상사 · 근속 ${state.daysWorked}일</small></div>
  <button class="entry" data-act="tab:book"><span><b>출근부</b><span class="hint">이번 달 출근 ${lm}일 · 인사발령 이력</span></span><span aria-hidden="true">›</span></button>
  <section class="panel"><div class="switch"><div><b>내 퇴근 시간</b><div class="hint">오늘 화면의 퇴근 카운트다운 기준이에요</div></div>
  <select id="offTime" class="sel" data-change="offTime" aria-label="퇴근 시간">${["17:00","17:30","18:00","18:30","19:00","19:30","20:00"].map(t=>`<option ${t===state.offTime?"selected":""}>${t}</option>`).join("")}</select></div></section>
@@ -1156,7 +1379,7 @@ function drawerView(){
 
 const TABS=[["today","오늘",'<path d="M4 20V9l8-5 8 5v11" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><rect x="9" y="13" width="6" height="7" fill="none" stroke="currentColor" stroke-width="2"/>'],
  ["shop","꾸미기",'<path d="M8 4 4 7l2 4 2-1v10h8V10l2 1 2-4-4-3c0 2-2 3-4 3S8 6 8 4Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>'],
- ["local","동네",'<path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="2.5" fill="currentColor"/>'],
+ ["local","칼퇴상사",'<path d="M4 21V5.5L12 3v18M12 8h8v13M2.5 21h19M7 8h2M7 12h2M7 16h2M15 12h2M15 16h2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'],
  ["luck","돌뽑기",'<path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19.6l1-5.8L3.5 9.7l5.9-.9z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>']];
 
 function render(){
@@ -1166,109 +1389,187 @@ function render(){
  if(state.tab==="luck")requestAnimationFrame(setupScratch);
  if(state.tab==="local"&&hood().v==="main")initVillage();
  document.getElementById("onb").innerHTML=state.onboarded?"":onbHTML();
- const curTab=state.tab==="book"||state.tab==="drawer"?"luck":state.tab;
+ const curTab=state.tab==="book"||state.tab==="drawer"?"today":state.tab;
  document.getElementById("tabs").innerHTML=TABS.map(([k,l,ic])=>`<button data-act="tab:${k}" ${curTab===k?'aria-current="page"':""}><svg viewBox="0 0 24 24" aria-hidden="true">${ic}</svg>${l}</button>`).join("");
 }
 
-/* ---------- v3: 오늘의 퇴근각 (데일리 단어 게임) ----------
-   의미 유사도: 단어마다 붙은 의미 태그를 IDF 가중 코사인으로 비교. 서버 없이 기기 안에서 계산해요. */
-const TG=(function(){
- const W=window.TG_WORDS||{}, lex={}, topicOf={};
- Object.entries(W).forEach(([k,t])=>t.words.split("|").forEach(e=>{const [w,tags]=e.split(":");const set=lex[w]||(lex[w]=new Set());set.add("#"+k);(tags||"").trim().split(/\s+/).forEach(x=>x&&set.add(x));topicOf[w]=topicOf[w]||k}));
- const words=Object.keys(lex), N=words.length, df={};
- words.forEach(w=>lex[w].forEach(t=>df[t]=(df[t]||0)+1));
- const idf=t=>Math.log((N+1)/(df[t]+1))+0.3;
- const norm={};words.forEach(w=>{let s=0;lex[w].forEach(t=>s+=idf(t)**2);norm[w]=Math.sqrt(s)});
- const cos=(a,b)=>{if(a===b)return 1;let d=0;lex[a].forEach(t=>{if(lex[b].has(t))d+=idf(t)**2});return d/(norm[a]*norm[b])};
- const list=[];const keys=Object.keys(W);const mx=Math.max(...keys.map(k=>W[k].secrets.length));
- for(let i=0;i<mx;i++)keys.forEach(k=>{const w=W[k].secrets[i];if(w&&lex[w])list.push({key:k,secret:w})});
- const rankCache={};
- function ranks(sec){if(rankCache[sec])return rankCache[sec];const r={};words.filter(w=>w!==sec).map(w=>[w,cos(w,sec)]).sort((a,b)=>b[1]-a[1]).forEach(([w],i)=>r[w]=i+1);return rankCache[sec]=r}
- function daily(date){const [y,m,d]=date.split("-").map(Number);const n=Math.floor(Date.UTC(y,m-1,d)/864e5);const p=list[(n*7)%list.length];const t=W[p.key];return {key:p.key,secret:p.secret,name:t.name,emoji:t.emoji,no:n%10000}}
- function normalize(x){x=String(x||"").replace(/\s+/g,"").trim();return (window.TG_ALIAS||{})[x]||x}
- function score(raw,sec){const w=normalize(raw);if(!lex[w])return {w,known:false};const c=cos(w,sec);return {w,known:true,s:w===sec?100:Math.round(c*10000)/100,rank:w===sec?0:ranks(sec)[w]}}
- return {daily,score,normalize,size:N};
-})();
-/* 퇴근각 난이도 설정 (v4) — 숫자만 바꾸면 바로 반영돼요 */
+/* ---------- v12: 오늘의 퇴근각 (주제 없는 데일리 단어 게임) ----------
+   의미 유사도: 한국어 단어 임베딩으로 미리 계산한 값(wordgame.js + words/). 명사 3만여 개 중 하나가 정답이에요. */
+const TW=window.TG_WORD;
 const GAME_CFG={
- rankReveal:10,            /* 이 순위 안에 들어야 순위를 알려줌 (기존 30) */
- posCurve:1.5,             /* 클수록 정답 근처에서만 돌이 많이 굴러감 (기존 0.75) */
- bonus:[[15,100],[30,50]], /* [시도 수 이하, 추가 코인] (기존 10회·20회) */
- base:100                  /* 정답 기본 코인 */
+ rankReveal:1000,                    /* 이 순위 안에 들면 순위를 알려줌 */
+ bonus:[[20,150],[50,80],[100,30]],  /* [시도 수 이하, 추가 코인] — 힌트를 쓰면 보너스 없음 */
+ base:100,                           /* 정답 기본 코인 */
+ hints:[{id:"len",name:"글자 수",cost:0},{id:"near",name:"100위 안 단어 하나",cost:50},{id:"cho",name:"첫 글자 초성",cost:100}]
 };
 const GAME_NAMES=["칼퇴돌","몽돌","차돌","짱돌","공깃돌","디딤돌","주춧돌","맷돌","부싯돌","섬돌","자갈대리","몽글돌"];
-function gameState(){const d=today();if(!state.game||state.game.date!==d)state.game={date:d,guesses:[],solved:false,solvedAt:null,gaveUp:false};return state.game}
-/* 랭킹 미리보기: 서버 연결 전까지는 예시 기록 + 내 기록. 정렬 규칙(시도 수 → 먼저 맞힌 시각)은 실제 랭킹과 같아요. */
-function exampleRows(date){const r=rng(hash("rank"+date));let a=3,min=9*60+2;return GAME_NAMES.map((n,i)=>{if(i>0)a+=1+Math.floor(r()*4);min+=Math.floor(r()*35)+3;return {name:n,attempts:a,at:pad(Math.floor(min/60)%24)+":"+pad(min%60)}})}
+function gameState(){const d=today();if(!state.game||state.game.date!==d||state.game.v!==3)state.game={v:3,date:d,guesses:[],solved:false,solvedAt:null,gaveUp:false,hints:[]};if(!state.game.hints)state.game.hints=[];return state.game}
+/* 랭킹 미리보기: 서버 연결 전까지는 예시 기록 + 내 기록. 정렬 규칙(힌트 없이 → 시도 수 → 먼저 맞힌 시각)은 실제 랭킹과 같아요. */
+function exampleRows(date){const r=rng(hash("rank2"+date));let a=9,min=9*60+12;return GAME_NAMES.map((n,i)=>{if(i>0)a+=2+Math.floor(r()*9);min+=Math.floor(r()*40)+6;return {name:n,attempts:a,hint:r()<.3,at:pad(Math.floor(min/60)%24)+":"+pad(min%60)}})}
 function challengers(date){const base=9000+hash("ch"+date)%5000,h=new Date().getHours()+new Date().getMinutes()/60;return Math.round(base*(0.35+0.65*Math.min(1,h/18)))}
-function ranking(){const g=gameState();const rows=exampleRows(g.date).map(x=>Object.assign({me:false},x));if(g.solved)rows.push({name:"나 · 돌대리",attempts:g.guesses.length,at:g.solvedAt,me:true});rows.sort((a,b)=>a.attempts-b.attempts||a.at.localeCompare(b.at)||(a.me?1:-1));return rows}
-const gpos=s=>s>=100?100:6+78*Math.pow(Math.max(0,s)/100,GAME_CFG.posCurve);
+function ranking(){const g=gameState();const rows=exampleRows(g.date).map(x=>Object.assign({me:false},x));if(g.solved)rows.push({name:"나 · 돌대리",attempts:g.guesses.length,hint:g.hints.some(h=>h!=="len"),at:g.solvedAt,me:true});rows.sort((a,b)=>(a.hint-b.hint)||a.attempts-b.attempts||a.at.localeCompare(b.at)||(a.me?1:-1));return rows}
+/* 돌 위치: 1000위 안에 들면 순위로, 밖이면 유사도로 */
+function gpos(x,D){if(!x)return 6;if(x.rank===0)return 100;if(x.rank<=GAME_CFG.rankReveal)return 34+62*(1-Math.log(x.rank)/Math.log(GAME_CFG.rankReveal));return 6+26*Math.min(1,Math.max(0,x.s)/Math.max(1,D?D.thr:30))}
+const heat=r=>r===0?"정답":r<=10?"🔥 아주 가까워요":r<=100?"♨️ 뜨거워요":r<=1000?"☀️ 따뜻해요":"🧊 아직 멀어요";
+function bestGuess(g){return g.guesses.reduce((m,x)=>!m||x.s>m.s?x:m,null)}
 function gameCard(){
- const g=gameState(), P=TG.daily(g.date), best=g.guesses.reduce((m,x)=>Math.max(m,x.s),0), rows=ranking(), top=rows[0], me=rows.findIndex(x=>x.me)+1;
- const x=g.solved?100:gpos(best);
+ const g=gameState(), no=TW.dayNo(g.date), best=bestGuess(g), rows=ranking(), top=rows[0], me=rows.findIndex(x=>x.me)+1;
+ const x=g.solved?100:gpos(best,TW.day(g.date));
  return `<section class="gcard" aria-labelledby="gc-t"><div class="gc-h"><b id="gc-t">🎮 오늘의 퇴근각</b><span class="new">NEW</span></div>
- <div class="gc-body"><div class="gc-topic"><span>오늘의 주제</span><b>${P.name} ${P.emoji}</b></div>
- <p class="gc-copy">${g.solved?`<b>${g.guesses.length}번 만에 퇴근 성공!</b><br>오늘 칼퇴 랭킹 ${me}위예요`:g.gaveUp?`오늘의 단어는 「${P.secret}」였어요.<br>내일 다시 도전해요`:`비밀 단어를 맞히고<br>돌을 퇴근시키세요!`}</p></div>
+ <div class="gc-body"><div class="gc-topic"><span>오늘의 주제 · No.${no}</span><b>${TW.day(g.date)?TW.day(g.date).cat:"주제 확인 중"}</b></div>
+ <p class="gc-copy">${g.solved?`<b>${g.guesses.length}번 만에 퇴근 성공!</b><br>오늘 칼퇴 랭킹 ${me}위예요`:g.gaveUp?`오늘의 단어는 「${esc(g.answer||"")}」였어요.<br>내일 다시 도전해요`:best?`가장 가까운 단어 「${esc(best.w)}」<br>${best.rank<=GAME_CFG.rankReveal?best.rank+"위":"1000위 밖"} · ${heat(best.rank)}`:`주제 속 명사 하나!<br>뜻이 가까울수록 돌이 굴러가요`}</p></div>
  <div class="gc-track" aria-hidden="true"><i class="gc-peb" style="left:${x}%"></i><span class="gc-exit">EXIT</span></div>
  <p class="hint gc-count">현재 <span class="mono">${won(challengers(g.date))}</span>개의 돌이 도전 중 <span class="pv">미리보기</span></p>
  <button class="btn wide" data-act="game">${g.solved||g.gaveUp?"결과·랭킹 보기":g.guesses.length?`이어서 굴리기 · ${g.guesses.length}회 →`:"돌 굴리기 →"}</button>
- <div class="gc-rank"><span>🏆 오늘의 칼퇴 기록</span><b>1위 ${top.name} · ${top.attempts}회 만에 성공</b></div></section>`;
+ <div class="gc-rank"><span>🏆 오늘의 칼퇴 기록</span><b>1위 ${top.name} · ${top.attempts}회${top.hint?" 💡":""}</b></div></section>`;
 }
 function guessRows(g){
  const last=g.guesses.length?g.guesses[g.guesses.length-1].w:null;
- return g.guesses.slice().sort((a,b)=>b.s-a.s).map(x=>`<li class="${x.w===last?"last":""} ${x.s>=100?"hit":""}"><span class="gn mono">${x.n}</span><b>${x.w}</b><span class="gbar"><i style="width:${Math.max(2,x.s)}%"></i></span><span class="gs mono">${x.s.toFixed(2)}</span><span class="gr mono">${x.s>=100?"정답":x.rank<=GAME_CFG.rankReveal?x.rank+"위":"–"}</span></li>`).join("");
+ return g.guesses.slice().sort((a,b)=>b.s-a.s).map(x=>`<li class="${x.w===last?"last":""} ${x.rank===0?"hit":""}"><span class="gn mono">${x.n}</span><b>${esc(x.w)}</b><span class="gbar"><i style="width:${Math.max(2,x.rank===0?100:x.rank<=GAME_CFG.rankReveal?gpos(x):Math.max(0,x.s))}%"></i></span><span class="gs mono">${x.s.toFixed(2)}</span><span class="gr mono">${x.rank===0?"정답":x.rank<=GAME_CFG.rankReveal?x.rank+"위":"–"}</span></li>`).join("");
 }
 function rankHTML(){
  const rows=ranking();const me=rows.findIndex(x=>x.me);
  const show=rows.filter((x,i)=>i<5||x.me);
  return `<div class="grank"><div class="grank-h"><b>오늘의 칼퇴 랭킹</b><span class="pv">미리보기 · 예시 기록</span></div>
- <ol>${show.map(x=>{const i=rows.indexOf(x)+1;return `<li class="${x.me?"me":""}"><span class="mono">${i}</span><b>${x.name}</b><span class="mono">${x.attempts}회 · ${x.at}</span></li>`}).join("")}</ol>
- <p class="hint" style="margin:0">시도 횟수가 적을수록, 같으면 먼저 맞힌 돌이 위로 가요. ${me<0?"정답을 맞히면 랭킹에 올라가요.":""}</p></div>`;
+ <ol>${show.map(x=>{const i=rows.indexOf(x)+1;return `<li class="${x.me?"me":""}"><span class="mono">${i}</span><b>${x.name}</b><span class="mono">${x.attempts}회${x.hint?" 💡":""} · ${x.at}</span></li>`}).join("")}</ol>
+ <p class="hint" style="margin:0">힌트(💡) 없이 맞힌 기록이 먼저, 그다음 시도 횟수가 적을수록, 같으면 먼저 맞힌 돌이 위로 가요. ${me<0?"정답을 맞히면 랭킹에 올라가요.":""}</p></div>`;
+}
+function hintsHTML(g,D){
+ const used=g.hints, done=g.solved||g.gaveUp;
+ const val=h=>h==="len"?`정답은 <b>${[...D.secret].length}글자</b>예요`:h==="near"?`100위 안 단어: <b>「${esc(D.hintWord)}」</b>`:`첫 글자 초성: <b>${TW.initial(D.secret)}</b>`;
+ const next=GAME_CFG.hints.find(h=>!used.includes(h.id));
+ return `<div class="ghints">${used.map(h=>`<p class="ghint">💡 ${val(h)}</p>`).join("")}
+  ${!done&&next?`<button class="btn ghost ghint-b" data-act="gameHint:${next.id}">💡 힌트 ${used.length+1}/3 · ${next.name} ${next.cost?`(${next.cost}코인)`:"(무료)"}</button>`:""}</div>`;
 }
 function gameHTML(){
- const g=gameState(), P=TG.daily(g.date), lastS=g.guesses.length?g.guesses[g.guesses.length-1].s:0, x=g.solved?100:gpos(lastS);
- const done=g.solved||g.gaveUp;
- return `<div class="ghead"><div><span class="hint">오늘의 퇴근각 · No.${P.no}</span><h2>주제: ${P.name} ${P.emoji}</h2></div><button class="gx" data-act="close" aria-label="닫기">×</button></div>
+ const g=gameState(), D=TW.day(g.date);
+ if(!D)return `<div class="ghead"><div><span class="hint">오늘의 퇴근각</span><h2>단어를 불러오는 중…</h2></div><button class="gx" data-act="close" aria-label="닫기">×</button></div><p class="hint">잠시만요.</p>`;
+ const best=bestGuess(g), x=g.solved?100:gpos(best,D), done=g.solved||g.gaveUp;
+ return `<div class="ghead"><div><span class="hint">오늘의 퇴근각 · No.${D.no}</span><h2>주제: ${D.cat||"오늘의 명사"}</h2></div><button class="gx" data-act="close" aria-label="닫기">×</button></div>
  <div class="gscene" aria-label="돌이 출구까지 굴러가는 거리"><div class="gdesk"></div><div class="gdesk d2"></div>
   <div class="gdoor"><span class="gsign">비상구 · 퇴근</span></div>
-  <img id="gpeb" class="gpeb ${g.solved?"out":""}" src="images/poses/base.png" alt="" style="left:${x}%;--r:${x*7.2}deg">
+  <img id="gpeb" class="gpeb ${g.solved?"out":""}" src="pose-base.png" alt="" style="left:${x}%;--r:${x*7.2}deg">
   <span class="gdist mono" id="gdist">${g.solved?"퇴근 완료":"출구까지 "+Math.round(100-x)+"%"}</span></div>
- <p class="gmsg" id="gmsg" aria-live="polite">${g.solved?`<b>퇴근 성공!</b> ${g.guesses.length}번 만에 「${P.secret}」를 맞혔어요.`:g.gaveUp?`오늘의 단어는 <b>「${P.secret}」</b>였어요.`:g.guesses.length?"단어를 더 넣어 출구까지 굴려 보세요.":"주제와 관련된 단어를 넣어 보세요. 뜻이 가까울수록 돌이 출구로 굴러가요."}</p>
- ${done?rankHTML():`<form id="gform" class="gform" autocomplete="off"><label for="gin" class="sr">단어 입력</label><input id="gin" name="w" maxlength="12" placeholder="예: ${P.key==="food"?"우동":P.key==="office"?"회의":P.key==="animal"?"토끼":P.key==="weather"?"구름":P.key==="travel"?"기차":"야구"}" enterkeyhint="send"><button class="btn" type="submit">굴리기</button></form>`}
- <div class="glist-h"><b>내 시도 <span class="mono" id="gcnt">${g.guesses.length}</span>회</b><span class="hint">유사도 · 순위(사전 ${TG.size}단어 중)</span></div>
+ <p class="gmsg" id="gmsg" aria-live="polite">${g.solved?`<b>퇴근 성공!</b> ${g.guesses.length}번 만에 「${esc(D.secret)}」를 맞혔어요.`:g.gaveUp?`오늘의 단어는 <b>「${esc(D.secret)}」</b>였어요.`:g.guesses.length?"뜻이 더 가까운 명사를 찾아보세요. 1000위 안에 들면 순위가 보여요.":"주제와 관련된 명사를 넣어 보세요. 정답과 뜻이 가까울수록 돌이 출구로 굴러가요."}</p>
+ ${done?rankHTML():`<form id="gform" class="gform" autocomplete="off"><label for="gin" class="sr">단어 입력</label><input id="gin" name="w" maxlength="12" placeholder="예: 커피" enterkeyhint="send"><button class="btn" type="submit">굴리기</button></form>`}
+ ${hintsHTML(g,D)}
+ <div class="glist-h"><b>내 시도 <span class="mono" id="gcnt">${g.guesses.length}</span>회</b><span class="hint">유사도 · 순위 (명사 ${won(TW.size)}개 중)</span></div>
  <ol class="glist" id="glist">${guessRows(g)}</ol>
- ${done?"":`<div id="giveArea"><button class="linkbtn" data-act="giveUp">포기하고 정답 보기</button></div>`}`;
+ ${done?"":`<p class="hint gnear">참고: 1위 단어 유사도 ${D.near[0].toFixed(2)} · 10위 ${D.near[1].toFixed(2)} · 100위 ${D.near[2].toFixed(2)} · 1000위 ${D.near[3].toFixed(2)}</p><div id="giveArea"><button class="linkbtn" data-act="giveUp">포기하고 정답 보기</button></div>`}`;
+}
+async function openGame(){
+ const g=gameState();
+ if(!TW.day(g.date)){modal(gameHTML());try{await TW.load(g.date)}catch(e){modal(`<div class="ghead"><div><span class="hint">오늘의 퇴근각</span><h2>단어를 불러오지 못했어요</h2></div><button class="gx" data-act="close" aria-label="닫기">×</button></div><p class="hint">${e&&e.message==="nodata"?"오늘의 단어가 아직 준비되지 않았어요. 곧 채워 둘게요.":"인터넷 연결을 확인하고 다시 열어 주세요."}</p>`);return}}
+ modal(gameHTML());setTimeout(()=>{const i=document.getElementById("gin");if(i&&matchMedia("(pointer:fine)").matches)i.focus()},50);
+}
+function useHint(id){
+ const g=gameState(),D=TW.day(g.date);if(!D||g.solved||g.gaveUp||g.hints.includes(id))return;
+ const h=GAME_CFG.hints.find(x=>x.id===id),next=GAME_CFG.hints.find(x=>!g.hints.includes(x.id));if(!h||h!==next)return;
+ if(h.cost&&state.coins<h.cost){toast(`월급코인이 ${won(h.cost-state.coins)} 부족해요`);return}
+ if(h.cost){state.coins-=h.cost;const cv=document.getElementById("coinv");if(cv)cv.textContent=won(state.coins)}
+ g.hints.push(id);save();modal(gameHTML());
 }
 function submitGuess(raw){
- const g=gameState();if(g.solved||g.gaveUp)return;
- const P=TG.daily(g.date), r=TG.score(raw,P.secret), msg=document.getElementById("gmsg");
- if(!raw.trim())return;
- if(!r.known){msg.innerHTML=`「${r.w}」은(는) 돌대리가 아직 모르는 단어예요. 시도 횟수에 넣지 않았어요.`;return}
- if(g.guesses.some(x=>x.w===r.w)){msg.innerHTML=`「${r.w}」은(는) 이미 넣었어요.`;return}
- const prev=g.guesses.length?g.guesses[g.guesses.length-1].s:0;
+ const g=gameState(),D=TW.day(g.date);if(g.solved||g.gaveUp||!D)return;
+ const r=TW.score(raw,g.date), msg=document.getElementById("gmsg");
+ if(!String(raw).trim())return;
+ if(!r.known){msg.innerHTML=`「${esc(r.w)}」은(는) 돌대리 사전(명사 ${won(TW.size)}개)에 없는 말이에요. 시도 횟수에 넣지 않았어요.`;return}
+ if(g.guesses.some(x=>x.w===r.w)){msg.innerHTML=`「${esc(r.w)}」은(는) 이미 넣었어요.`;return}
+ const prevBest=bestGuess(g);
  g.guesses.push({w:r.w,s:r.s,rank:r.rank,n:g.guesses.length+1});
- const x=gpos(r.s), peb=document.getElementById("gpeb");
- if(peb){peb.style.left=x+"%";peb.style.setProperty("--r",(x*7.2)+"deg")}
- if(r.s>=100){
-  g.solved=true;g.solvedAt=nowHM();
-  const bonus=(GAME_CFG.bonus.find(([n])=>g.guesses.length<=n)||[0,0])[1];state.coins+=GAME_CFG.base+bonus;gainXp(30);save();
+ const best=bestGuess(g),x=gpos(best,D), peb=document.getElementById("gpeb");
+ if(peb){peb.style.left=(r.rank===0?100:x)+"%";peb.style.setProperty("--r",(x*7.2)+"deg")}
+ if(r.rank===0){
+  g.solved=true;g.solvedAt=nowHM();g.answer=D.secret;
+  const bonus=g.hints.some(h=>h!=="len")?0:(GAME_CFG.bonus.find(([n])=>g.guesses.length<=n)||[0,0])[1];state.coins+=GAME_CFG.base+bonus;gainXp(30);save();
   setTimeout(()=>{if(peb)peb.classList.add("out")},900);
   setTimeout(()=>{modal(gameHTML());toast(`퇴근 성공! 코인 +${GAME_CFG.base+bonus}`)},1900);
   msg.innerHTML=`<b>정답!</b> 돌대리가 출구로 굴러가요…`;
  }else{
-  msg.innerHTML=`「${r.w}」 유사도 <b class="mono">${r.s.toFixed(2)}</b>${r.rank<=GAME_CFG.rankReveal?` · ${r.rank}위`:""} · ${r.s>prev?"출구 쪽으로 데굴데굴 →":r.s<prev?"← 출구에서 멀어졌어요":"제자리예요"}`;
+  msg.innerHTML=`「${esc(r.w)}」 유사도 <b class="mono">${r.s.toFixed(2)}</b>${r.rank<=GAME_CFG.rankReveal?` · <b class="mono">${r.rank}위</b>`:" · 1000위 밖"} · ${heat(r.rank)}${prevBest&&r.s>prevBest.s?" · 최고 기록!":""}`;
  }
- const d=document.getElementById("gdist");if(d)d.textContent=r.s>=100?"퇴근 완료":"출구까지 "+Math.round(100-x)+"%";
+ const d=document.getElementById("gdist");if(d)d.textContent=r.rank===0?"퇴근 완료":"출구까지 "+Math.round(100-x)+"%";
  document.getElementById("glist").innerHTML=guessRows(g);document.getElementById("gcnt").textContent=g.guesses.length;
  save();
+}
+
+/* ---------- v10: 돌퇴근 (횡스크롤 러닝 게임) ----------
+   규칙·검증은 runner-core.js, 화면은 runner.js. 여기서는 기록·보상·랭킹만 다뤄요.
+   보상: 퇴근 성공한 판의 자갈만 월급코인으로 바꿔줘요(1개=10코인), 하루 최대 RUN_CAP개. 같은 판(runId)은 두 번 지급하지 않아요. */
+const RK=window.TG_RUNNER_CORE, RUN_CAP=60, FRI_TITLE="불금 탈출러";
+function runState(){
+ if(!state.runner)state.runner={unlocked:1,sel:1,best:{},bestScore:{},chainBest:null,week:{key:null,best:{}},titles:[],paid:{date:null,pebbles:0,xp:[]},runs:[],plays:0,mute:false};
+ const R=state.runner,wk=weekKey();if(R.week.key!==wk)R.week={key:wk,best:{}};
+ const d=LK.kstDate();if(R.paid.date!==d)R.paid={date:d,pebbles:0,xp:[]};
+ return R;
+}
+function weekKey(){const d=new Date(LK.kstDate()+"T00:00:00Z"),day=(d.getUTCDay()+6)%7;d.setUTCDate(d.getUTCDate()-day+3);const y=d.getUTCFullYear(),j4=new Date(Date.UTC(y,0,4));
+ const w=1+Math.round(((d-j4)/864e5-3+((j4.getUTCDay()+6)%7))/7);return y+"-W"+String(w).padStart(2,"0")}
+function isFriday(){return new Date(LK.kstDate()+"T00:00:00Z").getUTCDay()===5||/[?&]friday=1/.test(location.search)}
+function daysToFri(){const w=new Date(LK.kstDate()+"T00:00:00Z").getUTCDay();return (5-w+7)%7||7}
+let runBoardCache={key:null,rows:null,at:0};
+function loadRunBoard(sid){const RS=runState(),key=RS.week.key+"_"+sid;
+ if(CM.state.mode!=="shared"||!CM.runBoard)return;
+ if(runBoardCache.key===key&&Date.now()-runBoardCache.at<30000)return;
+ runBoardCache={key,rows:runBoardCache.key===key?runBoardCache.rows:null,at:Date.now()};
+ CM.runBoard(RS.week.key,sid).then(rows=>{runBoardCache.rows=rows;if(state.tab==="today"&&!document.getElementById("modal").innerHTML&&!document.querySelector(".rn"))render()})}
+function runnerCard(){
+ const RS=runState(),fri=isFriday(),sel=Math.min(RS.sel||1,RS.unlocked);
+ const st=[1,2,3].map(n=>{const S=RK.STAGES[n],b=RS.best[n],lock=n>RS.unlocked;
+  return `<button class="rc-st ${n===sel?"on":""} ${lock?"lock":""}" data-act="runSel:${n}" ${lock?"disabled":""} aria-pressed="${n===sel}"><span>STAGE ${n}</span><b>${S.name}</b><small>${lock?"🔒 앞 단계 클리어":b?"최고 "+TG_RUNNER.fmt(b.ms):"아직 기록 없음"}</small></button>`}).join("");
+ const boardSid=fri?"fri":sel;loadRunBoard(boardSid);
+ const rows=runBoardCache.key===RS.week.key+"_"+boardSid?runBoardCache.rows:null;
+ const mine=RS.week.best[boardSid];
+ let rank;
+ if(CM.state.mode==="shared"&&rows&&rows.length){const me=rows.findIndex(x=>x.me);rank=`<span>🏆 이번 주 ${boardSid==="fri"?"불금 탈출":"STAGE "+boardSid} 랭킹</span><b>1위 ${esc(rows[0].nick)} · ${TG_RUNNER.fmt(rows[0].ms)}${me>0?` · 나 ${me+1}위`:me===0?" (나!)":""}</b>`}
+ else if(CM.state.mode==="shared"&&!rows)rank=`<span>🏆 이번 주 ${boardSid==="fri"?"불금 탈출":"STAGE "+boardSid} 랭킹</span><b>불러오는 중…</b>`;
+ else if(CM.state.mode==="shared")rank=`<span>🏆 이번 주 ${boardSid==="fri"?"불금 탈출":"STAGE "+boardSid} 랭킹</span><b>아직 기록이 없어요 · 첫 퇴근자가 되어 보세요</b>`;
+ else rank=`<span>🏆 이번 주 내 기록 · ${boardSid==="fri"?"불금":"STAGE "+boardSid}</span><b>${mine?TG_RUNNER.fmt(mine):"아직 없음"}${RS.chainBest?` · 1~3 연속 ${TG_RUNNER.fmt(RS.chainBest)}`:""}</b>`;
+ const title=RS.titles.includes(FRI_TITLE)?`<span class="rc-title">🔥 ${FRI_TITLE}</span>`:"";
+ return `<section class="gcard rcard" aria-labelledby="rc-t"><div class="gc-h"><b id="rc-t">🏃 돌퇴근</b>${title||`<span class="new">NEW</span>`}</div>
+ <div class="rc-hero" aria-hidden="true"><i class="rc-o o1"></i><i class="rc-peb"></i><span class="rc-door">퇴근</span></div>
+ <p class="gc-copy" style="margin:0"><b>오늘도 칼퇴 성공!</b> 화면을 눌러 점프하고 장애물을 피해 집까지 달려요</p>
+ <div class="rc-sts">${st}</div>
+ <button class="btn wide" data-act="run:${sel}">STAGE ${sel} 달리기 →</button>
+ ${fri?`<button class="btn gold wide rc-fri" data-act="run:fri">🔥 불금 탈출 열림${RS.best.fri?" · 최고 "+TG_RUNNER.fmt(RS.best.fri.ms):" · 금요일 한정"}</button>`:`<p class="hint rc-frih">🔥 금요일엔 특별 스테이지 「불금 탈출」이 열려요 · ${daysToFri()}일 남음</p>`}
+ <div class="gc-rank">${rank}</div>
+ <p class="hint" style="margin:0">오늘 자갈 보상 <span class="mono">${RS.paid.pebbles}/${RUN_CAP}</span>개 · 퇴근에 성공한 판의 자갈만 월급코인(1개=${LK.PEBBLE_TO_COIN}코인)으로 바뀌어요${CM.state.mode==="shared"?"":" · 같이 보는 주간 랭킹은 서버 연결 후 열려요"}</p></section>`;
+}
+function runEnd(res){
+ const RS=runState(),key=String(res.sid),info={};RS.plays++;
+ const v=RK.verify(res.sid,res.seed,res.inputs,{state:res.state,ms:res.ms,score:res.score,pebbles:res.pebbles});
+ if(!v.ok||res.wallMs<res.ms*.9-80){info.invalid=true;save();return info}
+ if(RS.runs.includes(res.runId)){info.dup=true;return info}
+ RS.runs.push(res.runId);if(RS.runs.length>40)RS.runs.shift();
+ const bs=RS.bestScore[key]||0;if(res.score>bs){RS.bestScore[key]=res.score;if(bs)info.newBestScore=true}info.bestScore=Math.max(bs,res.score);
+ if(res.state==="win"){
+  const b=RS.best[key];if(!b||res.ms<b.ms){info.newBest=true;RS.best[key]={ms:res.ms,score:res.score,at:Date.now()}}else info.bestMs=b.ms;
+  if(res.sid==1)RS.unlocked=Math.max(RS.unlocked,2);if(res.sid==2)RS.unlocked=Math.max(RS.unlocked,3);
+  if(res.sid==1||res.sid==2)RS.sel=Math.max(RS.sel||1,res.sid+1);
+  if(!RS.week.best[key]||res.ms<RS.week.best[key])RS.week.best[key]=res.ms;
+  const p=Math.min(Math.max(0,RUN_CAP-RS.paid.pebbles),res.pebbles);
+  if(p){RS.paid.pebbles+=p;info.coins=p*LK.PEBBLE_TO_COIN;info.pebblesPaid=p;info.capped=p<res.pebbles;state.coins+=info.coins}
+  else if(res.pebbles)info.capNote=`오늘 자갈 보상 한도(${RUN_CAP}개)를 다 채웠어요. 기록은 그대로 저장돼요.`;
+  if(!RS.paid.xp.includes(key)){RS.paid.xp.push(key);gainXp(15)}
+  if(res.sid==="fri"&&!RS.titles.includes(FRI_TITLE)){RS.titles.push(FRI_TITLE);info.title=true}
+  if(res.chainTotal!=null&&(!RS.chainBest||res.chainTotal<RS.chainBest)){info.chainBest=true;RS.chainBest=res.chainTotal}
+  if(CM.state.mode==="shared"&&CM.runSubmit){info.rank="이번 주 랭킹에 기록을 올렸어요.";CM.runSubmit({sid:key,ms:RS.week.best[key],score:res.score,week:RS.week.key}).then(()=>{runBoardCache.at=0})}
+ }
+ save();return info;
+}
+function openRunner(sid){
+ const RS=runState();
+ if(sid==="fri"&&!isFriday()){toast("불금 탈출은 금요일에만 열려요");return}
+ if(sid!=="fri"&&(sid<1||sid>RS.unlocked))return;
+ TG_RUNNER.open({sid,mute:RS.mute,onMute:m=>{runState().mute=m;save()},onEnd:runEnd,onExit:()=>{runBoardCache.at=0;render()}});
 }
 
 /* ---------- v2: onboarding ---------- */
 function onbHTML(){
  const dots=`<div class="onb-dots" aria-hidden="true">${[0,1,2].map(i=>`<i class="${i===onbStep?"on":""}"></i>`).join("")}</div>`;
  let b;
- if(onbStep===0)b=`<div class="onb-art"><img src="images/poses/base.png" alt="돌대리"></div>
-  <span class="eyebrow">Pebble Corp. 입사를 축하해요</span>
+ if(onbStep===0)b=`<div class="onb-art"><img src="pose-base.png" alt="돌대리"></div>
+  <span class="eyebrow">(주)칼퇴상사 입사를 축하해요</span>
   <h1>오늘부터 돌대리와<br>같이 출근해요</h1>
   <p>회사에서 매일 굴러다니는 조약돌 직장인, 돌대리예요. 당신이 출근해야 돌대리도 월급을 받고, 밥을 먹고, 언젠가 한강뷰로 이사를 가요. 아무도 칭찬해주지 않는 출근, 이제 돌대리가 알아줄게요.</p>
   <div class="grow"></div><button class="btn wide" data-act="onbNext">다음</button>`;
@@ -1276,7 +1577,7 @@ function onbHTML(){
   <div class="rules">
    <div><span class="num">1</span><p style="margin:0;color:var(--ink)">출근<span>회사에 도착하면 누르기 · 코인 +100</span></p></div>
    <div><span class="num">2</span><p style="margin:0;color:var(--ink)">점심 이벤트<span>11시부터 랜덤 회사생활 한 장면</span></p></div>
-   <div><span class="num">3</span><p style="margin:0;color:var(--ink)">오늘의 미션<span>물 두 잔 같은 작은 일 세 가지</span></p></div>
+   <div><span class="num">3</span><p style="margin:0;color:var(--ink)">오늘의 미션<span>오전·오후 한 번씩, 돌대리 따라 스트레칭</span></p></div>
    <div><span class="num">4</span><p style="margin:0;color:var(--ink)">퇴근<span>급여명세서 + DAY CLEAR 도장</span></p></div></div>
   <p>출근 60일이 쌓이면 시즌 1 진급 심사가 열려요. 주말이나 휴가로 쉬어도 진도는 줄지 않아요.</p>
   <div class="grow"></div><div class="confirm-row"><button class="btn ghost" data-act="onbBack">이전</button><button class="btn" data-act="onbNext">다음</button></div>`;
@@ -1290,7 +1591,7 @@ function onbHTML(){
 /* ---------- v2: 인사발령 + 공유 카드 ---------- */
 function promoHTML(d){
  const s=SEASON.find(x=>x.d===d);if(!s)return "";
- return `<div class="order"><span class="eyebrow">PEBBLE CORP. 인사팀</span><h3>인사발령</h3>
+ return `<div class="order"><span class="eyebrow">(주)칼퇴상사 인사팀</span><h3>인사발령</h3>
  <p>성명 돌대리<br>출근 <span class="mono">${d}</span>일 차, 「${s.t}」</p><p class="hint" style="margin:0">${s.s}</p>
  <div class="fx" style="justify-content:center"><span class="c">축하금 코인 +${won(s.c)}</span></div><div class="seal">인사<br>팀장</div></div>
  <button class="btn wide" data-act="close">감사합니다</button>`;
@@ -1300,7 +1601,7 @@ async function makeCard(sl){
  const W=1080,H=1920,cv=document.createElement("canvas");cv.width=W;cv.height=H;const c=cv.getContext("2d");
  const FF='"Jua","Apple SD Gothic Neo","Malgun Gothic",sans-serif';
  try{await document.fonts.load('48px "Jua"')}catch(e){}
- const img=new Image();img.src="images/poses/"+(POSES.off?"off":"base")+".png";
+ const img=new Image();img.src="pose-"+(POSES.off?"off":"base")+".png";
  try{await img.decode()}catch(e){}
  c.fillStyle="#EDF2F8";c.fillRect(0,0,W,H);
  c.fillStyle="#18212F";c.font=`72px ${FF}`;c.textBaseline="alphabetic";c.fillText("퇴근중",90,170);
@@ -1312,7 +1613,7 @@ async function makeCard(sl){
  c.fillStyle="#FFFFFF";rr(c,90,top,900,bh,40);c.fill();
  c.fillStyle="#F1F5FA";c.save();rr(c,90,top,900,bh,40);c.clip();c.fillRect(90,top,900,150);c.restore();
  c.fillStyle="#18212F";c.font=`60px ${FF}`;c.fillText("급여명세서",130,top+95);
- c.fillStyle="#5A6576";c.font=`30px ${FF}`;c.textAlign="right";c.fillText("성명 돌대리 · Pebble Corp.",950,top+80);c.fillText(`지급일 ${sl.date}`,950,top+122);c.textAlign="left";
+ c.fillStyle="#5A6576";c.font=`30px ${FF}`;c.textAlign="right";c.fillText("성명 돌대리 · (주)칼퇴상사",950,top+80);c.fillText(`지급일 ${sl.date}`,950,top+122);c.textAlign="left";
  let y=top+150;
  const row=(a,b,size,col)=>{c.strokeStyle="#DCE3ED";c.lineWidth=2;c.beginPath();c.moveTo(130,y);c.lineTo(950,y);c.stroke();c.fillStyle=col;c.font=`${size}px ${FF}`;c.fillText(a,130,y+size+14);c.textAlign="right";c.fillText(b,950,y+size+14);c.textAlign="left"};
  sl.lines.forEach(l=>{row(l[0],won(l[1]),40,"#18212F");y+=76});
@@ -1324,13 +1625,114 @@ async function makeCard(sl){
  return new Promise(r=>cv.toBlob(r,"image/png"));
 }
 
+/* ---------- v15: 돌대리 따라 하기 미션 ---------- */
+const SX_HINT={blink:"😌 감고… 뜨고",far:"🔭 멀리멀리",walk:"🚶 물 뜨러 가는 중",drink:"💧 꿀꺽 꿀꺽",tiltR:"↷ 오른쪽으로",tiltL:"↶ 왼쪽으로",nod:"↓ 천천히 숙이기",shrug:"⇡ 으쓱!",roll:"⟲ 뒤로 크게",reach:"⇈ 쭈욱",sideR:"→ 옆구리 쭉",sideL:"← 옆구리 쭉",shake:"〰 털털털"};
+function missionDue(m){return state.demo||mins(nowHM())>=m.at}
+function missionList(ms,day){
+ const live=day.inAt&&!day.outAt;
+ let h=ms.map(m=>{const on=!!day.missions[m.id], due=live&&!on&&missionDue(m);
+  const st=on?"완료":!day.inAt?"출근하면 열려요":day.outAt?"오늘은 지나갔어요":due?"지금 할 시간!":`${hm(m.at)}에 알려줄게요`;
+  return `<button class="mission mx ${on?"on":""} ${due?"due":""}" data-act="stretch:${m.id}" ${!live||on?"disabled":""} aria-pressed="${on}">
+   <span class="mx-t mono">${hm(m.at)}</span><span class="mx-i" aria-hidden="true">${on?"✓":m.ico}</span>
+   <span class="mx-b"><b>${m.t}</b><small>${st}</small></span><span class="r">+${m.c}</span></button>`}).join("");
+ if(live&&!ms.every(m=>day.missions[m.id])){
+  const canN="Notification" in window&&Notification.permission==="default";
+  h+=`<div class="mx-tools">${canN?`<button class="chip-btn" data-act="notifyOn">🔔 알림 받기</button>`:""}<button class="chip-btn" data-act="missionIcs">📅 휴대폰 캘린더에 알림 넣기</button></div>`;
+ }
+ return h;
+}
+const SX={id:null,i:0,left:0,run:false,t:0,last:0};
+function sxStop(){clearInterval(SX.t);SX.t=0;SX.run=false}
+function stretchHTML(m){
+ const total=m.steps.reduce((a,s)=>a+s[1],0);
+ return `<div class="ghead"><div><span class="hint">${m.slot==="am"?"오전":"오후"} 미션 · ${hm(m.at)}</span><h2>${m.ico} ${m.t}</h2></div><button class="gx" data-act="close" aria-label="닫기">×</button></div>
+ <div class="sx" id="sx" data-mv="ready" aria-hidden="true">
+  <div class="sx-win"></div><div class="sx-lid"></div>
+  <div class="sx-peb">${stoneSvg(myEq())}</div><span class="sx-cup">🥛</span>
+  <span class="sx-hint" id="sxhint">돌대리를 따라 해요</span>
+ </div>
+ <div class="sx-now"><div class="sx-rw"><svg class="sx-ring" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="19"/><circle id="sxring" cx="22" cy="22" r="19" pathLength="100" stroke-dasharray="100" stroke-dashoffset="0"/></svg>
+  <b class="mono" id="sxsec">${total}</b></div><p id="sxstep" aria-live="polite">${m.sub}</p></div>
+ <ol class="sx-steps" id="sxsteps">${m.steps.map((s,i)=>`<li data-i="${i}"><span>${s[0]}</span><small class="mono">${s[1]}초</small></li>`).join("")}</ol>
+ <button class="btn wide" id="sxbtn" data-act="stretchGo">시작하기 · ${total}초</button>
+ <p class="hint" style="text-align:center;margin:8px 0 0">끝까지 따라 하면 월급코인 +${m.c}</p>`;
+}
+function sxPaint(m){
+ const el=document.getElementById("sx");if(!el){sxStop();return false}
+ const st=m.steps[SX.i], tot=m.steps.reduce((a,s)=>a+s[1],0), done=m.steps.slice(0,SX.i).reduce((a,s)=>a+s[1],0)+(st?st[1]-SX.left:0);
+ const fin=SX.i>=m.steps.length;
+ el.dataset.mv=fin?"done":SX.run?st[2]:"ready";
+ document.getElementById("sxhint").textContent=fin?"🎉 개운하다돌!":SX.run?SX_HINT[st[2]]:"잠깐 멈춤";
+ document.getElementById("sxsec").textContent=fin?"✓":Math.ceil(SX.left);
+ document.getElementById("sxring").setAttribute("stroke-dashoffset",String(Math.min(100,done/tot*100).toFixed(1)));
+ document.getElementById("sxstep").textContent=fin?"잘했어요! 몸이 한결 가벼워졌어요.":`${SX.i+1}/${m.steps.length} · ${st[0]}`;
+ document.querySelectorAll("#sxsteps li").forEach((li,i)=>{li.classList.toggle("on",i===SX.i&&!fin);li.classList.toggle("ok",i<SX.i)});
+ const b=document.getElementById("sxbtn");
+ if(fin){b.textContent=`완료하고 코인 받기 +${m.c}`;b.dataset.act="stretchDone";b.classList.add("gold")}
+ else b.textContent=SX.run?"잠깐 멈추기":"이어서 하기";
+ return true;
+}
+function openStretch(id){
+ const m=todaysMissions().find(x=>x.id===id);if(!m)return;
+ sxStop();Object.assign(SX,{id,i:0,left:m.steps[0][1]});
+ modal(stretchHTML(m));
+}
+function stretchToggle(){
+ const m=todaysMissions().find(x=>x.id===SX.id);if(!m||SX.i>=m.steps.length)return;
+ if(SX.run){sxStop();sxPaint(m);return}
+ SX.run=true;SX.last=performance.now();sxPaint(m);
+ SX.t=setInterval(()=>{
+  const now=performance.now();SX.left-=(now-SX.last)/1000;SX.last=now;
+  if(SX.left<=0){SX.i++;if(SX.i>=m.steps.length){sxStop();if(navigator.vibrate)navigator.vibrate(60)}else{SX.left=m.steps[SX.i][1];if(navigator.vibrate)navigator.vibrate(25)}}
+  sxPaint(m);
+ },100);
+}
+function missionDone(id){
+ const d=state.day;if(!d.inAt||d.missions[id])return;
+ const m=MISSIONS.find(x=>x.id===id);if(!m)return;
+ d.missions[id]=true;applyFx(Object.assign({coins:m.c},m.fx));gainXp(10);
+ toast(`${m.ico} 미션 완료 · 코인 +${m.c}`);
+}
+/* 알림: 앱이 열려 있으면 시간에 맞춰 돌대리가 알려줘요(알림 허용 시 시스템 알림도). 앱을 닫아 두면 캘린더 알림을 쓰세요. */
+function missionRemind(){
+ if(state.demo||!state.day)return;ensureDay();const d=state.day;if(!d.inAt||d.outAt)return;
+ d.reminded=d.reminded||{};let changed=false,last=null;
+ todaysMissions().forEach(m=>{
+  if(d.missions[m.id]||d.reminded[m.id]||!missionDue(m))return;
+  d.reminded[m.id]=1;changed=true;last=m;
+ });
+ if(last){const m=last;
+  const msg=`${m.ico} ${m.t} 할 시간이돌!`;toast(msg);
+  if("Notification" in window&&Notification.permission==="granted"){
+   const opt={body:"돌대리 따라 하고 월급코인 +"+m.c,icon:"icon-192.png",tag:"tg-"+m.id};
+   (navigator.serviceWorker&&navigator.serviceWorker.getRegistration?navigator.serviceWorker.getRegistration():Promise.resolve(null))
+    .then(r=>r?r.showNotification(msg,opt):new Notification(msg,opt)).catch(()=>{});
+  }
+ }
+ if(changed){save();if(state.tab==="today"&&!document.getElementById("modal").innerHTML)render()}
+}
+function missionIcs(){
+ const d=state.day, ms=todaysMissions().filter(m=>!d.missions[m.id]);if(!ms.length)return;
+ const ymdc=d.date.replace(/-/g,""), t=m=>hm(m).replace(":","")+"00";
+ const stamp=new Date().toISOString().replace(/[-:]/g,"").slice(0,15)+"Z";
+ const ev=ms.map(m=>["BEGIN:VEVENT",`UID:${d.date}-${m.id}@toegeunjung`,`DTSTAMP:${stamp}`,`DTSTART:${ymdc}T${t(m.at)}`,`DTEND:${ymdc}T${t(m.at+5)}`,
+  `SUMMARY:퇴근중 · ${m.t}`,`DESCRIPTION:돌대리 따라 ${m.t}! 앱에서 끝내면 월급코인 +${m.c}`,"BEGIN:VALARM","ACTION:DISPLAY","TRIGGER:PT0M",`DESCRIPTION:${m.ico} ${m.t} 할 시간이돌!`,"END:VALARM","END:VEVENT"].join("\r\n"));
+ const ics=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//toegeunjung//mission//KO","CALSCALE:GREGORIAN",...ev,"END:VCALENDAR",""].join("\r\n");
+ const name=`toegeunjung-mission-${d.date}.ics`, blob=new Blob([ics],{type:"text/calendar"});
+ let file=null;try{file=new File([blob],name,{type:"text/calendar"})}catch(e){}
+ if(file&&navigator.canShare&&navigator.canShare({files:[file]})){navigator.share({files:[file],title:"오늘의 미션 알림"}).catch(()=>{});return}
+ const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();
+ setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1000);
+ toast("캘린더 파일을 받았어요. 열어서 추가하면 그 시간에 알림이 울려요");
+}
+
 /* ---------- ui helpers ---------- */
 function toast(msg){const box=document.getElementById("toasts");while(box.children.length>=2)box.firstChild.remove();const t=document.createElement("div");t.className="toast";t.textContent=msg;box.appendChild(t);setTimeout(()=>t.remove(),2600)}
 function modal(html){document.getElementById("modal").innerHTML=`<div class="scrim" data-act="close"><div class="sheet" role="dialog" aria-modal="true">${html}</div></div>`}
 function closeModal(){document.getElementById("modal").innerHTML=""}
 
 function slipHTML(sl,stamp){
- return `<div class="slip-wrap"><div class="slip"><div class="slip-h"><b>급여명세서</b><span>성명 돌대리 · Pebble Corp.<br>지급일 <span class="mono">${sl.date}</span></span></div>
+ return `<div class="slip-wrap"><div class="slip"><div class="slip-h"><b>급여명세서</b><span>성명 돌대리 · (주)칼퇴상사<br>지급일 <span class="mono">${sl.date}</span></span></div>
  <table><tbody>${sl.lines.map(l=>`<tr><td>${l[0]}</td><td>${won(l[1])}</td></tr>`).join("")}
  <tr class="total"><td>퇴근 지급액</td><td>${won(sl.total)}</td></tr>
  ${sl.ref.map(l=>`<tr class="sub"><td>${l[0]}</td><td>${l[1]}</td></tr>`).join("")}</tbody></table></div>${stamp?'<div class="stamp">DAY CLEAR</div>':""}</div>`;
@@ -1338,10 +1740,16 @@ function slipHTML(sl,stamp){
 
 /* ---------- actions ---------- */
 const act={
+ fishCast(){fishCast();return "noRender"},
+ fishPull(){fishPull();return "noRender"},
+ gameTab(t){state.gameTab=t==="word"?"word":"run"},
+ stepsToggle(){state.stepsOpen=!state.stepsOpen},
+ runSel(n){const RS=runState();n=+n;if(n>=1&&n<=RS.unlocked)RS.sel=n},
+ run(n){openRunner(n==='fri'?'fri':+n);return "noRender"},
  tab(k){if(k==="local"&&state.tab!=="local")state.hood={v:"main",space:null,pid:null,sort:(state.hood||{}).sort||"new",pos:(state.hood||{}).pos};state.tab=k;window.scrollTo(0,0)},
  cat(k){state.shopCat=k},
  cal(ym){state.calMonth=ym},
- luckFlip(){const L=luckState();if(L.fortune.flipped)return "noRender";const el=document.getElementById("flip");if(el)el.classList.add("open");
+ luckFlip(){const L=luckState();if(L.fortune.flipped)return "noRender";if(!L.birth)return act.luckBirth();const el=document.getElementById("flip");if(el)el.classList.add("open");
   const got=claimFortune();const cv=document.getElementById("coinv");if(cv)cv.textContent=won(state.coins);
   setTimeout(()=>{toast(got?`오늘의 운세 확인! ${coinLabel(got)}`:"오늘 운세는 이미 확인했어요");if(state.tab==="luck")render()},750);return "noRender"},
  luckBirth(){const b=luckState().birth||{};const max=LK.kstDate();
@@ -1350,7 +1758,7 @@ const act={
    <label for="bdate" class="fl">생년월일</label><input id="bdate" class="fin" type="date" min="1930-01-01" max="${max}" value="${b.date||""}" required>
    <label for="btime" class="fl">태어난 시간 <span class="hint">(선택)</span></label><input id="btime" class="fin" type="time" value="${b.time||""}" ${b.date&&!b.time?"disabled":""}>
    <label class="chk"><input type="checkbox" id="bnotime" ${b.date&&!b.time?"checked":""}><span>태어난 시간을 몰라요 (연·월·일 세 기둥으로 봐요)</span></label>
-   <p class="hint" style="margin:0">생년월일은 이 기기에만 저장되고, 동네 게시판이나 공유 이미지에는 들어가지 않아요. 음력 생일은 양력으로 바꿔서 넣어 주세요.</p>
+   <p class="hint" style="margin:0">생년월일은 이 기기에만 저장되고, 회사 게시판이나 공유 이미지에는 들어가지 않아요. 음력 생일은 양력으로 바꿔서 넣어 주세요.</p>
    <p class="cm-err" id="berr" aria-live="polite"></p>
    <div class="confirm-row">${b.date?`<button type="button" class="btn ghost" data-act="luckBirthClear">지우기</button>`:`<button type="button" class="btn ghost" data-act="close">취소</button>`}<button class="btn" type="submit">저장</button></div></form>`);return "noRender"},
  luckBirthClear(){const L=luckState();delete L.birth;save();closeModal();toast("생년월일을 지웠어요");render();return "noRender"},
@@ -1396,9 +1804,10 @@ const act={
  hoodDelYes(id){const sp=(CM.post(id)||{}).space;closeModal();CM.deletePost(id).then(()=>{toast("글을 삭제했어요");Object.assign(hood(),{v:sp?"space":"main",space:sp||null,pid:null});save();render()}).catch(()=>toast("삭제하지 못했어요"));return "noRender"},
  hoodDelC(id){CM.deleteComment(id).catch(()=>toast("삭제하지 못했어요"));return "noRender"},
  hoodReport(id){modal(`<div class="sec-h"><h2>신고하기</h2><small>운영자에게 전달돼요</small></div><form id="rform" class="reasons">${CM.REPORT_REASONS.map((r,i)=>`<label><input type="radio" name="reason" value="${r.id}" ${i===0?"checked":""}><span>${r.label}${r.hideNow?" <i class='flag'>바로 가림</i>":""}</span></label>`).join("")}<input type="hidden" name="pid" value="${esc(id)}"><div class="confirm-row"><button type="button" class="btn ghost" data-act="close">취소</button><button class="btn danger" type="submit">신고</button></div></form>`);return "noRender"},
- game(){modal(gameHTML());setTimeout(()=>{const i=document.getElementById("gin");if(i&&matchMedia("(pointer:fine)").matches)i.focus()},50);return "noRender"},
+ game(){openGame();return "noRender"},
+ gameHint(id){useHint(id);return "noRender"},
  giveUp(){document.getElementById("giveArea").innerHTML=`<div class="confirm-row"><button class="btn ghost" data-act="game">계속 도전</button><button class="btn danger" data-act="giveUpYes">정답 보기</button></div><p class="hint" style="margin:6px 0 0">정답을 보면 오늘 랭킹에는 오를 수 없어요.</p>`;return "noRender"},
- giveUpYes(){const g=gameState();g.gaveUp=true;save();modal(gameHTML());return "noRender"},
+ giveUpYes(){const g=gameState();g.gaveUp=true;const D=TW.day(g.date);if(D)g.answer=D.secret;save();modal(gameHTML());return "noRender"},
  onbNext(){onbStep=Math.min(2,onbStep+1)},
  onbBack(){onbStep=Math.max(0,onbStep-1)},
  onbDone(){state.onboarded=true;state.tab="today";window.scrollTo(0,0);toast(`${state.district} 돌로 등록했어요. 내일 아침, 같이 출근해요`)},
@@ -1423,11 +1832,13 @@ const act={
   for(;i<EVENTS.length;i++){x-=EVENTS[i].w;if(x<0)break}
   d.lunch=Math.min(i,EVENTS.length-1);applyFx(EVENTS[d.lunch].fx);gainXp(5);
  },
- mission(id){
-  const d=state.day;if(!d.inAt||d.missions[id])return;
-  const m=MISSIONS.find(x=>x.id===id);d.missions[id]=true;applyFx(Object.assign({coins:m.c},m.fx));gainXp(10);
-  toast(`미션 완료 · 코인 +${m.c}`);
- },
+ mission(id){missionDone(id)},
+ stretch(id){const d=state.day;if(!d.inAt||d.outAt||d.missions[id])return "noRender";openStretch(id);return "noRender"},
+ stretchGo(){stretchToggle();return "noRender"},
+ stretchDone(){const id=SX.id;sxStop();closeModal();missionDone(id)},
+ notifyOn(){if(!("Notification" in window))return "noRender";
+  try{Notification.requestPermission().then(p=>{toast(p==="granted"?"앱이 열려 있으면 미션 시간에 알림을 보내요":"알림이 꺼져 있어요. 캘린더 알림을 써 보세요");render()}).catch(()=>{})}catch(e){}return "noRender"},
+ missionIcs(){missionIcs();return "noRender"},
  clockOut(mode){
   const d=state.day;if(!d.inAt||d.outAt)return;
   const out=state.demo?"18:04":nowHM();
@@ -1512,12 +1923,13 @@ const act={
   if(state.coins<h.price){toast(`이사 자금이 ${won(h.price-state.coins)} 부족해요`);return}
   state.coins-=h.price;state.house=lv;toast(`${h.name}(으)로 이사했어요`);
  },
- night(){if(!(state.demo||new Date().getHours()>=18))return;state.day.night=!state.day.night;toast(state.day.night?"야근중 상태를 켰어요. 같은 동네 돌들에게 보여요":"야근중 상태를 껐어요")},
+ night(){if(!(state.demo||new Date().getHours()>=18))return;state.day.night=!state.day.night;toast(state.day.night?"야근중 상태를 켰어요. 같은 회사 돌들에게 보여요":"야근중 상태를 껐어요")},
  cheer(){const d=state.day;if(d.cheers>=5){toast("오늘 응원은 5번까지 보낼 수 있어요");return}d.cheers++;applyFx({happy:2});toast(`${state.district} 야근 돌에게 응원을 보냈어요 · 행복 +2`)},
  demo(){state.demo=!state.demo;if(state.demo){state.demoDate=ymd(new Date())}toast(state.demo?"체험 모드를 켰어요":"실제 시간 모드로 돌아왔어요")},
  reset(){document.getElementById("resetArea").innerHTML=`<p class="hint" style="margin:0 0 8px">코인, 아이템, 근속 기록이 모두 사라져요.</p><div class="confirm-row"><button class="btn ghost" data-act="tab:drawer">취소</button><button class="btn danger" data-act="resetYes">초기화</button></div>`;return "noRender"},
  resetYes(){state=fresh();ensureDay();toast("처음부터 다시 시작해요")},
  close(){
+  fishClear();
   if(state.pendingPromo){const p=state.pendingPromo;state.pendingPromo=null;save();modal(promoHTML(p));render();return "noRender"}
   closeModal();render();return "noRender"},
 };
@@ -1532,54 +1944,167 @@ document.addEventListener("click",e=>{
  if(name==="clockOut"||name==="box"||name==="openBox"){/* modal already open */}
 });
 /* ----- 마을 이동 ----- */
-const VIL={x:0,y:0,tx:null,ty:null,raf:0,keys:{},last:0,near:null,pres:0};
+const VIL={x:0,y:0,tx:null,ty:null,raf:0,keys:{},last:0,near:null,pres:0,intro:true};
 function vEls(){return {box:document.getElementById("village"),me:document.getElementById("vme"),btn:document.getElementById("venter"),peers:document.getElementById("vpeers")}}
 function vPlace(){const {me}=vEls();if(!me)return;me.style.left=pct(VIL.x,VG.W);me.style.top=pct(VIL.y,VG.H)}
-function vNear(){let best=null,bd=1e9;VG.PLACES.forEach(p=>{const d=Math.hypot(p.door.x-VIL.x,p.door.y-VIL.y);if(d<bd){bd=d;best=p}});return bd<=30?best:null}
-function vShowEnter(){const {btn}=vEls();if(!btn)return;const p=vNear();VIL.near=p;
+function vNear(){const inside=VG.PLACES.find(p=>p.area&&inR(p.area,VIL.x,VIL.y));if(inside)return inside;
+ let best=null,bd=1e9;VG.PLACES.forEach(p=>{if(p.area)return;const d=Math.hypot(p.door.x-VIL.x,p.door.y-VIL.y);if(d<bd){bd=d;best=p}});return bd<=30?best:null}
+function vLabels(){VG.PLACES.forEach(p=>{const el=document.querySelector(`[data-vlabel="${p.id}"]`);if(!el)return;const d=Math.hypot(p.door.x-VIL.x,p.door.y-VIL.y);el.classList.toggle("on",d<90&&!(VIL.near&&VIL.near.id===p.id))})}
+function vShowEnter(){const {btn}=vEls();if(!btn)return;const p=vNear();VIL.near=p;vLabels();
  if(!p){btn.hidden=true;return}
- btn.hidden=false;btn.textContent=`${p.emoji} ${p.name} 들어가기`;btn.style.left=pct(p.door.x,VG.W);btn.style.top=pct(Math.max(40,p.hit.y-4),VG.H);btn.dataset.place=p.id}
-function vPresence(force){const now=Date.now();if(!force&&now-VIL.pres<350)return;VIL.pres=now;CM.presence({x:Math.round(VIL.x),y:Math.round(VIL.y),nick:CM.state.me.nick||"돌"})}
+ btn.hidden=false;btn.textContent=p.kind==="work"?`💻 자리로 가서 일하기`:p.kind==="fish"?`🎣 낚시하기${fishLeft()?` · ${fishLeft()}번 남음`:" · 오늘은 끝"}`:`${p.emoji} ${p.name} 들어가기`;const bx=p.area?VIL.x:p.door.x,by=p.area?VIL.y-34:p.door.y-30;btn.style.left=pct(bx,VG.W);btn.style.top=pct(Math.max(30,by),VG.H);btn.classList.toggle("al",bx<VG.W*.3);btn.classList.toggle("ar",bx>VG.W*.7);btn.dataset.place=p.id}
+function vPresence(force){const now=Date.now();if(!force&&now-VIL.pres<350)return;VIL.pres=now;CM.presence({x:Math.round(VIL.x),y:Math.round(VIL.y),nick:CM.state.me.nick||"돌",anon:CM.state.me.anon||null,eq:myEq()})}
 function vLoop(t){
  const {me}=vEls();if(!me){VIL.raf=0;return}
  const dt=Math.min(.05,(t-(VIL.last||t))/1000);VIL.last=t;
  let dx=0,dy=0;const k=VIL.keys;
  if(k.ArrowLeft||k.a)dx-=1;if(k.ArrowRight||k.d)dx+=1;if(k.ArrowUp||k.w)dy-=1;if(k.ArrowDown||k.s)dy+=1;
  const SPD=120;let moving=false;
- if(dx||dy){const l=Math.hypot(dx,dy);VIL.x+=dx/l*SPD*dt;VIL.y+=dy/l*SPD*dt;VIL.tx=null;moving=true;if(dx)me.classList.toggle("left",dx<0)}
+ if(dx||dy){const l=Math.hypot(dx,dy);const nx=VIL.x+dx/l*SPD*dt,ny=VIL.y+dy/l*SPD*dt;
+  if(walkable(nx,ny)){VIL.x=nx;VIL.y=ny}else if(walkable(nx,VIL.y))VIL.x=nx;else if(walkable(VIL.x,ny))VIL.y=ny;
+  VIL.tx=null;VIL.path=[];moving=true;if(dx)me.classList.toggle("left",dx<0)}
  else if(VIL.tx!=null){const ddx=VIL.tx-VIL.x,ddy=VIL.ty-VIL.y,d=Math.hypot(ddx,ddy);
-  if(d<2){VIL.x=VIL.tx;VIL.y=VIL.ty;VIL.tx=null}else{const st=Math.min(d,SPD*dt);VIL.x+=ddx/d*st;VIL.y+=ddy/d*st;moving=true;if(Math.abs(ddx)>1)me.classList.toggle("left",ddx<0)}}
+  if(d<2){VIL.x=VIL.tx;VIL.y=VIL.ty;VIL.tx=null;if(VIL.path&&VIL.path.length){const n=VIL.path.shift();VIL.tx=n.x;VIL.ty=n.y;moving=true}}else{const st=Math.min(d,SPD*dt);VIL.x+=ddx/d*st;VIL.y+=ddy/d*st;moving=true;if(Math.abs(ddx)>1)me.classList.toggle("left",ddx<0)}}
  const B=VG.BOUNDS;VIL.x=Math.max(B.x0,Math.min(B.x1,VIL.x));VIL.y=Math.max(B.y0,Math.min(B.y1,VIL.y));
  me.classList.toggle("walk",moving);vPlace();vShowEnter();
+ if(moving&&t-(VIL.puff||0)>170){VIL.puff=t;vPuff()}
  const h=hood();h.pos={x:Math.round(VIL.x),y:Math.round(VIL.y)};
  if(moving){vPresence(false);VIL.raf=requestAnimationFrame(vLoop)}else{vPresence(true);VIL.raf=0;VIL.last=0}
 }
-function vGo(x,y){VIL.tx=x;VIL.ty=y;if(!VIL.raf){VIL.last=0;VIL.raf=requestAnimationFrame(vLoop)}}
+/* v14: 십자 복도 + 방 안까지 걷기 — 걸을 수 있는 사각형(WALK)을 격자로 바꿔 길을 찾아요 (대각선 포함, 벽 모서리는 못 질러가요) */
+const inR=(r,x,y)=>x>=r.x&&x<=r.x+r.w&&y>=r.y&&y<=r.y+r.h;
+const walkable=(x,y)=>(VG.WALK||[]).some(r=>inR(r,x,y));
+function snap(x,y){const W=VG.WALK||[];if(!W.length)return {x,y,r:0};let best=null,bd=1e9;
+ W.forEach((r,i)=>{const px=Math.max(r.x,Math.min(r.x+r.w,x)),py=Math.max(r.y,Math.min(r.y+r.h,y)),d=Math.hypot(px-x,py-y);if(d<bd){bd=d;best={x:px,y:py,r:i}}});return best}
+let VGRID=null;const GC=3;
+function vGrid(){if(VGRID&&VGRID.W===VG.WALK)return VGRID;const cols=Math.ceil(VG.W/GC),rows=Math.ceil(VG.H/GC),g=new Uint8Array(cols*rows);
+ for(let j=0;j<rows;j++)for(let i=0;i<cols;i++)if(walkable((i+.5)*GC,(j+.5)*GC))g[j*cols+i]=1;
+ return VGRID={W:VG.WALK,g,cols,rows}}
+function lineOK(ax,ay,bx,by){const d=Math.hypot(bx-ax,by-ay),n=Math.ceil(d/1.5);for(let k=1;k<n;k++){const t=k/n;if(!walkable(ax+(bx-ax)*t,ay+(by-ay)*t))return false}return true}
+function vPath(fx,fy,tx,ty){
+ if(lineOK(fx,fy,tx,ty))return [{x:tx,y:ty}];
+ const G=vGrid(),C=G.cols,cell=(x,y)=>{let i=Math.floor(x/GC),j=Math.floor(y/GC);i=Math.max(0,Math.min(C-1,i));j=Math.max(0,Math.min(G.rows-1,j));return j*C+i};
+ const near=c=>{if(G.g[c])return c;const ci=c%C,cj=(c/C)|0;for(let r=1;r<8;r++)for(let dj=-r;dj<=r;dj++)for(let di=-r;di<=r;di++){const i=ci+di,j=cj+dj;if(i>=0&&j>=0&&i<C&&j<G.rows&&G.g[j*C+i])return j*C+i}return c};
+ const s0=near(cell(fx,fy)),s1=near(cell(tx,ty)),prev=new Int32Array(C*G.rows).fill(-1);prev[s0]=s0;const q=[s0];
+ const N=[[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]];
+ for(let h=0;h<q.length&&prev[s1]<0;h++){const c=q[h],ci=c%C,cj=(c/C)|0;
+  for(const [di,dj] of N){const i=ci+di,j=cj+dj;if(i<0||j<0||i>=C||j>=G.rows)continue;const n=j*C+i;if(prev[n]>=0||!G.g[n])continue;
+   if(di&&dj&&(!G.g[cj*C+i]||!G.g[j*C+ci]))continue;prev[n]=c;q.push(n)}}
+ if(prev[s1]<0)return [snap(tx,ty)];
+ const pts=[];for(let c=s1;c!==s0;c=prev[c])pts.push({x:(c%C+.5)*GC,y:(((c/C)|0)+.5)*GC});pts.reverse();pts.push({x:tx,y:ty});
+ /* 줄 당기기: 곧게 갈 수 있는 점은 건너뛰어 자연스럽게 */
+ const out=[];let ax=fx,ay=fy,k=0;
+ while(k<pts.length){let far=k;for(let m=pts.length-1;m>k;m--){if(lineOK(ax,ay,pts[m].x,pts[m].y)){far=m;break}}out.push(pts[far]);ax=pts[far].x;ay=pts[far].y;k=far+1}
+ return out}
+function vGo(x,y){
+ const t=snap(x,y),path=vPath(VIL.x,VIL.y,t.x,t.y);const n=path.shift();VIL.path=path;VIL.tx=n.x;VIL.ty=n.y;
+ if(!VIL.raf){VIL.last=0;VIL.raf=requestAnimationFrame(vLoop)}}
+/* 걸을 때 발밑에 작은 먼지 */
+function vPuff(){const {box}=vEls();if(!box)return;const e=document.createElement("i");e.className="vpuff";e.style.left=pct(VIL.x+(Math.random()*6-3),VG.W);e.style.top=pct(VIL.y,VG.H);box.appendChild(e);setTimeout(()=>e.remove(),520)}
+
+/* ----- v11: 꾸민 모습 · 돌 인사 ----- */
+function myEq(){return CM.cleanEq?CM.cleanEq(state.equipped):{}}
+function stoneSvg(eq){return `<svg viewBox="88 18 180 192" aria-hidden="true">${potato(Object.assign({head:null,face:null,body:null,pet:null},eq||{}),"ok",{pose:"base"})}</svg>`}
+const emoText=e=>{const m=(CM.EMOTES||[]).find(x=>x.e===e);return m?m.t:""};
+function vBubble(el,e){let b=el.querySelector(".vbub");if(b)b.remove();b=document.createElement("span");b.className="vbub";b.textContent=`${e} ${emoText(e)}`;el.appendChild(b);setTimeout(()=>b.remove(),2800)}
+function vEmoteBar(el){const bar=document.getElementById("vemo");if(!bar)return;
+ const me=el.classList.contains("vme"),to=me?"":(el.dataset.anon||""),nick=me?"":el.dataset.nick;
+ if(!bar.hidden&&bar.dataset.for===(me?"me":el.dataset.peer)){bar.hidden=true;return}
+ bar.dataset.for=me?"me":el.dataset.peer;bar.dataset.to=to;
+ bar.innerHTML=`<span class="vemo-t">${me?"모두에게 인사":esc(nick)+"에게 인사"}</span><span class="vemo-b">${(CM.EMOTES||[]).map(x=>`<button type="button" data-emo="${x.e}" aria-label="${x.t}">${x.e}</button>`).join("")}</span>`;
+ bar.style.left=el.style.left;bar.style.top=el.style.top;bar.hidden=false}
+let lastEmo=0;
+function vSendEmote(e,to){const now=Date.now(),bar=document.getElementById("vemo");if(bar)bar.hidden=true;
+ if(now-lastEmo<2000){toast("인사는 2초에 한 번씩 보낼 수 있어요");return}lastEmo=now;
+ const me=document.getElementById("vme");if(me)vBubble(me,e);
+ CM.presence({x:Math.round(VIL.x),y:Math.round(VIL.y),nick:CM.state.me.nick||"돌",anon:CM.state.me.anon||null,eq:myEq(),emo:{e,to:to||null,at:now}});
+ if(to&&CM.state.mode==="shared")toast("인사를 보냈어요")}
+
+/* ----- v11: 연못 낚시 (하루 3번 던지기, 낚으면 그날은 끝) ----- */
+const FISH_CASTS=3, FISH_TABLE=[[1,30],[2,30],[3,22],[4,12],[5,6]];
+let FISH={phase:"idle",t1:0,t2:0,biteAt:0};
+function fishState(){const d=LK.kstDate();if(!state.fish||state.fish.date!==d)state.fish={date:d,casts:0,caught:null};return state.fish}
+function fishLeft(){const f=fishState();return f.caught!=null?0:FISH_CASTS-f.casts}
+function fishClear(){clearTimeout(FISH.t1);clearTimeout(FISH.t2);FISH.phase="idle"}
+function fishScene(){return `<div class="fscene" id="fscene" data-ph="idle" aria-hidden="true"><svg viewBox="0 0 320 170">
+ <defs><radialGradient id="fsW" cx=".5" cy=".4" r=".7"><stop offset="0" stop-color="#BDE8F5"/><stop offset="1" stop-color="#6FB8D6"/></radialGradient></defs>
+ <rect width="320" height="170" fill="#A7D888"/>
+ <ellipse cx="170" cy="104" rx="140" ry="58" fill="#8DA0A6" opacity=".4"/><ellipse cx="170" cy="100" rx="132" ry="52" fill="url(#fsW)" stroke="#6B4F3A" stroke-width="2"/>
+ <path d="M90 92 q16 -6 32 0 M210 118 q14 -5 28 0 M150 128 q10 -4 20 0" stroke="#fff" stroke-width="2" fill="none" opacity=".6" stroke-linecap="round"/>
+ <g transform="translate(262 82)"><ellipse rx="14" ry="7" fill="#6CBF5B" stroke="#6B4F3A"/><circle cx="-4" cy="-3" r="3.6" fill="#FFB3C7" stroke="#6B4F3A" stroke-width=".8"/></g>
+ <path d="M20 160 L96 36" stroke="#7A5638" stroke-width="4" stroke-linecap="round"/>
+ <path class="fline" d="M96 36 Q150 40 168 92" stroke="#fff" stroke-width="1.2" fill="none"/>
+ <g class="fripple"><ellipse cx="170" cy="100" rx="10" ry="3.5" fill="none" stroke="#fff" stroke-width="1.6"/><ellipse cx="170" cy="100" rx="20" ry="7" fill="none" stroke="#fff" stroke-width="1.2" opacity=".6"/></g>
+ <g class="fbob"><path d="M164 96 a6 6 0 0 1 12 0 z" fill="#E8574F" stroke="#6B4F3A" stroke-width="1.2"/><path d="M164 96 a6 6 0 0 0 12 0 z" fill="#fff" stroke="#6B4F3A" stroke-width="1.2"/><path d="M170 90 v-5" stroke="#6B4F3A" stroke-width="1.2"/></g>
+ <g class="fcatch">${[[170,74],[156,78],[184,78],[163,64],[177,64]].map(([x,y],i)=>`<g class="fs" data-i="${i}"><ellipse cx="${x}" cy="${y}" rx="9" ry="7" fill="${i===4?"#E9C46A":"#ADAAA5"}" stroke="#6B4F3A" stroke-width="1.3"/><ellipse cx="${x-3}" cy="${y-2.4}" rx="3" ry="1.8" fill="#fff" opacity=".6"/></g>`).join("")}</g>
+ </svg><span class="fbang">!</span></div>`}
+function fishHTML(){const f=fishState(),left=fishLeft();
+ return `<div class="ghead"><div><span class="hint">칼퇴상사 휴게 정원 · 하루 ${FISH_CASTS}번</span><h2>🎣 연못 낚시터</h2></div><button class="gx" data-act="close" aria-label="닫기">×</button></div>
+ ${fishScene()}
+ <p class="fmsg" id="fmsg" aria-live="assertive">${f.caught!=null?`오늘은 자갈 <b>${f.caught}개</b>를 낚았어요. 내일 또 와요!`:left?"낚싯대를 던지고, 찌가 <b>쏙</b> 들어가면 바로 당기세요.":"오늘은 입질이 없었어요. 내일 다시 와요."}</p>
+ <div class="fbtns">${f.caught==null&&left?`<button class="btn wide" id="fbtn" data-act="fishCast">낚싯대 던지기 · ${left}번 남음</button>`:`<button class="btn ghost wide" data-act="close">마을로 돌아가기</button>`}</div>
+ <details class="odds"><summary>낚을 수 있는 자갈</summary><table>${FISH_TABLE.map(([n,p])=>`<tr><td>자갈 ${n}개</td><td class="mono">${p}%</td><td class="mono">+${n*LK.PEBBLE_TO_COIN}코인</td></tr>`).join("")}</table><p class="hint" style="margin:6px 0 0">찌가 들어간 뒤 0.8초 안에 당겨야 해요. 너무 일찍 당기면 물고기가 도망가요.</p></details>`}
+function openFish(){fishClear();modal(fishHTML())}
+function fishSet(ph,msg,btn){const sc=document.getElementById("fscene"),m=document.getElementById("fmsg"),b=document.getElementById("fbtn");if(sc)sc.dataset.ph=ph;if(m&&msg!=null)m.innerHTML=msg;if(b&&btn){b.textContent=btn[0];b.dataset.act=btn[1];b.classList.toggle("gold",!!btn[2])}}
+function fishCast(){const f=fishState();if(fishLeft()<=0||FISH.phase!=="idle")return;
+ f.casts++;save();FISH.phase="wait";
+ fishSet("wait","찌를 지켜보세요…",["당기기!","fishPull"]);
+ const wait=1400+Math.random()*2800;
+ FISH.t1=setTimeout(()=>{FISH.phase="bite";FISH.biteAt=performance.now();fishSet("bite","<b>쏙!</b> 지금 당겨요!",["당기기!","fishPull",1]);try{navigator.vibrate&&navigator.vibrate(40)}catch(e){}
+  FISH.t2=setTimeout(()=>{if(FISH.phase==="bite")fishMiss("놓쳤어요… 너무 늦었어요.")},800)},wait)}
+function fishMiss(msg){fishClear();const left=fishLeft();
+ fishSet("idle",`${msg} ${left?`${left}번 더 던질 수 있어요.`:"오늘은 입질이 끝났어요. 내일 다시 와요."}`,left?[`다시 던지기 · ${left}번 남음`,"fishCast"]:["마을로 돌아가기","close"])}
+function fishPull(){
+ if(FISH.phase==="wait")return fishMiss("앗, 너무 빨랐어요. 물고기가 도망갔어요.");
+ if(FISH.phase!=="bite")return;
+ fishClear();const f=fishState();let r=Math.random()*100,n=1;for(const [k,p] of FISH_TABLE){if((r-=p)<0){n=k;break}}
+ f.caught=n;const coins=n*LK.PEBBLE_TO_COIN;state.coins+=coins;save();
+ const cv=document.getElementById("coinv");if(cv)cv.textContent=won(state.coins);
+ document.querySelectorAll("#fscene .fs").forEach(g=>g.style.display=+g.dataset.i<n?"":"none");
+ fishSet("caught",`🎉 자갈 <b>${n}개</b>를 낚았어요! 월급코인 <b>+${coins}</b>`,["마을로 돌아가기","close"]);
+}
 function vEnter(id){
  const p=VG.PLACES.find(x=>x.id===id);if(!p)return;const {box}=vEls();
  const h=hood();h.pos={x:p.door.x,y:Math.min(VG.BOUNDS.y1,p.door.y+14)};
+ if(p.kind==="fish"){openFish();return}
+ if(p.kind==="work"){state.tab="today";save();render();window.scrollTo(0,0);toast("업무존 도착! 오늘의 근무를 시작해요");return}
  const go=()=>{if(p.kind==="space")Object.assign(h,{v:"space",space:p.id,pid:null});else if(p.kind==="board")h.v="board";else{h.v="inbox";if(!h.tab)h.tab="talk"}save();render();window.scrollTo(0,0)};
  if(box&&!matchMedia("(prefers-reduced-motion: reduce)").matches){box.dataset.enter=`${p.emoji} ${p.name}에 들어가는 중…`;box.classList.add("entering");setTimeout(go,420)}else go();
 }
 function vPeers(){const {peers}=vEls();if(!peers)return;const ps=CM.state.peers||[];
  const have=new Set();ps.forEach(p=>{have.add(p.key);let el=peers.querySelector(`[data-peer="${CSS.escape(p.key)}"]`);
-  if(!el){el=document.createElement("div");el.className="vpeer";el.dataset.peer=p.key;el.innerHTML=`<div class="bod"><img src="images/poses/base.png" alt=""></div><span class="vname"></span>`;peers.appendChild(el)}
-  el.style.left=pct(p.x,VG.W);el.style.top=pct(p.y,VG.H);el.querySelector(".vname").textContent=p.nick||"돌"});
+  if(!el){el=document.createElement("div");el.className="vpeer";el.dataset.peer=p.key;el.innerHTML=`<div class="bod" role="button" tabindex="0"></div><span class="vname"></span>`;peers.appendChild(el)}
+  if(p.anon&&CM.blocked&&CM.blocked(p.anon)){el.hidden=true;return}el.hidden=false;
+  const ek=JSON.stringify(p.eq||{});if(el.dataset.eq!==ek){el.dataset.eq=ek;el.querySelector(".bod").innerHTML=stoneSvg(p.eq||{})}
+  const ox=parseFloat(el.dataset.x||p.x);if(Math.abs(p.x-ox)>1)el.classList.toggle("left",p.x<ox);el.dataset.x=p.x;
+  el.dataset.anon=p.anon||"";el.dataset.nick=p.nick||"돌";el.querySelector(".bod").setAttribute("aria-label",(p.nick||"돌")+"에게 인사 보내기");
+  el.style.left=pct(p.x,VG.W);el.style.top=pct(p.y,VG.H);el.querySelector(".vname").textContent=p.nick||"돌";
+  if(p.emo&&String(p.emo.at)!==el.dataset.emoAt&&Date.now()-p.emo.at<8000){el.dataset.emoAt=String(p.emo.at);vBubble(el,p.emo.e);
+   if(p.emo.to&&p.emo.to===CM.state.me.anon)toast(`${p.nick||"이웃 돌"}이(가) ${p.emo.e} ${emoText(p.emo.e)} 인사를 보냈어요`)}});
  [...peers.children].forEach(el=>{if(!have.has(el.dataset.peer))el.remove()})}
 function updateVillage(){
+ if(CM.state.mode==="shared"&&!VIL.sent){VIL.sent=true;vPresence(true)}
  VG.PLACES.forEach(p=>{const b=document.querySelector(`[data-vbadge="${p.id}"]`);if(!b)return;const n=placeNew(p);b.hidden=!n;b.textContent=n});
- const oc=document.querySelector(".vhead .online");if(oc)oc.outerHTML=onlineChip();
- const mb=document.querySelector(".mybar");if(mb)mb.outerHTML=myBar();
+ const vb=document.querySelector(".vbar");if(vb)vb.outerHTML=vBar();
+ const box=document.getElementById("village"),S=CM.state;if(box){let o=box.querySelector(".vonline");const on=S.mode==="shared"&&S.online!=null;
+  if(on){if(!o){o=document.createElement("span");o.className="vonline";box.prepend(o)}o.innerHTML=`<i class="dot on"></i><b class="mono">${won(S.online)}</b>돌 접속 중`}else if(o)o.remove()}
  vPeers();
 }
 function initVillage(){
  const {box}=vEls();if(!box||box.dataset.ready)return;box.dataset.ready="1";
- const h=hood(),pos=h.pos||VG.SPAWN;VIL.x=pos.x;VIL.y=pos.y;VIL.tx=null;VIL.keys={};vPlace();vShowEnter();vPeers();vPresence(true);
+ const h=hood(),pos=snap((h.pos||VG.SPAWN).x,(h.pos||VG.SPAWN).y);VIL.x=pos.x;VIL.y=pos.y;VIL.tx=null;VIL.path=[];VIL.keys={};vPlace();vShowEnter();vPeers();vPresence(true);
+ if(VIL.intro){VIL.intro=false;setTimeout(()=>{const b=document.getElementById("village");if(b)b.classList.remove("intro")},3200)}
  box.addEventListener("click",e=>{
   const en=e.target.closest(".venter");if(en){vEnter(en.dataset.place);return}
+  const eb=e.target.closest("[data-emo]");if(eb){vSendEmote(eb.dataset.emo,eb.closest(".vemo").dataset.to||null);return}
+  const st=e.target.closest(".vme .bod,.vpeer .bod");if(st){vEmoteBar(st.closest(".vme,.vpeer"));return}
+  if(!document.getElementById("vemo").hidden){document.getElementById("vemo").hidden=true;return}
   const hit=e.target.closest(".vhit");const r=box.getBoundingClientRect();
-  if(hit){const p=VG.PLACES.find(x=>x.id===hit.dataset.vplace);if(p){if(VIL.near&&VIL.near.id===p.id){vEnter(p.id);return}vGo(p.door.x,Math.min(VG.BOUNDS.y1,p.door.y+6))}return}
-  vGo((e.clientX-r.left)/r.width*VG.W,(e.clientY-r.top)/r.height*VG.H);
+  const mx=(e.clientX-r.left)/r.width*VG.W,my=(e.clientY-r.top)/r.height*VG.H;
+  if(hit){const p=VG.PLACES.find(x=>x.id===hit.dataset.vplace);if(p){
+   if(p.area){if(inR(p.area,mx,my))vGo(mx,my);else vGo(p.door.x,p.door.y);return} /* 방: 누른 곳까지 걸어 들어가요. 들어가기는 말풍선 버튼으로 */
+   if(VIL.near&&VIL.near.id===p.id){vEnter(p.id);return}vGo(p.door.x,p.door.y)}return}
+  vGo(mx,my);
  });
 }
 document.addEventListener("keydown",e=>{
@@ -1602,7 +2127,7 @@ document.addEventListener("submit",e=>{
  if(f.id==="bform"){e.preventDefault();const d=document.getElementById("bdate").value,nt=document.getElementById("bnotime").checked,t=nt?"":document.getElementById("btime").value,err=document.getElementById("berr");
   if(!/^\d{4}-\d{2}-\d{2}$/.test(d)||d<"1930-01-01"||d>LK.kstDate()){err.textContent="생년월일을 확인해 주세요.";return}
   const L=luckState();L.birth={date:d,time:t||null};save();closeModal();
-  toast(L.fortune.result&&L.fortune.upgraded?"저장했어요. 오늘 운세는 이미 사주로 바꿔서, 새 생년월일은 내일부터 적용돼요":L.fortune.result?"저장했어요. 오늘 운세를 내 사주로 다시 풀었어요":"저장했어요. 이제 내 사주로 운세를 봐요");render();return}
+  toast(L.fortune.result&&L.fortune.upgraded?"저장했어요. 오늘 운세는 이미 사주로 바꿔서, 새 생년월일은 내일부터 적용돼요":L.fortune.result?"저장했어요. 오늘 운세를 내 사주로 다시 풀었어요":"저장했어요. 카드를 눌러 내 사주 운세를 확인하세요");render();return}
  if(f.id==="nform"){e.preventDefault();const v=document.getElementById("nin").value,h=hood();h.dNick=v;const btn=f.querySelector('[type=submit]');btn.disabled=true;
   CM.setNickname(v).then(()=>{toast("닉네임을 바꿨어요");Object.assign(h,{v:h.from==="write"?"write":"main",dNick:null});render()}).catch(err=>{btn.disabled=false;const el=document.getElementById("nerr");if(el)el.textContent=err&&err.message&&err.code?String(err.message):"바꾸지 못했어요. 잠시 뒤 다시 해 주세요."});return}
  if(f.id==="dmfirst"){e.preventDefault();const v=document.getElementById("dmfin").value,err=document.getElementById("dmerr");
@@ -1620,6 +2145,7 @@ document.addEventListener("submit",e=>{if(e.target.id==="gform"){e.preventDefaul
 document.addEventListener("change",e=>{if(e.target.id==="bnotime"){const t=document.getElementById("btime");if(t){t.disabled=e.target.checked;if(e.target.checked)t.value=""}}});
 document.addEventListener("change",e=>{const el=e.target;if(el.dataset.change==="offTime"){state.offTime=el.value;save();toast(`퇴근 시간을 ${el.value}로 맞췄어요`)}});
 setInterval(()=>{const els=document.querySelectorAll(".lcd");if(els.length){const t=hms(LK.msToReset()/1000);els.forEach(e=>e.textContent=t);if(state.luck&&state.luck.fortune.date&&state.luck.fortune.date!==LK.kstDate()&&state.tab==="luck"&&!document.getElementById("modal").innerHTML)render()}},1000);
+setInterval(missionRemind,30000);setTimeout(missionRemind,3000);
 setInterval(()=>{const c=document.getElementById("cd");if(c&&state.day.inAt&&!state.day.outAt)c.innerHTML=countdownText()},1000);
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&document.getElementById("modal").innerHTML)act.close()});
 setInterval(()=>{if(!state.demo&&!document.getElementById("modal").innerHTML){const prev=state.day&&state.day.date;ensureDay();if(state.day.date!==prev)render();else{const c=document.querySelector(".clock");if(c)c.outerHTML=header().match(/<div class="clock">[\s\S]*?<\/div>/)[0]}}},30000);
@@ -1631,6 +2157,8 @@ CM.subscribe(()=>{if(state.tab!=="local"||document.getElementById("modal").inner
 let pendingCm=false;document.addEventListener("focusout",()=>{if(pendingCm){pendingCm=false;setTimeout(()=>{const a=document.activeElement;if(!(a&&/INPUT|TEXTAREA/.test(a.tagName))&&state.tab==="local")render()},0)}});
 CM.init();
 render();
+/* 퇴근각 오늘의 주제를 카드에 바로 보여주려고 미리 불러와요 */
+TW.load(gameState().date).then(()=>{if(state.tab==="today"&&!document.getElementById("modal").innerHTML&&!document.querySelector(".rn"))render()}).catch(()=>{});
 })();
 </script>
 <script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}))}</script>
