@@ -1,5 +1,5 @@
 // 퇴근중 — 오프라인 캐시. 파일을 바꾸면 VERSION 숫자를 올려 주세요.
-const VERSION = "toegeunjung-v62";
+const VERSION = "toegeunjung-v72";
 const CORE = ["./", "index.html", "wordgame.js", "words-vocab.json", "community.js", "luck.js", "village.js", "runner-core.js", "runner-art.js", "runner.js", "manifest.webmanifest", "pose-base.png", "office-day.jpg", "office-night.jpg", "outfit-tie.webp", "outfit-beanie.webp", "outfit-glasses.webp", "outfit-hoodie.webp", "outfit-headset.webp", "outfit-shades.webp", "outfit-suit.webp", "outfit-crown.webp","outfit-goldtie.webp","outfit-golfcap.webp", "pet-cloud.webp", "pet-bunny.webp", "pet-bird.webp", "pet-sprout.webp", "pet-jelly.webp", "pet-turtle.webp", "home-gosi.webp", "home-ruin.webp", "home-rooftop.webp", "home-villa.webp", "home-apt.webp", "home-house.webp", "home-country.webp", "home-mansion.webp","yard-resort.webp", "furn-plant.webp", "furn-poster.webp", "furn-lamp.webp", "furn-coffee.webp","furn-shelf.webp","furn-sofa.webp","furn-bed.webp","furn-tv.webp", "icon-192.png"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(VERSION).then(c => c.addAll(CORE))); self.skipWaiting(); });
 self.addEventListener("activate", e => {

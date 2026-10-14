@@ -10,12 +10,14 @@
 "use strict";
 
 /* ---- 설정: 숫자·문구는 여기서만 바꾸면 돼요 ---- */
-const SPACES=[
- {id:"toilet",   emoji:"🚽",name:"화장실",  tags:"아무말 · 속마음 · 월급루팡",        desc:"회사에서 못 하는 말, 여기서 다 털어놔!"},
- {id:"pantry",   emoji:"☕",name:"탕비실",  tags:"연애 · 썸 · 사내연애",              desc:"커피 한잔하면서 연애 얘기나 할까?"},
- {id:"meeting",  emoji:"💺",name:"회의실",  tags:"회사 고민 · 직장 인간관계 · 의견",  desc:"이 안건, 돌들의 의견은?"},
- {id:"cafeteria",emoji:"🍚",name:"구내식당",tags:"점심 메뉴 · 음식 · 일상",           desc:"오늘 점심 뭐 먹돌?"},
- {id:"commute",  emoji:"🚪",name:"퇴근길",  tags:"퇴근 후 일상 · 취미 · 자유수다",     desc:"퇴근했으면 이제 진짜 놀자!"},
+const SPACES=[ /* v34: 탕비실 안 카테고리 (id는 예전 공간 그대로라 옛 글도 이어져요) */
+ {id:"pantry",   emoji:"💕",name:"연애",    tags:"연애 · 썸 · 사내연애",              desc:"커피 한잔하면서 연애 얘기나 할까?"},
+ {id:"meeting",  emoji:"🏢",name:"회사생활",tags:"회사 고민 · 직장 인간관계 · 의견",  desc:"이 안건, 돌들의 의견은?"},
+ {id:"toilet",   emoji:"💬",name:"아무말",  tags:"아무말 · 속마음 · 월급루팡",        desc:"회사에서 못 하는 말, 여기서 다 털어놔!"},
+ {id:"commute",  emoji:"🏃",name:"퇴근길",  tags:"퇴근 후 일상 · 취미 · 자유수다",     desc:"퇴근했으면 이제 진짜 놀자!"},
+ {id:"cafeteria",emoji:"🍚",name:"맛집",    tags:"점심 메뉴 · 맛집 · 음식",           desc:"오늘 점심 뭐 먹돌?"},
+ {id:"money",    emoji:"💸",name:"재테크",  tags:"칼퇴증시 · 월급 · 짠테크",          desc:"물렸어? 떡상했어? 여기서 털어놔"},
+ {id:"q",        emoji:"💬",name:"오늘의 질문",hidden:true,tags:"",desc:""},
 ];
 /* v18: 업무지구 광장 익명 게시판 (회사 밖). district가 있는 공간은 회사 게시판 목록에는 안 보여요 */
 const DISTRICTS=[["yeouido","여의도"],["gangnam","강남"],["pangyo","판교"],["gwanghwamun","광화문"],["seongsu","성수"],["magok","마곡"]];

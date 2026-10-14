@@ -426,13 +426,13 @@ P.showResult=function(){
   const dr=S.key==="dream",slept=res.hitBy==="sleep";
   this.over(`<div class="rn-card" role="dialog" aria-label="실패"><div class="pebslot"></div><h2>${slept?"😴 다시 잠들었어요…":dr?"🌙 꿈속 야근 확정!":"🚨 야근 확정!"}</h2><p class="sub">${slept?`알람시계를 ${res.alarms||0}개만 모았어요. ⏰ ${S.need}개를 모아야 깨요`:dr?"꿈속 팀장님에게 붙잡혔어요":"팀장님에게 붙잡혔어요"}${slept?"":`<br><small>마지막 실수: ${CAUSE[res.hitBy]||"앗, 부딪혔어요"}</small>`}</p>
    <div class="rn-grid" style="grid-template-columns:repeat(2,1fr)"><div><span>달린 거리</span><b>${won(res.meters)}m</b>${slept?"<em>끝까지 왔는데…!</em>":`<em>${dr?"기상까지":"퇴근까지"} ${won(Math.round(S.len/K.M)-res.meters)}m 남았었어요</em>`}</div><div><span>획득 점수</span><b>${won(res.score)}</b>${info.bestScore?`<em>최고 ${won(info.bestScore)}</em>`:""}</div></div>
-   <p class="rn-note">${res.pebbles?`자갈 ${res.pebbles}개는 퇴근에 성공해야 월급코인으로 바뀌어요.`:"자갈은 퇴근에 성공하면 월급코인으로 바뀌어요."}</p>
+   <p class="rn-note">끝까지 가면 오늘 첫 클리어 보상 월급코인 +50!</p>
    <button class="rn-b" data-rn="retry">다시 도전하기</button><button class="rn-b ghost" data-rn="exit">게임 나가기</button></div>`);
   this.root.querySelector(".pebslot").replaceWith(this.peb("hit"));return}
  const next=this.sid==1||this.sid==2||this.sid==3,dr=this.S.key==="dream";
  const reward=info.invalid?`<p class="rn-note">기록을 확인하지 못해서 이번 판은 저장하지 않았어요.</p>`
-  :info.coins?`<p class="rn-note">자갈 ${info.pebblesPaid}개 → <b>월급코인 +${won(info.coins)}</b> 들어갔어요${info.capped?" (오늘 자갈 보상 한도까지만)":""}</p>`
-  :res.pebbles?`<p class="rn-note">${info.capNote||"오늘 받을 수 있는 자갈 보상을 다 받았어요. 기록은 저장돼요."}</p>`:"";
+  :info.coins?`<p class="rn-note">오늘 첫 클리어 보상 → <b>월급코인 +${won(info.coins)}</b> 들어갔어요</p>`
+  :info.capNote?`<p class="rn-note">${info.capNote}</p>`:"";
  this.over(`<div class="rn-card" role="dialog" aria-label="성공"><p class="eb">${this.sid==="fri"?"불금 스페셜":"STAGE "+this.sid} · ${this.sid==3?"집 도착!":S.win}</p><div class="pebslot"></div><h2>${dr?"⏰ 띠리링! 꿈에서 깼다!":"🎉 오늘도 칼퇴 성공!"}</h2>
   ${(this.sid==="fri"||dr)&&info.title?`<span class="rn-title">${dr?"🌙":"🔥"} 칭호 「${S.title}」 획득</span>`:""}
   ${this.sid==3?`<p class="rn-note">소파에서 잠든 돌대리… 그런데 꿈에서도 회사에 있어요. <b>STAGE 4</b>가 열렸어요!</p>`:""}
