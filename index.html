@@ -1033,7 +1033,7 @@ function potato(eq,md,opt){
   s+=`</g>`;
  }
  if(b==="tie")s+=`<polygon points="189,149 199,149 197,155 191,155" ${F("tie")}/><polygon points="191,155 197,155 200,174 194,181 188,174" ${F("tie")}/>`;
- if(opt.badge)s+=`<path d="M150 136 L194 152 L242 126" ${S("blue",2.2)}/><rect x="187" y="149" width="15" height="19" rx="3" style="fill:#fff;stroke:var(--blue);stroke-width:1.4"/><rect x="190" y="152" width="9" height="4" rx="1" ${F("blue")}/><rect x="190" y="159" width="9" height="1.6" ${F("line")}/><rect x="190" y="162" width="6" height="1.6" ${F("line")}/>`;
+ if(opt.badge)s+=`<path d="M160 151 L194 168 L232 146" ${S("blue",2.2)}/><rect x="187" y="165" width="15" height="19" rx="3" style="fill:#fff;stroke:var(--blue);stroke-width:1.4"/><rect x="190" y="168" width="9" height="4" rx="1" ${F("blue")}/><rect x="190" y="175" width="9" height="1.6" ${F("line")}/><rect x="190" y="178" width="6" height="1.6" ${F("line")}/>`;
  if(b||opt.badge)s+=`<use href="#${pid}" clip-path="url(#limbClip)"/>`;
  if(md==="happy")s+=`<ellipse cx="156" cy="143" rx="7" ry="3.6" ${F("pink")} opacity=".45"/><ellipse cx="230" cy="136" rx="7" ry="3.6" ${F("pink")} opacity=".45"/>`;
  if(md==="tired")s+=`<path d="M240 86 q-6 10 0 14 q6 -4 0 -14z" style="fill:#8EC5F0"/><path d="M247 102 q-4 7 0 10 q4 -3 0 -10z" style="fill:#8EC5F0"/>`;
@@ -1134,7 +1134,7 @@ function hero(){
  const col=v=>v>=60?"var(--good)":v>=35?"var(--coral)":"var(--bad)";
  return `<section class="hero"><div class="scene">${scene({size:0})}<div class="status"><span class="dot ${cls}"></span>${st}</div></div>
  <div class="badge"><button class="who whob" data-act="tab:drawer" aria-label="돌대리 프로필 · 출근부 보기"><span>(주)칼퇴상사</span><b>돌대리 <i class="lv mono" title="경험치 ${state.xp%LV_XP}/${LV_XP}">Lv.${level()}</i></b><em class="prof">프로필 · 출근부 ›</em></button>
- <div class="chips"><span class="chip">근속 ${state.daysWorked}일</span><span class="chip">연속 출근 ${state.streak}일</span><span class="chip">${HOUSES[state.house].name}</span>${state.day.cond&&COND[state.day.cond]?`<span class="chip">컨디션 ${COND[state.day.cond][0]}</span>`:""}</div>
+ <div class="chips"><span class="chip">근속 ${state.daysWorked}일</span><span class="chip">연속 출근 ${state.streak}일</span><span class="chip">${HOUSES[state.house].name}</span>${state.day.cond&&COND[state.day.cond]?`<span class="chip">컨디션 ${COND[state.day.cond][1]}</span>`:""}</div>
  <div class="chips"><span class="chip">${state.district} 근무</span>${state.runner&&state.runner.titles&&state.runner.titles.includes("불금 탈출러")?`<span class="chip">🔥 불금 탈출러</span>`:""}</div>
  <div class="bars"><div class="bar"><label>행복 <b>${hb}</b></label><div class="track"><div class="fill" style="width:${hb}%;background:${col(hb)}"></div></div></div>
  <div class="bar"><label>멘탈 <b>${mb}</b></label><div class="track"><div class="fill" style="width:${mb}%;background:${col(mb)}"></div></div></div></div>${seasonBar()}</div></section>`;
