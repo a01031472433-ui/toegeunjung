@@ -1364,10 +1364,10 @@ const TUT=[null,
  {sel:".enterhome",say:"여기가 우리 집이야. 들어가 볼래?",sub:"들어가기를 눌러봐"},
  {sel:null,say:"끝! 이제 혼자서도 잘하겠다 💪",sub:"집·가구·이사는 코인으로 하나씩 모아봐"}];
 function tutStep(){if(state.tutDone||!state.onboarded)return 0;
- if(!state.tut){const d=state.day;state.tut=d&&!isWeekend(d.date)&&!d.inAt?1:2;if(state.tut===2)state.gameTab="run"}
+ if(!state.tut){state.tut=1;state.gameTab="run"}
  return state.tut}
 function tutHook(name,arg){const t=tutStep();if(!t)return;
- if(t===1&&name==="workStart"){state.tut=2;state.gameTab="run"}
+ if(t===1&&(name==="workStart"||name==="tutNext")){state.tut=2;state.gameTab="run"}
  else if(t===2&&name==="tutNext")state.tut=3;
  else if(t===3&&name==="tab"&&arg==="shop"){state.tut=4;state.shopIn=false}
  else if(t===4&&name==="shopIn")state.tut=5;
@@ -1376,7 +1376,8 @@ function tutDraw(){
  const box=document.getElementById("tut");if(!box)return;const t=tutStep();
  const busy=!t||document.getElementById("modal").innerHTML||document.querySelector(".rn")||document.getElementById("onb").innerHTML;
  if(busy){box.innerHTML="";box.className="";return}
- const st=TUT[t];let el=null;
+ const d=state.day,pre=t===1&&d&&(d.inAt||isWeekend(d.date));
+ const st=pre?{sel:d.inAt?".stepline":null,say:d.inAt?"매일 여기서 출근부터 시작해! 오늘은 벌써 출근했네 👍":"주말엔 쉬어! 평일엔 출근부터 시작해",sub:"출근하기 → 오늘 기분 고르기 순서야",next:true}:TUT[t];let el=null;
  if(st.sel){el=document.querySelector(st.sel);
   if(!el){ /* 대상이 지금 화면에 없으면 다른 탭에 있을 때예요: 출근 탭으로 안내 */
    if(t<=2&&state.tab!=="today")el=document.querySelector('#tabs [data-act="tab:today"]');
@@ -1385,7 +1386,7 @@ function tutDraw(){
  const av=`<span class="tut-av" aria-hidden="true"><svg viewBox="94 20 168 188"><use href="#pose-base"/></svg></span>`;
  const btns=t===5?`<button class="btn gold" data-act="tutEnd">보너스 ${TUT_BONUS}코인 받기</button>`:`<span><button class="tut-skip" data-act="tutSkip">건너뛰기</button>${st.next?` <button class="btn" data-act="tutNext">다음 →</button>`:""}</span>`;
  const html=`<div class="tut-dim ${el?"":"full"}"></div><div class="tut-bub" role="dialog" aria-live="polite">${av}<div class="tut-tx"><b>${esc(st.say.replace("{NAME}",nameIya()))}</b><span>${st.sub}</span><div class="tut-row"><span class="tut-n">${Math.min(t,4)}/4</span>${btns}</div></div></div>`;
- if(box.dataset.t!==String(t)||!box.innerHTML){box.innerHTML=html;box.dataset.t=t;if(el&&!el.closest("#tabs"))el.scrollIntoView({block:"center"})}
+ if(box.dataset.t!==String(t)+(pre?"p":"")||!box.innerHTML){box.innerHTML=html;box.dataset.t=String(t)+(pre?"p":"");if(el&&!el.closest("#tabs"))el.scrollIntoView({block:"center"})}
  box.className="on";
  const dim=box.querySelector(".tut-dim"),bub=box.querySelector(".tut-bub");
  if(el){const r=el.getBoundingClientRect(),pad=8;
