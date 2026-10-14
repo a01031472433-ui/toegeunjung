@@ -249,6 +249,54 @@ DRAW.moto=function(ctx,x,g,w,h,t){const b=Math.abs(Math.sin(t*14))*1.2;
  ctx.strokeStyle="rgba(139,127,112,.55)";ctx.lineWidth=1.2;for(let k=0;k<3;k++){const yy=g-10-k*7,o=(t*80+k*9)%14;ctx.beginPath();ctx.moveTo(x+w+4+o,yy);ctx.lineTo(x+w+14+o,yy);ctx.stroke()}
  bubble(ctx,x+w/2,g-44-b,"띵동~ 배달이요!")};
 function dizzy(ctx,x,y,t,a){ctx.save();ctx.globalAlpha=a;for(let k=0;k<3;k++){const an=t*6+k*2.1;txt(ctx,"★",x+Math.cos(an)*16,y+Math.sin(an)*5,9,"#F2B84B")}ctx.restore()}
+
+/* ================= v19 STAGE 4 · 꿈에서 야근하기 ================= */
+DRAW.sheep=function(ctx,x,g,w,h,t,i){const b=Math.abs(Math.sin(t*6+(i||0)))*2;
+ ctx.fillStyle="#3B3346";ctx.fillRect(x+5,g-7,3,7);ctx.fillRect(x+w-8,g-7,3,7);
+ for(const [dx,dy,r] of [[6,-12,7],[13,-15,8],[20,-12,7],[9,-8,6],[17,-8,6]])ell(ctx,x+dx,g-dy*-1-24+12+dy+12-b,r,r*.9,"#F7F4FB");
+ ell(ctx,x+w-2,g-15-b,6,5.4,"#3B3346");ell(ctx,x+w-4,g-16-b,1.2,1.2,"#fff");ell(ctx,x+w-6,g-20-b,3,2,"#3B3346");
+ txt(ctx,(13+(i||0)%40)+"…",x+w/2,g-h-8-b,9,"#C9BFF0")};
+DRAW.pillow=function(ctx,x,g,w,h,t){
+ rr(ctx,x-2,g-12,w+4,12,6);ctx.fillStyle="#C9B8F2";ctx.fill();
+ rr(ctx,x+3,g-h,w-6,13,6);ctx.fillStyle="#F4F0FF";ctx.fill();ctx.strokeStyle="#B7A6E6";ctx.lineWidth=1;ctx.stroke();
+ ctx.strokeStyle="rgba(150,130,210,.6)";ctx.beginPath();ctx.moveTo(x+w/2-6,g-h+6);ctx.lineTo(x+w/2+6,g-h+6);ctx.stroke();
+ const p=(t*.8)%1;ctx.globalAlpha=1-p;txt(ctx,"z",x+w-4+p*6,g-h-6-p*14,9+p*5,"#B7A6E6");ctx.globalAlpha=1};
+DRAW.clone=function(ctx,x,g,w,h,t,i){
+ for(const k of [2,1]){ctx.save();ctx.globalAlpha=.28/k;person(ctx,x+k*9,g,w,h,{coat:"#6A5AA8",shirt:1,glasses:1,brow:1,t:t+k});ctx.restore()}
+ person(ctx,x,g,w,h,{coat:"#4B3F86",shirt:1,glasses:1,brow:1,t});
+ bubble(ctx,x+w/2,g-h-6,["나도 팀장","나도 팀장","나도 팀장"][(i||0)%3]+"이에요")};
+DRAW.zzz=function(ctx,x,g,w,h,t){const y=g-h/2;
+ ctx.save();ctx.shadowColor="#B9A6FF";ctx.shadowBlur=8;
+ txt(ctx,"Z",x+6,y+Math.sin(t*7)*2,16,"#E6DDFF");txt(ctx,"z",x+16,y-6+Math.sin(t*7+1)*2,12,"#CFC2FF");txt(ctx,"z",x+23,y-12+Math.sin(t*7+2)*2,9,"#B9A6FF");ctx.restore();
+ ctx.strokeStyle="rgba(201,191,240,.5)";ctx.lineWidth=1;ctx.setLineDash([3,3]);ctx.beginPath();ctx.moveTo(x+w+4,y);ctx.lineTo(x+w+20,y);ctx.stroke();ctx.setLineDash([])};
+/* 거대 월요일 달력: 하늘에서 내려온 달력 한 장. 아래 끝(g)이 바닥에서 24 위라 숙여서 밑으로 빠져나가요 */
+DRAW.monday=function(ctx,x,g,w,h,t){const cx=x+w/2,sw=Math.sin(t*2)*2,top=g-230;
+ ell(ctx,cx,g+25,w/2+10,4,"rgba(30,20,60,.25)");
+ ctx.strokeStyle="#8C7FC0";ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(cx-20,-10);ctx.lineTo(cx-20+sw,top);ctx.moveTo(cx+20,-10);ctx.lineTo(cx+20+sw,top);ctx.stroke();
+ ctx.save();ctx.translate(sw,0);
+ rr(ctx,x-22,top,w+44,g-top,8);ctx.fillStyle="#FFFDF8";ctx.fill();ctx.strokeStyle="#B7A6E6";ctx.lineWidth=2;ctx.stroke();
+ rr(ctx,x-22,top,w+44,46,8);ctx.fillStyle="#E2553C";ctx.fill();ctx.fillRect(x-22,top+30,w+44,16);
+ for(const dx of [-10,0,10])ell(ctx,cx+dx*1.6,top+4,3,3,"#4B3F86");
+ txt(ctx,"MONDAY",cx,top+24,11,"#fff");txt(ctx,"월",cx,top+100,58,"#E2553C");txt(ctx,"요일",cx,top+150,16,"#8B7F70");
+ for(let k=0;k<3;k++){ctx.fillStyle="#E8E2F7";ctx.fillRect(x-12,top+172+k*12,w+24,6)}
+ ctx.restore();
+ const a=.55+.45*Math.sin(t*8);ctx.save();ctx.globalAlpha=a;rr(ctx,cx-22,g-10,44,17,5);ctx.fillStyle="#F6C453";ctx.fill();txt(ctx,"⬇ 숙여!",cx,g-1.5,10,C.ink);ctx.restore()};
+function alarmItem(ctx,x,y,t){const sh=Math.sin(t*30)*1.6,cx=x+11+sh,cy=y+12;
+ ctx.save();ctx.globalAlpha=.35+.2*Math.sin(t*8);ell(ctx,cx,cy,18,18,"#FFE08A");ctx.restore();
+ ell(ctx,cx-8,cy-10,5,4,"#E2553C");ell(ctx,cx+8,cy-10,5,4,"#E2553C");
+ ell(ctx,cx,cy,11,11,"#E2553C");ell(ctx,cx,cy,8.4,8.4,"#FFFDF8");
+ ctx.strokeStyle=C.ink;ctx.lineWidth=1.6;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx,cy-5.5);ctx.moveTo(cx,cy);ctx.lineTo(cx+4,cy+1);ctx.stroke();
+ ctx.fillStyle="#3B3346";ctx.fillRect(cx-8,cy+9,3,4);ctx.fillRect(cx+5,cy+9,3,4);
+ ctx.strokeStyle="#F6C453";ctx.lineWidth=1.4;for(const sd of [-1,1]){ctx.beginPath();ctx.arc(cx,cy,15,sd<0?Math.PI*1.05:-.35,sd<0?Math.PI*1.35:-.05);ctx.stroke()}}
+/* 「이불 속으로 5분만…」 구간 (꿈) */
+function zoneDream(ctx,x0,x1,g,t){const w=x1-x0;
+ ctx.fillStyle="rgba(185,166,255,.10)";ctx.fillRect(x0,g-150,w,150);
+ rr(ctx,x0+8,g-46,w-16,46,16);ctx.fillStyle="#8C7FC0";ctx.fill();
+ rr(ctx,x0+4,g-60,w-8,30,14);ctx.fillStyle="#C9B8F2";ctx.fill();ctx.save();ctx.clip();ctx.fillStyle="rgba(255,255,255,.35)";for(let sx=x0;sx<x1;sx+=26)ctx.fillRect(sx,g-60,10,30);ctx.restore();
+ for(let k=0;k<Math.floor((w-40)/120);k++){const px=x0+30+k*120;rr(ctx,px,g-78,58,22,10);ctx.fillStyle="#F4F0FF";ctx.fill()}
+ rr(ctx,x0+w/2-80,g-150,160,24,6);ctx.fillStyle="#2B2350";ctx.fill();txt(ctx,"🛏 이불 속으로 5분만…",x0+w/2,g-137.5,12,"#E6DDFF");
+ for(let k=0;k<5;k++){const p=((t*.4+k/5)%1);ctx.globalAlpha=Math.max(0,1-p);txt(ctx,k%2?"z":"Z",x0+30+k*(w-60)/4+p*10,g-90-p*40,11+p*8,"#E6DDFF");ctx.globalAlpha=1}}
+
 function obstacle(ctx,type,x,g,w,h,t,i,fri){(DRAW[type]||DRAW.papers)(ctx,x,g,w,h,t,i,fri)}
 /* v13: 회식 2차 권유 구간 — 고깃집 가게 앞 (x0~x1 화면 좌표, g = 땅) */
 function zoneShop(ctx,x0,x1,g,t,fri){
@@ -333,6 +381,24 @@ const THEME={
    for(let x=0;x<TW;x+=22){const y=gy-130+Math.sin((x%110)/110*Math.PI)*14;ell(ctx,x+11,y+4,3,3.4,x%44?"#FFE08A":"#FF9BB8")}
    for(let i=0;i<2;i++){const x=150+i*440;ctx.fillStyle="#E8763E";ctx.beginPath();ctx.moveTo(x,gy-70);ctx.lineTo(x+50,gy-92);ctx.lineTo(x+100,gy-70);ctx.fill();ctx.fillStyle="rgba(255,180,110,.3)";ctx.fillRect(x+4,gy-70,92,70)}}},
 };
+GOAL.dream=function(ctx,x,g,t){const sh=Math.sin(t*28)*2.4,cx=x+55+sh,cy=g-70;
+ ctx.save();ctx.globalAlpha=.3+.15*Math.sin(t*6);ell(ctx,cx,cy,70,70,"#FFE08A");ctx.restore();
+ ell(ctx,cx-30,cy-40,16,13,"#E2553C");ell(ctx,cx+30,cy-40,16,13,"#E2553C");ctx.fillStyle="#3B3346";ctx.fillRect(cx-3,cy-62,6,12);
+ ell(ctx,cx,cy,46,46,"#E2553C");ell(ctx,cx,cy,38,38,"#FFFDF8");
+ ctx.strokeStyle=C.ink;ctx.lineWidth=4;ctx.lineCap="round";ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx,cy-24);ctx.moveTo(cx,cy);ctx.lineTo(cx+16,cy+4);ctx.stroke();
+ ctx.fillStyle="#3B3346";ctx.fillRect(cx-30,cy+40,8,22);ctx.fillRect(cx+22,cy+40,8,22);
+ ctx.strokeStyle="#F6C453";ctx.lineWidth=3;for(const sd of [-1,1])for(const r of [56,66]){ctx.beginPath();ctx.arc(cx,cy,r,sd<0?Math.PI*1.05:-.4,sd<0?Math.PI*1.4:-.05);ctx.stroke()}
+ txt(ctx,"띠리링! 기상!",cx,cy-82,13,"#FFE08A")};
+THEME.dream={sky:["#1F1A3D","#4B3F86"],ground:"#6A5AA8",groundTop:"#B9A6FF",far:.15,mid:.45,night:1,sun:"#FFF1C2",
+ drawFar(ctx,h,gy){const r=seeded(41);for(let i=0;i<60;i++){ctx.fillStyle="rgba(255,250,235,"+(0.25+r()*.6)+")";const s=r()<.15?2.4:1.4;ctx.fillRect(r()*TW,r()*(gy-60),s,s)}
+  for(let i=0;i<5;i++){const x=40+i*180,y=gy-200+(i%2)*60;ctx.fillStyle="rgba(201,191,240,.18)";for(const [dx,dy,rr_] of [[0,0,26],[26,-8,32],[56,0,24]])ell(ctx,x+dx,y+dy,rr_,rr_*.7,null),ctx.fill()}
+  ctx.save();ctx.globalAlpha=.55;[[120,"09:00"],[430,"23:59"],[730,"03:00"]].forEach(([xx,s],k)=>{ell(ctx,xx,gy-120-k*20,22,22,"#E6DDFF");txt(ctx,s,xx,gy-120-k*20,9,"#4B3F86")});ctx.restore()},
+ drawMid(ctx,h,gy){for(let i=0;i<3;i++){const x=80+i*300,fy=gy-70-Math.sin(i*2)*20;
+   ctx.save();ctx.globalAlpha=.75;ctx.translate(x,fy);ctx.rotate((i-1)*.12);
+   ctx.fillStyle="#8C7FC0";ctx.fillRect(-50,0,100,6);ctx.fillRect(-44,6,5,26);ctx.fillRect(39,6,5,26);
+   rr(ctx,-20,-28,40,26,3);ctx.fillStyle="#3B3346";ctx.fill();ctx.fillStyle="#9FD0F0";ctx.fillRect(-17,-25,34,20);
+   ctx.restore();ell(ctx,x,gy-14,60,8,"rgba(185,166,255,.25)")}
+  for(let i=0;i<4;i++){const x=180+i*220;ctx.fillStyle="rgba(230,221,255,.55)";for(const [dx,rr_] of [[0,18],[22,24],[46,16]]){ell(ctx,x+dx,gy-4,rr_,rr_*.55,null);ctx.fill()}}}};
 function layers(theme,h,gy,scale){
  const T=THEME[theme];
  return {T,
@@ -389,14 +455,14 @@ function ending(ctx,W,H,t){
 }
 
 /* 뒤에서 쫓아오는 팀장 (오른쪽을 보고 달림) */
-function chaser(ctx,x,g,t,near,fri){
+function chaser(ctx,x,g,t,near,fri,dream){
  ctx.save();ctx.translate(x+12,0);ctx.scale(-1,1);ctx.translate(-(x+12),0);
- person(ctx,x,g,24,58,{coat:fri?"#6B4A5A":"#3D4A6B",shirt:1,glasses:!fri,brow:1,blush:fri,walk:1,t:t*1.6});
+ person(ctx,x,g,24,58,{coat:dream?"#4B3F86":fri?"#6B4A5A":"#3D4A6B",shirt:1,glasses:!fri,brow:1,blush:fri,walk:1,t:t*1.6});
  ctx.restore();
  ell(ctx,x+12,g+1,13,3,"rgba(74,63,53,.18)");
  const k=Math.floor(t/2.6)%3;
- const b=(near?(fri?["한 잔만 하고 가!","2차 가자~!","노래방 예약했어!"]:["거기 서! 회의합시다!","보고서는?!","칼퇴는 안 돼~!"]):(fri?["딱 한 잔만~","어디 가~?","불금인데~"]:["잠깐 얘기 좀…","어디 가~?","내일 일찍 와~"]))[k];
+ const b=dream?(near?["꿈에서도 보고서!","자면서 일하면 되잖아?","야근은 꿈에서도!"]:["어디 가, 꿈인데~","아직 퇴근 아니야~","5분만 회의~"])[k]:(near?(fri?["한 잔만 하고 가!","2차 가자~!","노래방 예약했어!"]:["거기 서! 회의합시다!","보고서는?!","칼퇴는 안 돼~!"]):(fri?["딱 한 잔만~","어디 가~?","불금인데~"]:["잠깐 얘기 좀…","어디 가~?","내일 일찍 와~"]))[k];
  ctx.font=`11px ${FONT}`;const bw=ctx.measureText(b).width+12;bubble(ctx,Math.max(x+20,bw/2+4),g-66,b);
 }
-window.TG_RUNNER_ART={C,FONT,chaser,dizzy,rr,ell,txt,off,pebble,bodySprite,obstacle,pebbleItem,powerItem,GOAL,THEME,TW,layers,ending,zoneShop,duckPose};
+window.TG_RUNNER_ART={alarmItem,zoneDream,C,FONT,chaser,dizzy,rr,ell,txt,off,pebble,bodySprite,obstacle,pebbleItem,powerItem,GOAL,THEME,TW,layers,ending,zoneShop,duckPose};
 })();

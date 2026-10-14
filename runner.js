@@ -9,11 +9,13 @@ const won=n=>Number(n).toLocaleString("ko-KR");
 const CAUSE={papers:"서류더미에 걸려 넘어졌어요",cup:"커피를 엎질렀어요… 닦고 가야 해요",chair:"굴러온 회의실 의자에 실려 회의에 들어갔어요",boss:"팀장님이 「잠깐 얘기 좀」 하셨어요",
  crowd:"출근길 인파에 휩쓸렸어요",bag:"누군가의 가방에 걸렸어요",stairs:"계단에서 발이 꼬였어요",door:"지하철 문이 눈앞에서 닫혔어요",puddle:"물웅덩이에 첨벙! 신발이 다 젖었어요",
  pigeon:"비둘기에 놀라 멈칫했어요",fpig:"날아온 비둘기와 정면충돌했어요",cone:"라바콘에 걸렸어요",phone:"업무 전화를 받아버렸어요…",drunk:"「딱 한 잔만」에 붙잡혔어요",
- talk:"거대 팀장님께 「회의합시다!」 붙잡혀 회의실로 끌려갔어요",squeeze:"인파에 꽉 낑겨서 내릴 역을 지나쳤어요",plane:"날아온 결재 서류에 이마를 정통으로 맞았어요",moto:"배달 오토바이에 놀라 배달 음식이랑 같이 굴렀어요",zone:"고기 냄새에 끌려 회식 2차 자리에 앉아버렸어요"};
-const QUIP={papers:"서류 폭탄!",cup:"앗 뜨거!",chair:"의자 직격!",boss:"네…?",crowd:"죄송합니다~",bag:"가방 공격!",stairs:"발 꼬임!",door:"문에 쾅!",puddle:"첨벙!",pigeon:"구구?!",fpig:"비둘기 헤딩!",cone:"콩!",phone:"네 팀장님…",drunk:"한 잔만…?",talk:"회의라뇨?!",squeeze:"으아 낑김!",plane:"결재 맞음!",moto:"빵빵!"};
-const TIP={1:"「회의합시다!」 거대 팀장님은 🙇 숙여서 다리 사이로!",2:"꽉 낀 인파는 🙇 숙여서 다리 사이로 · 💬 알림은 눌러 닫기",3:"🍖 회식 구간은 연타로 버텨요",fri:"🙇 숙이기 · 💬 알림 닫기 · 🍖 연타"};
+ talk:"거대 팀장님께 「회의합시다!」 붙잡혀 회의실로 끌려갔어요",squeeze:"인파에 꽉 낑겨서 내릴 역을 지나쳤어요",plane:"날아온 결재 서류에 이마를 정통으로 맞았어요",moto:"배달 오토바이에 놀라 배달 음식이랑 같이 굴렀어요",zone:"고기 냄새에 끌려 회식 2차 자리에 앉아버렸어요",
+ sheep:"양을 세다가 스르륵 다시 잠들었어요",pillow:"베개에 얼굴을 묻어버렸어요",clone:"복제된 팀장님한테 둘러싸였어요",zzz:"날아온 Zzz에 맞고 꾸벅…",monday:"거대한 월요일에 깔렸어요",sleep:"알람시계를 다 못 모아서 다시 잠들었어요",dzone:"이불 속으로 끌려가 다시 잠들었어요"};
+const QUIP={papers:"서류 폭탄!",cup:"앗 뜨거!",chair:"의자 직격!",boss:"네…?",crowd:"죄송합니다~",bag:"가방 공격!",stairs:"발 꼬임!",door:"문에 쾅!",puddle:"첨벙!",pigeon:"구구?!",fpig:"비둘기 헤딩!",cone:"콩!",phone:"네 팀장님…",drunk:"한 잔만…?",talk:"회의라뇨?!",squeeze:"으아 낑김!",plane:"결재 맞음!",moto:"빵빵!",sheep:"음메…zz",pillow:"푹신…",clone:"팀장님이 셋?!",zzz:"꾸벅!",monday:"월요일이다!"};
+const TIP={1:"「회의합시다!」 거대 팀장님은 🙇 숙여서 다리 사이로!",2:"꽉 낀 인파는 🙇 숙여서 다리 사이로 · 💬 알림은 눌러 닫기",3:"🍖 회식 구간은 연타로 버텨요",fri:"🙇 숙이기 · 💬 알림 닫기 · 🍖 연타",4:"⏰ 알람 3개 모으기 · ⚠️ 조작이 반대로 바뀌어요 · 😪 눈꺼풀은 눌러서 떠요"};
 const NOTES=[["팀장님","?"],["팀장님","잠깐 통화 가능?"],["팀장님","(부재중 전화 3통)"],["팀 단톡방","팀장님: 다들 퇴근 전에 이것만 확인하고 가요"],["부장님","혹시 지금 회사야?"],["팀장님","이거 누가 한 거예요?"],["팀 단톡방","팀장님이 회의를 잡았습니다 · 오늘 18:00"],["팀장님","내일 아침에 얘기 좀 해요"],["팀 단톡방","팀장님: 보고서_최종_진짜최종_v3 다시 봐 줘요"],["부장님","주말에 잠깐 시간 돼?"],["거래처","급하게 수정 하나만 부탁드려요 🙏"],["팀장님","전화 좀 받아요"],["팀 단톡방","팀장님: 다들 보셨죠? ^^"],["부장님","내일 7시 조찬 회의 알지?"]];
-const GOAL_ICON={office:"🚪",subway:"🚇",street:"🏠",friday:"🏮"};
+const GOAL_ICON={office:"🚪",subway:"🚇",street:"🏠",friday:"🏮",dream:"⏰"};
+const NOTES_DREAM=[["꿈속 팀장님","자니?"],["꿈속 팀장님","꿈에서라도 보고서 좀"],["꿈속 단톡방","부장님: 내일 7시 회의 (꿈 아님)"],["꿈속 팀장님","(부재중 전화 99통)"],["꿈속 부장님","월요일인데 어디야?"],["알 수 없음","출근하세요 출근하세요 출근하세요"]];
 
 /* ---------- 효과음 (WebAudio로 짧게 합성) ---------- */
 const SFX={ac:null,on:true,
@@ -120,6 +122,19 @@ body.rn-open{overflow:hidden}
 .rn-nb b{display:block;font-weight:400;font-size:14px;color:#2B2420}
 .rn-nb em{font-style:normal;font-size:16px;color:#A89A87;align-self:center}
 @keyframes rnslide{from{transform:translateX(30px);opacity:0}}
+.rn-lids{position:absolute;inset:0;z-index:3;pointer-events:none}
+.rn-lids i{position:absolute;left:0;right:0;height:0;background:#8E8994;pointer-events:auto;cursor:pointer;transition:height .08s linear}
+.rn-lids .t{top:0;border-radius:0 0 50% 50%/0 0 26px 26px;background:linear-gradient(#A9A4AE,#7D7884);border-bottom:4px solid #2B2420;box-shadow:0 6px 14px rgba(20,10,40,.4)}
+.rn-lids .b{bottom:0;border-radius:50% 50% 0 0/26px 26px 0 0;background:linear-gradient(#7D7884,#A9A4AE);border-top:4px solid #2B2420;box-shadow:0 -6px 14px rgba(20,10,40,.4)}
+.rn-lids span{position:absolute;left:50%;top:8px;transform:translateX(-50%);background:rgba(255,255,255,.92);color:#4B3F86;border-radius:999px;padding:5px 12px;font-size:13.5px;white-space:nowrap;pointer-events:auto;cursor:pointer;animation:rnwarn .5s ease-in-out infinite alternate}
+.rn-lids.deep span{background:#F6C453;color:#2B2350}
+.rn-twist{position:absolute;left:50%;top:46px;transform:translateX(-50%);z-index:4;background:#2B2350;color:#FFE08A;border-radius:14px;padding:7px 14px;text-align:center;font-size:16px;pointer-events:none;box-shadow:0 4px 14px rgba(20,10,40,.35);white-space:nowrap}
+.rn-twist small{display:block;font-size:12px;color:#E6DDFF;margin-top:2px}
+.rn-twist.warn{animation:rnwarn .3s ease-in-out infinite alternate;background:#E2553C;color:#fff}
+.rn.twisted canvas{filter:hue-rotate(150deg) saturate(1.3);animation:rnwob 1.4s ease-in-out infinite}
+@keyframes rnwob{0%,100%{transform:rotate(-.6deg)}50%{transform:rotate(.6deg) scale(1.01)}}
+.rn.twisted .rn-duck{background:#F6C453}
+.rn-duck .dl{font-style:normal}
 .rn-zone{position:absolute;left:50%;top:10px;transform:translateX(-50%);width:min(74%,300px);background:rgba(61,44,42,.92);color:#FFE9B8;border-radius:14px;padding:8px 12px 10px;text-align:center;z-index:2;pointer-events:none;font-size:14px}
 .rn-zone b{font-weight:400;font-size:16px;color:#fff;display:block;margin-bottom:5px}
 .rn-zone .m{height:12px;border-radius:999px;background:rgba(255,255,255,.18);overflow:hidden}
@@ -142,13 +157,13 @@ function Game(opt){
    <div class="rn-prog"><div class="rn-bar" aria-hidden="true"><i></i><span></span><em></em></div><span class="rn-left">퇴근까지 <b id="rnLeft">0</b>m</span></div>
    <div class="rn-stats"><span>점수 <b id="rnScore">0</b></span><span>🪨 자갈 <b id="rnPeb">0</b></span><span>⏱ <b id="rnTime">0:00.00</b></span></div>
   </div>
-  <div class="rn-play"><canvas></canvas><div class="rn-notes" aria-live="polite"></div><div class="rn-zone" hidden><b>🍖 연타해서 버텨요!</b><div class="m"><i></i></div></div><div class="rn-cd" aria-live="assertive"></div></div>
-  <div class="rn-bot"><div class="rn-botl"><div class="rn-fx" aria-live="polite"></div><p class="rn-guide"><span><b>탭</b> 점프 · <b>길게</b> 높이 · <b>공중 탭</b> 2단</span><span>❤️ 3개 · ☕로 회복</span><span class="kb">PC는 <b>스페이스</b> · 숙이기 <b>↓</b></span></p></div><button class="rn-duck" type="button" aria-label="숙이기 (누르고 있는 동안)"><span>🙇</span>숙이기</button></div>
+  <div class="rn-play"><canvas></canvas><div class="rn-notes" aria-live="polite"></div><div class="rn-zone" hidden><b>🍖 연타해서 버텨요!</b><div class="m"><i></i></div></div><div class="rn-lids" hidden><i class="t"></i><i class="b"></i><span>😪 눈꺼풀을 톡톡 눌러 눈 떠요!</span></div><div class="rn-twist" hidden></div><div class="rn-cd" aria-live="assertive"></div></div>
+  <div class="rn-bot"><div class="rn-botl"><div class="rn-fx" aria-live="polite"></div><p class="rn-guide"><span><b>탭</b> 점프 · <b>길게</b> 높이 · <b>공중 탭</b> 2단</span><span>❤️ 3개 · ☕로 회복</span><span class="kb">PC는 <b>스페이스</b> · 숙이기 <b>↓</b></span></p></div><button class="rn-duck" type="button" aria-label="숙이기 (누르고 있는 동안)"><span>🙇</span><em class="dl">숙이기</em></button></div>
  </div></div>`);
  document.body.appendChild(root);document.body.classList.add("rn-open");
  this.$={stage:root.querySelector("#rnStage"),lives:root.querySelector("#rnLives"),left:root.querySelector("#rnLeft"),score:root.querySelector("#rnScore"),peb:root.querySelector("#rnPeb"),time:root.querySelector("#rnTime"),
   bar:root.querySelector(".rn-bar>i"),dot:root.querySelector(".rn-bar>span"),goal:root.querySelector(".rn-bar>em"),fx:root.querySelector(".rn-fx"),cd:root.querySelector(".rn-cd"),
-  play:root.querySelector(".rn-play"),cv:root.querySelector("canvas"),notes:root.querySelector(".rn-notes"),zone:root.querySelector(".rn-zone"),zbar:root.querySelector(".rn-zone .m i"),duck:root.querySelector(".rn-duck"),mute:root.querySelector('[data-rn="mute"]'),inner:root.querySelector(".rn-in")};
+  play:root.querySelector(".rn-play"),cv:root.querySelector("canvas"),notes:root.querySelector(".rn-notes"),zone:root.querySelector(".rn-zone"),zbar:root.querySelector(".rn-zone .m i"),duck:root.querySelector(".rn-duck"),lids:root.querySelector(".rn-lids"),lidT:root.querySelector(".rn-lids .t"),lidB:root.querySelector(".rn-lids .b"),twist:root.querySelector(".rn-twist"),dl:root.querySelector(".rn-duck .dl"),mute:root.querySelector('[data-rn="mute"]'),inner:root.querySelector(".rn-in")};
  this.ctx=this.$.cv.getContext("2d");
  this.cache={};this.q=[];this.pointers=new Set();this.keyDown=false;
  this.bind();this.resize();this.setMute(!SFX.on,true);
@@ -163,11 +178,13 @@ P.start=function(sid){
  this.parts=[];this.vis={sx:1,sy:1,ph:0,mood:"run",moodT:0,dx:0,dy:0,dvx:0,dvy:0,rot:0,fade:1,shake:0,t:0};
  this.wallMs=0;this.acc=0;this.over(null);
  this.layersFor();
- this.$.stage.innerHTML=`STAGE ${sid==="fri"?"🔥":sid} · <b>${this.S.name}</b>`;
+ this.stageLabel();this.root.classList.remove("twisted");if(this.$.twist){this.$.twist.hidden=true;this.$.lids.hidden=true;this.$.dl.textContent="숙이기"}
+ {const zb=this.$.zone&&this.$.zone.querySelector("b");if(zb)zb.textContent=this.S.key==="dream"?"🛏 연타해서 일어나요!":"🍖 연타해서 버텨요!"}
  this.$.goal.textContent=GOAL_ICON[this.S.key];
  this.cache={};this.hud(true);
  this.count(3,"run");
 };
+P.stageLabel=function(){const sid=this.sid,R=this.R;this.$.stage.innerHTML=this.S.need?`STAGE ${sid} · 꿈 · ⏰ <b>${R?R.alarms:0}/${this.S.need}</b>`:`STAGE ${sid==="fri"?"🔥":sid} · <b>${this.S.name}</b>`};
 P.layersFor=function(){const k=this.S.key+"|"+this.LH+"|"+this.scale;if(this.Lkey===k)return;this.Lkey=k;this.L=A.layers(this.S.key,this.LH,this.gy,this.scale*this.dpr)};
 P.count=function(n,next){this.phase="count";this.cdLeft=n;this.cdNext=next;this.cdShown=null;this.q.length=0;this.pointers.clear();this.keyDown=false;this.duckKey=false;this.duckPtr=null;if(this.$.duck)this.$.duck.classList.remove("on");if(this.R&&this.R.duckHold)this.q.push(3)};
 P.resize=function(){
@@ -181,7 +198,7 @@ P.resize=function(){
 };
 P.bind=function(){
  const play=this.$.play,root=this.root;
- const down=e=>{if(e.target.closest(".rn-over,button,.rn-notes"))return;e.preventDefault();SFX.init();
+ const down=e=>{if(e.target.closest(".rn-over,button,.rn-notes,.rn-lids i,.rn-lids span"))return;e.preventDefault();SFX.init();
   if(this.phase==="ending"){this.endingSkip();return}
   if(this.phase!=="run")return;
   try{e.target.setPointerCapture&&e.target.setPointerCapture(e.pointerId)}catch(x){}
@@ -213,6 +230,7 @@ P.bind=function(){
  const dup=e=>{if(this.duckPtr!==e.pointerId)return;this.duckPtr=null;if(!this.duckKey)this.duckUp()};
  ["pointerup","pointercancel","lostpointercapture"].forEach(n=>dk.addEventListener(n,dup));
  /* 단톡방 알림: 누르면 한 장씩 닫혀요 (점프는 안 돼요) */
+ this.$.lids.addEventListener("pointerdown",e=>{if(!e.target.closest("i,span"))return;e.preventDefault();e.stopPropagation();SFX.init();if(this.phase==="run")this.q.push(5)});
  this.$.notes.addEventListener("pointerdown",e=>{const b=e.target.closest(".rn-nb");if(!b)return;e.preventDefault();e.stopPropagation();SFX.init();if(this.phase==="run")this.q.push(4)});
  window.addEventListener("keydown",this.h.key);window.addEventListener("keyup",this.h.keyup);
  document.addEventListener("visibilitychange",this.h.vis);window.addEventListener("blur",this.h.blur);window.addEventListener("resize",this.h.resize);
@@ -232,7 +250,7 @@ P.cmd=function(c,b){
  if(c==="pause")return this.phase==="paused"?this.resume():this.pause();
  if(c==="resume")return this.resume();
  if(c==="retry"){return this.start(this.sid)}
- if(c==="next"){const n=this.sid==1?2:this.sid==2?3:null;if(n)this.start(n);return}
+ if(c==="next"){const n=this.sid==1?2:this.sid==2?3:this.sid==3?4:null;if(n)this.start(n);return}
  if(c==="exit")return this.destroy();
  if(c==="share")return this.share(b);
  if(c==="ending")return this.showEnding();
@@ -273,7 +291,7 @@ P.tick=function(){
  while(this.q.length){const e=this.q[0];
   if(e===1){if(p||r)break;p=true;this.q.shift()}
   else if(e===0){r=true;this.q.shift();if(p)break}
-  else{const k=e===2?"dd":e===3?"du":"dis";if(o[k]||(k==="dd"&&o.du))break;o[k]=1;this.q.shift()}}
+  else{const k=e===2?"dd":e===3?"du":e===5?"bl":"dis";if(o[k]||(k==="dd"&&o.du))break;o[k]=1;this.q.shift()}}
  K.step(R,p,r,o);
  if(R.ev.length){for(const e of R.ev)this.event(e);R.ev.length=0}
 };
@@ -284,19 +302,27 @@ P.event=function(e){
  else if(k==="jump2"){SFX.play("jump2");V.sx=.86;V.sy=1.14;V.mood="jump";for(let i=0;i<10;i++){const an=i/10*Math.PI*2;this.parts.push({k:"ring",x:wx,y:wy+10,vx:Math.cos(an)*90,vy:Math.sin(an)*90,g:0,life:.35,max:.35,c:"#fff"})}}
  else if(k==="land"){V.sx=1.16;V.sy=.84;V.mood="run";this.dust(wx,0,4)}
  else if(k==="pebble"){SFX.play("pebble");const it=R.C.items[+a];this.float(it.x,it.y+18,"+1 🪨","#8B7F70");this.spark(it.x+6,it.y+6,"#C9C4BC",5);this.bump("peb")}
+ else if(k==="alarm"){SFX.play("item");const it=R.C.items[+a];const n=R.alarms,need=this.S.need||3;this.float(it.x,it.y+34,n>=need?`⏰ ${n}개! 이제 깰 수 있어요`:`⏰ 알람 ${n}/${need}`,"#C8641C",1.2);this.spark(it.x+11,it.y+11,"#FFE08A",16);this.stageLabel()}
  else if(k==="item"){SFX.play("item");const it=R.C.items[+b];const I=K.ITEMS[a];this.float(it.x,it.y+30,I.icon+" "+I.name+"!","#C8641C",1.1);this.spark(it.x+11,it.y+11,"#F6C27F",14)}
  else if(k==="smash"){SFX.play("smash");const o=R.C.obs[+a];this.parts.push({k:"debris",t:o.t,w:o.w,h:o.h,x:R.O[+a].x,y:o.y,vx:260,vy:420,g:1400,rot:0,vr:9,life:1.2,max:1.2,i:+a});this.float(R.O[+a].x,o.h+30,"연차 방어!","#2F8A5B")}
  else if(k==="hurt"){SFX.play("smash");V.mood="hit";V.moodT=.5;V.shake=.25;const o=R.C.obs[+a];this.parts.push({k:"debris",t:o.t,w:o.w,h:o.h,x:R.O[+a].x,y:o.y,vx:220,vy:380,g:1400,rot:0,vr:-8,life:1.1,max:1.1,i:+a});this.float(wx,60,(QUIP[o.t]||"앗!")+" -1❤️","#D9534F",1);V.dizzy=.9;this.bump("lives");try{navigator.vibrate&&navigator.vibrate(40)}catch(x){}}
  else if(k==="duck"){SFX.play("duck")}
  else if(k==="resist"){SFX.play("resist");V.sx=1.1;V.sy=.9;if(Math.random()<.5)this.dust(wx-10,0,2)}
  else if(k==="zone"){
-  if(a==="in"){SFX.play("zone");this.float(wx+40,96,"🍖 고기 냄새가…","#C8462E",1)}
-  else if(a==="out"){SFX.play("item");this.float(wx,86,`회식 탈출! +${K.ZONE.esc}`,"#2F8A5B",1);this.bump("score")}
+  const dr=this.S.key==="dream";
+  if(a==="in"){SFX.play("zone");this.float(wx+40,96,dr?"🛏 5분만 더…":"🍖 고기 냄새가…","#C8462E",1)}
+  else if(a==="out"){SFX.play("item");this.float(wx,86,`${dr?"이불 탈출!":"회식 탈출!"} +${K.ZONE.esc}`,"#2F8A5B",1);this.bump("score")}
   else if(a==="shield"){SFX.play("smash");this.float(wx,86,"연차 방어! 회식 패스","#2F8A5B",1)}
   else if(a==="free"){this.float(wx,86,"휴, 겨우 빠져나왔다","#8B7F70")}}
  else if(k==="zhurt"){SFX.play("hit");V.mood="hit";V.moodT=.5;V.shake=.25;V.dizzy=.9;this.float(wx,70,"끌려갔다… -1 ❤️","#D9534F",1);this.bump("lives");try{navigator.vibrate&&navigator.vibrate(40)}catch(x){}}
  else if(k==="note"){SFX.play("note");try{navigator.vibrate&&navigator.vibrate(15)}catch(x){}}
  else if(k==="dism"){SFX.play("dism");this.bump("score")}
+ else if(k==="blink"){SFX.play("dism")}
+ else if(k==="twist"){
+  if(a==="warn"){SFX.play("note");this.$.twist.hidden=false;this.$.twist.className="rn-twist warn";this.$.twist.innerHTML="⚠️ 꿈이 뒤틀려요!<small>곧 조작이 반대로 바뀌어요</small>";try{navigator.vibrate&&navigator.vibrate([30,40,30])}catch(x){}}
+  else if(a==="on"){SFX.play("zone");this.root.classList.add("twisted");this.$.twist.hidden=false;this.$.twist.className="rn-twist on";this.$.twist.innerHTML="🔄 조작 반전!<small>탭 = 숙이기 · 🙇 버튼 = 점프</small>";this.$.dl.textContent="점프";this.pointers.clear();this.duckPtr=null;this.$.duck.classList.remove("on")}
+  else{this.root.classList.remove("twisted");this.$.twist.hidden=true;this.$.dl.textContent="숙이기";this.float(wx,80,"휴, 정신 차렸다","#2F8A5B")}}
+ else if(k==="lid"){if(a==="on"){SFX.play("zone");this.$.lids.hidden=false;this.float(wx+30,96,"😪 눈이 감겨요…","#8C7FC0",1)}else{this.$.lids.hidden=true;this.float(wx,86,"번쩍! 눈 떴다","#2F8A5B")}}
  else if(k==="heal"){this.float(wx,74,"+1 ❤️","#2F8A5B",1);this.bump("lives")}
  else if(k==="hit"){SFX.play("hit");V.mood="hit";V.dvx=-110;V.dvy=330;V.shake=.35;this.phase="dying";this.dieT=0;try{navigator.vibrate&&navigator.vibrate(60)}catch(x){}}
  else if(k==="win"){SFX.play("win");V.mood="win";this.phase="winning";this.winT=0;for(let i=0;i<40;i++)this.parts.push({k:"conf",x:R.x+40+Math.random()*120,y:140+Math.random()*80,vx:-60+Math.random()*120,vy:Math.random()*120,g:-260,life:2,max:2,c:["#F28C38","#F6C27F","#3557D8","#2FA36B","#F2A3A3"][i%5],rot:Math.random()*6,vr:-6+Math.random()*12})}
@@ -325,9 +351,10 @@ P.hud=function(force){
  const tm=fmt(K.ms(R));if(force||c.tm!==tm){c.tm=tm;this.$.time.textContent=tm}
  const pp=pct.toFixed(1);if(force||c.pct!==pp){c.pct=pp;this.$.bar.style.width=pp+"%";this.$.dot.style.left=pp+"%"}
  if(force||c.nb!==R.nb){const add=R.nb>(c.nb||0);c.nb=R.nb;
-  let h="";for(let k=0;k<R.nb;k++){const m=NOTES[(R.ni*3+k)%NOTES.length];h+=`<div class="rn-nb" role="button" aria-label="알림 닫기"><i>💬</i><div><b>${m[0]}</b>${m[1]}</div><em>✕</em></div>`}
+  let h="";for(let k=0;k<R.nb;k++){const NL=this.S.key==="dream"?NOTES_DREAM:NOTES,m=NL[(R.ni*3+k)%NL.length];h+=`<div class="rn-nb" role="button" aria-label="알림 닫기"><i>💬</i><div><b>${m[0]}</b>${m[1]}</div><em>✕</em></div>`}
   this.$.notes.innerHTML=h;if(!add)this.$.notes.querySelectorAll(".rn-nb").forEach(n=>n.style.animation="none")}
  if(force||c.zin!==R.zin){c.zin=R.zin;this.$.zone.hidden=!R.zin}
+ {const lv=R.lidOn?(R.lid*47).toFixed(1):"0";if(force||c.lid!==lv){c.lid=lv;this.$.lidT.style.height=lv+"%";this.$.lidB.style.height=lv+"%";this.$.lids.classList.toggle("deep",R.lid>.6)}}
  if(R.zin){const zp=(R.zm*100).toFixed(0);if(c.zp!==zp){c.zp=zp;this.$.zbar.style.width=zp+"%"}}
  {let warn=false;const ob=R.C.obs;for(let i=0;i<ob.length;i++){const s=R.O[i];if(s.gone)continue;const dx=s.x-R.x;if(dx>K.PHY.ACT)break;if(dx<-40)continue;if(K.OBS[ob[i].t].duck){warn=true;break}}
   if(force||c.warn!==warn){c.warn=warn;this.$.duck.classList.toggle("warn",warn)}}
@@ -346,16 +373,16 @@ P.draw=function(){
  this.tile(L.far,camX*L.T.far,0,gy);this.tile(L.mid,camX*L.T.mid,0,gy);this.tile(L.ground,camX,gy,this.LH-gy);
  /* 도착지 */
  const gx=S.len+PX+40-camX-PX;if(gx<this.LW+40)A.GOAL[S.key](ctx,gx,gy+1,t);
- for(const z of R.C.zones){const a=z.x0-camX,b=z.x1-camX;if(b<-20||a>this.LW+20)continue;A.zoneShop(ctx,a,b,gy,t,S.key==="friday")}
+ for(const z of R.C.zones){const a=z.x0-camX,b=z.x1-camX;if(b<-20||a>this.LW+20)continue;if(S.key==="dream")A.zoneDream(ctx,a,b,gy,t);else A.zoneShop(ctx,a,b,gy,t,S.key==="friday")}
  /* 아이템 */
  const it=R.C.items;for(let i=0;i<it.length;i++){if(R.got[i])continue;const a=it[i],sx=a.x-camX;if(sx>this.LW+30)break;if(sx<-30)continue;
-  if(a.t==="pebble")A.pebbleItem(ctx,sx,gy-a.y-12,t);else A.powerItem(ctx,a.t,sx,gy-a.y-22,t)}
+  if(a.t==="pebble")A.pebbleItem(ctx,sx,gy-a.y-12,t);else if(a.t==="alarm")A.alarmItem(ctx,sx,gy-a.y-24,t);else A.powerItem(ctx,a.t,sx,gy-a.y-22,t)}
  /* 장애물 */
  const ob=R.C.obs,fri=S.key==="friday";for(let i=0;i<ob.length;i++){const s=R.O[i];if(s.gone)continue;const o=ob[i],sx=s.x-camX;if(sx>this.LW+60)break;if(sx+o.w<-60)continue;
   A.obstacle(ctx,o.t,sx,gy-K.obsY(R,i),o.w,o.h,t,i,fri)}
  /* 뒤에서 쫓아오는 팀장 */
  {const tgt=R.lives>=3?-70:R.lives===2?-8:PX-50;V.boss=V.boss==null?-70:V.boss+(tgt-V.boss)*Math.min(1,(this.phase==="dying"?6:2.5)*(1/60));if(this.phase==="dying"&&R.lives<=0)V.boss+=(PX-30-V.boss)*.08;
-  if(V.boss>-60)A.chaser(ctx,V.boss,gy,t,R.lives<=1,S.key==="friday")}
+  if(V.boss>-60)A.chaser(ctx,V.boss,gy,t,R.lives<=1,S.key==="friday",S.key==="dream")}
  /* 그림자 + 돌대리 */
  const px=PX+K.PB.w/2+V.dx,py=gy-R.y-V.dy;
  const hgt=R.y+V.dy;ctx.save();ctx.globalAlpha=.18*V.fade;A.ell(ctx,px,gy+1,15*(1-Math.min(.6,hgt/160)),3.4,"#4A3F35");ctx.restore();
@@ -383,7 +410,7 @@ P.draw=function(){
 P.finish=function(){
  this.cache={};this.hud(true);
  const R=this.R;const win=R.state==="win";
- const res={runId:this.runId,sid:this.sid,seed:R.seed,inputs:R.inputs.slice(),state:R.state,ms:K.ms(R),score:K.score(R),pebbles:R.pebbles,meters:K.meters(R),items:R.items,smashed:R.smashed,hurts:R.hurts,lives:R.lives,wallMs:Math.round(this.wallMs),hitBy:R.hitKind||(R.hitBy!=null?R.C.obs[R.hitBy].t:null),dism:R.dism,zEsc:R.zEsc};
+ const res={runId:this.runId,sid:this.sid,seed:R.seed,inputs:R.inputs.slice(),state:R.state,ms:K.ms(R),score:K.score(R),pebbles:R.pebbles,meters:K.meters(R),items:R.items,smashed:R.smashed,hurts:R.hurts,lives:R.lives,wallMs:Math.round(this.wallMs),hitBy:R.hitKind==="zone"&&this.S.key==="dream"?"dzone":R.hitKind||(R.hitBy!=null?R.C.obs[R.hitBy].t:null),alarms:R.alarms,dism:R.dism,zEsc:R.zEsc};
  let chainTotal=null;
  if(win&&this.chain&&this.chain.done.length===(this.sid-1)){this.chain.ms+=res.ms;this.chain.done.push(this.sid);if(this.sid==3){chainTotal=this.chain.ms}}
  res.chainTotal=chainTotal;
@@ -396,24 +423,26 @@ P.peb=function(mood){const c=document.createElement("canvas");c.className="peb";
 P.showResult=function(){
  const {res,info}=this.result,S=this.S,win=res.state==="win";
  if(!win){
-  this.over(`<div class="rn-card" role="dialog" aria-label="실패"><div class="pebslot"></div><h2>🚨 야근 확정!</h2><p class="sub">팀장님에게 붙잡혔어요<br><small>마지막 실수: ${CAUSE[res.hitBy]||"앗, 부딪혔어요"}</small></p>
-   <div class="rn-grid" style="grid-template-columns:repeat(2,1fr)"><div><span>달린 거리</span><b>${won(res.meters)}m</b><em>퇴근까지 ${won(Math.round(S.len/K.M)-res.meters)}m 남았었어요</em></div><div><span>획득 점수</span><b>${won(res.score)}</b>${info.bestScore?`<em>최고 ${won(info.bestScore)}</em>`:""}</div></div>
+  const dr=S.key==="dream",slept=res.hitBy==="sleep";
+  this.over(`<div class="rn-card" role="dialog" aria-label="실패"><div class="pebslot"></div><h2>${slept?"😴 다시 잠들었어요…":dr?"🌙 꿈속 야근 확정!":"🚨 야근 확정!"}</h2><p class="sub">${slept?`알람시계를 ${res.alarms||0}개만 모았어요. ⏰ ${S.need}개를 모아야 깨요`:dr?"꿈속 팀장님에게 붙잡혔어요":"팀장님에게 붙잡혔어요"}${slept?"":`<br><small>마지막 실수: ${CAUSE[res.hitBy]||"앗, 부딪혔어요"}</small>`}</p>
+   <div class="rn-grid" style="grid-template-columns:repeat(2,1fr)"><div><span>달린 거리</span><b>${won(res.meters)}m</b>${slept?"<em>끝까지 왔는데…!</em>":`<em>${dr?"기상까지":"퇴근까지"} ${won(Math.round(S.len/K.M)-res.meters)}m 남았었어요</em>`}</div><div><span>획득 점수</span><b>${won(res.score)}</b>${info.bestScore?`<em>최고 ${won(info.bestScore)}</em>`:""}</div></div>
    <p class="rn-note">${res.pebbles?`자갈 ${res.pebbles}개는 퇴근에 성공해야 월급코인으로 바뀌어요.`:"자갈은 퇴근에 성공하면 월급코인으로 바뀌어요."}</p>
    <button class="rn-b" data-rn="retry">다시 도전하기</button><button class="rn-b ghost" data-rn="exit">게임 나가기</button></div>`);
   this.root.querySelector(".pebslot").replaceWith(this.peb("hit"));return}
- const next=this.sid==1||this.sid==2;
+ const next=this.sid==1||this.sid==2||this.sid==3,dr=this.S.key==="dream";
  const reward=info.invalid?`<p class="rn-note">기록을 확인하지 못해서 이번 판은 저장하지 않았어요.</p>`
   :info.coins?`<p class="rn-note">자갈 ${info.pebblesPaid}개 → <b>월급코인 +${won(info.coins)}</b> 들어갔어요${info.capped?" (오늘 자갈 보상 한도까지만)":""}</p>`
   :res.pebbles?`<p class="rn-note">${info.capNote||"오늘 받을 수 있는 자갈 보상을 다 받았어요. 기록은 저장돼요."}</p>`:"";
- this.over(`<div class="rn-card" role="dialog" aria-label="성공"><p class="eb">${this.sid==="fri"?"불금 스페셜":"STAGE "+this.sid} · ${this.sid==3?"집 도착!":S.win}</p><div class="pebslot"></div><h2>🎉 오늘도 칼퇴 성공!</h2>
-  ${this.sid==="fri"&&info.title?`<span class="rn-title">🔥 칭호 「${S.title}」 획득</span>`:""}
+ this.over(`<div class="rn-card" role="dialog" aria-label="성공"><p class="eb">${this.sid==="fri"?"불금 스페셜":"STAGE "+this.sid} · ${this.sid==3?"집 도착!":S.win}</p><div class="pebslot"></div><h2>${dr?"⏰ 띠리링! 꿈에서 깼다!":"🎉 오늘도 칼퇴 성공!"}</h2>
+  ${(this.sid==="fri"||dr)&&info.title?`<span class="rn-title">${dr?"🌙":"🔥"} 칭호 「${S.title}」 획득</span>`:""}
+  ${this.sid==3?`<p class="rn-note">소파에서 잠든 돌대리… 그런데 꿈에서도 회사에 있어요. <b>STAGE 4</b>가 열렸어요!</p>`:""}
   <div class="rn-grid"><div><span>클리어 시간</span><b>${fmt(res.ms)}</b>${info.newBest?`<em>NEW 최고 기록</em>`:info.bestMs?`<em>최고 ${fmt(info.bestMs)}</em>`:""}</div><div><span>최종 점수</span><b>${won(res.score)}</b>${info.newBestScore?`<em>NEW</em>`:""}</div><div><span>획득 자갈</span><b>${res.pebbles}개</b>${info.coins?`<em>+${won(info.coins)}코인</em>`:""}</div></div>
   <p class="rn-note">${res.hurts===0?`🛡 <b>무사고 퇴근</b> 보너스 +${K.NO_HIT}점`:`부딪힌 횟수 ${res.hurts}번 · 남은 ❤️ ${res.lives}개 (무사고면 +${K.NO_HIT}점)`}</p>
   ${reward}${res.chainTotal!=null?`<p class="rn-note">1~3단계 연속 퇴근 <b>${fmt(res.chainTotal)}</b>${info.chainBest?" · NEW 최단 기록":""}</p>`:""}
   ${info.rank?`<p class="rn-note">${info.rank}</p>`:""}
-  ${next?`<button class="rn-b" data-rn="next">다음 스테이지 → ${K.STAGES[this.sid+1].name}</button>`:this.sid==="fri"?`<button class="rn-b" data-rn="retry">한 번 더 불금 탈출</button>`:`<button class="rn-b" data-rn="ending">엔딩 다시 보기</button>`}
+  ${next?`<button class="rn-b" data-rn="next">${this.sid==3?"😴 꿈속으로 → ":"다음 스테이지 → "}${K.STAGES[this.sid+1].name}</button>`:dr?`<button class="rn-b" data-rn="retry">한 번 더 꿈속 야근</button>`:this.sid==="fri"?`<button class="rn-b" data-rn="retry">한 번 더 불금 탈출</button>`:`<button class="rn-b" data-rn="ending">엔딩 다시 보기</button>`}
   <button class="rn-b ghost" data-rn="share">📤 친구에게 결과 공유</button>
-  <div class="rn-row rn-links">${this.sid==3?`<button class="rn-link" data-rn="restart1">1단계부터 다시</button>`:this.sid==="fri"?"":`<button class="rn-link" data-rn="retry">기록 다시 도전</button>`}<button class="rn-link" data-rn="exit">게임 나가기</button></div></div>`);
+  <div class="rn-row rn-links">${this.sid==3?`<button class="rn-link" data-rn="ending">엔딩 다시 보기</button><button class="rn-link" data-rn="restart1">1단계부터 다시</button>`:this.sid==="fri"?"":`<button class="rn-link" data-rn="retry">기록 다시 도전</button>`}<button class="rn-link" data-rn="exit">게임 나가기</button></div></div>`);
  this.root.querySelector(".pebslot").replaceWith(this.peb("win"));
 };
 P.showEnding=function(){this.phase="ending";this.over(null);this.endTxt(true);this.endTimer=setTimeout(()=>this.endingSkip(),4200)};

@@ -17,6 +17,9 @@ const SPACES=[
  {id:"cafeteria",emoji:"🍚",name:"구내식당",tags:"점심 메뉴 · 음식 · 일상",           desc:"오늘 점심 뭐 먹돌?"},
  {id:"commute",  emoji:"🚪",name:"퇴근길",  tags:"퇴근 후 일상 · 취미 · 자유수다",     desc:"퇴근했으면 이제 진짜 놀자!"},
 ];
+/* v18: 업무지구 광장 익명 게시판 (회사 밖). district가 있는 공간은 회사 게시판 목록에는 안 보여요 */
+const DISTRICTS=[["yeouido","여의도"],["gangnam","강남"],["pangyo","판교"],["gwanghwamun","광화문"],["seongsu","성수"],["magok","마곡"]];
+DISTRICTS.forEach(([k,n])=>SPACES.push({id:"d_"+k,emoji:"📍",name:n+" 광장",district:n,dkey:k,tags:n+" 직장인 익명 게시판",desc:n+" 업무지구 돌들의 이야기"}));
 const REPORT_REASONS=[
  {id:"privacy",label:"사내 특정 인물의 실명·개인정보 노출",hideNow:true},
  {id:"abuse",  label:"욕설·비방·괴롭힘"},
@@ -38,7 +41,8 @@ const CFG={
  hotDays:7,            /* 인기글 집계 기간 */
  nickMin:2, nickMax:10,
  nickChangeDays:7,     /* 닉네임 변경 간격 */
- dmNewPerDay:5,        /* 하루에 새로 거는 쪽지 대화 수 */
+ dmNewPerDay:5,
+ gbMax:120,            /* 방명록 한 줄 최대 글자 */        /* 하루에 새로 거는 쪽지 대화 수 */
  dmOpenDefault:false,  /* 쪽지 받기 기본값: 꺼짐 */
  fetchPosts:300, fetchComments:1000, fetchLikes:2000, fetchReports:1000, fetchKeys:1000, fetchMsgs:1000,
 };
@@ -166,7 +170,7 @@ async function makeShared(db,user,room){
     const count=ps=>new Set(ps.filter(p=>p.kind==="viewer").map(p=>p.by||p.peer)).size;
     room.onPeers(ch=>{S.online=count(ch.peers);
      /* 마을에 보이는 다른 돌: 위치·닉네임만 (계정 정보 없음) */
-     S.peers=ch.peers.filter(p=>!p.isMe&&p.kind==="viewer"&&p.presence&&typeof p.presence.x==="number"&&typeof p.presence.y==="number").map(p=>({key:p.peer,x:Math.max(0,Math.min(360,p.presence.x)),y:Math.max(0,Math.min(560,p.presence.y)),nick:String(p.presence.nick||"").slice(0,12),
+     S.peers=ch.peers.filter(p=>!p.isMe&&p.kind==="viewer"&&p.presence&&typeof p.presence.x==="number"&&typeof p.presence.y==="number").map(p=>({key:p.peer,x:Math.max(0,Math.min(5000,p.presence.x)),y:Math.max(0,Math.min(560,p.presence.y)),nick:String(p.presence.nick||"").slice(0,12),
       anon:typeof p.presence.anon==="string"?p.presence.anon.slice(0,40):null,eq:cleanEq(p.presence.eq),emo:cleanEmo(p.presence.emo)}));
      emit()},()=>{S.online=null;S.roomOff=true;S.peers=[];emit()});
     api.presence=patch=>room.presence(patch).catch(()=>{});
@@ -209,7 +213,7 @@ async function msgKey(m,conv){
 let decBusy=false;
 async function decryptAll(){
  if(decBusy||!S.me.priv)return;decBusy=true;
- try{for(const m of S.msgs){if(S.plain[m.id]!=null)continue;const c=S.convs.find(x=>x.id===m.cid);try{const k=await msgKey(m,c);S.plain[m.id]=k?await dec(k,m.iv,m.ct):"(풀 수 없는 쪽지)"}catch(e){S.plain[m.id]="(풀 수 없는 쪽지)"}}}
+ try{for(const m of S.msgs){if(S.plain[m.id]!=null)continue;const c=S.convs.find(x=>x.id===m.cid);try{const k=await msgKey(m,c);S.plain[m.id]=k?await dec(k,m.iv,m.ct):"(풀 수 없는 메시지)"}catch(e){S.plain[m.id]="(풀 수 없는 메시지)"}}}
  finally{decBusy=false;emit()}
 }
 
@@ -260,18 +264,18 @@ function unreadTotal(){return convList().reduce((n,c)=>n+(c.status==="accepted"|
 /* 이 돌에게 쪽지를 보낼 수 있는지 */
 function dmTarget(other){
  const k=S.keys[other], c=convOf(other);
- if(S.mode!=="shared")return {ok:false,why:"쪽지는 서버가 연결되면 열려요."};
- if(!S.dmReady)return {ok:false,why:"이 브라우저에서는 쪽지를 쓸 수 없어요."};
- if(other===S.me.anon)return {ok:false,why:"나에게는 쪽지를 보낼 수 없어요."};
- if(!S.canWrite)return {ok:false,why:S.notice||"지금은 쪽지를 보낼 수 없어요."};
+ if(S.mode!=="shared")return {ok:false,why:"대화는 서버가 연결되면 열려요."};
+ if(!S.dmReady)return {ok:false,why:"이 브라우저에서는 대화를 쓸 수 없어요."};
+ if(other===S.me.anon)return {ok:false,why:"나와는 대화할 수 없어요."};
+ if(!S.canWrite)return {ok:false,why:S.notice||"지금은 대화를 요청할 수 없어요."};
  if(blocked(other))return {ok:false,why:"차단한 돌이에요."};
  if(c&&c.status==="blocked")return {ok:false,why:"대화가 차단됐어요.",cid:c.id};
  if(c&&c.status==="declined")return {ok:false,why:"상대가 대화를 원하지 않았어요."};
  if(c)return {ok:true,cid:c.id,existing:true};
- if(!k||!k.pub)return {ok:false,why:"이 돌은 아직 쪽지를 받을 준비가 안 됐어요."};
- if(!k.dmOpen)return {ok:false,why:"이 돌은 쪽지를 받지 않아요."};
+ if(!k||!k.pub)return {ok:false,why:"이 돌은 아직 대화를 받을 준비가 안 됐어요."};
+ if(!k.dmOpen)return {ok:false,why:"이 돌은 대화 받기를 꺼 뒀어요."};
  const today=dayKey(Date.now());const n=S.convs.filter(x=>x.by===S.me.anon&&dayKey(x.createdAt)===today).length;
- if(n>=CFG.dmNewPerDay)return {ok:false,why:`새 쪽지 대화는 하루 ${CFG.dmNewPerDay}개까지 걸 수 있어요.`};
+ if(n>=CFG.dmNewPerDay)return {ok:false,why:`새 대화 요청은 하루 ${CFG.dmNewPerDay}개까지 걸 수 있어요.`};
  return {ok:true,nick:k.nick};
 }
 
@@ -308,13 +312,13 @@ async function block(anon){const b=(S.me.blocked||[]).filter(x=>x!==anon).concat
 async function unblock(anon){await backend.saveMe({blocked:(S.me.blocked||[]).filter(x=>x!==anon)});const c=convOf(anon);if(c&&c.status==="blocked"&&c.blockedBy===S.me.anon&&backend.upd)await backend.upd("convs",c.id,{status:"accepted",blockedBy:null}).catch(()=>{})}
 async function putMsg(cid,other,text,pinnedPub){
  const k=pinnedPub?await derive(S.me.priv,pinnedPub):await convKey(other);
- if(!k)throw {code:"dm",message:"상대의 쪽지 열쇠를 찾지 못했어요."};
+ if(!k)throw {code:"dm",message:"상대의 대화 열쇠를 찾지 못했어요."};
  const e=await enc(k,text);const id=rid(),at=Date.now();
  await backend.put("msgs",id,{cid,from:S.me.anon,to:other,iv:e.iv,ct:e.ct,at});
  S.plain[id]=text;return at;
 }
 async function startDm(other,raw){
- guard();const text=clean(raw,CFG.dmMax);if(!text)throw {code:"dm",message:"쪽지 내용을 써 주세요."};
+ guard();const text=clean(raw,CFG.dmMax);if(!text)throw {code:"dm",message:"메시지를 써 주세요."};
  const t=dmTarget(other);if(!t.ok)throw {code:"dm",message:t.why};
  if(t.existing)return sendDm(t.cid,text);
  const k=S.keys[other],cid=cidOf(other),[a,b]=[S.me.anon,other].sort(),now=Date.now();
@@ -324,12 +328,12 @@ async function startDm(other,raw){
  return cid;
 }
 async function sendDm(cid,raw){
- guard();const text=clean(raw,CFG.dmMax);if(!text)throw {code:"dm",message:"쪽지 내용을 써 주세요."};
+ guard();const text=clean(raw,CFG.dmMax);if(!text)throw {code:"dm",message:"메시지를 써 주세요."};
  const c=S.convs.find(x=>x.id===cid);if(!c)throw {code:"dm",message:"대화를 찾을 수 없어요."};
  const other=c.a===S.me.anon?c.b:c.a;
  if(blocked(other)||c.status==="blocked")throw {code:"dm",message:"차단된 대화예요."};
  if(c.status==="declined")throw {code:"dm",message:"상대가 대화를 원하지 않았어요."};
- if(c.status==="requested"&&c.by===S.me.anon)throw {code:"dm",message:"상대가 쪽지를 수락하면 이어서 보낼 수 있어요."};
+ if(c.status==="requested"&&c.by===S.me.anon)throw {code:"dm",message:"상대가 대화를 수락하면 이어서 보낼 수 있어요."};
  if(c.status==="requested")await backend.upd("convs",cid,{status:"accepted"});
  const pinned=c.a===other?c.pubA:c.pubB;
  const at=await putMsg(cid,other,text,pinned);
@@ -354,6 +358,30 @@ async function ban(anon){if(!S.isOwner||anon===S.me.anon)return;const ref=backen
 async function unban(anon){if(!S.isOwner)return;const ref=backend.db.doc("ops/bans");const s=await ref.get();const list=(s.exists?(s.data().anons||[]):[]).filter(x=>x!==anon);await ref.set({anons:list,at:Date.now()})}
 
 function presence(patch){if(backend&&backend.presence)backend.presence(patch)}
+
+/* ---- v19.3: 돌 방 놀러가기 · 방명록 (함께 쓰는 저장소에서만) ----
+   rooms/{anon}: 내 방 모습(집·넓이·가구·옷·펫·돌 위치·닉네임) — 계정 정보 없음
+   guestbook: {room:방 주인 anon, anon, nick, body, at} — 방 주인과 쓴 돌만 지울 수 있어요 */
+const ROOM_OK={yard:["alley","hangang","beach","night"],home:["gosi","ruin","rooftop","villa","apt","house","country","mansion"],furn:["plant","poster","lamp","coffee","shelf","sofa","bed","tv"],pet:["cloud","bunny","bird","sprout","jelly","turtle"]};
+function cleanRoom(r){if(!r||typeof r!=="object")return null;const n=(v,a,b)=>Math.max(a,Math.min(b,Math.round(+v||0)));
+ return {nick:String(r.nick||"").slice(0,16),house:n(r.house,0,3),size:n(r.size,0,3),home:ROOM_OK.home.includes(r.home)?r.home:"gosi",yard:ROOM_OK.yard.includes(r.yard)?r.yard:"alley",furn:(Array.isArray(r.furn)?r.furn:[]).filter(x=>ROOM_OK.furn.includes(x)),
+  eq:Object.assign(cleanEq(r.eq),ROOM_OK.pet.includes(r.eq&&r.eq.pet)?{pet:r.eq.pet}:{}),pos:r.pos&&typeof r.pos==="object"?{x:n(r.pos.x,0,700),y:n(r.pos.y,0,600)}:null,at:+r.at||0}}
+let lastRoomJson="";
+async function putRoom(doc){if(!backend||backend.mode!=="shared"||!S.canWrite||!S.me.anon)return;const d=cleanRoom(Object.assign({},doc,{nick:S.me.nick}));const j=JSON.stringify(d);if(j===lastRoomJson)return;lastRoomJson=j;
+ try{await backend.db.collection("rooms").doc(S.me.anon).set(Object.assign(d,{at:Date.now()}))}catch(e){lastRoomJson=""}}
+async function getRoom(anon){if(!backend||backend.mode!=="shared")return null;try{const x=await backend.db.collection("rooms").doc(String(anon)).get();return x.exists?cleanRoom(x.data()):null}catch(e){return null}}
+async function gbList(room){if(!backend||backend.mode!=="shared")return [];try{const q=await backend.db.collection("guestbook").where("room","==",String(room)).limit(60).get();
+ return q.docs.map(d=>Object.assign({id:d.id},d.data())).filter(g=>g.body&&!blocked(g.anon)).sort((a,b)=>b.at-a.at)}catch(e){return []}}
+async function addGuest(room,raw){guard();if(backend.mode!=="shared")throw {code:"gb",message:"방명록은 서버가 연결되면 열려요."};
+ const body=clean(raw,CFG.gbMax);if(!body)throw {code:"gb",message:"방명록을 써 주세요."};if(room===S.me.anon)throw {code:"gb",message:"내 방에는 방명록을 쓸 수 없어요."};
+ const id=rid();await backend.put("guestbook",id,{room:String(room),anon:S.me.anon,nick:S.me.nick,body,at:Date.now()});return id}
+async function delGuest(g){if(!g||!(g.anon===S.me.anon||g.room===S.me.anon||S.isOwner))return;await backend.del("guestbook",g.id)}
+
+/* ---- v18: 광장 표시(퇴근 체크·점심 투표·야근·응원) = 돌이뻐요와 같은 저장소에 "표시" 한 줄씩. 한 돌은 한 번만 세요 ---- */
+const markId=pid=>(pid+"__"+S.me.anon).replace(/[^\w:.-]/g,"_");
+function marked(pid){return S.likes.some(l=>l.pid===pid&&l.anon===S.me.anon)}
+function countMark(pid){return new Set(S.likes.filter(l=>l.pid===pid&&!blocked(l.anon)).map(l=>l.anon)).size}
+async function mark(pid,on){guard();if(on===false)await backend.del("likes",markId(pid));else await backend.put("likes",markId(pid),{pid,anon:S.me.anon,at:Date.now()})}
 
 /* ---- 돌퇴근 주간 랭킹 (함께 쓰는 저장소가 있을 때만. 로컬에선 null → 화면은 "내 기록"만 보여줘요) ----
    SERVER TODO: 지금은 기기에서 검증(runner-core verify)한 뒤 올려요. 서버가 생기면 입력 기록(inputs)을 함께 올리고
@@ -391,5 +419,5 @@ window.TG_COMMUNITY={SPACES,REPORT_REASONS,DM_REPORT_REASONS,CFG,state:S,subscri
  addPost,deletePost,addComment,deleteComment,toggleLike,report,
  nickProblem,nickChange,setNickname,contactRisk,
  setDmOpen,dmTarget,startDm,sendDm,acceptDm,declineDm,block,unblock,reportDm,convList,messages,markRead,unreadTotal,
- ban,unban,presence,runSubmit,runBoard,EMOTES,cleanEq};
+ ban,unban,presence,runSubmit,runBoard,EMOTES,cleanEq,DISTRICTS,marked,countMark,mark,putRoom,getRoom,gbList,addGuest,delGuest,cleanRoom};
 })();

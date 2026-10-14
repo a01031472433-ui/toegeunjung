@@ -133,6 +133,7 @@ button:focus-visible,summary:focus-visible,a:focus-visible{outline:3px solid var
 .card{background:var(--paper);border-radius:18px;padding:10px 10px 14px;display:flex;flex-direction:column;gap:6px;min-width:0}
 .thumb{background:var(--wall);border-radius:12px;aspect-ratio:1/1;max-width:100%;display:grid;place-items:center;overflow:hidden}
 .thumb svg{width:88%;height:88%}
+.thumb img.t3d{width:86%;height:86%;object-fit:contain;filter:drop-shadow(0 4px 6px rgba(20,30,60,.15))}
 .card b{font-weight:400;font-size:17px}
 .card .d{font-size:13px;color:var(--muted);min-height:2.6em}
 .card .btn{padding:9px 10px;font-size:15px}
@@ -454,6 +455,45 @@ details .law{font-size:12.5px;color:var(--blue);margin-top:6px}
 .reqbox{background:var(--paper);border-radius:16px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;box-shadow:inset 0 0 0 2px var(--yellow)}
 .reqbox p{margin:0;font-size:15px}
 .chat{display:flex;flex-direction:column;gap:8px;max-height:52vh;overflow-y:auto}
+#chatbox.chat{height:calc(100dvh - 330px);min-height:260px;max-height:none;background:var(--surface-2);border-radius:18px;padding:12px}
+#chatbox .bub{background:var(--paper)}#chatbox .bub.me{background:var(--blue);color:var(--blue-ink)}
+#dmform{position:sticky;bottom:calc(76px + env(safe-area-inset-bottom,0px));background:var(--bg);padding:6px 0;z-index:2}
+.vemo-room{width:auto!important;height:auto!important;padding:6px 10px;font-size:13px!important;border-radius:10px;background:#fff;box-shadow:inset 0 0 0 1.5px #E8D7B8}
+.acwrap{aspect-ratio:360/300;overflow:hidden;background:#E6CDA6}
+.acwrap svg.acroom{display:block;max-width:none;height:auto;transition:transform .7s cubic-bezier(.3,.8,.4,1)}
+.acwrap svg.acwalk{cursor:pointer}
+.acthumb svg{width:100%!important;height:100%!important;transform:none!important}
+.yard{position:relative;aspect-ratio:360/300;background:linear-gradient(#CFE6FA 0%,#E6F2FB 55%,#BFE3A6 55.1%,#A9D98B 100%);overflow:hidden}
+.yard .ground{position:absolute;left:12%;right:12%;bottom:10%;height:22%;border-radius:50%;background:#9CCF7C;opacity:.7}
+.yard .cl{position:absolute;width:70px;height:24px;border-radius:999px;background:#fff;opacity:.85}.yard .c1{left:8%;top:12%}.yard .c2{right:10%;top:22%;width:54px}
+.yard .ybg{position:absolute;inset:0;width:100%;height:100%}
+.yard:not(.yb-alley) .cl{display:none}
+.yb-hangang .ground{background:#86C26A}.yb-beach .ground{background:#EBCB8E}.yb-night .ground{background:#4E5680;opacity:.8}
+.yb-night .homeimg{filter:drop-shadow(0 0 14px rgba(255,220,140,.35)) drop-shadow(0 8px 10px rgba(0,0,0,.35))}
+.ythumb{padding:0;overflow:hidden;display:block}.ythumb .yard .homeimg{width:auto;height:62%;object-fit:initial}.ythumb .yard{width:100%;height:100%;aspect-ratio:auto}.ythumb .yardstone{display:none}
+.yard .homeimg{position:absolute;left:50%;bottom:14%;height:66%;transform:translateX(-50%);filter:drop-shadow(0 8px 10px rgba(60,80,40,.25))}
+.yard .yardstone{position:absolute;left:66%;bottom:8%;width:17%}
+.yard .yardstone svg{width:100%;display:block}
+.homename{position:absolute;right:10px;top:10px;background:rgba(255,255,255,.9);border-radius:999px;padding:4px 12px;font-size:14px;white-space:nowrap}
+.enterhome{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);padding:10px 20px;font-size:16px;box-shadow:0 4px 12px rgba(40,70,120,.25)}
+.exithome{position:absolute;right:10px;top:10px;z-index:2;background:rgba(255,255,255,.9)}
+.acwrap .roomsz{top:auto;bottom:8px;right:auto;left:10px}
+.seg5{grid-template-columns:repeat(5,1fr)}.seg5 button{font-size:14.5px;padding-left:2px;padding-right:2px}
+.homegrid{display:grid;grid-template-columns:1fr;gap:10px}
+.hcard{display:flex;gap:12px;align-items:center;background:var(--paper);border-radius:18px;padding:10px 12px;box-shadow:inset 0 0 0 1.5px var(--hair)}
+.hcard.on{box-shadow:inset 0 0 0 2px var(--blue)}
+.hthumb{width:104px;height:104px;flex:none;border-radius:14px;background:linear-gradient(#EAF3FB,#F6F1E8);display:grid;place-items:center;overflow:hidden}
+.hthumb img{width:90%;height:90%;object-fit:contain}
+.hinfo{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1}.hinfo b{font-weight:400;font-size:18px}.hinfo .d{font-size:13px;color:var(--muted)}.hinfo .btn{align-self:flex-start;padding:7px 14px;font-size:14px}
+@media (min-width:520px){.homegrid{grid-template-columns:1fr 1fr}}
+.walkhint{position:absolute;right:10px;bottom:8px;font-size:11.5px;color:var(--muted);background:rgba(255,255,255,.75);border-radius:999px;padding:2px 8px;pointer-events:none}
+.scene svg.roomwalk{cursor:pointer;max-width:none;transition:transform .7s cubic-bezier(.3,.8,.4,1)}
+.roomsz{position:absolute;right:10px;top:10px;font-size:12px;background:rgba(255,255,255,.85);border-radius:999px;padding:3px 10px;color:var(--ink);pointer-events:none;z-index:2}
+.roomarr{position:absolute;top:50%;transform:translateY(-50%);width:34px;height:46px;border:0;border-radius:12px;background:rgba(255,255,255,.85);color:var(--blue);font-size:26px;line-height:1;box-shadow:0 2px 8px rgba(40,70,120,.18);cursor:pointer;z-index:2}.roomarr.l{left:8px}.roomarr.r{right:8px}.rstone{transition:transform .7s cubic-bezier(.3,.8,.4,1)}
+.myroom{display:flex;align-items:center;gap:8px;margin-top:-4px}.myroom .hint{font-size:12.5px}
+.whoact{display:flex;flex-direction:column;gap:8px}
+.clist.gb li p{margin:2px 0 0}
+.dmcost{margin:0;background:var(--gold-soft);border-radius:12px;padding:10px 12px;font-size:15px}.dmcost b{font-weight:400;color:var(--blue)}.dmcost small{color:var(--muted);font-size:12.5px}.dmcost.free{background:var(--blue-soft)}
 .chat.sm{max-height:40vh;background:var(--surface-2);border-radius:12px;padding:10px}
 .bub{align-self:flex-start;max-width:82%;background:var(--surface-2);border-radius:16px 16px 16px 4px;padding:8px 12px}
 .chat.sm .bub{background:var(--paper)}
@@ -470,6 +510,39 @@ details .law{font-size:12.5px;color:var(--blue);margin-top:6px}
 .flip.locked .mys i{font-size:30px}
 .lock-cta{margin-top:6px;background:#fff;color:#2E4FBF;border-radius:999px;padding:7px 16px;font-size:15px}
 .fort .why{display:block;margin-top:2px;font-size:12px;color:var(--muted)}
+
+/* v21: 출근 탭 · 칼퇴증시 */
+.pc-seg.pc3{display:grid;grid-template-columns:repeat(3,1fr)}
+.pc-seg.pc3 button{padding:8px 4px}
+.pc-seg .nbadge{font-style:normal;background:var(--bad);color:#fff;border-radius:999px;padding:0 5px;font-size:11px}
+.condrow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:4px}
+.condrow button{border:0;background:var(--surface-2);border-radius:16px;padding:12px 4px;font-size:28px;font-family:inherit;display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--ink);cursor:pointer}
+.condrow button:active{background:var(--blue-soft)}
+.condrow small{font-size:14px;color:var(--muted)}
+.playcard.locked .lockrow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.lockrow span{background:var(--surface-2);border-radius:14px;padding:12px 4px;text-align:center;font-size:13.5px;color:var(--muted);line-height:1.5}
+.stk{display:flex;flex-direction:column;gap:8px}
+.stk-h{display:flex;justify-content:space-between;align-items:center}
+.stk-h b{font-weight:400;font-size:16px}
+.stk-pill{font-size:12.5px;padding:3px 9px;border-radius:999px;background:var(--surface-2);color:var(--muted);white-space:nowrap}
+.stk-pill.open{background:var(--blue);color:#fff}
+.stnews{background:var(--blue-soft);border-radius:14px;padding:10px 12px;font-size:15px}
+.stnews small{display:block;color:var(--muted);font-size:12px;margin-bottom:3px}
+.stnews b{font-weight:400}
+.stsum{margin:0;font-size:14px;color:var(--muted)}.stsum b{color:var(--ink);font-weight:400}
+.stgrp{font-size:12.5px;color:var(--muted);margin:8px 0 0}
+.strow{display:flex;align-items:center;gap:8px;padding:7px 0;border-top:1px solid var(--hair);min-height:36px}
+.strow.hot{background:linear-gradient(90deg,var(--gold-soft),transparent);border-radius:8px}
+.strow .se{width:24px;text-align:center}
+.strow .sn{flex:1;min-width:0}.strow .sn b{font-weight:400}
+.strow .btn{padding:6px 14px;font-size:13.5px}
+.strow small.mono{color:var(--muted);font-size:12px;white-space:nowrap}
+.stmine{font-size:13px;color:var(--blue)}.stmine b{font-weight:400}
+.tier{font-size:11px;padding:1px 6px;border-radius:6px}
+.tier.s{background:#E2E9FB;color:#2440AE}.tier.m{background:#FFF3D1;color:#8A5A00}.tier.j{background:#FFE1E1;color:#B42E2E}
+.pct{font-size:13.5px;white-space:nowrap}.pct.up,.stbig.up{color:#D93636}.pct.dn,.stbig.dn{color:#2463EB}
+.amtgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stbig{font-size:34px;margin:0}
 /* v17: 칼퇴상사 · 오늘 탭 다이어트 */
 .badge .whob{border:0;background:none;padding:0;text-align:left;font:inherit;color:inherit;cursor:pointer;gap:2px}
 .badge .whob .prof{font-style:normal;font-size:12.5px;color:var(--muted);margin-top:4px}
@@ -563,8 +636,8 @@ details .law{font-size:12.5px;color:var(--blue);margin-top:6px}
 /* v13: 돌마을 = 회사 2층 (3D 렌더 이미지) */
 .village .vmap{object-fit:cover;user-select:none;-webkit-user-drag:none}
 .village{background:#CFE3F7}
-.vsign{position:absolute;transform:translate(-50%,-50%);display:inline-flex;align-items:center;gap:5px;background:#fff;color:#22304A;border-radius:999px;padding:3px 10px 3px 7px;font-size:12.5px;white-space:nowrap;box-shadow:0 2px 6px rgba(40,70,120,.18);pointer-events:none;z-index:1}
-.vsign i{display:inline-flex;width:15px;height:15px;color:#2E3D5C}
+.vsign{position:absolute;transform:translate(-50%,-50%);display:inline-flex;align-items:center;gap:4px;background:#fff;color:#22304A;border-radius:999px;padding:2px 8px 2px 6px;font-size:10.6px;white-space:nowrap;box-shadow:0 2px 6px rgba(40,70,120,.18);pointer-events:none;z-index:1}
+.vsign i{display:inline-flex;width:13px;height:13px;color:#2E3D5C}
 .vsign svg{width:100%;height:100%}
 /* v12: 퇴근각 힌트 */
 .ghints{display:flex;flex-direction:column;gap:6px}
@@ -615,6 +688,43 @@ details .law{font-size:12.5px;color:var(--blue);margin-top:6px}
 .vlabel.on,.village.intro .vlabel{opacity:1}
 .vonline{position:absolute;left:10px;bottom:10px;z-index:3;display:inline-flex;align-items:center;gap:6px;background:rgba(255,247,230,.92);color:#4A3B2C;border-radius:999px;padding:3px 10px;font-size:13px;pointer-events:none}
 .vonline b{font-weight:400}
+/* v18: 칼퇴상사 가로 스크롤 회사 */
+.office{aspect-ratio:3/2;max-height:330px;background:#CFE3F7;cursor:default}
+.oworld{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform}
+.ostrip{position:absolute;left:0;top:0;width:100%;height:100%;display:block;user-select:none;-webkit-user-drag:none;pointer-events:none}
+.ostrip.night{filter:brightness(.74) saturate(.85) hue-rotate(-6deg)}
+.oworld .vme,.oworld .vpeer{width:58px}
+.oworld .vme{transition:top .32s cubic-bezier(.3,1.4,.5,1)}
+.oworld .vpeer{transition:left .45s linear}
+.oworld .vpuff{width:8px}
+.oworld .venter{font-size:14px;padding:6px 12px}
+.vme.sit .bod svg{animation:vlook 3.4s ease-in-out infinite;transform-origin:50% 90%}
+@keyframes vlook{0%,30%,100%{transform:rotate(0) translateY(0)}40%,62%{transform:rotate(5deg) translateY(-2%)}48%,56%{transform:rotate(5deg) translateY(-5%)}}
+.vme.hopdown .bod svg{animation:vhop .36s ease-out}
+@keyframes vhop{40%{transform:translateY(-22%) scale(1.04,.96)}}
+.osign{position:absolute;transform:translate(-50%,-50%);display:inline-flex;align-items:center;gap:4px;background:#fff;color:#22304A;border-radius:999px;padding:2px 9px 2px 6px;font-size:10.6px;white-space:nowrap;box-shadow:0 2px 5px rgba(40,70,120,.18);pointer-events:none;z-index:1}
+.osign i{display:inline-flex;width:13px;height:13px;color:#2E3D5C;font-style:normal;font-size:11px;line-height:1}
+.osign svg{width:100%;height:100%}
+.osign .vbadge{position:static;margin-left:3px;font-size:9.5px;padding:0 5px;border-width:1.5px}
+.osign.oexit{background:#3557D8;color:#fff}.osign.oexit i{color:#fff}
+.omove{position:absolute;bottom:10px;z-index:4;width:46px;height:46px;border-radius:50%;border:0;background:rgba(255,255,255,.88);color:#3557D8;box-shadow:0 3px 10px rgba(40,70,120,.22);display:grid;place-items:center;touch-action:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.omove svg{width:22px;height:22px}.omove:active{transform:scale(.92);background:#fff}
+.omove.l{left:10px}.omove.r{right:10px}
+.office .vonline{left:50%;transform:translateX(-50%);bottom:auto;top:8px}
+.pzpick{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.pzd{border:0;background:var(--paper);border-radius:18px;padding:18px 16px;text-align:left;display:flex;flex-direction:column;gap:4px;box-shadow:inset 0 0 0 1.5px var(--hair);cursor:pointer;font-family:inherit;color:var(--ink)}
+.pzd b{font-weight:400;font-size:21px}.pzd span{font-size:13px;color:var(--muted)}
+.pzd:active{transform:scale(.98)}
+.pz{display:flex;flex-direction:column;gap:10px}
+.pz-big{margin:0;font-size:16px}.pz-big b{font-weight:400;color:var(--blue);font-size:20px}
+.pz-solo{margin:0;background:var(--surface-2);border-radius:12px;padding:8px 12px;font-size:13px}
+.pz-vote{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.pzv{position:relative;overflow:hidden;border:0;border-radius:12px;background:var(--surface-2);padding:10px 12px;display:flex;justify-content:space-between;align-items:center;font-family:inherit;font-size:15px;color:var(--ink);cursor:pointer;text-align:left}
+.pzv span,.pzv b{position:relative;z-index:1;font-weight:400}
+.pzv i{position:absolute;left:0;top:0;bottom:0;background:rgba(53,87,216,.14)}
+.pzv.on{box-shadow:inset 0 0 0 2px var(--blue)}.pzv.on b{color:var(--blue)}
+.pz-h{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.pz .row{display:flex;gap:8px;flex-wrap:wrap}
 /* v10: 돌퇴근 카드 (앱의 파란 UI 그대로, 게임 화면만 크림색) */
 .rc-hero{position:relative;height:66px;border-radius:14px;background:var(--surface-2);overflow:hidden}
 .rc-hero::after{content:"";position:absolute;left:0;right:0;bottom:12px;border-top:2px dashed var(--line)}
@@ -625,7 +735,8 @@ details .law{font-size:12.5px;color:var(--blue);margin-top:6px}
 @keyframes rcob{from{left:100%}to{left:-10%}}
 @keyframes rcjump{0%,58%{transform:translateY(0)}69%{transform:translateY(-22px)}80%{transform:translateY(0)}83%{transform:translateY(0) scale(1.08,.92)}86%,100%{transform:none}}
 @media (prefers-reduced-motion:reduce){.rc-peb,.rc-o{animation:none}.rc-o{left:60%}}
-.rc-sts{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.rc-sts{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}
+.rc-st.dream{background:linear-gradient(135deg,#2B2350,#4B3F86);color:#F4F0FF}.rc-st.dream span,.rc-st.dream small{color:#C9BFF0}.rc-st.dream.on{border-color:#B9A6FF;background:linear-gradient(135deg,#3A2F6B,#5B4BA0)}
 .rc-st{border:2px solid transparent;background:var(--surface-2);border-radius:14px;padding:8px 8px 7px;text-align:left;display:flex;flex-direction:column;gap:1px;color:var(--ink);font-family:inherit;cursor:pointer;min-width:0}
 .rc-st span{font-size:11.5px;color:var(--muted);letter-spacing:.04em}
 .rc-st b{font-weight:400;font-size:15.5px;line-height:1.2;word-break:keep-all}
@@ -752,15 +863,22 @@ const ITEMS=[
  {id:"poster",cat:"furniture",name:"휴가 포스터",price:200,desc:"퇴근 후 행복 +2",fx:{when:"out",happy:2}},
  {id:"lamp",cat:"furniture",name:"스탠드 조명",price:300,desc:"퇴근 후 멘탈 +2",fx:{when:"out",mental:2}},
  {id:"coffee",cat:"furniture",name:"커피머신",price:500,desc:"출근할 때 행복 +3",fx:{when:"in",happy:3}},
- {id:"hamster",cat:"pet",slot:"pet",name:"햄스터",price:400,desc:"함께 있으면 출근길 행복 +5"},
- {id:"cat",cat:"pet",slot:"pet",name:"고양이",price:800,desc:"함께 있으면 출근길 행복 +5"},
- {id:"dog",cat:"pet",slot:"pet",name:"강아지",price:900,desc:"함께 있으면 출근길 행복 +5"},
+ {id:"shelf",cat:"furniture",name:"책장",price:350,desc:"퇴근 후 멘탈 +2",fx:{when:"out",mental:2}},
+ {id:"sofa",cat:"furniture",name:"푹신 소파",price:450,desc:"퇴근 후 행복 +3",fx:{when:"out",happy:3}},
+ {id:"bed",cat:"furniture",name:"꿀잠 침대",price:600,desc:"퇴근 후 멘탈 +4",fx:{when:"out",mental:4}},
+ {id:"tv",cat:"furniture",name:"TV · 게임기",price:800,desc:"퇴근 후 행복 +4",fx:{when:"out",happy:4}},
+ {id:"cloud",cat:"pet",slot:"pet",name:"구름콩",price:400,joy:4,desc:"조용히 곁에 있어줘요<br>출근길 행복 +4"},
+ {id:"bunny",cat:"pet",slot:"pet",name:"먼지토끼",price:500,joy:5,desc:"폭신한 위로를 줘요<br>출근길 행복 +5"},
+ {id:"bird",cat:"pet",slot:"pet",name:"조약돌새",price:600,joy:5,desc:"작게 짹짹 응원해요<br>출근길 행복 +5"},
+ {id:"sprout",cat:"pet",slot:"pet",name:"새싹이",price:450,joy:4,desc:"함께 있으면 마음이 자라요<br>출근길 행복 +4"},
+ {id:"jelly",cat:"pet",slot:"pet",name:"젤리유령",price:800,joy:6,desc:"야근도 덜 외로워요<br>출근길 행복 +6"},
+ {id:"turtle",cat:"pet",slot:"pet",name:"꼬마거북",price:900,joy:6,desc:"천천히 가도 괜찮아요<br>출근길 행복 +6"},
 ];
 const HOUSES=[
- {lv:0,name:"고시원",price:0,rec:0},
- {lv:1,name:"원룸",price:800,rec:5},
- {lv:2,name:"투룸",price:2000,rec:10},
- {lv:3,name:"한강뷰 오피스텔",price:5000,rec:15},
+ {lv:0,name:"원룸",price:0,rec:0},
+ {lv:1,name:"투룸",price:800,rec:5},
+ {lv:2,name:"쓰리룸",price:1800,rec:10},
+ {lv:3,name:"넓은 거실",price:3500,rec:15},
 ];
 const EVENTS=[
  {t:"팀장님 오후 외근",d:"오후 사무실이 도서관처럼 조용하다.",fx:{happy:20},w:3},
@@ -807,7 +925,7 @@ const SEASON=[
  {d:60,t:"진급 심사",s:"돌과장 인사발령, 시즌 2 오픈",c:1000},
 ];
 const SEASON_LEN=60;
-const DISTRICTS={"여의도":3821,"판교":2910,"강남":5120,"광화문":2640,"성수":1870,"마곡":1540};
+const DISTRICTS={"여의도":1,"강남":1,"판교":1,"광화문":1,"성수":1,"마곡":1}; /* 업무지구 이름 (숫자는 쓰지 않아요) */
 
 /* ---------- state ---------- */
 function fresh(){return{v:1,coins:300,happy:60,mental:60,daysWorked:0,streak:0,lastWorkDate:null,
@@ -817,10 +935,14 @@ function fresh(){return{v:1,coins:300,happy:60,mental:60,daysWorked:0,streak:0,l
 let state;
 try{state=JSON.parse(localStorage.getItem(KEY))||fresh()}catch(e){state=fresh()}
 state=Object.assign(fresh(),state);
+/* v20: 이사(인테리어)와 넓히기를 하나로 · 집 외관 기본은 고시원 */
+state.roomSize=Math.max(state.roomSize||0,Math.min(3,state.house||0));state.house=state.roomSize;if(!Array.isArray(state.homes))state.homes=["gosi"];if(!state.home)state.home="gosi";
+/* v17.4: 펫 교체 — 예전 펫은 새 펫으로 옮겨 줌 */
+{const PM={hamster:"cloud",cat:"bunny",dog:"bird"};if(Array.isArray(state.owned))state.owned=[...new Set(state.owned.map(i=>PM[i]||i))];if(state.equipped&&PM[state.equipped.pet])state.equipped.pet=PM[state.equipped.pet]}
 if(!state.onboarded&&state.daysWorked>0)state.onboarded=true; /* v1 사용자는 온보딩 건너뜀 */
 if(!state.xp&&state.daysWorked)state.xp=state.daysWorked*60; /* v3: 기존 근속을 경험치로 환산 */
 let onbStep=0, shareBlob=null, shareURL=null;
-if(state.hood)state.hood.v="main"; /* 동네는 항상 메인에서 시작 */
+if(state.hood){state.hood.v="main";state.hood.pos=null;state.hood.sit=false} /* 칼퇴상사는 앱을 열 때마다 업무존 내 자리에서 시작 */
 function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
 const today=()=>state.demo&&state.demoDate?state.demoDate:ymd(new Date());
 const wd=s=>parse(s).getDay();
@@ -891,8 +1013,16 @@ function poseKey(){
  return m==="happy"?"happy":"work";
 }
 const poseId=k=>"pose-"+(POSES[k]?k:"base");
+/* v17.2: 3D 옷 — 옷마다 돌대리 전신 이미지 한 장 (한 번에 한 벌) */
+const OUTFITS=["tie","beanie","glasses","hoodie","headset","shades","suit","crown"];
+const outfitOf=eq=>eq?[eq.body,eq.head,eq.face].find(x=>OUTFITS.includes(x))||null:null;
+const outfitSrc=id=>`outfit-${id}.webp`;
 function potato(eq,md,opt){
  opt=opt||{};
+ const of=outfitOf(eq);
+ if(of){let s=`<image href="${outfitSrc(of)}" ${FRAME}/>`;
+  if(md==="tired")s+=`<path d="M240 86 q-6 10 0 14 q6 -4 0 -14z" style="fill:#8EC5F0"/><path d="M247 102 q-4 7 0 10 q4 -3 0 -10z" style="fill:#8EC5F0"/>`;
+  return s}
  const pid=poseId(opt.pose||"base");
  let s=`<use href="#${pid}"/>`;
  const b=eq.body;
@@ -916,42 +1046,72 @@ function potato(eq,md,opt){
  if(h==="crown")s+=`<g transform="translate(-24 14) rotate(-12 170 52)"><path d="M146 66 L150 38 L162 52 L172 30 L182 52 L194 38 L198 66 Z" ${F("gold")}/><circle cx="172" cy="30" r="4" ${F("bad")}/><rect x="146" y="61" width="52" height="7" rx="2" ${F("gold")}/></g>`;
  return s;
 }
+/* v17.4: 펫 6종 (3D 이미지 높이, 방 좌표) */
+const PETH={cloud:54,bunny:72,bird:58,sprout:72,jelly:62,turtle:54};
 const PET={
  hamster:()=>`<ellipse cx="282" cy="192" rx="19" ry="14" ${F("hamster")}/><circle cx="270" cy="180" r="5" ${F("hamster")}/><circle cx="292" cy="180" r="5" ${F("hamster")}/><ellipse cx="282" cy="197" rx="11" ry="6" ${F("hamster-belly")}/><circle cx="275" cy="188" r="2.2" ${F("ink")}/><circle cx="289" cy="188" r="2.2" ${F("ink")}/><circle cx="282" cy="193" r="1.6" ${F("pink")}/>`,
  cat:()=>`<path d="M300 196 Q322 188 314 166" ${S("cat",5)}/><ellipse cx="290" cy="192" rx="20" ry="13" ${F("cat")}/><circle cx="270" cy="178" r="12" ${F("cat")}/><polygon points="260,172 262,160 270,168" ${F("cat")}/><polygon points="280,172 278,160 270,168" ${F("cat")}/><circle cx="266" cy="178" r="1.9" ${F("ink")}/><circle cx="275" cy="178" r="1.9" ${F("ink")}/><path d="M268 183 L270.5 184.5 L273 183" ${S("ink",1.4)}/>`,
  dog:()=>`<path d="M306 186 Q316 176 312 168" ${S("dog",5)}/><ellipse cx="292" cy="192" rx="21" ry="13" ${F("dog")}/><circle cx="270" cy="176" r="13" ${F("dog")}/><ellipse cx="259" cy="178" rx="5" ry="10" ${F("dog-dark")}/><ellipse cx="281" cy="178" rx="5" ry="10" ${F("dog-dark")}/><circle cx="266" cy="175" r="2" ${F("ink")}/><circle cx="274" cy="175" r="2" ${F("ink")}/><ellipse cx="270" cy="182" rx="3" ry="2.2" ${F("ink")}/>`,
 };
+/* v17.2: 3D 가구 이미지 (x,y,w,h = 방 좌표) */
+const FURN3D={poster:[22,20,58,73],plant:[6,96,60,116],coffee:[240,108,80,82],lamp:[298,50,60,144],shelf:1,sofa:1,bed:1,tv:1};
+const furnImg=(k,W)=>{let [x,y,w,h]=FURN3D[k];if(W&&W>360&&(k==="coffee"||k==="lamp"))x+=W-360;return `<image href="furn-${k}.webp" x="${x}" y="${y}" width="${w}" height="${h}" preserveAspectRatio="xMidYMax meet"/>`};
 const FURN={
+ shelf:()=>"",sofa:()=>"",bed:()=>"",tv:()=>"",
  poster:()=>`<rect x="26" y="38" width="46" height="60" rx="3" ${F("poster")}/><circle cx="58" cy="54" r="7" style="fill:#fff;opacity:.8"/><path d="M30 80 Q40 74 49 80 T68 80" ${S("yellow",3)}/><text x="49" y="94" text-anchor="middle" font-size="9" style="fill:#fff;font-family:var(--display)">휴가</text>`,
  coffee:()=>`<rect x="258" y="130" width="84" height="6" rx="2" ${F("wood")}/><rect x="276" y="98" width="30" height="32" rx="4" ${F("machine")}/><rect x="282" y="104" width="18" height="6" rx="2" ${F("gold")}/><rect x="286" y="116" width="10" height="12" rx="2" style="fill:#fff"/><rect x="314" y="118" width="12" height="12" rx="2" style="fill:#fff"/><path d="M318 114 q2 -4 0 -8" ${S("muted",1.5)}/>`,
  lamp:()=>`<circle cx="338" cy="116" r="26" ${F("gold")} opacity=".15"/><path d="M338 118 L338 212" ${S("ink",3)}/><ellipse cx="338" cy="214" rx="12" ry="3" ${F("ink")}/><polygon points="326,118 350,118 344,100 332,100" ${F("gold")}/>`,
  plant:()=>`<ellipse cx="30" cy="160" rx="10" ry="22" transform="rotate(-30 30 160)" ${F("leaf")}/><ellipse cx="52" cy="156" rx="10" ry="24" transform="rotate(25 52 156)" ${F("leaf")}/><ellipse cx="41" cy="148" rx="9" ry="24" ${F("leaf")}/><path d="M24 188 L58 188 L54 216 L28 216 Z" ${F("pot")}/>`,
 };
-function room(lv){
- let s=`<rect width="360" height="176" ${F("wall")}/>`;
- if(lv>=2)s+=`<rect y="130" width="360" height="46" ${F("wall-2")}/><rect y="128" width="360" height="3" ${F("line")}/>`;
+/* v19.3 방 넓히기: k칸 넓힐 때마다 가로 +100, 바닥 깊이 +36 */
+const ROOMSZ=[{k:0,name:"원룸",price:0},{k:1,name:"투룸",price:800},{k:2,name:"쓰리룸",price:1800},{k:3,name:"넓은 거실",price:3500}];
+const roomWH=k=>({W:360+100*k,H:230+36*k});
+function room(lv,k){k=k||0;const {W,H}=roomWH(k),dx=50*k;
+ let s=`<rect width="${W}" height="176" ${F("wall")}/>`;
+ if(lv>=2)s+=`<rect y="130" width="${W}" height="46" ${F("wall-2")}/><rect y="128" width="${W}" height="3" ${F("line")}/>`;
+ s+=`<g transform="translate(${dx} 0)">`;
  if(lv===0)s+=`<rect x="226" y="30" width="42" height="36" rx="3" ${F("window")}/><path d="M247 30 V66 M226 48 H268" ${S("wall-2",3)}/><rect x="222" y="26" width="50" height="44" rx="4" ${S("line",3)}/>`;
  if(lv===1||lv===2)s+=`<rect x="214" y="24" width="84" height="62" rx="4" ${F("window")}/><path d="M256 24 V86" ${S("wall",3)}/><circle cx="236" cy="42" r="7" ${F("gold")} opacity=".6"/><path d="M206 20 Q214 54 210 90 L220 90 Q224 52 222 20Z" ${F("curtain")}/><path d="M306 20 Q298 54 302 90 L292 90 Q288 52 290 20Z" ${F("curtain")}/>`;
  if(lv===3)s+=`<rect x="206" y="14" width="146" height="84" rx="4" ${F("window")}/><rect x="206" y="72" width="146" height="14" ${F("river")}/><g ${F("skyline")}><rect x="212" y="46" width="12" height="26"/><rect x="228" y="36" width="10" height="36"/><rect x="242" y="52" width="16" height="20"/><rect x="300" y="40" width="12" height="32"/><rect x="316" y="30" width="9" height="42"/><rect x="330" y="50" width="16" height="22"/></g><path d="M206 70 Q246 58 286 70 Q322 58 352 70" ${S("ink",1.5)} opacity=".6"/><path d="M279 14 V98" ${S("wall",3)}/><rect x="206" y="14" width="146" height="84" rx="4" ${S("wall-2",3)}/>`;
- s+=`<rect y="174" width="360" height="56" ${F("floor")}/>`;
- if(lv>=2)s+=`<ellipse cx="178" cy="200" rx="100" ry="16" ${F("rug")}/>`;
+ s+=`</g><rect y="174" width="${W}" height="${H-174}" ${F("floor")}/>`;
+ if(k)for(let x=60;x<W;x+=120)s+=`<rect x="${x}" y="174" width="1.2" height="${H-174}" ${F("line")} opacity=".5"/>`;
+ if(lv>=2)s+=`<ellipse cx="${W/2-2}" cy="${(174+H)/2+8}" rx="${100+30*k}" ry="${16+8*k}" ${F("rug")}/>`;
  return s;
 }
+function roomClamp(k,p){const {W,H}=roomWH(k);return {x:Math.max(70,Math.min(W-70,p.x)),y:Math.max(194,Math.min(H-8,p.y))}}
+function roomDefPos(k){const {W,H}=roomWH(k);return {x:W/2,y:Math.min(H-8,205+18*k)}}
 function scene(opts){
  const eq=opts.eq||state.equipped, lv=opts.house!=null?opts.house:state.house, furn=opts.furn||state.owned.filter(i=>FURN[i]);
- let s=`<svg viewBox="0 0 360 230" role="img" aria-label="돌대리의 방">`+room(lv);
- ["poster","coffee","lamp","plant"].forEach(k=>{if(furn.includes(k))s+=FURN[k]()});
+ const k=opts.size!=null?opts.size:(state.roomSize||0),{W,H}=roomWH(k);
+ const pos=opts.pos?roomClamp(k,opts.pos):(opts.small||k||opts.walk)?roomClamp(k,state.roomPos||roomDefPos(k)):{x:177,y:202};
+ /* v19.4: 꾸미기 방은 화면 크기 그대로 두고, 넓힌 만큼 옆으로 이어져요 (카메라가 돌대리를 따라가요) */
+ const reveal=opts.walk&&roomReveal&&k>0;if(reveal){roomReveal=false;setTimeout(()=>{const sv=document.querySelector("svg.roomwalk");if(sv){sv.style.transitionDuration="1.4s";sv.setAttribute("style",roomCamStyle(k,pos)+";transition:width 1.4s ease,transform 1.4s ease")}},1300)}
+ let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="돌대리의 방"${opts.walk?` class="roomwalk" data-k="${k}" style="${reveal?"width:100%;transform:none":roomCamStyle(k,pos)}"`:""}>`+room(lv,k);
+ ["poster","coffee","lamp","plant"].forEach(f=>{if(furn.includes(f))s+=furnImg(f,W)});
  if(!opts.empty){
+  const sm=opts.small?.8:1;let petS="";
+  if(eq.pet&&PETH[eq.pet]){const ph=PETH[eq.pet],px=W-116;petS=`<g class="rpet"><ellipse cx="${px+46}" cy="211" rx="32" ry="4.5" style="fill:#000;opacity:.12"/><image href="pet-${eq.pet}.webp" x="${px}" y="${213-ph}" width="92" height="${ph}" preserveAspectRatio="xMidYMax meet"/></g>`}
+  if(pos.y>=213)s+=petS; /* 돌대리가 펫보다 앞에 있으면 펫을 먼저 그려요 */
+  s+=`<g class="rstone" style="${stoneTf(k,pos,sm)}">`;
   s+=`<ellipse cx="180" cy="202" rx="70" ry="7" style="fill:#000;opacity:.13"/>`;
   const d=state.day;
-  s+=potato(eq,opts.mood||mood(),{pose:opts.pose||poseKey(),badge:!opts.thumbOnly&&d.inAt&&!d.outAt});
-  if(eq.pet&&PET[eq.pet])s+=PET[eq.pet]();
+  s+=potato(eq,opts.mood||mood(),{pose:opts.pose||poseKey(),badge:!opts.thumbOnly&&d.inAt&&!d.outAt&&!outfitOf(eq)});
+  s+=`</g>`;
+  if(pos.y<213)s+=petS;
  }
  return s+`</svg>`;
 }
+let roomReveal=false;
+function roomCam(k,p){const {W}=roomWH(k);return Math.max(0,Math.min(W-360,p.x-180))}
+function roomCamStyle(k,p){const {W}=roomWH(k);return `width:${(W/360*100).toFixed(3)}%;transform:translateX(${(-roomCam(k,p)/W*100).toFixed(3)}%)`}
+function roomArrows(k,p){const {W}=roomWH(k),c=roomCam(k,p);return `<button class="roomarr l" data-dir="-1" aria-label="왼쪽으로 걷기" ${c>1?"":"hidden"}>‹</button><button class="roomarr r" data-dir="1" aria-label="오른쪽으로 걷기" ${c<W-361?"":"hidden"}>›</button>`}
+/* 돌 위치 → CSS transform (발 위치 177,202 기준, 앞으로 올수록 살짝 크게) */
+function stoneTf(k,p,sm){const {H}=roomWH(k),d=(p.y-194)/Math.max(10,H-202),sc=(sm||1)*(.9+.2*Math.max(0,Math.min(1,d)));
+ return `transform:translate(${(p.x-177*sc).toFixed(1)}px,${(p.y-202*sc).toFixed(1)}px) scale(${sc.toFixed(3)})`}
 function thumb(it){
- if(it.cat==="clothes"){const eq={head:null,face:null,body:null};eq[it.slot]=it.id;return `<svg viewBox="88 18 180 192" aria-hidden="true">${potato(eq,"ok",{pose:"base"})}</svg>`}
- if(it.cat==="pet")return `<svg viewBox="248 150 76 60" aria-hidden="true">${PET[it.id]()}</svg>`;
+ if(it.cat==="clothes")return `<img class="t3d" src="${outfitSrc(it.id)}" alt="" loading="lazy">`;
+ if(FURN3D[it.id])return `<img class="t3d" src="furn-${it.id}.webp" alt="" loading="lazy">`;
+ if(it.cat==="pet")return `<img class="t3d" src="pet-${it.id}.webp" alt="" loading="lazy">`;
  const vb={poster:"16 30 66 76",coffee:"254 92 92 50",lamp:"304 90 68 130",plant:"12 126 60 94"}[it.id];
  return `<svg viewBox="${vb}" aria-hidden="true">${FURN[it.id]()}</svg>`;
 }
@@ -972,9 +1132,9 @@ function hero(){
  else {st=`퇴근 완료 · <span class="mono">${day.outAt}</span>`;cls="done"}
  const hb=state.happy,mb=state.mental;
  const col=v=>v>=60?"var(--good)":v>=35?"var(--coral)":"var(--bad)";
- return `<section class="hero"><div class="scene">${scene({})}<div class="status"><span class="dot ${cls}"></span>${st}</div></div>
+ return `<section class="hero"><div class="scene">${scene({size:0})}<div class="status"><span class="dot ${cls}"></span>${st}</div></div>
  <div class="badge"><button class="who whob" data-act="tab:drawer" aria-label="돌대리 프로필 · 출근부 보기"><span>(주)칼퇴상사</span><b>돌대리 <i class="lv mono" title="경험치 ${state.xp%LV_XP}/${LV_XP}">Lv.${level()}</i></b><em class="prof">프로필 · 출근부 ›</em></button>
- <div class="chips"><span class="chip">근속 ${state.daysWorked}일</span><span class="chip">연속 출근 ${state.streak}일</span><span class="chip">${HOUSES[state.house].name}</span></div>
+ <div class="chips"><span class="chip">근속 ${state.daysWorked}일</span><span class="chip">연속 출근 ${state.streak}일</span><span class="chip">${HOUSES[state.house].name}</span>${state.day.cond&&COND[state.day.cond]?`<span class="chip">컨디션 ${COND[state.day.cond][0]}</span>`:""}</div>
  <div class="chips"><span class="chip">${state.district} 근무</span>${state.runner&&state.runner.titles&&state.runner.titles.includes("불금 탈출러")?`<span class="chip">🔥 불금 탈출러</span>`:""}</div>
  <div class="bars"><div class="bar"><label>행복 <b>${hb}</b></label><div class="track"><div class="fill" style="width:${hb}%;background:${col(hb)}"></div></div></div>
  <div class="bar"><label>멘탈 <b>${mb}</b></label><div class="track"><div class="fill" style="width:${mb}%;background:${col(mb)}"></div></div></div></div>${seasonBar()}</div></section>`;
@@ -990,17 +1150,19 @@ function todayView(){
  let h=hero();
  if(state.demo)h+=`<div class="demo-bar"><span>체험 모드 · 시간 제한 없이 하루를 진행해요</span><button class="btn ghost" data-act="nextDay" style="padding:6px 10px;font-size:14.9px">다음 날 →</button></div>`;
  if(isWeekend(d)){
+  h+=workCard(true);
   h+=`<section class="panel"><div class="sec-h"><h2>주말엔 돌도 쉬어요</h2><small>${WD[wd(d)]}요일</small></div>
   <p class="hint" style="margin:0">출근 기록은 평일에만 쌓여요. 대신 쉬면 행복과 멘탈이 회복됩니다.</p>
   ${day.rest?`<div class="event"><q>푹 쉬었다</q>${fxChips({happy:15,mental:20})}</div>`:`<button class="btn wide" data-act="rest">이불 속에서 쉬기</button>`}</section>`;
-  return h+playCard();
+  return h;
  }
  const lunchOpen=state.demo||new Date().getHours()>=11;
  const ms=todaysMissions();
  const s1=day.inAt?"done":"now", s2=day.lunch!=null?"done":day.inAt&&!day.outAt?"now":"", s3=ms.every(m=>day.missions[m.id])?"done":day.inAt&&!day.outAt?"now":"", s4=day.outAt?"done":day.inAt?"now":"";
  const ev=day.lunch!=null?EVENTS[day.lunch]:null;
  const nDone=[day.inAt,day.lunch!=null,ms.every(m=>day.missions[m.id]),day.outAt].filter(Boolean).length;
- h+=nowCard(day,ms);
+ if(!day.inAt)h+=condCard()+lockCard();
+ else h+=workCard()+nowCard(day,ms);
  h+=`<details class="steps-d" ${state.stepsOpen?"open":""}><summary data-act="stepsToggle"><b>오늘의 근무 전체 보기</b><span class="mono">${nDone}/4 완료</span></summary><section class="steps">
  <div class="step ${s1}"><div class="num">1</div><div class="step-b"><div class="step-t"><b>출근</b><span>${day.inAt?day.inAt+" 도착":"출근 수당 +100"}</span></div>
  ${day.inAt?"":`<button class="btn wide" data-act="clockIn">회사 도착, 출근하기</button><span class="hint">${wd(d)===1?"월요일은 월요병으로 멘탈 -10":"출근하면 멘탈이 조금 닳아요 (-3)"}</span>`}</div></div>
@@ -1010,7 +1172,7 @@ function todayView(){
  ${missionList(ms,day)}</div></div>
  <div class="step ${s4}"><div class="num">4</div><div class="step-b"><div class="step-t"><b>퇴근</b><span>${day.outAt?day.outAt+" 퇴근":"월급 지급 + DAY CLEAR"}</span></div>
  ${day.inAt&&!day.outAt?`<button class="btn wide" data-act="clockOut">퇴근하기</button><span class="hint">17~19시 퇴근은 칼퇴 보너스, 21시 이후는 야근 수당</span>`:day.outAt?`<button class="btn ghost wide" data-act="slip">오늘 급여명세서 보기</button>`:`<span class="hint">출근부터 해주세요</span>`}</div></div></section></details>`;
- return h+playCard();
+ return h;
 }
 /* v17: 「지금 할 일」 하나만 크게 */
 function nowCard(day,ms){
@@ -1027,6 +1189,91 @@ function nowCard(day,ms){
   else{ic="💻";title="열일 중이에요";sub=nx?`다음 미션 ${hm(nx.at)} · ${nx.t}`:"오늘 미션 다 했어요! 퇴근까지 버티돌";btn=`<button class="btn ghost wide" data-act="clockOut">퇴근하기</button>`}
  }
  return `<section class="nowcard" aria-labelledby="nc-t"><span class="nc-k">지금 할 일</span><div class="nc-row"><span class="nc-i" aria-hidden="true">${ic}</span><div><b id="nc-t">${title}</b><span>${sub}</span></div></div>${btn}</section>`;
+}
+
+/* v21: 출근 탭 · 근무 시작 → 돈 벌기 (게임 2개 + 칼퇴증시) */
+const COND={good:["😎","쌩쌩"],soso:["🙂","그럭저럭"],tired:["🫠","피곤"]};
+function condCard(){
+ return `<section class="nowcard" aria-labelledby="nc-t"><span class="nc-k">출근 전</span><div class="nc-row"><span class="nc-i" aria-hidden="true">🏢</span><div><b id="nc-t">오늘 컨디션은 어때요?</b><span>고르면 바로 근무 시작 · 출근 수당 +100${wd(state.day.date)===1?" · 월요병 주의":""}</span></div></div>
+ <div class="condrow" role="group" aria-label="오늘 컨디션">${Object.entries(COND).map(([k,[e,n]])=>`<button data-act="workStart:${k}"><span aria-hidden="true">${e}</span><small>${n}</small></button>`).join("")}</div></section>`;
+}
+function lockCard(){
+ return `<section class="playcard locked" aria-label="돈 벌기 (잠김)"><div class="pc-h"><b>💼 돈 벌기</b><span class="stk-pill">🔒 근무 시작 후</span></div>
+ <div class="lockrow"><span>🏃<br>돌퇴근</span><span>🔤<br>퇴근각</span><span>📈<br>칼퇴증시</span></div>
+ <p class="hint" style="margin:0">컨디션을 고르고 근무를 시작하면 게임과 주식으로 코인을 벌 수 있어요.</p></section>`;
+}
+function workCard(weekend){
+ const t=["run","word","stock"].includes(state.gameTab)?state.gameTab:"run", pend=stPending().length;
+ const title=weekend?"🛋 주말 특근 · 돈 벌기":state.day.outAt?"🌙 퇴근 후 · 돈 벌기":"💼 근무 중 · 돈 벌기";
+ const body=t==="word"?gameCard():t==="stock"?stockCard():runnerCard();
+ return `<section class="playcard work" aria-labelledby="pc-t"><div class="pc-h"><b id="pc-t">${title}</b></div>
+ <div class="pc-seg pc3" role="tablist"><button role="tab" data-act="gameTab:run" aria-selected="${t==="run"}">🏃 돌퇴근</button><button role="tab" data-act="gameTab:word" aria-selected="${t==="word"}">🔤 퇴근각</button><button role="tab" data-act="gameTab:stock" aria-selected="${t==="stock"}">📈 주식${pend?` <i class="nbadge">!</i>`:""}</button></div>${body}</section>`;
+}
+/* 칼퇴증시: 날짜로 결과가 정해져서 모두에게 똑같아요 */
+const STOCKS=[
+ ["samsong","삼송전자","s","📱"],["lzui","엘쥐생활","s","🧴"],["hyundai","현다이모터","s","🚗"],["gukbap","국밥은행","s","🏦"],["posco","포스코크","s","🏭"],
+ ["nemo","네모버","m","🔍"],["kakau","카카우","m","💬"],["kuppang","쿠빵","m","🍞"],["baego","배고파민족","m","🛵"],["bio","바이오로직스틱","m","🧪"],
+ ["hyper","하이퍼닉칩","m","💾"],["ottuk","오뚝이식품","m","🍛"],["nongbu","농부심","m","🍜"],["byeol","별다방커피","m","☕"],
+ ["toast","토스트증권","j","📈"],["carrot","당근마카롱","j","🥕"],["yageun","야근놀자","j","🏨"],["teslamyeon","테슬라면","j","🚀"],["nvbib","엔디비비빔","j","🍚"],["dolcoin","돌맹코인","j","🪙"]];
+const TIER={s:["안정주","±10%"],m:["보통주","±40%"],j:["잡주","-90%~+200%"]};
+const ST_MIN=100, ST_MAX=1000, ST_OPEN=540, ST_CLOSE=930, ST_SALT="tgj-market-1";
+const ST_NEWS={up:["{n}, 신제품 대박 조짐","{n} 사장님, 오늘 기분 최고라는 소문","{n}, 해외에서 대형 계약 따냈다","{n} 직원들 단체 칼퇴… 실적 자신감?","{n}, 인기 아이돌 광고 모델 발탁","{n}, 점심 메뉴 혁신으로 직원 만족도 폭발"],
+ dn:["{n} 사장 야반도주설","{n}, 신제품 리콜 위기","{n} 회의실에서 고성… 무슨 일?","{n}, 경쟁사에 핵심 인재 뺏겨","{n} 서버 또 터졌다","{n}, 회식 강요 논란"]};
+function stHash(x){let h=2166136261;for(let i=0;i<x.length;i++){h^=x.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
+function stRand(x){let a=stHash(x);return()=>{a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const ST_CACHE={};
+function stDay(date){
+ if(ST_CACHE[date])return ST_CACHE[date];
+ const R=stRand(ST_SALT+date), res={};
+ STOCKS.forEach(([id,,t])=>{const r=R();let v;
+  if(t==="s")v=-11+r*20;
+  else if(t==="m")v=-42+r*80;
+  else v=r<.55?-90+r/.55*70:r<.85?-20+(r-.55)/.3*70:50+(r-.85)/.15*150;
+  res[id]=Math.round(v)});
+ const k=STOCKS[Math.floor(R()*STOCKS.length)], up=R()<.5, hold=R()<.75, lines=ST_NEWS[up?"up":"dn"], line=lines[Math.floor(R()*lines.length)];
+ const floor={s:3,m:12,j:30}[k[2]];let mag=Math.max(Math.abs(res[k[0]]),floor);
+ const sign=up===hold?1:-1;if(sign<0)mag=Math.min(mag,k[2]==="s"?11:k[2]==="m"?42:90);
+ res[k[0]]=sign*mag;
+ return ST_CACHE[date]={res,news:{id:k[0],text:line.replace("{n}",k[1])}};
+}
+function kstNow(){const d=new Date(Date.now()+9*3600e3);return{date:LK.kstDate(),min:d.getUTCHours()*60+d.getUTCMinutes(),wd:d.getUTCDay()}}
+function stPhase(K){K=K||kstNow();if(K.wd===0||K.wd===6)return "weekend";return K.min<ST_OPEN?"pre":K.min<ST_CLOSE?"open":"done"}
+function stState(){return state.stock||(state.stock={bets:{},got:{}})}
+function stPending(){const S=stState(),K=kstNow(),ph=stPhase(K);
+ return Object.keys(S.bets).filter(d=>!S.got[d]&&Object.keys(S.bets[d]).length&&(d<K.date||(d===K.date&&ph==="done"))).sort()}
+function stPay(amt,pct){return Math.max(0,Math.round(amt*(1+pct/100)))}
+function pctTag(v){return `<span class="pct ${v>0?"up":v<0?"dn":""}">${v>0?"▲ +":v<0?"▼ ":""}${v}%</span>`}
+function stockCard(){
+ const S=stState(),K=kstNow(),ph=stPhase(K),D=stDay(K.date),my=S.bets[K.date]||{},pend=stPending();
+ const showRes=ph==="done"&&!(my&&Object.keys(my).length&&!S.got[K.date]);
+ const pill={weekend:["주말 휴장",""],pre:["9시 개장",""],open:["장 열림 · 15:30 마감","open"],done:["장 마감",""]}[ph];
+ const nMy=Object.keys(my).length, sum=Object.values(my).reduce((a,b)=>a+b,0);
+ let h=`<div class="stk"><div class="stk-h"><b>📈 칼퇴증시</b><span class="stk-pill ${pill[1]}">${pill[0]}</span></div>`;
+ if(pend.length)h+=`<button class="btn gold wide" data-act="stockClaim">📈 주식 결과 보기${pend.length>1?` (${pend.length}일치)`:""}</button>`;
+ if(ph==="weekend"){h+=`<p class="hint" style="margin:0">주말엔 증시도 쉬어요. 월요일 9시에 다시 열려요.</p></div>`;return h}
+ if(ph==="pre")h+=`<div class="stnews"><small>📰 오늘의 소식</small>9시에 장이 열리면서 오늘의 소식이 떠요.</div>`;
+ else h+=`<div class="stnews"><small>📰 오늘의 소식 · 대체로 맞지만 가끔 반대로 터져요</small><b>${esc(D.news.text)}</b></div>`;
+ if(nMy)h+=`<p class="stsum">오늘 투자 <b>${nMy}</b>종목 · <b class="mono">${won(sum)}</b>코인${ph==="open"?" · 결과는 15:30 이후":""}</p>`;
+ ["s","m","j"].forEach(t=>{
+  h+=`<div class="stgrp"><span class="tier ${t}">${TIER[t][0]}</span> ${TIER[t][1]}</div>`;
+  STOCKS.filter(x=>x[2]===t).forEach(([id,n,,e])=>{
+   const a=my[id];let right;
+   if(showRes)right=`${a?`<small class="mono">${won(a)}→${won(stPay(a,D.res[id]))}</small> `:""}${pctTag(D.res[id])}`;
+   else if(a)right=`<span class="stmine">투자함 <b class="mono">${won(a)}</b></span>`;
+   else if(ph==="open")right=`<button class="btn ghost" data-act="stockPick:${id}">투자</button>`;
+   else right=`<span class="hint">${ph==="pre"?"개장 전":"마감"}</span>`;
+   h+=`<div class="strow ${D.news.id===id&&ph!=="pre"?"hot":""}"><span class="se" aria-hidden="true">${e}</span><span class="sn"><b>${n}</b>${D.news.id===id&&ph!=="pre"?` <small>📰</small>`:""}</span>${right}</div>`;
+  })});
+ h+=`<p class="hint" style="margin:6px 0 0">평일 9:00~15:30 투자 · 한 회사에 하루 한 번 · ${ST_MIN}~${won(ST_MAX)}코인 · 결과는 모두에게 똑같아요. 진짜 주식이 아닌 게임이에요.</p></div>`;
+ return h;
+}
+function stockPickHTML(id){
+ const x=STOCKS.find(s=>s[0]===id);if(!x)return "";
+ const amts=[100,200,300,500,700,1000];
+ return `<h2 style="margin:0 0 4px">${x[3]} ${x[1]}</h2><p class="hint" style="margin:0 0 12px"><span class="tier ${x[2]}">${TIER[x[2]][0]}</span> 하루 변동 ${TIER[x[2]][1]} · 보유 ${won(state.coins)}코인</p>
+ <div class="amtgrid">${amts.map(a=>`<button class="btn ${state.coins<a?"ghost":""}" data-act="stockBuy:${id},${a}" ${state.coins<a?"disabled":""}>${won(a)}</button>`).join("")}</div>
+ <p class="hint" style="margin:12px 0 0">한 번 넣으면 오늘은 바꿀 수 없어요. 결과는 15:30 이후에 나와요.</p>
+ <button class="btn ghost wide" data-act="close" style="margin-top:10px">취소</button>`;
 }
 /* v17: 게임 두 개를 카드 하나로 */
 function playCard(){
@@ -1061,15 +1308,117 @@ function bookView(){
  <div class="sec-h"><h2>인사발령 이력</h2><small>시즌 1 · 고시원 탈출기</small></div>
  <section class="panel ranks">${SEASON.map(s=>{const got=state.daysWorked>=s.d;return `<div class="rank ${got?"got":""}"><span class="d mono">${s.d}일</span><div><b>${s.t}</b><span>${got?s.s:"출근 "+(s.d-state.daysWorked)+"일 남음"}</span></div><span class="hint mono">${got&&state.promoDates[s.d]?state.promoDates[s.d].slice(5).replace("-","."):got?"달성":"+"+won(s.c)}</span></div>`}).join("")}</section>`;
 }
+/* ---------- v20: 동물의숲 같은 내 집 — 집 외관 고르기 → 들어가기 → 상하좌우로 걷는 방 ---------- */
+const HOMES=[{id:"gosi",name:"고시원",price:100,desc:"곰팡이 무료 · 화장실 공용"},{id:"ruin",name:"폐가",price:150,desc:"귀신도 월세 내나요"},{id:"rooftop",name:"옥탑방",price:250,desc:"별 보며 퇴근 완료"},{id:"villa",name:"빌라",price:400,desc:"계단이 무료 헬스장"},
+ {id:"apt",name:"아파트",price:700,desc:"드디어 내 집 마련"},{id:"house",name:"단독주택",price:900,desc:"층간소음 탈출"},{id:"country",name:"고급주택",price:1200,desc:"야자수 마당에 수영장까지"},{id:"mansion",name:"풀빌라",price:2000,desc:"통유리 오션뷰 · 돌생 성공"}];
+const homeOf=id=>HOMES.find(x=>x.id===id)||HOMES[0];
+/* 방 크기: k단계마다 가로 +90, 바닥 깊이 +70. 화면은 360×300 창으로 보고, 카메라가 돌대리를 따라가요 */
+const acWH=k=>({W:360+90*k,H:350+70*k});
+const AC_FOOT={poster:null,plant:160,coffee:150,lamp:158,shelf:128};
+function acClamp(k,p){const {W,H}=acWH(k);return {x:Math.max(40,Math.min(W-40,p.x)),y:Math.max(152,Math.min(H-14,p.y))}}
+function acDef(k){const {W,H}=acWH(k);return {x:W/2,y:Math.round(H*.62)}}
+/* 보는 창: 원룸·투룸은 방 전체가 거의 다 보이고, 더 넓으면 카메라가 따라가요 */
+const acView=k=>{const vw=Math.min(acWH(k).W,360+90*Math.min(k,1));return {vw,vh:vw*5/6}};
+function acCam(k,p){const {W,H}=acWH(k),{vw,vh}=acView(k);return {x:Math.max(0,Math.min(W-vw,p.x-vw/2)),y:Math.max(0,Math.min(H-vh,p.y-vh*.55))}}
+function acCamStyle(k,p){const {W,H}=acWH(k),c=acCam(k,p),{vw}=acView(k);return `width:${(W/vw*100).toFixed(3)}%;transform:translate(${(-c.x/W*100).toFixed(3)}%,${(-c.y/H*100).toFixed(3)}%)`}
+function acStoneTf(k,p){const {H}=acWH(k),d=(p.y-152)/Math.max(10,H-166),sc=.36+.08*Math.max(0,Math.min(1,d));
+ return `transform:translate(${(p.x-177*sc).toFixed(1)}px,${(p.y-202*sc).toFixed(1)}px) scale(${sc.toFixed(3)})`}
+function acRoom(o){
+ const k=o.size||0,{W,H}=acWH(k),lv=Math.min(3,o.lv!=null?o.lv:k),pos=acClamp(k,o.pos||acDef(k)),furn=o.furn||[],eq=o.eq||{};
+ const WALL=["#E8E1D3","#E3EAF4","#E6EEE4","#EFE6F4"][lv],FLOOR=["#E6CDA6","#E9D3AE","#DCC6A2","#E4D2B6"][lv];
+ let s=`<svg viewBox="0 0 ${W} ${H}" class="acroom${o.walk?" acwalk":""}" data-k="${k}" style="${acCamStyle(k,pos)}" role="img" aria-label="돌대리의 방">`;
+ /* 바닥 (위에서 비스듬히 본 나무 바닥) */
+ s+=`<rect y="112" width="${W}" height="${H-112}" fill="${FLOOR}"/>`;
+ for(let y=136;y<H;y+=26)s+=`<rect y="${y}" width="${W}" height="1.4" fill="#000" opacity=".06"/>`;
+ for(let y=136,r=0;y<H;y+=26,r++)for(let x=(r%2?40:100);x<W;x+=120)s+=`<rect x="${x}" y="${y-26}" width="1.4" height="26" fill="#000" opacity=".05"/>`;
+ /* 뒷벽 · 걸레받이 · 옆벽 */
+ s+=`<rect width="${W}" height="116" fill="${WALL}"/><rect y="80" width="${W}" height="34" fill="#000" opacity=".05"/><rect y="110" width="${W}" height="6" fill="#FFFFFF" opacity=".75"/><rect y="116" width="${W}" height="5" fill="#000" opacity=".07"/>`;
+ s+=`<rect width="10" height="${H}" fill="#000" opacity=".07"/><rect x="${W-10}" width="10" height="${H}" fill="#000" opacity=".07"/><rect y="${H-8}" width="${W}" height="8" fill="#000" opacity=".06"/>`;
+ /* 창문: 넓힐수록 늘어나요 */
+ const nw=1+k;for(let i=0;i<nw;i++){const cx=(W/(nw+1))*(i+1),ww=lv>=3?96:70;s+=`<rect x="${cx-ww/2-4}" y="22" width="${ww+8}" height="58" rx="6" fill="#fff"/><rect x="${cx-ww/2}" y="26" width="${ww}" height="50" rx="4" fill="${lv>=3?"#A9D3F0":"#CFE7FA"}"/><rect x="${cx-1}" y="26" width="2" height="50" fill="#fff"/>${lv>=3?`<rect x="${cx-ww/2}" y="58" width="${ww}" height="18" fill="#7FB0D8"/>`:""}`}
+ /* 러그 */
+ s+=`<ellipse cx="${W/2}" cy="${112+(H-112)*.56}" rx="${110+30*k}" ry="${46+16*k}" fill="#F7F1E8" opacity=".9"/><ellipse cx="${W/2}" cy="${112+(H-112)*.56}" rx="${92+30*k}" ry="${36+16*k}" fill="none" stroke="#E9C9A0" stroke-width="3" stroke-dasharray="2 8"/>`;
+ /* 벽 포스터 */
+ if(furn.includes("poster"))s+=`<image href="furn-poster.webp" x="26" y="22" width="48" height="62" preserveAspectRatio="xMidYMax meet"/>`;
+ /* 바닥 위 물건들은 발 위치(y) 순서로 그려요 */
+ const items=[];
+ if(furn.includes("plant"))items.push([AC_FOOT.plant,`<image href="furn-plant.webp" x="14" y="${AC_FOOT.plant-96}" width="52" height="96" preserveAspectRatio="xMidYMax meet"/>`]);
+ if(furn.includes("coffee"))items.push([AC_FOOT.coffee,`<image href="furn-coffee.webp" x="${W-150}" y="${AC_FOOT.coffee-74}" width="74" height="74" preserveAspectRatio="xMidYMax meet"/>`]);
+ if(furn.includes("shelf"))items.push([128,`<image href="furn-shelf.webp" x="84" y="${128-74}" width="48" height="74" preserveAspectRatio="xMidYMax meet"/>`]);
+ if(furn.includes("bed")){const fy=Math.round(112+(H-112)*.6);items.push([fy,`<image href="furn-bed.webp" x="8" y="${fy-78}" width="104" height="78" preserveAspectRatio="xMidYMax meet"/>`])}
+ if(furn.includes("sofa")){const fy=H-18;items.push([fy,`<image href="furn-sofa.webp" x="${Math.round(W*.3)}" y="${fy-62}" width="100" height="62" preserveAspectRatio="xMidYMax meet"/>`])}
+ if(furn.includes("tv")){const fy=H-22;items.push([fy,`<image href="furn-tv.webp" x="${W-112}" y="${fy-88}" width="100" height="88" preserveAspectRatio="xMidYMax meet"/>`])}
+ if(furn.includes("lamp"))items.push([AC_FOOT.lamp,`<image href="furn-lamp.webp" x="${W-62}" y="${AC_FOOT.lamp-120}" width="50" height="120" preserveAspectRatio="xMidYMax meet"/>`]);
+ if(eq.pet&&PETH[eq.pet]){const py=Math.round(112+(H-112)*.42),px=Math.round(W*.74),ph=PETH[eq.pet]*.62;items.push([py,`<g class="rpet"><ellipse cx="${px}" cy="${py-1}" rx="22" ry="4" fill="#000" opacity=".12"/><image href="pet-${eq.pet}.webp" x="${px-30}" y="${py-ph}" width="60" height="${ph}" preserveAspectRatio="xMidYMax meet"/></g>`])}
+ if(!o.empty)items.push([pos.y,`<g class="rstone" style="${acStoneTf(k,pos)}"><ellipse cx="180" cy="202" rx="70" ry="9" style="fill:#000;opacity:.14"/>${potato(Object.assign({head:null,face:null,body:null,pet:null},eq),o.mood||"ok",{pose:"base"})}</g>`]);
+ items.sort((a,b)=>a[0]-b[0]).forEach(x=>s+=x[1]);
+ return s+`</svg>`;
+}
+/* v22: 이사 · 집 앞 배경 */
+const YARDS=[{id:"alley",name:"골목길",price:0,desc:"하늘 맑은 우리 동네"},{id:"hangang",name:"한강뷰",price:600,desc:"노을 지는 강변 · 다리 불빛"},{id:"beach",name:"바닷가",price:1000,desc:"파도 소리 들리는 모래사장"},{id:"night",name:"도심 야경",price:1500,desc:"빌딩 불빛 아래 퇴근 완료"}];
+function yardOf(id){return YARDS.find(y=>y.id===id)||YARDS[0]}
+function yardSvg(id){
+ const W=(x,y,w,h,c)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${c}"/>`;
+ if(id==="hangang"){
+  let bl="";[[0,40,62],[38,28,78],[62,36,56],[96,22,90],[118,30,70],[150,26,84],[178,34,60],[210,24,96],[236,32,66],[270,28,80],[296,38,58],[330,30,74]].forEach(([x,w,h])=>{bl+=W(x,150-h,w,h,"#8C7AA8")+[...Array(4)].map((_,i)=>W(x+5+((i*7)%(w-10)),150-h+8+i*12,3,4,"#FFE29A")).join("")});
+  let arc="";for(let i=0;i<6;i++)arc+=`<path d="M${i*64-10} 150 Q${i*64+22} 128 ${i*64+54} 150" fill="none" stroke="#5B4C7A" stroke-width="3"/>`;
+  return `<defs><linearGradient id="yhg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7D86D6"/><stop offset=".45" stop-color="#F3A6B4"/><stop offset="1" stop-color="#FFD59A"/></linearGradient><linearGradient id="yhr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E9A0A8"/><stop offset="1" stop-color="#6E8FD6"/></linearGradient></defs>
+  <rect width="360" height="300" fill="url(#yhg)"/><circle cx="270" cy="118" r="26" fill="#FFE7A8" opacity=".95"/>${bl}
+  <rect x="0" y="146" width="360" height="6" fill="#5B4C7A"/>${arc}${[...Array(12)].map((_,i)=>`<circle cx="${12+i*31}" cy="145" r="2" fill="#FFE29A"/>`).join("")}
+  <rect x="0" y="152" width="360" height="42" fill="url(#yhr)"/>${[...Array(9)].map((_,i)=>`<rect x="${20+i*38}" y="${162+(i%3)*9}" width="${14+(i%2)*10}" height="2" rx="1" fill="#fff" opacity=".6"/>`).join("")}
+  <rect x="236" y="156" width="70" height="3" rx="1.5" fill="#FFE7A8" opacity=".7"/><rect x="250" y="166" width="44" height="3" rx="1.5" fill="#FFE7A8" opacity=".5"/>
+  <path d="M0 194 Q180 184 360 194 V300 H0Z" fill="#9FD07F"/><path d="M0 194 Q180 184 360 194" fill="none" stroke="#C9B99A" stroke-width="5"/>`;
+ }
+ if(id==="beach"){
+  return `<defs><linearGradient id="ybs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8FD3F5"/><stop offset="1" stop-color="#E4F6FF"/></linearGradient><linearGradient id="ybw" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2FA6D8"/><stop offset="1" stop-color="#7FD9E6"/></linearGradient></defs>
+  <rect width="360" height="300" fill="url(#ybs)"/><circle cx="64" cy="58" r="22" fill="#FFE07A"/><circle cx="64" cy="58" r="32" fill="#FFE07A" opacity=".25"/>
+  <rect x="22" y="104" width="60" height="18" rx="9" fill="#fff" opacity=".9"/><rect x="250" y="70" width="70" height="20" rx="10" fill="#fff" opacity=".9"/>
+  <path d="M200 96 q6 -6 12 0 q6 -6 12 0" fill="none" stroke="#3E5A7A" stroke-width="2" stroke-linecap="round"/><path d="M150 76 q4 -4 8 0 q4 -4 8 0" fill="none" stroke="#3E5A7A" stroke-width="1.6" stroke-linecap="round"/>
+  <rect x="0" y="140" width="360" height="62" fill="url(#ybw)"/><path d="M296 140 l10 -8 l14 8z" fill="#fff" opacity=".9"/><rect x="304" y="122" width="2" height="18" fill="#7A6A5A"/><path d="M306 124 l14 12 h-14z" fill="#F38B5B"/>
+  ${[0,1,2].map(i=>`<path d="M0 ${158+i*14} q15 -5 30 0 t30 0 t30 0 t30 0 t30 0 t30 0 t30 0 t30 0 t30 0 t30 0 t30 0 t30 0" fill="none" stroke="#fff" stroke-width="2" opacity="${.7-i*.15}"/>`).join("")}
+  <path d="M0 200 q40 -10 80 -2 t90 -4 t100 2 t90 -4 V300 H0Z" fill="#F7E1B0"/><path d="M0 200 q40 -10 80 -2 t90 -4 t100 2 t90 -4" fill="none" stroke="#fff" stroke-width="4" opacity=".85"/>
+  <circle cx="40" cy="262" r="3" fill="#F3B6C7"/><path d="M318 262 l6 -4 l6 4 l-6 4z" fill="#F38B5B"/>
+  <g transform="translate(330 230)"><path d="M0 0 q-4 -50 6 -96" fill="none" stroke="#B07D50" stroke-width="7" stroke-linecap="round"/>${[[-40,-80],[-30,-112],[10,-120],[40,-104],[36,-78]].map(([x,y])=>`<path d="M6 -96 Q${(6+x)/2} ${-110} ${x} ${y}" fill="none" stroke="#3FA060" stroke-width="9" stroke-linecap="round"/>`).join("")}</g>`;
+ }
+ if(id==="night"){
+  const bs=[[0,70,110],[60,50,150],[104,64,96],[160,40,170],[196,72,120],[262,48,140],[306,60,104]];
+  let b="";bs.forEach(([x,w,h],j)=>{b+=W(x,200-h,w,h,j%2?"#2D3A63":"#34446F");for(let yy=200-h+10;yy<192;yy+=13)for(let xx=x+6;xx<x+w-6;xx+=11)if((xx*7+yy*3+j)%5<3)b+=W(xx,yy,5,6,(xx+yy)%3?"#FFD86B":"#FFF1B8")});
+  return `<defs><linearGradient id="yns" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#141B3A"/><stop offset="1" stop-color="#3B3F7A"/></linearGradient></defs>
+  <rect width="360" height="300" fill="url(#yns)"/>${[...Array(26)].map((_,i)=>`<circle cx="${(i*67)%360}" cy="${8+(i*37)%92}" r="${i%4?1:1.6}" fill="#fff" opacity="${.5+(i%3)*.2}"/>`).join("")}
+  <circle cx="300" cy="44" r="18" fill="#FFF3C4"/><circle cx="292" cy="38" r="17" fill="#141B3A" opacity=".0"/><circle cx="300" cy="44" r="30" fill="#FFF3C4" opacity=".12"/>
+  ${b}<rect x="176" y="22" width="2" height="10" fill="#FF6B6B"/><rect x="0" y="198" width="360" height="102" fill="#3A4060"/>
+  <rect x="0" y="198" width="360" height="5" fill="#545B80"/>${[...Array(8)].map((_,i)=>`<rect x="${i*48}" y="236" width="24" height="3" fill="#fff" opacity=".25"/>`).join("")}
+  ${[60,300].map(x=>`<rect x="${x}" y="170" width="3" height="40" fill="#22283F"/><circle cx="${x+1.5}" cy="170" r="5" fill="#FFE7A0"/><circle cx="${x+1.5}" cy="172" r="22" fill="#FFE7A0" opacity=".15"/>`).join("")}`;
+ }
+ return "";
+}
+function homeYard(id,eq,o){o=o||{};const h=homeOf(id),yb=yardOf(o.yard||"alley").id;
+ return `<div class="yard yb-${yb}">${yb!=="alley"?`<svg class="ybg" viewBox="0 0 360 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${yardSvg(yb)}</svg>`:""}<i class="cl c1"></i><i class="cl c2"></i><div class="ground"></div><img class="homeimg" src="home-${h.id}.webp" alt="${h.name}"><div class="yardstone"><svg viewBox="88 18 180 192" aria-hidden="true">${potato(Object.assign({head:null,face:null,body:null,pet:null},eq||{}),"ok",{pose:"base"})}</svg></div>
+ <span class="homename">🏠 ${o.owner?esc(o.owner)+"의 ":"내 "}${h.name}</span>${o.enter?`<button class="btn enterhome" data-act="${o.enter}">🚪 들어가기</button>`:""}</div>`}
 function shopView(){
- const c=state.shopCat;
- let h=`<section class="hero"><div class="scene">${scene({})}<div class="status">월급코인 <span class="mono">${won(state.coins)}</span></div></div></section>
- <div class="seg" role="group" aria-label="상점 분류">${[["clothes","옷"],["furniture","가구"],["pet","펫"],["house","집"]].map(([k,l])=>`<button data-act="cat:${k}" aria-pressed="${c===k}">${l}</button>`).join("")}</div>`;
+ const c=state.shopCat==="house"||state.shopCat==="home"||ITEMS.some(i=>i.cat===state.shopCat)?state.shopCat:"clothes";
+ const k=state.roomSize||0,pos=acClamp(k,state.roomPos2||acDef(k));
+ let h=state.shopIn
+  ?`<section class="hero"><div class="scene acwrap">${acRoom({size:k,lv:k,furn:state.owned.filter(i=>FURN[i]),eq:Object.assign({},state.equipped),pos,walk:true})}<div class="status">월급코인 <span class="mono">${won(state.coins)}</span></div><button class="chipbtn exithome" data-act="shopOut">🚪 밖으로</button>${k?`<span class="roomsz">📐 ${ROOMSZ[k].name}</span>`:""}<span class="walkhint">바닥을 누르면 걸어가요 · 위아래 양옆 다 돼요</span></div></section>`
+  :`<section class="hero"><div class="scene">${homeYard(state.home||"gosi",myEq(),{enter:"shopIn",yard:state.yard})}<div class="status">월급코인 <span class="mono">${won(state.coins)}</span></div></div></section>`;
+ h+=`<div class="myroom"><button class="chipbtn" data-act="myRoom">📒 내 방 방명록</button><span class="hint">다른 돌들이 놀러 와서 남긴 글을 볼 수 있어요</span></div>
+ <div class="seg seg5" role="group" aria-label="상점 분류">${[["clothes","옷"],["furniture","가구"],["pet","펫"],["home","집"],["house","이사"]].map(([key,l])=>`<button data-act="cat:${key}" aria-pressed="${c===key}">${l}</button>`).join("")}</div>`;
+ if(c==="home"){
+  const own=state.homes||["gosi"];
+  h+=`<p class="hint" style="margin:0">마음에 드는 집을 사서 골라 살 수 있어요. 산 집은 언제든 바꿔 살아요.</p><div class="homegrid">`+HOMES.map(x=>{const have=own.includes(x.id),cur=(state.home||"gosi")===x.id;
+   const btn=cur?`<span class="tag">사는 중</span>`:have?`<button class="btn ghost" data-act="homeUse:${x.id}">여기 살기</button>`:`<button class="btn" data-act="homeBuy:${x.id}"><span class="mono">${won(x.price)}</span> 구매</button>`;
+   return `<div class="hcard ${cur?"on":""}"><div class="hthumb"><img src="home-${x.id}.webp" alt="" loading="lazy"></div><div class="hinfo"><b>${x.name}</b><span class="d">${x.desc}</span>${btn}</div></div>`}).join("")+`</div>`;
+  return h;
+ }
  if(c==="house"){
-  h+=`<p class="hint" style="margin:0">집이 좋을수록 퇴근 후 멘탈이 더 회복돼요. 순서대로 이사할 수 있어요.</p><div class="grid">`+HOUSES.map(x=>{
-   const cur=x.lv===state.house, past=x.lv<state.house, next=x.lv===state.house+1;
-   const btn=cur?`<span class="tag">거주 중</span>`:past?`<span class="hint">지난 집</span>`:next?`<button class="btn" data-act="house:${x.lv}">이사 · ${won(x.price)}</button>`:`<button class="btn ghost" disabled>이전 집부터</button>`;
-   return `<div class="card"><div class="thumb">${scene({house:x.lv,empty:true,furn:[]}).replace('<svg ','<svg style="width:100%;height:100%" preserveAspectRatio="xMidYMid slice" ')}</div><b>${x.name}</b><span class="d">퇴근 후 멘탈 +${x.rec}</span>${btn}</div>`}).join("")+`</div>`;
+  const oy=state.yards||["alley"];
+  h+=`<div class="sec-h"><h2>🚚 이사</h2><small>집 앞 풍경을 바꿔요</small></div><div class="homegrid ygrid">`+YARDS.map(y=>{const have=oy.includes(y.id),cur=(state.yard||"alley")===y.id;
+   const btn=cur?`<span class="tag">사는 동네</span>`:have?`<button class="btn ghost" data-act="yardUse:${y.id}">이 동네로</button>`:`<button class="btn" data-act="yardBuy:${y.id}"><span class="mono">${won(y.price)}</span> 이사</button>`;
+   return `<div class="hcard ${cur?"on":""}"><div class="hthumb ythumb">${homeYard(state.home||"gosi",{},{yard:y.id}).replace('<span class="homename"','<span hidden class="homename"')}</div><div class="hinfo"><b>${y.name}</b><span class="d">${y.desc}</span>${btn}</div></div>`}).join("")+`</div>`;
+  h+=`<div class="sec-h" style="margin-top:8px"><h2>📐 집 넓히기</h2><small>넓을수록 더 멀리 걸어요</small></div><p class="hint" style="margin:0">넓은 집일수록 퇴근 후 멘탈도 더 회복돼요. 순서대로 넓힐 수 있어요.</p><div class="grid">`+ROOMSZ.map(z=>{
+   const cur=z.k===k,past=z.k<k,next=z.k===k+1;
+   const btn=cur?`<span class="tag">지금 집</span>`:past?`<span class="hint">넓힘 완료</span>`:next?`<button class="btn" data-act="roomSize:${z.k}">넓히기 · ${won(z.price)}</button>`:`<button class="btn ghost" disabled>앞 단계부터</button>`;
+   return `<div class="card"><div class="thumb acthumb">${acRoom({size:z.k,lv:z.k,empty:true,pos:acDef(z.k)}).replace(/style="[^"]*"/,'style="width:100%;height:100%" preserveAspectRatio="xMidYMid meet"')}</div><b>${z.name}</b><span class="d">${z.k?`바닥 ${["","1.6","2.3","3.1"][z.k]}배 · `:""}퇴근 후 멘탈 +${HOUSES[z.k].rec}</span>${btn}</div>`}).join("")+`</div>`;
   return h;
  }
  h+=`<div class="grid">`+ITEMS.filter(i=>i.cat===c).map(it=>{
@@ -1101,6 +1450,8 @@ function modeNote(){const S=CM.state;
 function localView(){
  const h=hood(), S=CM.state;
  if(h.v==="main")return villageView();
+ if(h.v==="plaza")return plazaView(h);
+ if(h.v==="room")return roomView(h);
  if(h.v==="board")return boardView();
  if(h.v==="nick")return nickView(h);
  if(h.v==="inbox")return inboxView(h);
@@ -1130,16 +1481,68 @@ function villageView(){
   <button class="venter" id="venter" hidden></button>
  </div>
  <p class="hint vhint">복도든 방 안이든 누르는 곳으로 걸어가요 · 말풍선을 누르면 들어가기 · 돌을 누르면 인사</p>
- ${S.isOwner&&S.mode==="shared"?`<button class="entry ops" data-act="hoodGo:ops"><span><b>🛡 운영자 신고함</b><span class="hint">쪽지 신고 ${S.opsReports.length}건 · 이용 제한 ${S.banned.length}명</span></span><span aria-hidden="true">›</span></button>`:""}`;
+ ${S.isOwner&&S.mode==="shared"?`<button class="entry ops" data-act="hoodGo:ops"><span><b>🛡 운영자 신고함</b><span class="hint">대화 신고 ${S.opsReports.length}건 · 이용 제한 ${S.banned.length}명</span></span><span aria-hidden="true">›</span></button>`:""}`;
+}
+/* ---------- v19.3: 돌 방 놀러가기 + 방명록 (방명록 한 줄 100코인) ---------- */
+const GB_COST=100;
+const ROOMC={},GBC={};
+function myRoomDoc(){return {house:state.house,size:state.roomSize||0,home:state.home||"gosi",yard:state.yard||"alley",furn:state.owned.filter(i=>FURN[i]),eq:Object.assign({},myEq(),{pet:state.equipped.pet||null}),pos:state.roomPos2||null}}
+let roomPubT=0;function pubRoom(){if(CM.state.mode!=="shared"||!CM.putRoom)return;clearTimeout(roomPubT);roomPubT=setTimeout(()=>CM.putRoom(myRoomDoc()),800)}
+function loadRoom(anon,force){if(!anon)return;if(!force&&ROOMC[anon]&&Date.now()-ROOMC[anon].at<30000)return;ROOMC[anon]=Object.assign(ROOMC[anon]||{},{at:Date.now()});
+ Promise.all([anon===CM.state.me.anon?Promise.resolve(myRoomDoc()):CM.getRoom(anon),CM.gbList(anon)]).then(([r,g])=>{ROOMC[anon]={at:Date.now(),r,loaded:true};GBC[anon]=g;if(state.tab==="local"&&hood().v==="room"&&hood().anon===anon&&!document.getElementById("modal").innerHTML)render()})}
+function roomView(h){const S=CM.state,me=h.anon===S.me.anon,c=ROOMC[h.anon];loadRoom(h.anon);
+ const back=`<button class="back" data-act="${h.from==="shop"?"tab:shop":"hoodHome"}">‹ ${h.from==="shop"?"꾸미기":"회사로"}</button>`;
+ if(S.mode!=="shared"&&!me)return back+`<section class="panel"><p class="hint" style="margin:0">다른 돌 방 구경은 서버가 연결되면 열려요.</p></section>`;
+ const r=me?myRoomDoc():c&&c.r, nick=me?S.me.nick:(r&&r.nick)||CM.nickOf(h.anon)||"이웃 돌", gb=GBC[h.anon]||[];
+ let body;
+ if(!r&&!(c&&c.loaded))body=`<section class="panel"><p class="hint" style="margin:0">방을 불러오는 중…</p></section>`;
+ else if(!r)body=`<section class="panel"><p class="hint" style="margin:0">${esc(nick)}은(는) 아직 방을 꾸미지 않았어요.</p></section>`;
+ else body=h.inside?`<section class="hero visit"><div class="scene acwrap">${acRoom({size:r.size,lv:Math.max(r.house||0,r.size||0),furn:r.furn,eq:Object.assign({head:null,face:null,body:null,pet:null},r.eq||{}),pos:r.pos||acDef(r.size)})}<div class="status">🏠 ${esc(nick)}의 방</div><button class="chipbtn exithome" data-act="visitOut">🚪 밖으로</button></div></section>`
+  :`<section class="hero visit"><div class="scene">${homeYard(r.home||"gosi",r.eq,{owner:me?"":nick,enter:"visitIn",yard:r.yard})}</div></section>`;
+ const form=me?`<p class="hint" style="margin:0">내 방이에요. 놀러 온 돌들이 남긴 방명록이에요.</p>`:S.mode!=="shared"?"":S.canWrite?`<form id="gbform" class="gform" autocomplete="off"><label for="gbin" class="sr">방명록</label><input id="gbin" maxlength="${CM.CFG.gbMax||120}" placeholder="방명록 남기기 · ${GB_COST}코인"><button class="btn" type="submit">남기기</button></form><p class="hint" style="margin:0;font-size:12.5px">한 줄에 ${GB_COST}코인 · 보유 ${won(state.coins)}코인 · 연락처나 실명은 쓰지 마세요</p>`:"";
+ return `${back}${body}
+ <section class="panel cm-block"><div class="pz-h"><b class="cm-h">📒 방명록 ${gb.length}</b>${me?"":`<button class="chipbtn" data-act="dmTo:${esc(h.anon)}">💬 대화 요청</button>`}</div>
+  ${form}
+  ${gb.length?`<ol class="clist gb">${gb.map(g=>`<li><span class="pmeta">${esc(g.nick||"익명의 돌")} · ${ago(g.at)}${g.anon===S.me.anon||me||S.isOwner?` · <button class="linkbtn sm" data-act="gbDel:${esc(g.id)}">지우기</button>`:""}</span><p>${esc(g.body)}</p></li>`).join("")}</ol>`:`<p class="hint" style="margin:0">${S.mode==="shared"?"아직 방명록이 없어요.":"방명록은 서버가 연결되면 열려요."}</p>`}</section>`;
+}
+
+/* ---------- v18: 회사 밖 = 업무지구 광장 ---------- */
+const DKEY=Object.fromEntries((CM.DISTRICTS||[]).map(([k,n])=>[n,k]));
+const PLAZA_LUNCH=[["korean","🍚 한식"],["chinese","🥟 중식"],["japanese","🍣 일식"],["western","🍝 양식"],["snack","🍢 분식"],["salad","🥗 샐러드"]];
+function plazaView(h){
+ const S=CM.state,shared=S.mode==="shared";
+ if(h.pstep==="pick"||!h.dist||!DKEY[h.dist])return `<button class="back" data-act="hoodHome">‹ 칼퇴상사로</button>
+ <section class="cm-head"><div><h2>🚪 회사 밖으로</h2><p>어느 업무지구 광장으로 갈까요?</p></div></section>
+ <div class="pzpick">${Object.keys(DKEY).map(n=>`<button class="pzd" data-act="plazaGo:${n}"><b>${n}</b><span>${n===state.district?"내 업무지구":"놀러 가기"}</span></button>`).join("")}</div>
+ <p class="hint" style="margin:0">위치(GPS)는 쓰지 않아요. 고른 업무지구 광장으로 가요. 내 업무지구는 프로필에서 바꿀 수 있어요.</p>`;
+ const d=h.dist,k=DKEY[d],day=LK.kstDate(),sp="d_"+k,posts=CM.bySpace(sp,"new").filter(p=>!CM.isHidden(p)).slice(0,6);
+ const outId=`out:${k}:${day}`,nightId=`night:${k}:${day}`,cheerId=`cheer:${k}:${day}`;
+ const nOut=CM.countMark(outId),nNight=CM.countMark(nightId),nCheer=CM.countMark(cheerId);
+ const votes=PLAZA_LUNCH.map(([o,l])=>({o,l,n:CM.countMark(`lunch:${k}:${day}:${o}`),me:CM.marked(`lunch:${k}:${day}:${o}`)})),tot=votes.reduce((a,v)=>a+v.n,0);
+ const solo=shared?"":`<p class="hint pz-solo">지금은 서버 연결 전이라 이 기기 기록만 세요. 함께 쓰는 링크에서는 같은 업무지구 돌들의 기록이 모여요.</p>`;
+ const wr=S.canWrite;
+ return `<button class="back" data-act="hoodHome">‹ 칼퇴상사로</button>
+ <section class="cm-head"><div><h2>📍 ${d} 광장</h2><p>${d}에서 일하는 돌들이 모이는 곳</p></div><button class="chipbtn" data-act="plazaPick">다른 업무지구</button></section>
+ ${solo}
+ <section class="panel pz"><b class="cm-h">🏃 오늘의 퇴근 현황</b>
+  <p class="pz-big">${shared?`오늘 ${d}에서 퇴근 체크한 돌 <b class="mono">${won(nOut)}</b>`:CM.marked(outId)?"오늘 퇴근 체크를 했어요":"아직 퇴근 체크를 안 했어요"}</p>
+  ${CM.marked(outId)?`<button class="btn ghost wide" disabled>✅ 퇴근 체크 완료</button>`:state.day.outAt?`<button class="btn wide" data-act="plazaOut" ${wr?"":"disabled"}>나도 퇴근했어요</button>`:`<button class="btn ghost wide" disabled>퇴근하면 체크할 수 있어요</button>`}</section>
+ <section class="panel pz"><b class="cm-h">🍱 오늘 점심 뭐 먹돌? <span class="hint">${shared?`${won(tot)}표`:"내 투표"}</span></b>
+  <div class="pz-vote">${votes.map(v=>`<button class="pzv ${v.me?"on":""}" data-act="plazaLunch:${v.o}" aria-pressed="${v.me}" ${wr?"":"disabled"}><span>${v.l}</span>${shared?`<i style="width:${tot?Math.round(v.n/tot*100):0}%"></i><b class="mono">${v.n}</b>`:v.me?"<b>✓</b>":""}</button>`).join("")}</div></section>
+ <section class="panel pz"><b class="cm-h">🌙 야근 응원</b>
+  <p class="pz-big">${shared?`지금 야근 중인 돌 <b class="mono">${won(nNight)}</b> · 오늘 모인 응원 <b class="mono">${won(nCheer)}</b>`:"야근 중이면 표시하고, 야근하는 돌들에게 응원을 보내요"}</p>
+  <div class="row"><button class="btn ${CM.marked(nightId)?"":"ghost"}" data-act="plazaNight" aria-pressed="${CM.marked(nightId)}" ${wr?"":"disabled"}>${CM.marked(nightId)?"🌙 야근 중 ✓":"🌙 저 야근 중이에요"}</button><button class="btn ${CM.marked(cheerId)?"ghost":"gold"}" data-act="plazaCheer" ${CM.marked(cheerId)||!wr?"disabled":""}>${CM.marked(cheerId)?"📣 응원 보냄":"📣 응원 보내기"}</button></div></section>
+ <section class="panel cm-block"><div class="pz-h"><b class="cm-h">💬 ${d} 익명 게시판</b><button class="btn" data-act="hoodWrite:${sp}" ${wr?"":"disabled"}>글쓰기</button></div>
+  ${posts.length?`<div class="plist">${posts.map(p=>postRow(p,false)).join("")}</div><button class="linkbtn" data-act="hoodSpace:${sp}">전체 보기 ›</button>`:`<p class="hint" style="margin:0">${d} 광장에 아직 글이 없어요. 첫 돌이 되어 주세요.</p>`}</section>`;
 }
 function boardView(){
- const hot=CM.hot(3), rec=CM.recent(5), S=CM.state;
+ const inCo=p=>!String(p.space).startsWith("d_"),hot=CM.hot(20).filter(inCo).slice(0,3), rec=CM.recent(30).filter(inCo).slice(0,5), S=CM.state;
  return `<button class="back" data-act="hoodHome">‹ 회사로</button>
  <section class="cm-head"><div><h2>📋 회사 게시판</h2><p>칼퇴상사 사람들 이야기가 한눈에</p>${onlineChip()}</div><button class="btn" data-act="hoodWrite" ${S.canWrite?"":"disabled"}>글쓰기</button></section>
  ${modeNote()}
  <section class="panel cm-block"><b class="cm-h">🔥 지금 회사에서 핫한 이야기</b>
   ${hot.length?`<div class="plist">${hot.map(p=>postRow(p,true)).join("")}</div>`:`<p class="hint" style="margin:0">아직 반응이 쌓인 글이 없어요. 돌이뻐요와 댓글이 모이면 여기에 올라와요.</p>`}</section>
- <div class="spaces">${CM.SPACES.map(sp=>`<button class="space" data-act="hoodSpace:${sp.id}"><b><span class="sp-e" aria-hidden="true">${sp.emoji}</span> ${sp.name}</b><span class="sp-t">${sp.tags}</span><span class="sp-d">“${sp.desc}”</span></button>`).join("")}</div>
+ <div class="spaces">${CM.SPACES.filter(sp=>!sp.district).map(sp=>`<button class="space" data-act="hoodSpace:${sp.id}"><b><span class="sp-e" aria-hidden="true">${sp.emoji}</span> ${sp.name}</b><span class="sp-t">${sp.tags}</span><span class="sp-d">“${sp.desc}”</span></button>`).join("")}</div>
  <section class="panel cm-block"><b class="cm-h">💬 지금 올라온 글</b>
   ${rec.length?`<div class="plist">${rec.map(p=>postRow(p,true)).join("")}</div>`:`<p class="hint" style="margin:0">아직 올라온 글이 없어요. 첫 글을 남겨 보세요.</p>`}</section>`;
 }
@@ -1153,60 +1556,60 @@ const VICON=(()=>{const g=d=>`<svg viewBox="0 0 24 24" aria-hidden="true">${d}</
  commute:g(`<rect x="4" y="3" width="16" height="18" rx="2" ${st}/><path d="M12 3v18M8.5 10l-1.5 2 1.5 2M15.5 10l1.5 2-1.5 2" ${st}/>`),
  board:g(`<rect x="3" y="4" width="18" height="13" rx="2" ${st}/><path d="M7 9h6M7 12h9M8 17l-1 4M16 17l1 4" ${st}/>`)}})();
 function vBar(){const S=CM.state,n=CM.unreadTotal();
- return `<section class="vbar"><h2>🏢 (주)칼퇴상사</h2><button class="chipbtn vnick" data-act="hoodGo:nick" aria-label="닉네임 바꾸기">✏️ ${esc(S.me.nick||"…")}</button><button class="chipbtn mail" data-act="hoodGo:inbox" aria-label="쪽지함">✉️${n?` <i class="nbadge">${n}</i>`:""}</button><button class="btn vwrite" data-act="hoodWrite" ${S.canWrite?"":"disabled"}>글쓰기</button></section>`}
+ return `<section class="vbar"><h2>🏢 (주)칼퇴상사</h2><button class="chipbtn vnick" data-act="hoodGo:nick" aria-label="닉네임 바꾸기">✏️ ${esc(S.me.nick||"…")}</button><button class="chipbtn mail" data-act="hoodGo:inbox" aria-label="대화함">💬${n?` <i class="nbadge">${n}</i>`:""}</button><button class="btn vwrite" data-act="hoodWrite" ${S.canWrite?"":"disabled"}>글쓰기</button></section>`}
 function myBar(){const S=CM.state,n=CM.unreadTotal();
- return `<div class="mybar"><span class="mynick">내 닉네임 <b>${esc(S.me.nick||"…")}</b></span><button class="chipbtn" data-act="hoodGo:nick">바꾸기</button><span class="grow"></span><button class="chipbtn mail" data-act="hoodGo:inbox">✉️ 쪽지${n?` <i class="nbadge">${n}</i>`:""}</button></div>`}
+ return `<div class="mybar"><span class="mynick">내 닉네임 <b>${esc(S.me.nick||"…")}</b></span><button class="chipbtn" data-act="hoodGo:nick">바꾸기</button><span class="grow"></span><button class="chipbtn mail" data-act="hoodGo:inbox">💬 대화${n?` <i class="nbadge">${n}</i>`:""}</button></div>`}
 function nickBtn(anon,nick){const S=CM.state,cur=CM.nickOf(anon)||nick;
  if(!anon||anon===S.me.anon||S.mode!=="shared")return esc(nick);
- return `<button class="nick" data-act="dmTo:${esc(anon)}" title="쪽지 보내기">${esc(cur)}</button>`}
+ return `<button class="nick" data-act="who:${esc(anon)}" title="방에 놀러가기 · 대화 요청">${esc(cur)}</button>`}
 function nickView(h){const S=CM.state,ch=CM.nickChange(),C=CM.CFG;
  return `<button class="back" data-act="${h.from==="write"?"hoodBackWrite":"hoodHome"}">‹ 돌아가기</button>
  <form id="nform" class="panel wform" autocomplete="off"><b class="cm-h">내 닉네임</b>
-  <p class="hint" style="margin:0">지금 닉네임은 <b>${esc(S.me.nick)}</b>이에요. 새 글과 댓글, 쪽지에 이 이름이 보여요.</p>
+  <p class="hint" style="margin:0">지금 닉네임은 <b>${esc(S.me.nick)}</b>이에요. 새 글과 댓글, 대화에 이 이름이 보여요.</p>
   <label for="nin" class="sr">새 닉네임</label><input id="nin" class="fin" maxlength="${C.nickMax}" value="${esc(h.dNick!=null?h.dNick:S.me.nick)}" placeholder="${C.nickMin}~${C.nickMax}자">
   <ul class="rules-s"><li>같은 닉네임은 한 돌만 쓸 수 있어요</li><li>실명처럼 보이는 이름, 회사명, 연락처는 쓸 수 없어요</li><li>한 번 바꾸면 ${C.nickChangeDays}일 동안 다시 바꿀 수 없어요</li></ul>
   ${ch.ok?"":`<p class="cm-note">다음 변경은 ${new Date(ch.next).getMonth()+1}월 ${new Date(ch.next).getDate()}일부터 할 수 있어요.</p>`}
   <p class="cm-err" id="nerr" aria-live="polite"></p>
   <button class="btn wide" type="submit" ${ch.ok&&S.canWrite?"":"disabled"}>이 닉네임으로 바꾸기</button></form>`}
 function inboxView(h){const S=CM.state;
- if(S.mode!=="shared")return `<button class="back" data-act="hoodHome">‹ 마을로</button><section class="panel"><b class="cm-h">✉️ 쪽지함</b><p class="hint" style="margin:0">쪽지는 서버가 연결되면 열려요. 지금은 글과 기록이 이 기기에만 저장되는 모드예요.</p></section>`;
+ if(S.mode!=="shared")return `<button class="back" data-act="hoodHome">‹ 회사로</button><section class="panel"><b class="cm-h">✉️ 대화함</b><p class="hint" style="margin:0">대화는 서버가 연결되면 열려요. 지금은 글과 기록이 이 기기에만 저장되는 모드예요.</p></section>`;
  const all=CM.convList(), req=all.filter(c=>c.status==="requested"&&!c.iStarted), rest=all.filter(c=>!(c.status==="requested"&&!c.iStarted)), tab=h.tab==="req"?"req":"talk", list=tab==="req"?req:rest;
  const st=c=>c.status==="requested"?(c.iStarted?"수락 대기 중":"새 요청"):c.status==="declined"?(c.iStarted?"상대가 거절함":"거절함"):c.status==="blocked"?"차단됨":"";
- return `<button class="back" data-act="hoodHome">‹ 마을로</button>
- <section class="cm-head"><div><h2>✉️ 쪽지함</h2><p>닉네임끼리만 주고받아요. 내용은 두 돌만 볼 수 있게 암호화돼요.</p></div></section>
- <section class="panel"><div class="switch"><div><b>쪽지 받기</b><div class="hint">${S.me.dmOpen?"다른 돌이 내 닉네임을 눌러 쪽지를 요청할 수 있어요":"꺼져 있어요. 내가 먼저 보낸 대화만 이어져요"}</div></div>
-  <button class="tog light" data-act="dmOpen" aria-pressed="${!!S.me.dmOpen}" aria-label="쪽지 받기" ${S.canWrite?"":"disabled"}></button></div></section>
- <div class="seg seg2" role="group" aria-label="쪽지함"><button data-act="hoodInboxTab:talk" aria-pressed="${tab==="talk"}">대화</button><button data-act="hoodInboxTab:req" aria-pressed="${tab==="req"}">요청${req.length?` ${req.length}`:""}</button></div>
- <section class="panel cm-block">${list.length?`<div class="plist">${list.map(c=>`<button class="prow" data-act="hoodChat:${esc(c.cid)}"><span class="pmeta">${ago(c.lastAt)}${st(c)?` · <b class="flag2">${st(c)}</b>`:""}</span><b class="ptitle">${esc(c.otherNick)}${c.unread&&c.status!=="blocked"?` <i class="nbadge">${c.unread}</i>`:""}</b><span class="pstat">${esc(c.preview).slice(0,60)}</span></button>`).join("")}</div>`:`<p class="hint" style="margin:0">${tab==="req"?"받은 쪽지 요청이 없어요.":"아직 대화가 없어요. 글이나 댓글의 닉네임을 누르면 쪽지를 보낼 수 있어요."}</p>`}</section>
+ return `<button class="back" data-act="hoodHome">‹ 회사로</button>
+ <section class="cm-head"><div><h2>✉️ 대화함</h2><p>닉네임끼리 1:1로 대화해요. 내용은 두 돌만 볼 수 있게 암호화돼요. 새 대화 요청은 500코인, 한 번 낸 돌과는 계속 무료예요.</p></div></section>
+ <section class="panel"><div class="switch"><div><b>대화 받기</b><div class="hint">${S.me.dmOpen?"다른 돌이 내 닉네임을 눌러 대화를 요청할 수 있어요":"꺼져 있어요. 내가 먼저 보낸 대화만 이어져요"}</div></div>
+  <button class="tog light" data-act="dmOpen" aria-pressed="${!!S.me.dmOpen}" aria-label="대화 받기" ${S.canWrite?"":"disabled"}></button></div></section>
+ <div class="seg seg2" role="group" aria-label="대화함"><button data-act="hoodInboxTab:talk" aria-pressed="${tab==="talk"}">대화</button><button data-act="hoodInboxTab:req" aria-pressed="${tab==="req"}">요청${req.length?` ${req.length}`:""}</button></div>
+ <section class="panel cm-block">${list.length?`<div class="plist">${list.map(c=>`<button class="prow" data-act="hoodChat:${esc(c.cid)}"><span class="pmeta">${ago(c.lastAt)}${st(c)?` · <b class="flag2">${st(c)}</b>`:""}</span><b class="ptitle">${esc(c.otherNick)}${c.unread&&c.status!=="blocked"?` <i class="nbadge">${c.unread}</i>`:""}</b><span class="pstat">${esc(c.preview).slice(0,60)}</span></button>`).join("")}</div>`:`<p class="hint" style="margin:0">${tab==="req"?"받은 대화 요청이 없어요.":"아직 대화가 없어요. 글이나 댓글의 닉네임을 누르면 대화를 요청할 수 있어요 (500코인)."}</p>`}</section>
  ${(S.me.blocked||[]).length?`<section class="panel cm-block"><b class="cm-h">차단한 돌 ${S.me.blocked.length}</b>${S.me.blocked.map(a=>`<div class="switch"><span>${esc(CM.nickOf(a)||"이름 모를 돌")}</span><button class="linkbtn sm" data-act="dmUnblock:${esc(a)}">차단 해제</button></div>`).join("")}</section>`:""}`}
 function chatView(h){const S=CM.state,c=CM.convList().find(x=>x.cid===h.cid);
- if(!c)return `<button class="back" data-act="hoodGo:inbox">‹ 쪽지함</button><section class="panel"><p class="hint" style="margin:0">대화를 불러오는 중이거나 찾을 수 없어요.</p></section>`;
+ if(!c)return `<button class="back" data-act="hoodGo:inbox">‹ 대화함</button><section class="panel"><p class="hint" style="margin:0">대화를 불러오는 중이거나 찾을 수 없어요.</p></section>`;
  const ms=CM.messages(c.cid), iBlocked=(S.me.blocked||[]).includes(c.other);
  const canSend=S.canWrite&&!iBlocked&&c.status!=="blocked"&&c.status!=="declined"&&!(c.status==="requested"&&c.iStarted);
  let banner="";
- if(c.status==="requested"&&!c.iStarted)banner=`<div class="reqbox"><p>${esc(c.otherNick)}이(가) 대화를 요청했어요. 수락하면 서로 쪽지를 주고받을 수 있어요.</p><div class="confirm-row"><button class="btn ghost" data-act="dmDecline:${esc(c.cid)}">거절</button><button class="btn" data-act="dmAccept:${esc(c.cid)}">수락</button></div><button class="linkbtn sm" data-act="dmBlock:${esc(c.other)}">차단하기</button></div>`;
- else if(c.status==="requested")banner=`<p class="cm-note">상대가 수락하기 전에는 쪽지를 하나만 보낼 수 있어요.</p>`;
+ if(c.status==="requested"&&!c.iStarted)banner=`<div class="reqbox"><p>${esc(c.otherNick)}이(가) 대화를 요청했어요. 수락하면 서로 대화할 수 있어요.</p><div class="confirm-row"><button class="btn ghost" data-act="dmDecline:${esc(c.cid)}">거절</button><button class="btn" data-act="dmAccept:${esc(c.cid)}">수락</button></div><button class="linkbtn sm" data-act="dmBlock:${esc(c.other)}">차단하기</button></div>`;
+ else if(c.status==="requested")banner=`<p class="cm-note">상대가 수락하기 전에는 메시지를 하나만 보낼 수 있어요.</p>`;
  else if(c.status==="declined")banner=`<p class="cm-note">${c.iStarted?"상대가 대화를 원하지 않았어요.":"거절한 대화예요."}</p>`;
  else if(c.status==="blocked"||iBlocked)banner=`<p class="cm-note">차단된 대화예요.${iBlocked?` <button class="linkbtn sm" data-act="dmUnblock:${esc(c.other)}">차단 해제</button>`:""}</p>`;
- return `<button class="back" data-act="hoodGo:inbox">‹ 쪽지함</button>
- <section class="cm-head"><div><h2>${esc(c.otherNick)}</h2><p>🔒 두 돌만 읽을 수 있는 쪽지</p></div><div class="row" style="flex:none;gap:6px">${iBlocked?"":`<button class="chipbtn" data-act="dmBlock:${esc(c.other)}">차단</button>`}<button class="chipbtn" data-act="dmReport:${esc(c.cid)}">신고</button></div></section>
+ return `<button class="back" data-act="hoodGo:inbox">‹ 대화함</button>
+ <section class="cm-head"><div><h2>${esc(c.otherNick)}</h2><p>🔒 두 돌만 읽을 수 있는 대화</p></div><div class="row" style="flex:none;gap:6px">${iBlocked?"":`<button class="chipbtn" data-act="dmBlock:${esc(c.other)}">차단</button>`}<button class="chipbtn" data-act="dmReport:${esc(c.cid)}">신고</button></div></section>
  ${banner}
- <section class="panel chat" id="chatbox">${ms.length?ms.map(m=>`<div class="bub ${m.mine?"me":""}"><p>${esc(m.text)}</p><span>${ago(m.at)}</span></div>`).join(""):`<p class="hint" style="margin:0">쪽지가 없어요.</p>`}</section>
- ${canSend?`<form id="dmform" class="gform" autocomplete="off"><label for="dmin" class="sr">쪽지</label><input id="dmin" maxlength="${CM.CFG.dmMax}" placeholder="쪽지 쓰기"><button class="btn" type="submit">보내기</button></form><p class="hint" style="margin:0;font-size:12.5px">전화번호·카톡 아이디 같은 연락처는 주고받지 않는 걸 권해요.</p>`:""}`}
+ <section class="panel chat" id="chatbox">${ms.length?ms.map(m=>`<div class="bub ${m.mine?"me":""}"><p>${esc(m.text)}</p><span>${ago(m.at)}</span></div>`).join(""):`<p class="hint" style="margin:0">아직 메시지가 없어요.</p>`}</section>
+ ${canSend?`<form id="dmform" class="gform" autocomplete="off"><label for="dmin" class="sr">메시지</label><input id="dmin" maxlength="${CM.CFG.dmMax}" placeholder="메시지 보내기"><button class="btn" type="submit">보내기</button></form><p class="hint" style="margin:0;font-size:12.5px">전화번호·카톡 아이디 같은 연락처는 주고받지 않는 걸 권해요.</p>`:""}`}
 function opsView(h){const S=CM.state,rs=S.opsReports,R=k=>(CM.DM_REPORT_REASONS.find(x=>x.id===k)||{}).label||k;
- return `<button class="back" data-act="hoodHome">‹ 마을로</button>
- <section class="cm-head"><div><h2>🛡 운영자 신고함</h2><p>신고한 돌이 첨부한 쪽지만 열려요. 다른 쪽지는 운영자도 볼 수 없어요.</p></div></section>
+ return `<button class="back" data-act="hoodHome">‹ 회사로</button>
+ <section class="cm-head"><div><h2>🛡 운영자 신고함</h2><p>신고한 돌이 첨부한 대화만 열려요. 다른 대화는 운영자도 볼 수 없어요.</p></div></section>
  ${rs.length?rs.map(r=>{const t=r.transcript,ban=S.banned.includes(r.reported);return `<section class="panel cm-block"><span class="pmeta">${ago(r.at)} · ${esc(R(r.reason))}</span><b class="cm-h">신고된 돌: ${esc((t&&t.otherNick)||CM.nickOf(r.reported)||"이름 모를 돌")}${ban?' <i class="flag">이용 제한 중</i>':""}</b>
   ${t?`<div class="chat sm">${t.messages.map(m=>`<div class="bub ${m.from==="신고자"?"me":""}"><p>${esc(m.text)}</p><span>${esc(m.from)} · ${ago(m.at)}</span></div>`).join("")}</div>`:`<p class="hint" style="margin:0">이 신고는 지금 운영자 키로 열 수 없어요.</p>`}
-  <div class="row">${ban?`<button class="btn ghost" data-act="opsUnban:${esc(r.reported)}">이용 제한 해제</button>`:`<button class="btn danger" data-act="opsBan:${esc(r.reported)}">이 돌 이용 제한</button>`}</div></section>`}).join(""):`<section class="panel"><p class="hint" style="margin:0">들어온 쪽지 신고가 없어요.</p></section>`}`}
+  <div class="row">${ban?`<button class="btn ghost" data-act="opsUnban:${esc(r.reported)}">이용 제한 해제</button>`:`<button class="btn danger" data-act="opsBan:${esc(r.reported)}">이 돌 이용 제한</button>`}</div></section>`}).join(""):`<section class="panel"><p class="hint" style="margin:0">들어온 대화 신고가 없어요.</p></section>`}`}
 function spaceView(h){const sp=spaceOf(h.space), list=CM.bySpace(h.space,h.sort);
- return `<button class="back" data-act="hoodHome">‹ 마을로</button>
+ return `${sp.district?`<button class="back" data-act="plazaGo:${sp.district}">‹ ${sp.district} 광장</button>`:`<button class="back" data-act="hoodHome">‹ 회사로</button>`}
  <section class="cm-head"><div><h2>${sp.emoji} ${sp.name}</h2><p>${sp.desc}</p><span class="sp-t">${sp.tags}</span></div><button class="btn" data-act="hoodWrite:${sp.id}" ${CM.state.canWrite?"":"disabled"}>글쓰기</button></section>
  <div class="seg seg2" role="group" aria-label="정렬"><button data-act="hoodSort:new" aria-pressed="${h.sort!=="hot"}">최신순</button><button data-act="hoodSort:hot" aria-pressed="${h.sort==="hot"}">인기순</button></div>
  <section class="panel cm-block">${list.length?`<div class="plist">${list.map(p=>postRow(p,false)).join("")}</div>`:`<p class="hint" style="margin:0">${sp.name}에 아직 글이 없어요. 첫 돌이 되어 주세요.</p>`}</section>`;
 }
 function postView(h){const p=CM.post(h.pid);
- if(!p)return `<button class="back" data-act="hoodHome">‹ 마을로</button><section class="panel"><p class="hint" style="margin:0">삭제됐거나 찾을 수 없는 글이에요.</p></section>`;
+ if(!p)return `<button class="back" data-act="hoodHome">‹ 회사로</button><section class="panel"><p class="hint" style="margin:0">삭제됐거나 찾을 수 없는 글이에요.</p></section>`;
  const sp=spaceOf(p.space), hid=CM.isHidden(p), cs=CM.commentsOf(p.id), mine=CM.mine(p), S=CM.state, lk=CM.liked(p.id);
  return `<button class="back" data-act="hoodSpace:${sp.id}">‹ ${sp.emoji} ${sp.name}</button>
  <article class="panel post">
@@ -1227,7 +1630,7 @@ function writeView(h){const S=CM.state, sp=h.space||"toilet";
  return `<button class="back" data-act="${h.space?"hoodSpace:"+h.space:"hoodHome"}">‹ 취소</button>
  <form id="wform" class="panel wform" autocomplete="off">
   <b class="cm-h">어디에 올릴까요?</b>
-  <div class="districts" role="radiogroup" aria-label="공간">${CM.SPACES.map(x=>`<button type="button" role="radio" data-act="hoodPick:${x.id}" aria-pressed="${x.id===sp}" aria-checked="${x.id===sp}">${x.emoji} ${x.name}</button>`).join("")}</div>
+  <div class="districts" role="radiogroup" aria-label="공간">${CM.SPACES.filter(x=>String(sp).startsWith("d_")?x.id===sp:!x.district).map(x=>`<button type="button" role="radio" data-act="hoodPick:${x.id}" aria-pressed="${x.id===sp}" aria-checked="${x.id===sp}">${x.emoji} ${x.name}</button>`).join("")}</div>
   <label for="wtitle" class="sr">제목</label><input id="wtitle" class="fin" maxlength="${CM.CFG.titleMax}" placeholder="제목 (${CM.CFG.titleMax}자까지)" value="${esc(h.dTitle||"")}">
   <label for="wbody" class="sr">내용</label><textarea id="wbody" class="fin" rows="7" maxlength="${CM.CFG.bodyMax}" placeholder="회사에서 못 한 이야기를 털어놔요">${esc(h.dBody||"")}</textarea>
   <p class="hint" style="margin:0">닉네임 <b>${esc(S.me.nick)}</b>(으)로 익명 게시돼요 · <button type="button" class="linkbtn sm" data-act="hoodNickFromWrite">닉네임 바꾸기</button><br>회사명·실명·연락처처럼 특정인을 알아볼 수 있는 내용은 쓰지 마세요. 신고되면 바로 가려져요.</p>
@@ -1374,10 +1777,11 @@ function drawerView(){
  <section class="panel"><b>내 쿠폰함</b>${state.coupons.length?state.coupons.map(c=>`<div class="coupon"><span>아메리카노 1잔 · ${c.slice(5).replace("-",".")} 당첨</span><span class="hint">시연용</span></div>`).join(""):`<span class="hint">금요일 월급상자에서 가끔 커피 쿠폰이 나와요. 지금은 시연용이고, 브랜드 제휴 후 실제 쿠폰으로 지급됩니다.</span>`}</section>
  <section class="panel"><div class="switch"><div><b>체험 모드</b><div class="hint">시간 제한 없이 하루를 진행하고 다음 날로 넘길 수 있어요. 금요일 월급상자를 미리 볼 때 쓰세요.</div></div>
  <button class="tog light" data-act="demo" aria-pressed="${state.demo}" aria-label="체험 모드"></button></div>
- <div id="resetArea"><button class="btn ghost wide" data-act="reset">처음부터 다시 하기</button></div></section>`;
+ <div id="resetArea"><button class="btn ghost wide" data-act="reset">처음부터 다시 하기</button></div></section>
+ ${CM.state.isOwner?`<section class="panel"><b>🧪 운영자 테스트</b><p class="hint" style="margin:0">이 앱을 만든 사람에게만 보여요. 실험용으로 코인을 넣어요.</p><button class="btn gold wide" data-act="ownerCoins">월급코인 +5,000</button></section>`:""}`;
 }
 
-const TABS=[["today","오늘",'<path d="M4 20V9l8-5 8 5v11" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><rect x="9" y="13" width="6" height="7" fill="none" stroke="currentColor" stroke-width="2"/>'],
+const TABS=[["today","출근",'<path d="M4 20V9l8-5 8 5v11" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><rect x="9" y="13" width="6" height="7" fill="none" stroke="currentColor" stroke-width="2"/>'],
  ["shop","꾸미기",'<path d="M8 4 4 7l2 4 2-1v10h8V10l2 1 2-4-4-3c0 2-2 3-4 3S8 6 8 4Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>'],
  ["local","칼퇴상사",'<path d="M4 21V5.5L12 3v18M12 8h8v13M2.5 21h19M7 8h2M7 12h2M7 16h2M15 12h2M15 16h2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'],
  ["luck","돌뽑기",'<path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19.6l1-5.8L3.5 9.7l5.9-.9z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>']];
@@ -1403,7 +1807,7 @@ const GAME_CFG={
  hints:[{id:"len",name:"글자 수",cost:0},{id:"near",name:"100위 안 단어 하나",cost:50},{id:"cho",name:"첫 글자 초성",cost:100}]
 };
 const GAME_NAMES=["칼퇴돌","몽돌","차돌","짱돌","공깃돌","디딤돌","주춧돌","맷돌","부싯돌","섬돌","자갈대리","몽글돌"];
-function gameState(){const d=today();if(!state.game||state.game.date!==d||state.game.v!==3)state.game={v:3,date:d,guesses:[],solved:false,solvedAt:null,gaveUp:false,hints:[]};if(!state.game.hints)state.game.hints=[];return state.game}
+function gameState(){const d=today();if(!state.game||state.game.date!==d||state.game.v!==4)state.game={v:4,date:d,guesses:[],solved:false,solvedAt:null,gaveUp:false,hints:[]};if(!state.game.hints)state.game.hints=[];return state.game}
 /* 랭킹 미리보기: 서버 연결 전까지는 예시 기록 + 내 기록. 정렬 규칙(힌트 없이 → 시도 수 → 먼저 맞힌 시각)은 실제 랭킹과 같아요. */
 function exampleRows(date){const r=rng(hash("rank2"+date));let a=9,min=9*60+12;return GAME_NAMES.map((n,i)=>{if(i>0)a+=2+Math.floor(r()*9);min+=Math.floor(r()*40)+6;return {name:n,attempts:a,hint:r()<.3,at:pad(Math.floor(min/60)%24)+":"+pad(min%60)}})}
 function challengers(date){const base=9000+hash("ch"+date)%5000,h=new Date().getHours()+new Date().getMinutes()/60;return Math.round(base*(0.35+0.65*Math.min(1,h/18)))}
@@ -1496,7 +1900,7 @@ function submitGuess(raw){
 /* ---------- v10: 돌퇴근 (횡스크롤 러닝 게임) ----------
    규칙·검증은 runner-core.js, 화면은 runner.js. 여기서는 기록·보상·랭킹만 다뤄요.
    보상: 퇴근 성공한 판의 자갈만 월급코인으로 바꿔줘요(1개=10코인), 하루 최대 RUN_CAP개. 같은 판(runId)은 두 번 지급하지 않아요. */
-const RK=window.TG_RUNNER_CORE, RUN_CAP=60, FRI_TITLE="불금 탈출러";
+const RK=window.TG_RUNNER_CORE, RUN_CAP=60, FRI_TITLE="불금 탈출러", DREAM_TITLE="꿈 탈출러";
 function runState(){
  if(!state.runner)state.runner={unlocked:1,sel:1,best:{},bestScore:{},chainBest:null,week:{key:null,best:{}},titles:[],paid:{date:null,pebbles:0,xp:[]},runs:[],plays:0,mute:false};
  const R=state.runner,wk=weekKey();if(R.week.key!==wk)R.week={key:wk,best:{}};
@@ -1515,8 +1919,8 @@ function loadRunBoard(sid){const RS=runState(),key=RS.week.key+"_"+sid;
  CM.runBoard(RS.week.key,sid).then(rows=>{runBoardCache.rows=rows;if(state.tab==="today"&&!document.getElementById("modal").innerHTML&&!document.querySelector(".rn"))render()})}
 function runnerCard(){
  const RS=runState(),fri=isFriday(),sel=Math.min(RS.sel||1,RS.unlocked);
- const st=[1,2,3].map(n=>{const S=RK.STAGES[n],b=RS.best[n],lock=n>RS.unlocked;
-  return `<button class="rc-st ${n===sel?"on":""} ${lock?"lock":""}" data-act="runSel:${n}" ${lock?"disabled":""} aria-pressed="${n===sel}"><span>STAGE ${n}</span><b>${S.name}</b><small>${lock?"🔒 앞 단계 클리어":b?"최고 "+TG_RUNNER.fmt(b.ms):"아직 기록 없음"}</small></button>`}).join("");
+ const st=[1,2,3,4].map(n=>{const S=RK.STAGES[n],b=RS.best[n],lock=n>RS.unlocked;
+  return `<button class="rc-st ${n===4?"dream":""} ${n===sel?"on":""} ${lock?"lock":""}" data-act="runSel:${n}" ${lock?"disabled":""} aria-pressed="${n===sel}"><span>STAGE ${n}</span><b>${S.name}</b><small>${lock?(n===4?"🔒 3단계 클리어하면 꿈속으로":"🔒 앞 단계 클리어"):b?"최고 "+TG_RUNNER.fmt(b.ms):"아직 기록 없음"}</small></button>`}).join("");
  const boardSid=fri?"fri":sel;loadRunBoard(boardSid);
  const rows=runBoardCache.key===RS.week.key+"_"+boardSid?runBoardCache.rows:null;
  const mine=RS.week.best[boardSid];
@@ -1525,7 +1929,7 @@ function runnerCard(){
  else if(CM.state.mode==="shared"&&!rows)rank=`<span>🏆 이번 주 ${boardSid==="fri"?"불금 탈출":"STAGE "+boardSid} 랭킹</span><b>불러오는 중…</b>`;
  else if(CM.state.mode==="shared")rank=`<span>🏆 이번 주 ${boardSid==="fri"?"불금 탈출":"STAGE "+boardSid} 랭킹</span><b>아직 기록이 없어요 · 첫 퇴근자가 되어 보세요</b>`;
  else rank=`<span>🏆 이번 주 내 기록 · ${boardSid==="fri"?"불금":"STAGE "+boardSid}</span><b>${mine?TG_RUNNER.fmt(mine):"아직 없음"}${RS.chainBest?` · 1~3 연속 ${TG_RUNNER.fmt(RS.chainBest)}`:""}</b>`;
- const title=RS.titles.includes(FRI_TITLE)?`<span class="rc-title">🔥 ${FRI_TITLE}</span>`:"";
+ const title=RS.titles.includes(DREAM_TITLE)?`<span class="rc-title">🌙 ${DREAM_TITLE}</span>`:RS.titles.includes(FRI_TITLE)?`<span class="rc-title">🔥 ${FRI_TITLE}</span>`:"";
  return `<section class="gcard rcard" aria-labelledby="rc-t"><div class="gc-h"><b id="rc-t">🏃 돌퇴근</b>${title||`<span class="new">NEW</span>`}</div>
  <div class="rc-hero" aria-hidden="true"><i class="rc-o o1"></i><i class="rc-peb"></i><span class="rc-door">퇴근</span></div>
  <p class="gc-copy" style="margin:0"><b>오늘도 칼퇴 성공!</b> 화면을 눌러 점프하고 장애물을 피해 집까지 달려요</p>
@@ -1544,14 +1948,15 @@ function runEnd(res){
  const bs=RS.bestScore[key]||0;if(res.score>bs){RS.bestScore[key]=res.score;if(bs)info.newBestScore=true}info.bestScore=Math.max(bs,res.score);
  if(res.state==="win"){
   const b=RS.best[key];if(!b||res.ms<b.ms){info.newBest=true;RS.best[key]={ms:res.ms,score:res.score,at:Date.now()}}else info.bestMs=b.ms;
-  if(res.sid==1)RS.unlocked=Math.max(RS.unlocked,2);if(res.sid==2)RS.unlocked=Math.max(RS.unlocked,3);
-  if(res.sid==1||res.sid==2)RS.sel=Math.max(RS.sel||1,res.sid+1);
+  if(res.sid==1)RS.unlocked=Math.max(RS.unlocked,2);if(res.sid==2)RS.unlocked=Math.max(RS.unlocked,3);if(res.sid==3)RS.unlocked=Math.max(RS.unlocked,4);
+  if(res.sid==1||res.sid==2||res.sid==3)RS.sel=Math.max(RS.sel||1,res.sid+1);
   if(!RS.week.best[key]||res.ms<RS.week.best[key])RS.week.best[key]=res.ms;
   const p=Math.min(Math.max(0,RUN_CAP-RS.paid.pebbles),res.pebbles);
   if(p){RS.paid.pebbles+=p;info.coins=p*LK.PEBBLE_TO_COIN;info.pebblesPaid=p;info.capped=p<res.pebbles;state.coins+=info.coins}
   else if(res.pebbles)info.capNote=`오늘 자갈 보상 한도(${RUN_CAP}개)를 다 채웠어요. 기록은 그대로 저장돼요.`;
   if(!RS.paid.xp.includes(key)){RS.paid.xp.push(key);gainXp(15)}
   if(res.sid==="fri"&&!RS.titles.includes(FRI_TITLE)){RS.titles.push(FRI_TITLE);info.title=true}
+  if(res.sid==4&&!RS.titles.includes(DREAM_TITLE)){RS.titles.push(DREAM_TITLE);info.title=true}
   if(res.chainTotal!=null&&(!RS.chainBest||res.chainTotal<RS.chainBest)){info.chainBest=true;RS.chainBest=res.chainTotal}
   if(CM.state.mode==="shared"&&CM.runSubmit){info.rank="이번 주 랭킹에 기록을 올렸어요.";CM.runSubmit({sid:key,ms:RS.week.best[key],score:res.score,week:RS.week.key}).then(()=>{runBoardCache.at=0})}
  }
@@ -1742,7 +2147,29 @@ function slipHTML(sl,stamp){
 const act={
  fishCast(){fishCast();return "noRender"},
  fishPull(){fishPull();return "noRender"},
- gameTab(t){state.gameTab=t==="word"?"word":"run"},
+ gameTab(t){state.gameTab=["word","stock"].includes(t)?t:"run"},
+ workStart(c){if(state.day.inAt)return;state.day.cond=COND[c]?c:"soso";act.clockIn();window.scrollTo({top:0,behavior:"smooth"})},
+ stockPick(id){if(stPhase()!=="open"){toast("지금은 장이 닫혀 있어요");return}modal(stockPickHTML(id));return "noRender"},
+ stockBuy(a){const [id,v]=String(a).split(","),amt=+v,K=kstNow(),S=stState();
+  if(!STOCKS.some(x=>x[0]===id)||!(amt>=ST_MIN&&amt<=ST_MAX)){closeModal();return}
+  if(stPhase(K)!=="open"){closeModal();toast("장이 마감됐어요");return}
+  const b=S.bets[K.date]||(S.bets[K.date]={});if(b[id]){closeModal();toast("이 회사는 오늘 이미 투자했어요");return}
+  if(state.coins<amt){toast(`코인이 ${won(amt-state.coins)} 모자라요`);return "noRender"}
+  state.coins-=amt;b[id]=amt;closeModal();const x=STOCKS.find(s=>s[0]===id);toast(`${x[1]}에 ${won(amt)}코인 투자! 결과는 15:30 이후`)},
+ stockClaim(){const S=stState(),ds=stPending();if(!ds.length)return;
+  let tin=0,tout=0,rows="";
+  ds.forEach(d=>{const D=stDay(d),b=S.bets[d];let i=0,o=0;
+   rows+=`<div class="stgrp">${d.slice(5).replace("-","/")} (${WD[new Date(d+"T00:00:00").getDay()]})</div>`;
+   Object.entries(b).forEach(([id,a])=>{const x=STOCKS.find(s=>s[0]===id);if(!x)return;const p=D.res[id],g=stPay(a,p);i+=a;o+=g;
+    rows+=`<div class="strow"><span class="se">${x[3]}</span><span class="sn"><b>${x[1]}</b></span><small class="mono">${won(a)}→${won(g)}</small> ${pctTag(p)}</div>`});
+   S.got[d]={in:i,out:o};tin+=i;tout+=o});
+  state.coins+=tout;
+  const keep=Object.keys(S.bets).sort().slice(-14);Object.keys(S.bets).forEach(d=>{if(!keep.includes(d)){delete S.bets[d];delete S.got[d]}});
+  const net=tout-tin;
+  modal(`<div class="stres"><span class="nc-k">칼퇴증시 결과 발표</span><h2 style="margin:4px 0 2px">${net>0?"📈 수익 났어요!":net<0?"📉 물렸어요…":"😐 본전이에요"}</h2>
+  <p class="stbig mono ${net>0?"up":net<0?"dn":""}">${net>0?"+":""}${won(net)}</p><p class="hint" style="margin:0 0 8px">넣은 돈 ${won(tin)} → 받은 돈 ${won(tout)}코인 · 지갑에 넣었어요</p>${rows}
+  <button class="btn wide" data-act="close" style="margin-top:12px">확인</button></div>`);return "noRender"},
+
  stepsToggle(){state.stepsOpen=!state.stepsOpen},
  runSel(n){const RS=runState();n=+n;if(n>=1&&n<=RS.unlocked)RS.sel=n},
  run(n){openRunner(n==='fri'?'fri':+n);return "noRender"},
@@ -1771,6 +2198,30 @@ const act={
    <div class="confirm-row">${can?`<button class="btn" data-act="luckShareGo">공유하기</button>`:""}<a class="btn ${can?"ghost":""}" href="${shareURL}" download="toegeunjung-fortune-${F.date}.png" style="text-decoration:none">이미지 저장</a></div><button class="btn ghost wide" data-act="close">닫기</button>`)});return "noRender"},
  luckShareGo(){if(!shareBlob)return "noRender";const f=new File([shareBlob],"toegeunjung-fortune.png",{type:"image/png"});navigator.share({files:[f],title:"퇴근중 · 오늘의 돌운세",text:"오늘의 운을 뽑아돌!"}).catch(()=>{});return "noRender"},
  hoodHome(){Object.assign(hood(),{v:"main",pid:null});window.scrollTo(0,0)},
+ ownerCoins(){if(!CM.state.isOwner)return;state.coins+=5000;toast("테스트 코인 5,000을 넣었어요")},
+ roomSize(k){k=+k;const cur=state.roomSize||0,z=ROOMSZ[k];if(!z||k!==cur+1)return;if(state.coins<z.price){toast(`코인이 ${won(z.price-state.coins)} 모자라요`);return}
+  state.coins-=z.price;state.roomSize=k;state.house=Math.max(state.house||0,k);state.roomPos=roomDefPos(k);state.roomPos2=acDef(k);state.shopIn=true;pubRoom();window.scrollTo({top:0,behavior:"smooth"});toast(`집을 넓혔어요! ${z.name} · 바닥을 누르면 상하좌우로 걸어요`)},
+ yardBuy(id){const y=yardOf(id);if(y.id!==id)return;const own=state.yards||(state.yards=["alley"]);if(own.includes(id))return;if(state.coins<y.price){toast(`코인이 ${won(y.price-state.coins)} 모자라요`);return}state.coins-=y.price;own.push(id);state.yard=id;state.shopIn=false;pubRoom();window.scrollTo({top:0,behavior:"smooth"});toast(`${y.name}(으)로 이사했어요! 🚚`)},
+ yardUse(id){if(!(state.yards||["alley"]).includes(id))return;state.yard=id;state.shopIn=false;pubRoom();window.scrollTo({top:0,behavior:"smooth"});toast(`${yardOf(id).name}(으)로 이사했어요`)},
+ homeBuy(id){const x=homeOf(id);if(x.id!==id)return;const own=state.homes||(state.homes=["gosi"]);if(own.includes(id))return;if(state.coins<x.price){toast(`코인이 ${won(x.price-state.coins)} 모자라요`);return}state.coins-=x.price;own.push(id);state.home=id;state.shopIn=false;pubRoom();window.scrollTo({top:0,behavior:"smooth"});toast(`${x.name}을(를) 샀어요! 들어가기를 눌러 보세요`)},
+ homeUse(id){if(!(state.homes||["gosi"]).includes(id))return;state.home=id;state.shopIn=false;pubRoom();window.scrollTo({top:0,behavior:"smooth"})},
+ shopIn(){state.shopIn=true},
+ shopOut(){state.shopIn=false},
+ visitIn(){hood().inside=true},
+ visitOut(){hood().inside=false},
+ visit(anon){if(!anon)return;closeModal();state.tab="local";Object.assign(hood(),{v:"room",anon,from:null,inside:false});loadRoom(anon,true);window.scrollTo(0,0)},
+ myRoom(){state.tab="local";Object.assign(hood(),{v:"room",anon:CM.state.me.anon,from:"shop",inside:true});loadRoom(CM.state.me.anon,true);window.scrollTo(0,0)},
+ who(anon){const nick=CM.nickOf(anon)||"이웃 돌";
+  modal(`<div class="sec-h"><h2>${esc(nick)}</h2><small>무엇을 할까요?</small></div><div class="whoact"><button class="btn wide" data-act="visit:${esc(anon)}">🏠 방에 놀러가기</button><button class="btn ghost wide" data-act="whoDm:${esc(anon)}">💬 대화 요청 · ${chatPaid(anon)?"무료":won(CHAT_COST)+"코인"}</button><button class="btn ghost wide" data-act="close">닫기</button></div>`);return "noRender"},
+ whoDm(anon){closeModal();return act.dmTo(anon)},
+ gbDel(id){const h=hood(),g=(GBC[h.anon]||[]).find(x=>x.id===id);if(!g)return;CM.delGuest(g).then(()=>{GBC[h.anon]=(GBC[h.anon]||[]).filter(x=>x.id!==id);render()});return "noRender"},
+ plazaPick(){Object.assign(hood(),{v:"plaza",pstep:"pick"});window.scrollTo(0,0)},
+ plazaGo(d){if(!DKEY[d])return;Object.assign(hood(),{v:"plaza",pstep:null,dist:d,pid:null});window.scrollTo(0,0)},
+ plazaOut(){const h=hood(),k=DKEY[h.dist];if(!k||!state.day.outAt)return;CM.mark(`out:${k}:${LK.kstDate()}`).then(()=>toast(`${h.dist} 퇴근 현황에 체크했어요. 오늘도 수고했돌!`)).catch(e=>toast(e.message||"지금은 체크할 수 없어요"))},
+ plazaLunch(o){const h=hood(),k=DKEY[h.dist],day=LK.kstDate();if(!k)return;const id=x=>`lunch:${k}:${day}:${x}`,was=CM.marked(id(o));
+  Promise.all(PLAZA_LUNCH.filter(([x])=>x!==o&&CM.marked(id(x))).map(([x])=>CM.mark(id(x),false))).then(()=>CM.mark(id(o),!was)).catch(e=>toast(e.message||"지금은 투표할 수 없어요"))},
+ plazaNight(){const h=hood(),k=DKEY[h.dist];if(!k)return;const id=`night:${k}:${LK.kstDate()}`;CM.mark(id,!CM.marked(id)).catch(e=>toast(e.message||"지금은 표시할 수 없어요"))},
+ plazaCheer(){const h=hood(),k=DKEY[h.dist];if(!k)return;const id=`cheer:${k}:${LK.kstDate()}`;if(CM.marked(id))return;CM.mark(id).then(()=>toast(`${h.dist} 야근 돌들에게 응원을 보냈어요 📣`)).catch(e=>toast(e.message||"지금은 보낼 수 없어요"))},
  hoodSpace(id){Object.assign(hood(),{v:"space",space:id,pid:null});window.scrollTo(0,0)},
  hoodSort(k){hood().sort=k},
  hoodPost(id){Object.assign(hood(),{v:"post",pid:id});window.scrollTo(0,0)},
@@ -1781,22 +2232,23 @@ const act={
  hoodBackWrite(){hood().v="write"},
  hoodInboxTab(t){hood().tab=t},
  hoodChat(cid){Object.assign(hood(),{v:"chat",cid});CM.markRead(cid);window.scrollTo(0,0);setTimeout(scrollChat,0)},
- dmOpen(){CM.setDmOpen(!CM.state.me.dmOpen).then(()=>{toast(CM.state.me.dmOpen?"쪽지 받기를 켰어요":"쪽지 받기를 껐어요");render()}).catch(e=>toast(e.message||"바꾸지 못했어요"));return "noRender"},
+ dmOpen(){CM.setDmOpen(!CM.state.me.dmOpen).then(()=>{toast(CM.state.me.dmOpen?"대화 받기를 켰어요":"대화 받기를 껐어요");render()}).catch(e=>toast(e.message||"바꾸지 못했어요"));return "noRender"},
  dmTo(anon){const t=CM.dmTarget(anon);
   if(t.cid&&(t.ok||CM.convList().some(c=>c.cid===t.cid))){act.hoodChat(t.cid);render();return "noRender"}
   if(!t.ok){toast(t.why);return "noRender"}
-  dmDraft={anon,warned:false};
-  modal(`<div class="sec-h"><h2>쪽지 보내기</h2><small>받는 돌: ${esc(t.nick||CM.nickOf(anon)||"")}</small></div>
-  <form id="dmfirst" class="reasons"><label for="dmfin" class="sr">첫 쪽지</label><textarea id="dmfin" class="fin" rows="4" maxlength="${CM.CFG.dmMax}" placeholder="상대가 수락해야 대화가 열려요. 첫 쪽지는 하나만 보낼 수 있어요."></textarea>
+  dmDraft={anon,warned:false};const paid=chatPaid(anon);
+  modal(`<div class="sec-h"><h2>대화 요청</h2><small>받는 돌: ${esc(t.nick||CM.nickOf(anon)||"")}</small></div>
+  ${paid?`<p class="dmcost free">💬 이 돌과는 이미 대화권을 냈어요 · 무료</p>`:`<p class="dmcost">💰 대화 요청 <b class="mono">${won(CHAT_COST)}</b>코인 · 한 번 내면 이 돌과는 계속 무료예요<br><small>보유 ${won(state.coins)}코인${state.coins<CHAT_COST?" · 코인이 모자라요":""} · 상대가 거절해도 돌려받지 않아요</small></p>`}
+  <form id="dmfirst" class="reasons"><label for="dmfin" class="sr">첫 메시지</label><textarea id="dmfin" class="fin" rows="4" maxlength="${CM.CFG.dmMax}" placeholder="상대가 수락해야 대화가 열려요. 첫 메시지는 하나만 보낼 수 있어요."></textarea>
   <p class="hint" style="margin:0">닉네임 <b>${esc(CM.state.me.nick)}</b>(으)로 보내져요. 실명·회사·연락처는 쓰지 않는 걸 권해요.</p><p class="cm-err" id="dmerr" aria-live="polite"></p>
   <div class="confirm-row"><button type="button" class="btn ghost" data-act="close">취소</button><button class="btn" type="submit">보내기</button></div></form>`);
   setTimeout(()=>{const i=document.getElementById("dmfin");if(i)i.focus()},50);return "noRender"},
  dmAccept(cid){CM.acceptDm(cid).then(()=>{toast("대화를 수락했어요");render()}).catch(()=>toast("수락하지 못했어요"));return "noRender"},
  dmDecline(cid){CM.declineDm(cid).then(()=>{toast("요청을 거절했어요");Object.assign(hood(),{v:"inbox"});render()}).catch(()=>toast("거절하지 못했어요"));return "noRender"},
- dmBlock(anon){modal(`<div class="sec-h"><h2>이 돌을 차단할까요?</h2></div><p class="hint" style="margin:0">쪽지를 더 받지 않고, 이 돌의 글과 댓글도 나에게 보이지 않아요. 쪽지함에서 언제든 해제할 수 있어요.</p><div class="confirm-row"><button class="btn ghost" data-act="close">취소</button><button class="btn danger" data-act="dmBlockYes:${esc(anon)}">차단</button></div>`);return "noRender"},
+ dmBlock(anon){modal(`<div class="sec-h"><h2>이 돌을 차단할까요?</h2></div><p class="hint" style="margin:0">대화를 더 받지 않고, 이 돌의 글과 댓글도 나에게 보이지 않아요. 대화함에서 언제든 해제할 수 있어요.</p><div class="confirm-row"><button class="btn ghost" data-act="close">취소</button><button class="btn danger" data-act="dmBlockYes:${esc(anon)}">차단</button></div>`);return "noRender"},
  dmBlockYes(anon){closeModal();CM.block(anon).then(()=>{toast("차단했어요");render()});return "noRender"},
  dmUnblock(anon){CM.unblock(anon).then(()=>{toast("차단을 해제했어요");render()});return "noRender"},
- dmReport(cid){modal(`<div class="sec-h"><h2>쪽지 신고</h2><small>최근 쪽지 30개가 운영자에게만 첨부돼요</small></div><form id="dmrform" class="reasons">${CM.DM_REPORT_REASONS.map((r,i)=>`<label><input type="radio" name="reason" value="${r.id}" ${i===0?"checked":""}><span>${r.label}</span></label>`).join("")}<input type="hidden" name="cid" value="${esc(cid)}"><label class="chk"><input type="checkbox" name="alsoBlock" checked><span>이 돌 차단하기</span></label><div class="confirm-row"><button type="button" class="btn ghost" data-act="close">취소</button><button class="btn danger" type="submit">신고</button></div></form>`);return "noRender"},
+ dmReport(cid){modal(`<div class="sec-h"><h2>대화 신고</h2><small>최근 메시지 30개가 운영자에게만 첨부돼요</small></div><form id="dmrform" class="reasons">${CM.DM_REPORT_REASONS.map((r,i)=>`<label><input type="radio" name="reason" value="${r.id}" ${i===0?"checked":""}><span>${r.label}</span></label>`).join("")}<input type="hidden" name="cid" value="${esc(cid)}"><label class="chk"><input type="checkbox" name="alsoBlock" checked><span>이 돌 차단하기</span></label><div class="confirm-row"><button type="button" class="btn ghost" data-act="close">취소</button><button class="btn danger" type="submit">신고</button></div></form>`);return "noRender"},
  opsBan(anon){CM.ban(anon).then(()=>{toast("이용을 제한했어요");render()});return "noRender"},
  opsUnban(anon){CM.unban(anon).then(()=>{toast("이용 제한을 풀었어요");render()});return "noRender"},
  hoodLike(id){CM.toggleLike(id).catch(()=>{});return "noRender"},
@@ -1818,7 +2270,7 @@ const act={
   state.streak=state.lastWorkDate===prevWorkday(d.date)?state.streak+1:1;
   state.lastWorkDate=d.date;
   const fx={coins:100,mental:wd(d.date)===1?-10:-3,happy:0};
-  if(state.equipped.pet)fx.happy+=5;
+  if(state.equipped.pet){const pi=ITEMS.find(x=>x.id===state.equipped.pet);fx.happy+=pi&&pi.joy||5}
   state.owned.forEach(i=>{const it=ITEMS.find(x=>x.id===i);if(it&&it.fx&&it.fx.when==="in"){fx.happy+=it.fx.happy||0}});
   applyFx(fx);
   d.inFx=fx;
@@ -1916,7 +2368,7 @@ const act={
   if(state.coins<it.price){toast(`월급코인이 ${won(it.price-state.coins)} 부족해요. 출근과 미션으로 모아보세요`);return}
   state.coins-=it.price;state.owned.push(id);if(it.slot)state.equipped[it.slot]=id;toast(`${it.name} 구매 완료`);
  },
- equip(id){const it=ITEMS.find(x=>x.id===id);if(it&&state.owned.includes(id))state.equipped[it.slot]=id},
+ equip(id){const it=ITEMS.find(x=>x.id===id);if(it&&state.owned.includes(id)){if(it.cat==="clothes")["head","face","body"].forEach(k=>state.equipped[k]=null);state.equipped[it.slot]=id}},
  unequip(slot){state.equipped[slot]=null},
  house(lv){
   lv=Number(lv);const h=HOUSES[lv];if(!h||lv!==state.house+1)return;
@@ -1940,6 +2392,7 @@ document.addEventListener("click",e=>{
  if(!act[name]||el.disabled)return;
  const r=act[name](arg);
  save();
+ if(state.tab==="shop"&&/^(equip|unequip|buy|house|roomSize|homeBuy|homeUse|yardBuy|yardUse)$/.test(name))pubRoom();
  if(r!=="noRender")render();
  if(name==="clockOut"||name==="box"||name==="openBox"){/* modal already open */}
 });
@@ -1947,12 +2400,12 @@ document.addEventListener("click",e=>{
 const VIL={x:0,y:0,tx:null,ty:null,raf:0,keys:{},last:0,near:null,pres:0,intro:true};
 function vEls(){return {box:document.getElementById("village"),me:document.getElementById("vme"),btn:document.getElementById("venter"),peers:document.getElementById("vpeers")}}
 function vPlace(){const {me}=vEls();if(!me)return;me.style.left=pct(VIL.x,VG.W);me.style.top=pct(VIL.y,VG.H)}
-function vNear(){const inside=VG.PLACES.find(p=>p.area&&inR(p.area,VIL.x,VIL.y));if(inside)return inside;
+function vNear(){if(VIL.sit)return VG.PLACES.find(p=>p.kind==="work");const inside=VG.PLACES.find(p=>p.area&&inR(p.area,VIL.x,VIL.y));if(inside)return inside;
  let best=null,bd=1e9;VG.PLACES.forEach(p=>{if(p.area)return;const d=Math.hypot(p.door.x-VIL.x,p.door.y-VIL.y);if(d<bd){bd=d;best=p}});return bd<=30?best:null}
 function vLabels(){VG.PLACES.forEach(p=>{const el=document.querySelector(`[data-vlabel="${p.id}"]`);if(!el)return;const d=Math.hypot(p.door.x-VIL.x,p.door.y-VIL.y);el.classList.toggle("on",d<90&&!(VIL.near&&VIL.near.id===p.id))})}
 function vShowEnter(){const {btn}=vEls();if(!btn)return;const p=vNear();VIL.near=p;vLabels();
  if(!p){btn.hidden=true;return}
- btn.hidden=false;btn.textContent=p.kind==="work"?`💻 자리로 가서 일하기`:p.kind==="fish"?`🎣 낚시하기${fishLeft()?` · ${fishLeft()}번 남음`:" · 오늘은 끝"}`:`${p.emoji} ${p.name} 들어가기`;const bx=p.area?VIL.x:p.door.x,by=p.area?VIL.y-34:p.door.y-30;btn.style.left=pct(bx,VG.W);btn.style.top=pct(Math.max(30,by),VG.H);btn.classList.toggle("al",bx<VG.W*.3);btn.classList.toggle("ar",bx>VG.W*.7);btn.dataset.place=p.id}
+ btn.hidden=false;btn.textContent=p.kind==="work"?(VIL.sit?`💻 오늘 근무 보기`:`💻 자리로 가서 일하기`):p.kind==="exit"?`🛗 회사 밖으로 나가기`:p.kind==="fish"?`🎣 낚시하기${fishLeft()?` · ${fishLeft()}번 남음`:" · 오늘은 끝"}`:`${p.emoji} ${p.name} 들어가기`;const bx=p.area?VIL.x:p.door.x,by=p.area?VIL.y-34:p.door.y-30;btn.style.left=pct(bx,VG.W);btn.style.top=pct(Math.max(30,by),VG.H);btn.classList.toggle("al",bx<VG.W*.3);btn.classList.toggle("ar",bx>VG.W*.7);btn.dataset.place=p.id}
 function vPresence(force){const now=Date.now();if(!force&&now-VIL.pres<350)return;VIL.pres=now;CM.presence({x:Math.round(VIL.x),y:Math.round(VIL.y),nick:CM.state.me.nick||"돌",anon:CM.state.me.anon||null,eq:myEq()})}
 function vLoop(t){
  const {me}=vEls();if(!me){VIL.raf=0;return}
@@ -1966,6 +2419,7 @@ function vLoop(t){
  else if(VIL.tx!=null){const ddx=VIL.tx-VIL.x,ddy=VIL.ty-VIL.y,d=Math.hypot(ddx,ddy);
   if(d<2){VIL.x=VIL.tx;VIL.y=VIL.ty;VIL.tx=null;if(VIL.path&&VIL.path.length){const n=VIL.path.shift();VIL.tx=n.x;VIL.ty=n.y;moving=true}}else{const st=Math.min(d,SPD*dt);VIL.x+=ddx/d*st;VIL.y+=ddy/d*st;moving=true;if(Math.abs(ddx)>1)me.classList.toggle("left",ddx<0)}}
  const B=VG.BOUNDS;VIL.x=Math.max(B.x0,Math.min(B.x1,VIL.x));VIL.y=Math.max(B.y0,Math.min(B.y1,VIL.y));
+ if(moving&&VIL.sit){VIL.sit=false;me.classList.remove("sit")}
  me.classList.toggle("walk",moving);vPlace();vShowEnter();
  if(moving&&t-(VIL.puff||0)>170){VIL.puff=t;vPuff()}
  const h=hood();h.pos={x:Math.round(VIL.x),y:Math.round(VIL.y)};
@@ -2002,6 +2456,28 @@ function vGo(x,y){
 /* 걸을 때 발밑에 작은 먼지 */
 function vPuff(){const {box}=vEls();if(!box)return;const e=document.createElement("i");e.className="vpuff";e.style.left=pct(VIL.x+(Math.random()*6-3),VG.W);e.style.top=pct(VIL.y,VG.H);box.appendChild(e);setTimeout(()=>e.remove(),520)}
 
+/* ----- v19.3: 꾸미기 방 안에서 걷기 (누른 곳으로) ----- */
+function roomWalkTo(sv,k,q){const from=roomClamp(k,state.roomPos||roomDefPos(k)),p=roomClamp(k,q);state.roomPos={x:Math.round(p.x),y:Math.round(p.y)};save();
+ const dur=Math.max(.45,Math.min(2.6,Math.hypot(p.x-from.x,p.y-from.y)/170)).toFixed(2)+"s";
+ const g=sv.querySelector(".rstone"),pg=sv.querySelector(".rpet");if(g&&pg){if(state.roomPos.y>=213)g.before(pg);else g.after(pg)}if(g){g.style.transitionDuration=dur;g.setAttribute("style",stoneTf(k,state.roomPos,.8)+`;transition-duration:${dur}`)}
+ sv.style.transitionDuration=dur;sv.setAttribute("style",roomCamStyle(k,state.roomPos)+`;transition-duration:${dur}`);
+ const box=sv.closest(".scene");if(box){const {W}=roomWH(k),c=roomCam(k,state.roomPos);const l=box.querySelector(".roomarr.l"),r=box.querySelector(".roomarr.r");if(l)l.hidden=!(c>1);if(r)r.hidden=!(c<W-361)}
+ pubRoom()}
+document.addEventListener("click",e=>{const sv=e.target.closest&&e.target.closest("svg.acwalk");if(!sv||e.target.closest("[data-act]"))return;
+ const pt=sv.createSVGPoint();pt.x=e.clientX;pt.y=e.clientY;const m=sv.getScreenCTM();if(!m)return;const q=pt.matrixTransform(m.inverse());
+ const k=+sv.dataset.k||0,from=acClamp(k,state.roomPos2||acDef(k)),p=acClamp(k,q);state.roomPos2={x:Math.round(p.x),y:Math.round(p.y)};save();
+ const dur=Math.max(.4,Math.min(2.6,Math.hypot(p.x-from.x,p.y-from.y)/150)).toFixed(2)+"s";
+ const g=sv.querySelector(".rstone");if(g){g.setAttribute("style",acStoneTf(k,state.roomPos2)+`;transition-duration:${dur}`);
+  /* 앞뒤 순서: 발 위치(y)에 맞춰 물건들 사이로 옮겨요 */
+  const others=[...sv.querySelectorAll(":scope>image,:scope>g.rpet")].filter(n=>n!==g&&n.getAttribute("y")!=="22");
+  const footOf=n=>n.classList&&n.classList.contains("rpet")?+n.querySelector("ellipse").getAttribute("cy")+1:(+n.getAttribute("y"))+(+n.getAttribute("height"));
+  let after=null;others.forEach(n=>{if(footOf(n)<=p.y)after=n});if(after)after.after(g);else if(others[0])others[0].before(g)}
+ sv.setAttribute("style",acCamStyle(k,state.roomPos2)+`;transition-duration:${dur}`);pubRoom()});
+document.addEventListener("click",e=>{
+ const ar=e.target.closest&&e.target.closest(".roomarr");if(ar){const sv=ar.closest(".scene").querySelector("svg.roomwalk");if(!sv)return;const k=+sv.dataset.k||0,c=roomClamp(k,state.roomPos||roomDefPos(k));roomWalkTo(sv,k,{x:c.x+(+ar.dataset.dir)*230,y:c.y});return}
+ const sv=e.target.closest&&e.target.closest("svg.roomwalk");if(!sv||e.target.closest("[data-act]"))return;
+ const pt=sv.createSVGPoint();pt.x=e.clientX;pt.y=e.clientY;const m=sv.getScreenCTM();if(!m)return;const q=pt.matrixTransform(m.inverse());
+ roomWalkTo(sv,+sv.dataset.k||0,{x:q.x,y:q.y})});
 /* ----- v11: 꾸민 모습 · 돌 인사 ----- */
 function myEq(){return CM.cleanEq?CM.cleanEq(state.equipped):{}}
 function stoneSvg(eq){return `<svg viewBox="88 18 180 192" aria-hidden="true">${potato(Object.assign({head:null,face:null,body:null,pet:null},eq||{}),"ok",{pose:"base"})}</svg>`}
@@ -2011,7 +2487,7 @@ function vEmoteBar(el){const bar=document.getElementById("vemo");if(!bar)return;
  const me=el.classList.contains("vme"),to=me?"":(el.dataset.anon||""),nick=me?"":el.dataset.nick;
  if(!bar.hidden&&bar.dataset.for===(me?"me":el.dataset.peer)){bar.hidden=true;return}
  bar.dataset.for=me?"me":el.dataset.peer;bar.dataset.to=to;
- bar.innerHTML=`<span class="vemo-t">${me?"모두에게 인사":esc(nick)+"에게 인사"}</span><span class="vemo-b">${(CM.EMOTES||[]).map(x=>`<button type="button" data-emo="${x.e}" aria-label="${x.t}">${x.e}</button>`).join("")}</span>`;
+ bar.innerHTML=`<span class="vemo-t">${me?"모두에게 인사":esc(nick)+"에게 인사"}</span><span class="vemo-b">${(CM.EMOTES||[]).map(x=>`<button type="button" data-emo="${x.e}" aria-label="${x.t}">${x.e}</button>`).join("")}</span>${!me&&to?`<button type="button" class="vemo-room" data-act="visit:${esc(to)}">🏠 방에 놀러가기</button>`:""}`;
  bar.style.left=el.style.left;bar.style.top=el.style.top;bar.hidden=false}
 let lastEmo=0;
 function vSendEmote(e,to){const now=Date.now(),bar=document.getElementById("vemo");if(bar)bar.hidden=true;
@@ -2067,8 +2543,8 @@ function vEnter(id){
  const p=VG.PLACES.find(x=>x.id===id);if(!p)return;const {box}=vEls();
  const h=hood();h.pos={x:p.door.x,y:Math.min(VG.BOUNDS.y1,p.door.y+14)};
  if(p.kind==="fish"){openFish();return}
- if(p.kind==="work"){state.tab="today";save();render();window.scrollTo(0,0);toast("업무존 도착! 오늘의 근무를 시작해요");return}
- const go=()=>{if(p.kind==="space")Object.assign(h,{v:"space",space:p.id,pid:null});else if(p.kind==="board")h.v="board";else{h.v="inbox";if(!h.tab)h.tab="talk"}save();render();window.scrollTo(0,0)};
+ if(p.kind==="work"){if(VIL.sit)h.pos=null;state.tab="today";save();render();window.scrollTo(0,0);toast("업무존 도착! 오늘의 근무를 시작해요");return}
+ const go=()=>{if(p.kind==="space")Object.assign(h,{v:"space",space:p.id,pid:null});else if(p.kind==="board")h.v="board";else if(p.kind==="exit")Object.assign(h,{v:"plaza",pstep:"pick"});else{h.v="inbox";if(!h.tab)h.tab="talk"}save();render();window.scrollTo(0,0)};
  if(box&&!matchMedia("(prefers-reduced-motion: reduce)").matches){box.dataset.enter=`${p.emoji} ${p.name}에 들어가는 중…`;box.classList.add("entering");setTimeout(go,420)}else go();
 }
 function vPeers(){const {peers}=vEls();if(!peers)return;const ps=CM.state.peers||[];
@@ -2092,7 +2568,7 @@ function updateVillage(){
 }
 function initVillage(){
  const {box}=vEls();if(!box||box.dataset.ready)return;box.dataset.ready="1";
- const h=hood(),pos=snap((h.pos||VG.SPAWN).x,(h.pos||VG.SPAWN).y);VIL.x=pos.x;VIL.y=pos.y;VIL.tx=null;VIL.path=[];VIL.keys={};vPlace();vShowEnter();vPeers();vPresence(true);
+ const h=hood(),start=h.pos||VG.SEAT||VG.SPAWN,pos=snap(start.x,start.y);VIL.x=pos.x;VIL.y=pos.y;VIL.sit=!h.pos&&!!VG.SEAT;{const me=document.getElementById("vme");if(me)me.classList.toggle("sit",VIL.sit)} /* 처음엔 업무존 내 자리에 앉아 있어요 */VIL.tx=null;VIL.path=[];VIL.keys={};vPlace();vShowEnter();vPeers();vPresence(true);
  if(VIL.intro){VIL.intro=false;setTimeout(()=>{const b=document.getElementById("village");if(b)b.classList.remove("intro")},3200)}
  box.addEventListener("click",e=>{
   const en=e.target.closest(".venter");if(en){vEnter(en.dataset.place);return}
@@ -2116,6 +2592,9 @@ document.addEventListener("keydown",e=>{
 });
 document.addEventListener("keyup",e=>{const k=e.key.length===1?e.key.toLowerCase():e.key;delete VIL.keys[k]});
 let dmDraft={anon:null,warned:false};
+/* v19.2: 대화 요청은 500코인. 한 번 낸 돌과는 계속 무료 (돌퇴근·출근으로 모은 코인을 쓰는 곳) */
+const CHAT_COST=500;
+const chatPaid=anon=>(state.paidChats||[]).includes(anon)||CM.convList().some(c=>c.other===anon&&c.iStarted);
 function scrollChat(){const b=document.getElementById("chatbox");if(b)b.scrollTop=b.scrollHeight}
 function keepDraft(){const t=document.getElementById("wtitle"),b=document.getElementById("wbody"),h=hood();if(t)h.dTitle=t.value;if(b)h.dBody=b.value}
 document.addEventListener("submit",e=>{
@@ -2133,7 +2612,16 @@ document.addEventListener("submit",e=>{
  if(f.id==="dmfirst"){e.preventDefault();const v=document.getElementById("dmfin").value,err=document.getElementById("dmerr");
   if(CM.contactRisk(v)&&!dmDraft.warned){dmDraft.warned=true;err.textContent="연락처처럼 보이는 내용이 있어요. 익명 커뮤니티에서는 연락처를 주고받지 않는 걸 권해요. 그래도 보내려면 한 번 더 누르세요.";return}
   const btn=f.querySelector('[type=submit]');btn.disabled=true;
-  CM.startDm(dmDraft.anon,v).then(cid=>{closeModal();toast("쪽지를 보냈어요. 상대가 수락하면 대화가 열려요");Object.assign(hood(),{v:"chat",cid});render()}).catch(x=>{btn.disabled=false;err.textContent=(x&&x.code==="dm")?x.message:"보내지 못했어요. 잠시 뒤 다시 해 주세요."});return}
+  const anon=dmDraft.anon,pay=!chatPaid(anon);
+  if(pay&&state.coins<CHAT_COST){btn.disabled=false;err.textContent=`대화 요청에는 ${won(CHAT_COST)}코인이 필요해요. 지금 ${won(state.coins)}코인이 있어요.`;return}
+  if(pay){state.coins-=CHAT_COST;save()} /* 먼저 내고, 실패하면 돌려줘요 */
+  CM.startDm(anon,v).then(cid=>{if(pay){(state.paidChats||(state.paidChats=[])).push(anon);save()}closeModal();toast(pay?`${won(CHAT_COST)}코인으로 대화를 요청했어요. 이제 이 돌과는 계속 무료예요`:"대화를 요청했어요. 상대가 수락하면 대화가 열려요");Object.assign(hood(),{v:"chat",cid});render()})
+   .catch(x=>{if(pay){state.coins+=CHAT_COST;save()}btn.disabled=false;err.textContent=(x&&x.code==="dm")?x.message:"보내지 못했어요. 잠시 뒤 다시 해 주세요."});return}
+ if(f.id==="gbform"){e.preventDefault();const i=document.getElementById("gbin"),v=i.value.trim(),h=hood();if(!v)return;
+  if(CM.contactRisk(v)&&i.dataset.warned!=="1"){i.dataset.warned="1";toast("연락처처럼 보여요. 그래도 남기려면 한 번 더 누르세요");return}
+  if(state.coins<GB_COST){toast(`방명록에는 ${GB_COST}코인이 필요해요`);return}
+  state.coins-=GB_COST;save();const btn=f.querySelector("[type=submit]");btn.disabled=true;
+  CM.addGuest(h.anon,v).then(()=>{toast(`방명록을 남겼어요 · -${GB_COST}코인`);loadRoom(h.anon,true);render()}).catch(x=>{state.coins+=GB_COST;save();btn.disabled=false;toast((x&&x.message)||"남기지 못했어요")});return}
  if(f.id==="dmform"){e.preventDefault();const i=document.getElementById("dmin"),v=i.value;if(!v.trim())return;
   if(CM.contactRisk(v)&&i.dataset.warned!=="1"){i.dataset.warned="1";toast("연락처처럼 보여요. 그래도 보내려면 한 번 더 보내기를 누르세요");return}
   i.value="";i.dataset.warned="";const cid=hood().cid;CM.sendDm(cid,v).then(()=>{CM.markRead(cid)}).catch(x=>{i.value=v;toast((x&&x.code==="dm")?x.message:"보내지 못했어요")});return}
@@ -2150,6 +2638,7 @@ setInterval(()=>{const c=document.getElementById("cd");if(c&&state.day.inAt&&!st
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&document.getElementById("modal").innerHTML)act.close()});
 setInterval(()=>{if(!state.demo&&!document.getElementById("modal").innerHTML){const prev=state.day&&state.day.date;ensureDay();if(state.day.date!==prev)render();else{const c=document.querySelector(".clock");if(c)c.outerHTML=header().match(/<div class="clock">[\s\S]*?<\/div>/)[0]}}},30000);
 const LIVE_INPUTS=["cin","dmin"];
+let roomPubOnce=false;CM.subscribe(()=>{if(!roomPubOnce&&CM.state.mode==="shared"&&CM.state.me&&CM.state.me.anon){roomPubOnce=true;pubRoom()}});
 CM.subscribe(()=>{if(state.tab!=="local"||document.getElementById("modal").innerHTML)return;if(hood().v==="main"&&document.getElementById("village")){updateVillage();return}const a=document.activeElement;if(a&&/INPUT|TEXTAREA|SELECT/.test(a.tagName)&&!LIVE_INPUTS.includes(a.id)){pendingCm=true;return}
  const kept={};LIVE_INPUTS.forEach(id=>{const el=document.getElementById(id);if(el)kept[id]=el.value});const focus=a&&LIVE_INPUTS.includes(a.id)?a.id:null;
  const h=hood();if(h.v==="chat"&&h.cid)CM.markRead(h.cid);

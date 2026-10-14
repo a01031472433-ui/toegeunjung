@@ -15,6 +15,8 @@ const PHY={G:2700,G_HOLD:1500,JV:640,DJV:560,HOLD:0.24,BUFFER:0.12,COYOTE:0.08,B
    - 단톡방 알림(NOTE): 화면 오른쪽을 가리는 알림이 1.1초마다 한 장씩(최대 3장) 쌓여요. 눌러서 닫기 → 목숨에는 영향 없고 점수만 +5 */
 const ZONE={len:720,rate:1,push:.2,slow:.72,esc:50}; // 초당 약 3.5번 이상 눌러야 버텨요
 const NOTE={grow:1.1,max:3,pts:5};
+const TWIST={warn:420}; /* 반전 400u쯤 전에 경고 */
+const LID={rate:.5,open:.3,pts:3}; /* 초당 0.62씩 감기고, 한 번 누를 때 0.3씩 떠요 */
 /* 돌대리 충돌 상자 (그림보다 조금 작게 → 억울한 충돌 방지) */
 const PB={w:28,h:36,dh:17}; // dh = 숙였을 때 높이
 const PICK=8; // 아이템은 조금 넉넉하게 먹혀요
@@ -39,6 +41,12 @@ const OBS={
  plane:{name:"날아오는 결재 서류",w:24,h:12,y:62,vx:-85,fly:1},
  moto:{name:"배달 오토바이",w:38,h:30,vx:-60,low:1},
  squeeze:{name:"꽉 낀 인파",w:58,h:300,y:24,duck:1}, // v14.3 지옥철: 사람들 다리 사이로 숙여서 비집고 지나가기
+ /* v19 STAGE 4 꿈속 회사 */
+ sheep:{name:"세다 만 양",w:26,h:24,low:1},
+ pillow:{name:"베개 더미",w:54,h:24,wide:1},
+ clone:{name:"복제 팀장님",w:22,h:56,tall:1},
+ zzz:{name:"날아오는 Zzz",w:24,h:16,y:64,vx:-60,fly:1},
+ monday:{name:"거대 월요일 달력",w:44,h:300,y:24,duck:1},
 };
 const ITEMS={
  coffee:{name:"커피",icon:"☕",desc:"5초 동안 속도 UP"},
@@ -53,10 +61,17 @@ const STAGES={
     pool:{bag:3,crowd:2,stairs:2,door:2,squeeze:1.4},extra:[115,52],pair:.2,clear:400,notes:[.3,.72]},
  3:{id:3,key:"street",name:"집까지 질주",goal:"따뜻한 우리 집",win:"오늘도 칼퇴 성공!",len:13000,v0:288,v1:348,first:760,
     pool:{puddle:3,pigeon:2,fpig:1,cone:2,phone:2,moto:1.3},extra:[98,44],pair:.26,clear:500,zones:[.55],notes:[.25,.8]},
+ /* v19: 퇴근하고 잠들었더니 꿈에서 야근 중 → 알람시계 ⏰ 3개(5개 중)를 모아 끝까지 가야 깨요. 1~3단계보다 확실히 어렵게:
+   더 빠르고(330→400), 간격이 좁고, 2연속이 잦고, 「이불 속으로 5분만…」 구간 2번 · 꿈속 단톡 3번 */
+ 4:{id:4,key:"dream",name:"꿈에서 야근하기",goal:"알람시계",win:"꿈에서 깼다!",len:11000,v0:330,v1:400,first:760,
+    pool:{sheep:3,pillow:2,clone:2,zzz:1.3,monday:1.4,plane:1},extra:[52,16],pair:.45,tight:.9,pwEvery:9,clear:900,zones:[.56],notes:[],
+    alarms:[.14,.31,.48,.66,.84],need:3,title:"꿈 탈출러",
+    twists:[[.2,1050],[.66,1150]], /* v19.1 😵 조작 반전 구간 [시작, 길이u]: 탭=숙이기, 숙이기=점프 */
+    lids:[[.38,1300],[.86,1000]]}, /* v19.1 😪 눈꺼풀 구간: 점점 화면이 감기고, 눈꺼풀을 눌러야 떠요 */
  fri:{id:"fri",key:"friday",name:"불금 탈출",goal:"불금 포차",win:"불금 탈출 성공!",len:13000,v0:314,v1:369,first:760,
     pool:{drunk:2,phone:2,crowd:2,door:1,cone:2,cup:1,fpig:1,bag:1,stairs:1,talk:1,plane:1,moto:1},extra:[90,36],pair:.32,clear:700,title:"불금 탈출러",zones:[.36,.7],notes:[.2,.52,.86]},
 };
-STAGES[1].par=par(STAGES[1]);STAGES[2].par=par(STAGES[2]);STAGES[3].par=par(STAGES[3]);STAGES.fri.par=par(STAGES.fri);
+STAGES[1].par=par(STAGES[1]);STAGES[4].par=par(STAGES[4]);STAGES[2].par=par(STAGES[2]);STAGES[3].par=par(STAGES[3]);STAGES.fri.par=par(STAGES.fri);
 function par(S){return S.len/((S.v0+S.v1)/2)*1.12}
 
 function rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
@@ -74,7 +89,7 @@ const ARC_HOLD=arc(true);
 const T_AFTER={low:.71,tall:.82,wide:.77,fly:.64,pair:.83,duck:.7}; // v12 리듬 조이기 → v17 한 번 더 (약 4%)
 function course(sid,seed){
  const S=STAGES[sid], r=rng(seed>>>0), obs=[], items=[], zones=[], notes=(S.notes||[]).map(f=>({x:Math.round(S.len*f)}));
- let x=S.first, n=0, lastKind="low", zq=(S.zones||[]).slice();
+ let x=S.first, n=0, lastKind="low", zq=(S.zones||[]).slice(), aq=(S.alarms||[]).slice();
  const kindOf=o=>o.duck?"duck":o.fly?"fly":o.tall?"tall":o.wide?"wide":"low";
  while(x<S.len-520){
   const p=x/S.len, vmax=speedAt(S,x+400)*PHY.BOOST_SPEED;
@@ -104,19 +119,23 @@ function course(sid,seed){
   }
   lastKind=kind;
   /* 다음 장애물까지 간격 */
-  let gap=vmax*T_AFTER[kind]+r()*lerp(S.extra[0],S.extra[1],p);
+  let gap=vmax*T_AFTER[kind]*(S.tight||1)+r()*lerp(S.extra[0],S.extra[1],p);
   const nt=null; // 다음 종류는 아직 몰라요 → 움직이는 장애물 여유는 넉넉히 고정 반영
   gap+=36;
+  /* v19 알람시계: 정해진 지점을 지나면 다음 빈칸을 넓히고 가운데 점프 높이에 ⏰ */
+  if(aq.length&&end>=S.len*aq[0]){aq.shift();gap+=240;items.push({t:"alarm",x:end+gap/2-11,y:58});x=end+gap;lastKind=kind;continue}
   /* 간격 안 아이템: 땅 위 자갈 줄 / 파워업 */
   const g0=end+70, g1=end+gap-70;
   if(g1-g0>120){
    n++;
-   if(n%6===3){const types=["coffee","shield","shoes"];items.push({t:types[Math.floor(r()*3)],x:(g0+g1)/2-11,y:58})}
+   if(n%(S.pwEvery||6)===3){const types=["coffee","shield","shoes"];items.push({t:types[Math.floor(r()*3)],x:(g0+g1)/2-11,y:58})}
    else if(r()<.5){const cnt=3+Math.floor(r()*3);for(let k=0;k<cnt;k++)items.push({t:"pebble",x:g0+20+k*26,y:12})}
    else if(r()<.25){const cnt=3;const hx=(g0+g1)/2-26;for(let k=0;k<cnt;k++)items.push({t:"pebble",x:hx+k*26,y:150})} // 2단 점프 보너스
   }
   x=end+gap;
  }
+ aq.forEach((_,k)=>items.push({t:"alarm",x:S.len-440+k*90,y:58})); /* 남은 알람은 결승선 앞 빈 길에 */
+ if(S.alarms)items.sort((a,b)=>a.x-b.x);
  return {sid,seed:seed>>>0,obs,items,zones,notes,len:S.len};
 }
 
@@ -126,7 +145,7 @@ function newRun(sid,seed){
  return {sid,seed:C.seed,S,C,tick:0,t:0,x:0,y:0,vy:0,ground:true,jumps:0,holdKey:false,holding:false,holdT:0,buffer:0,coyote:0,
   fx:{coffee:0,shield:0,shoes:0},pebbles:0,items:0,smashed:0,state:"run",lives:LIVES,inv:0,hurts:0,
   O:C.obs.map(o=>({x:o.x,act:false,gone:false})),got:new Uint8Array(C.items.length),ev:[],inputs:[],hitBy:null,hitKind:null,
-  duck:false,duckHold:false,duckT:0,zi:0,zin:false,zm:0,zEsc:0,resist:0,ni:0,nb:0,nbT:0,dism:0};
+  duck:false,duckHold:false,duckT:0,zi:0,zin:false,zm:0,zEsc:0,resist:0,ni:0,nb:0,nbT:0,dism:0,alarms:0,tw:0,twWarn:0,lid:0,lidOn:0,blinks:0};
 }
 function speed(R){return speedAt(R.S,R.x)*(R.fx.coffee>0?PHY.BOOST_SPEED:1)*(R.zin?ZONE.slow:1)}
 function jump(R,v){R.duck=false;R.vy=v*(R.fx.shoes>0?PHY.BOOST_JUMP:1);R.holding=R.holdKey;R.holdT=0;R.ground=false;R.jumps++;R.ev.push(R.jumps>1?"jump2":"jump")}
@@ -137,20 +156,32 @@ function hurt(R,kind,ev){
  R.ev.push((kind==="zone"?"zhurt:":"hurt:")+ev);return false;
 }
 /* 한 틱 진행. press/release = 이번 틱에 점프 누름/뗌, o = {dd:숙이기 누름, du:숙이기 뗌, dis:알림 닫기} */
+function twistAt(R,x){const T=R.S.twists;if(!T)return 0;for(let k=0;k<T.length;k++){const a=R.S.len*T[k][0];if(x>=a&&x<a+T[k][1])return k+1}return 0}
+function lidAt(R,x){const L=R.S.lids;if(!L)return 0;for(let k=0;k<L.length;k++){const a=R.S.len*L[k][0];if(x>=a&&x<a+L[k][1])return k+1}return 0}
 function step(R,press,release,o){
  if(R.state!=="run")return;
  const dt=TICK;o=o||{};
- if(o.dis){R.inputs.push([R.tick,4]);if(R.nb>0){R.nb--;R.nbT=0;R.dism++;R.ev.push("dism")}}
- if(o.dd){R.inputs.push([R.tick,2]);R.duckHold=true;R.duck=true;R.duckT=0;R.buffer=0;
+ if(o.dis)R.inputs.push([R.tick,4]);if(o.dd)R.inputs.push([R.tick,2]);if(o.du)R.inputs.push([R.tick,3]);if(press)R.inputs.push([R.tick,1]);if(release)R.inputs.push([R.tick,0]);if(o.bl)R.inputs.push([R.tick,5]);
+ /* 😵 조작 반전: 탭 ↔ 숙이기 */
+ const tw=twistAt(R,R.x);
+ if(tw!==R.tw){R.ev.push(tw?"twist:on":"twist:off");if(!tw&&(R.duckHold||R.holdKey)){R.duckHold=false;R.holdKey=false;R.holding=false}R.tw=tw}
+ else if(!tw&&R.S.twists){const nx=twistAt(R,R.x+TWIST.warn);if(nx&&R.twWarn!==nx){R.twWarn=nx;R.ev.push("twist:warn")}}
+ if(tw){const p0=press,r0=release;press=!!o.dd;release=!!o.du;o={dis:o.dis,bl:o.bl,dd:p0,du:r0}}
+ /* 😪 눈꺼풀 */
+ const ld=lidAt(R,R.x);
+ if(ld!==R.lidOn){R.lidOn=ld;R.ev.push(ld?"lid:on":"lid:off");if(!ld)R.lid=0}
+ if(ld){R.lid=Math.min(1,R.lid+LID.rate*dt);if(o.bl&&R.lid>.05){R.lid=Math.max(0,R.lid-LID.open);R.blinks++;R.ev.push("blink")}}
+ if(o.dis){if(R.nb>0){R.nb--;R.nbT=0;R.dism++;R.ev.push("dism")}}
+ if(o.dd){R.duckHold=true;R.duck=true;R.duckT=0;R.buffer=0;
   if(!R.ground){R.vy=Math.min(R.vy,-PHY.FASTFALL);R.holding=false}R.ev.push("duck")}
- if(o.du){R.inputs.push([R.tick,3]);R.duckHold=false}
- if(press){R.inputs.push([R.tick,1]);R.holdKey=true;
+ if(o.du){R.duckHold=false}
+ if(press){R.holdKey=true;
   if(R.zin){R.zm=Math.max(0,R.zm-ZONE.push);R.resist++;R.ev.push("resist")}
   else if(R.ground||R.coyote>0){if(R.jumps===0)jump(R,PHY.JV);else R.buffer=PHY.BUFFER}
   else if(R.jumps<2)jump(R,PHY.DJV);
   else R.buffer=PHY.BUFFER;
  }
- if(release){R.inputs.push([R.tick,0]);R.holdKey=false;R.holding=false}
+ if(release){R.holdKey=false;R.holding=false}
  /* 이동 */
  const v=speed(R);R.x+=v*dt;
  if(!R.ground){
@@ -209,16 +240,19 @@ function step(R,press,release,o){
   if(px1+PICK>a.x&&px0-PICK<a.x+sz&&py1+PICK>a.y&&py0-PICK<a.y+sz){
    R.got[i]=1;
    if(a.t==="pebble"){R.pebbles++;R.ev.push("pebble:"+i)}
+   else if(a.t==="alarm"){R.alarms++;R.ev.push("alarm:"+i)}
    else{R.items++;R.fx[a.t]=PHY.EFFECT;R.ev.push("item:"+a.t+":"+i);if(a.t==="coffee"&&R.lives<LIVES){R.lives++;R.ev.push("heal")}}
   }
  }
  R.tick++;R.t=R.tick*TICK;
- if(R.x>=R.S.len){R.x=R.S.len;R.state="win";R.ev.push("win")}
+ if(R.x>=R.S.len){R.x=R.S.len;
+  if(R.S.need&&R.alarms<R.S.need){R.state="dead";R.hitKind="sleep";R.ev.push("hit:sleep")} /* 알람이 모자라면 다시 잠들어요 */
+  else{R.state="win";R.ev.push("win")}}
 }
 function meters(R){return Math.floor(Math.min(R.x,R.S.len)/M)}
 const NO_HIT=300; // 무사고 퇴근 보너스
 function score(R){
- let s=meters(R)+R.pebbles*10+R.items*20+R.smashed*15+R.zEsc*ZONE.esc+R.dism*NOTE.pts;
+ let s=meters(R)+R.pebbles*10+R.items*20+R.smashed*15+R.zEsc*ZONE.esc+R.dism*NOTE.pts+(R.alarms||0)*30+(R.blinks||0)*LID.pts;
  if(R.state==="win")s+=R.S.clear+Math.max(0,Math.round((R.S.par-R.t)*20))+(R.hurts===0?NO_HIT:0);
  return s;
 }
@@ -229,18 +263,18 @@ function verify(sid,seed,inputs,claim){
  const R=newRun(sid,seed);let k=0;const max=Math.ceil(R.S.len/(R.S.v0*ZONE.slow)/TICK)+10;
  while(R.state==="run"&&R.tick<max){
   let p=false,rl=false;const o={};
-  while(k<inputs.length&&inputs[k][0]===R.tick){const c=inputs[k][1];if(c===1)p=true;else if(c===0)rl=true;else if(c===2)o.dd=1;else if(c===3)o.du=1;else if(c===4)o.dis=1;k++}
+  while(k<inputs.length&&inputs[k][0]===R.tick){const c=inputs[k][1];if(c===1)p=true;else if(c===0)rl=true;else if(c===2)o.dd=1;else if(c===3)o.du=1;else if(c===4)o.dis=1;else if(c===5)o.bl=1;k++}
   if(k<inputs.length&&inputs[k][0]<R.tick)return {ok:false,why:"순서"};
   step(R,p,rl,o);R.ev.length=0;
  }
  R.inputs=inputs;
- const res={state:R.state,ms:ms(R),score:score(R),pebbles:R.pebbles,meters:meters(R),hurts:R.hurts};
+ const res={state:R.state,ms:ms(R),score:score(R),pebbles:R.pebbles,meters:meters(R),hurts:R.hurts,alarms:R.alarms};
  const ok=!claim||(claim.state===res.state&&claim.ms===res.ms&&claim.score===res.score&&claim.pebbles===res.pebbles);
  const minMs=R.S.len/(R.S.v1*PHY.BOOST_SPEED)*1000;
  return {ok:ok&&(res.state!=="win"||res.ms>=minMs),res,why:ok?"":"불일치"};
 }
 
-const API={TICK,M,PHY,LIVES,INV,NO_HIT,PB,ZONE,NOTE,OBS,ITEMS,STAGES,rng,course,newRun,step,speed,score,meters,ms,verify,obsY,speedAt};
+const API={twistAt,lidAt,TWIST,LID,TICK,M,PHY,LIVES,INV,NO_HIT,PB,ZONE,NOTE,OBS,ITEMS,STAGES,rng,course,newRun,step,speed,score,meters,ms,verify,obsY,speedAt};
 if(typeof module!=="undefined"&&module.exports)module.exports=API;
 root.TG_RUNNER_CORE=API;
 })(typeof window!=="undefined"?window:globalThis);
