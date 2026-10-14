@@ -13,7 +13,7 @@ const REWARD={fortunePebbles:5};
 const GRADES=[
  {id:"great",  name:"대길",w:15,mood:"happy",emoji:"🌟",summary:["오늘은 돌대리 인생 최고의 날이돌!","뭘 해도 잘 굴러가는 날이돌.","출근길 신호등이 전부 초록불일 상이돌."]},
  {id:"good",   name:"길",  w:35,mood:"happy",emoji:"🍀",summary:["무난하게 잘 풀리는 하루가 될 상이돌.","작은 행운이 슬쩍 굴러들어오돌.","오늘은 기분 좋은 일이 하나쯤 생기돌."]},
- {id:"normal", name:"보통",w:35,mood:"ok",   emoji:"🪨",summary:["평범함이 최고의 복이돌.","별일 없이 지나가는 게 행운이돌.","오늘은 조용히 굴러가는 날이돌."]},
+ {id:"normal", name:"보통",w:35,mood:"ok",   emoji:"🙂",summary:["평범함이 최고의 복이돌.","별일 없이 지나가는 게 행운이돌.","오늘은 조용히 굴러가는 날이돌."]},
  {id:"careful",name:"조심",w:15,mood:"tired",emoji:"⚠️",summary:["오늘은 몸을 사리는 게 상책이돌.","말 한마디 신중하게, 메일은 두 번 읽돌.","무리하지 말고 일찍 들어가 쉬돌."]},
 ];
 const LINES={

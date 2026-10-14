@@ -155,7 +155,7 @@ function Game(opt){
   <div class="rn-top">
    <div class="rn-r1"><span class="rn-stage" id="rnStage"></span><span class="rn-lives" id="rnLives" aria-label="남은 목숨"></span><div class="rn-btns"><button class="rn-ib" data-rn="mute" aria-label="소리 켜기/끄기"></button><button class="rn-ib" data-rn="pause" aria-label="일시정지">⏸</button></div></div>
    <div class="rn-prog"><div class="rn-bar" aria-hidden="true"><i></i><span></span><em></em></div><span class="rn-left">퇴근까지 <b id="rnLeft">0</b>m</span></div>
-   <div class="rn-stats"><span>점수 <b id="rnScore">0</b></span><span>🪨 자갈 <b id="rnPeb">0</b></span><span>⏱ <b id="rnTime">0:00.00</b></span></div>
+   <div class="rn-stats"><span>점수 <b id="rnScore">0</b></span><span>⚪ 자갈 <b id="rnPeb">0</b></span><span>⏱ <b id="rnTime">0:00.00</b></span></div>
   </div>
   <div class="rn-play"><canvas></canvas><div class="rn-notes" aria-live="polite"></div><div class="rn-zone" hidden><b>🍖 연타해서 버텨요!</b><div class="m"><i></i></div></div><div class="rn-lids" hidden><i class="t"></i><i class="b"></i><span>😪 눈꺼풀을 톡톡 눌러 눈 떠요!</span></div><div class="rn-twist" hidden></div><div class="rn-cd" aria-live="assertive"></div></div>
   <div class="rn-bot"><div class="rn-botl"><div class="rn-fx" aria-live="polite"></div><p class="rn-guide"><span><b>탭</b> 점프 · <b>길게</b> 높이 · <b>공중 탭</b> 2단</span><span>❤️ 3개 · ☕로 회복</span><span class="kb">PC는 <b>스페이스</b> · 숙이기 <b>↓</b></span></p></div><button class="rn-duck" type="button" aria-label="숙이기 (누르고 있는 동안)"><span>🙇</span><em class="dl">숙이기</em></button></div>
@@ -301,7 +301,7 @@ P.event=function(e){
  if(k==="jump"){SFX.play("jump");V.sx=.86;V.sy=1.16;V.mood="jump";this.dust(wx,0,5)}
  else if(k==="jump2"){SFX.play("jump2");V.sx=.86;V.sy=1.14;V.mood="jump";for(let i=0;i<10;i++){const an=i/10*Math.PI*2;this.parts.push({k:"ring",x:wx,y:wy+10,vx:Math.cos(an)*90,vy:Math.sin(an)*90,g:0,life:.35,max:.35,c:"#fff"})}}
  else if(k==="land"){V.sx=1.16;V.sy=.84;V.mood="run";this.dust(wx,0,4)}
- else if(k==="pebble"){SFX.play("pebble");const it=R.C.items[+a];this.float(it.x,it.y+18,"+1 🪨","#8B7F70");this.spark(it.x+6,it.y+6,"#C9C4BC",5);this.bump("peb")}
+ else if(k==="pebble"){SFX.play("pebble");const it=R.C.items[+a];this.float(it.x,it.y+18,"+1 ⚪","#8B7F70");this.spark(it.x+6,it.y+6,"#C9C4BC",5);this.bump("peb")}
  else if(k==="alarm"){SFX.play("item");const it=R.C.items[+a];const n=R.alarms,need=this.S.need||3;this.float(it.x,it.y+34,n>=need?`⏰ ${n}개! 이제 깰 수 있어요`:`⏰ 알람 ${n}/${need}`,"#C8641C",1.2);this.spark(it.x+11,it.y+11,"#FFE08A",16);this.stageLabel()}
  else if(k==="item"){SFX.play("item");const it=R.C.items[+b];const I=K.ITEMS[a];this.float(it.x,it.y+30,I.icon+" "+I.name+"!","#C8641C",1.1);this.spark(it.x+11,it.y+11,"#F6C27F",14)}
  else if(k==="smash"){SFX.play("smash");const o=R.C.obs[+a];this.parts.push({k:"debris",t:o.t,w:o.w,h:o.h,x:R.O[+a].x,y:o.y,vx:260,vy:420,g:1400,rot:0,vr:9,life:1.2,max:1.2,i:+a});this.float(R.O[+a].x,o.h+30,"연차 방어!","#2F8A5B")}
@@ -466,7 +466,7 @@ P.share=async function(btn){
  A.txt(x,"#퇴근중 #돌퇴근",W/2,1190,36,"#8B7F70");
  const blob=await new Promise(r=>c.toBlob(r,"image/png"));if(!blob)return;
  const file=new File([blob],"toegeunjung-runner.png",{type:"image/png"});
- const text=win?`돌퇴근 STAGE ${this.sid==="fri"?"불금":this.sid} ${S.name} ${fmt(res.ms)} · ${won(res.score)}점! 오늘도 칼퇴 성공 🪨`:`돌퇴근 ${won(res.meters)}m에서 야근 확정… 🪨`;
+ const text=win?`돌퇴근 STAGE ${this.sid==="fri"?"불금":this.sid} ${S.name} ${fmt(res.ms)} · ${won(res.score)}점! 오늘도 칼퇴 성공 🏃`:`돌퇴근 ${won(res.meters)}m에서 야근 확정… 😵`;
  if(navigator.canShare&&navigator.canShare({files:[file]})){navigator.share({files:[file],title:"퇴근중 · 돌퇴근",text}).catch(()=>{});return}
  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="toegeunjung-runner.png";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000);
  if(btn)btn.textContent="이미지를 저장했어요";

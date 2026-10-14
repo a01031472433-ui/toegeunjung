@@ -13,7 +13,7 @@
 const SPACES=[
  {id:"toilet",   emoji:"🚽",name:"화장실",  tags:"아무말 · 속마음 · 월급루팡",        desc:"회사에서 못 하는 말, 여기서 다 털어놔!"},
  {id:"pantry",   emoji:"☕",name:"탕비실",  tags:"연애 · 썸 · 사내연애",              desc:"커피 한잔하면서 연애 얘기나 할까?"},
- {id:"meeting",  emoji:"🪑",name:"회의실",  tags:"회사 고민 · 직장 인간관계 · 의견",  desc:"이 안건, 돌들의 의견은?"},
+ {id:"meeting",  emoji:"💺",name:"회의실",  tags:"회사 고민 · 직장 인간관계 · 의견",  desc:"이 안건, 돌들의 의견은?"},
  {id:"cafeteria",emoji:"🍚",name:"구내식당",tags:"점심 메뉴 · 음식 · 일상",           desc:"오늘 점심 뭐 먹돌?"},
  {id:"commute",  emoji:"🚪",name:"퇴근길",  tags:"퇴근 후 일상 · 취미 · 자유수다",     desc:"퇴근했으면 이제 진짜 놀자!"},
 ];
@@ -40,7 +40,7 @@ const CFG={
  postCooldownMs:20000, /* 글 연속 작성 간격 */
  hotDays:7,            /* 인기글 집계 기간 */
  nickMin:2, nickMax:10,
- nickChangeDays:7,     /* 닉네임 변경 간격 */
+ nickChangeDays:0,     /* 닉네임 변경 간격 (0 = 제한 없음, 대신 앱에서 50코인) */
  dmNewPerDay:5,
  gbMax:120,            /* 방명록 한 줄 최대 글자 */        /* 하루에 새로 거는 쪽지 대화 수 */
  dmOpenDefault:false,  /* 쪽지 받기 기본값: 꺼짐 */
@@ -94,7 +94,7 @@ function emit(){if(emitT)return;emitT=setTimeout(()=>{emitT=null;subs.forEach(f=
 let backend=null, lastPostAt=0;
 
 /* ---- 마을 프레젠스: 꾸민 모습·인사 (정해진 값만 통과) ---- */
-const EQ_OK={head:["beanie","headset","crown"],face:["glasses","shades"],body:["tie","hoodie","suit"]};
+const EQ_OK={head:["beanie","headset","crown","golfcap"],face:["glasses","shades"],body:["tie","hoodie","suit","goldtie"]};
 const EMOTES=[{e:"👋",t:"안녕!"},{e:"☕",t:"커피 한잔?"},{e:"🔥",t:"힘내!"},{e:"😮‍💨",t:"퇴근하고 싶다"}];
 function cleanEq(e){const o={};if(e&&typeof e==="object")for(const k in EQ_OK){if(EQ_OK[k].includes(e[k]))o[k]=e[k]}return o}
 function cleanEmo(m){if(!m||typeof m!=="object"||!EMOTES.some(x=>x.e===m.e)||typeof m.at!=="number")return null;return {e:m.e,at:m.at,to:typeof m.to==="string"?m.to.slice(0,40):null}}
@@ -303,8 +303,8 @@ async function setNickname(raw){
  const n=String(raw||"").replace(/\s+/g," ").trim();
  const p=nickProblem(n);if(p)throw {code:"nick",message:p};
  if(n===S.me.nick)return;
- const ch=nickChange();if(!ch.ok){const d=new Date(ch.next);throw {code:"nick",message:`닉네임은 ${CFG.nickChangeDays}일에 한 번 바꿀 수 있어요. ${d.getMonth()+1}월 ${d.getDate()}일부터 다시 바꿀 수 있어요.`}}
- if(!(await backend.claimNick(n)))throw {code:"nick",message:"이미 다른 돌이 쓰는 닉네임이에요."};
+ const ch=nickChange();if(!ch.ok){const d=new Date(ch.next);throw {code:"nick",message:`이름은 ${CFG.nickChangeDays}일에 한 번 바꿀 수 있어요. ${d.getMonth()+1}월 ${d.getDate()}일부터 다시 바꿀 수 있어요.`}}
+ if(!(await backend.claimNick(n)))throw {code:"nick",message:"이미 있는 이름이에요 (중복). 다른 이름을 지어 주세요."};
  const old=S.me.nick;await backend.saveMe({nick:n,nickAt:Date.now()});await backend.releaseNick(old);
 }
 async function setDmOpen(on){guard();await backend.saveMe({dmOpen:!!on})}
@@ -362,7 +362,7 @@ function presence(patch){if(backend&&backend.presence)backend.presence(patch)}
 /* ---- v19.3: 돌 방 놀러가기 · 방명록 (함께 쓰는 저장소에서만) ----
    rooms/{anon}: 내 방 모습(집·넓이·가구·옷·펫·돌 위치·닉네임) — 계정 정보 없음
    guestbook: {room:방 주인 anon, anon, nick, body, at} — 방 주인과 쓴 돌만 지울 수 있어요 */
-const ROOM_OK={yard:["alley","hangang","beach","night"],home:["gosi","ruin","rooftop","villa","apt","house","country","mansion"],furn:["plant","poster","lamp","coffee","shelf","sofa","bed","tv"],pet:["cloud","bunny","bird","sprout","jelly","turtle"]};
+const ROOM_OK={yard:["alley","hangang","beach","night","resort"],home:["gosi","ruin","rooftop","villa","apt","house","country","mansion"],furn:["plant","poster","lamp","coffee","shelf","sofa","bed","tv"],pet:["cloud","bunny","bird","sprout","jelly","turtle"]};
 function cleanRoom(r){if(!r||typeof r!=="object")return null;const n=(v,a,b)=>Math.max(a,Math.min(b,Math.round(+v||0)));
  return {nick:String(r.nick||"").slice(0,16),house:n(r.house,0,3),size:n(r.size,0,3),home:ROOM_OK.home.includes(r.home)?r.home:"gosi",yard:ROOM_OK.yard.includes(r.yard)?r.yard:"alley",furn:(Array.isArray(r.furn)?r.furn:[]).filter(x=>ROOM_OK.furn.includes(x)),
   eq:Object.assign(cleanEq(r.eq),ROOM_OK.pet.includes(r.eq&&r.eq.pet)?{pet:r.eq.pet}:{}),pos:r.pos&&typeof r.pos==="object"?{x:n(r.pos.x,0,700),y:n(r.pos.y,0,600)}:null,at:+r.at||0}}
@@ -414,10 +414,19 @@ async function init(){
  }catch(e){console.error(e)}
 }
 
+
+/* v28: 점심 투표존 — votes 컬렉션: id = 날짜_anon, {date, menu, at}. 하루 한 표, 언제든 바꿀 수 있어요 */
+const VOTE_MENUS=["김치찌개","된장찌개","제육볶음","돈까스","짜장면","짬뽕","국밥","비빔밥","냉면","칼국수","떡볶이","김밥","햄버거","샐러드","쌀국수","마라탕","초밥","파스타","카레","부대찌개","순두부찌개","편의점 도시락","치킨마요","오므라이스","닭갈비","육개장","콩국수","샌드위치","우동","라멘"];
+function voteMenus(date){let h=2166136261;for(const ch of "lunch"+date){h^=ch.charCodeAt(0);h=Math.imul(h,16777619)}
+ const a=VOTE_MENUS.slice(),out=[];for(let i=0;i<8;i++){h=Math.imul(h^(h>>>15),2246822507)>>>0;out.push(a.splice(h%a.length,1)[0])}return out}
+async function castVote(date,menu){guard();if(!backend||!voteMenus(date).includes(menu))return;await backend.put("votes",date+"_"+S.me.anon,{date,menu,at:Date.now()})}
+function watchVotes(date,fn){if(!backend)return ()=>{};
+ if(backend.mode==="shared"&&backend.db){try{return backend.db.collection("votes").where("date","==",date).limit(2000).onSnapshot(s=>fn(s.docs.map(x=>Object.assign({id:x.id},x.data()))),()=>{})}catch(e){return ()=>{}}}
+ let d={};try{d=JSON.parse(localStorage.getItem("toegeunjung-community-v1"))||{}}catch(e){}fn((d.votes||[]).filter(v=>v.date===date));return ()=>{}}
 window.TG_COMMUNITY={SPACES,REPORT_REASONS,DM_REPORT_REASONS,CFG,state:S,subscribe:f=>{subs.add(f);return()=>subs.delete(f)},init,
  likeCount,commentCount,commentsOf,liked,reportedByMe,isHidden,mine,hot,recent,bySpace,post,nickOf,blocked,
  addPost,deletePost,addComment,deleteComment,toggleLike,report,
  nickProblem,nickChange,setNickname,contactRisk,
  setDmOpen,dmTarget,startDm,sendDm,acceptDm,declineDm,block,unblock,reportDm,convList,messages,markRead,unreadTotal,
- ban,unban,presence,runSubmit,runBoard,EMOTES,cleanEq,DISTRICTS,marked,countMark,mark,putRoom,getRoom,gbList,addGuest,delGuest,cleanRoom};
+ ban,unban,presence,runSubmit,runBoard,EMOTES,cleanEq,DISTRICTS,marked,countMark,mark,putRoom,getRoom,gbList,addGuest,delGuest,cleanRoom,voteMenus,castVote,watchVotes};
 })();
