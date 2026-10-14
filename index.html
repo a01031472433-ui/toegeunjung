@@ -2214,13 +2214,9 @@ function onbHTML(){
   <h1>오늘부터 돌대리와<br>같이 출근해요</h1>
   <p>회사에서 매일 굴러다니는 조약돌 직장인, 돌대리예요. 당신이 출근해야 돌대리도 월급을 받고, 밥을 먹고, 언젠가 한강뷰로 이사를 가요. 아무도 칭찬해주지 않는 출근, 이제 돌대리가 알아줄게요.</p>
   <div class="grow"></div><button class="btn wide" data-act="onbNext">다음</button>`;
- else if(onbStep===1)b=`<span class="eyebrow">하루 사용법</span><h1>하루는 네 칸이면 끝나요</h1>
-  <div class="rules">
-   <div><span class="num">1</span><p style="margin:0;color:var(--ink)">출근<span>회사에 도착하면 누르기 · 코인 +100</span></p></div>
-   <div><span class="num">2</span><p style="margin:0;color:var(--ink)">점심 이벤트<span>11시부터 랜덤 회사생활 한 장면</span></p></div>
-   <div><span class="num">3</span><p style="margin:0;color:var(--ink)">오늘의 미션<span>오전·오후 한 번씩, 돌대리 따라 스트레칭</span></p></div>
-   <div><span class="num">4</span><p style="margin:0;color:var(--ink)">퇴근<span>급여명세서 + DAY CLEAR 도장</span></p></div></div>
-  <p>출근 60일이 쌓이면 시즌 1 진급 심사가 열려요. 주말이나 휴가로 쉬어도 진도는 줄지 않아요.</p>
+ else if(onbStep===1)b=`<span class="eyebrow">하루 사용법</span><h1>출근부터 퇴근까지<br>다섯 칸이면 끝나요</h1>
+  <div class="rules"><div><span class="num">1</span><p style="margin:0;color:var(--ink)">🏢 출근<span>출근하기 누르고 오늘 기분 고르기 · 코인 +100</span></p></div><div><span class="num">2</span><p style="margin:0;color:var(--ink)">💼 근무<span>달리기·단어 게임 2개와 주식으로 코인 벌기</span></p></div><div><span class="num">3</span><p style="margin:0;color:var(--ink)">🍚 점심<span>11시부터 랜덤 회사생활 이벤트</span></p></div><div><span class="num">4</span><p style="margin:0;color:var(--ink)">🧘 미션<span>오후 1시·3시, 돌을 따라 스트레칭</span></p></div><div><span class="num">5</span><p style="margin:0;color:var(--ink)">🏃 퇴근<span>급여명세서 + DAY CLEAR 도장</span></p></div></div>
+  <p>경험치가 차면 승진 시험! 인턴에서 팀장까지 올라가고, 번 코인으로 집과 방을 꾸며요.</p>
   <div class="grow"></div><div class="confirm-row"><button class="btn ghost" data-act="onbBack">이전</button><button class="btn" data-act="onbNext">다음</button></div>`;
  else b=`<span class="eyebrow">입사 서류</span><h1>내 돌 이름은?</h1>
   <div class="namebox big"><input id="nameIn" maxlength="${NAME_MAX}" placeholder="예) 철수돌" value="${esc(onbNameDraft!=null?onbNameDraft:(state.stoneName||""))}" aria-label="내 돌 이름"><p id="nameErr" style="margin:4px 0 0;color:var(--bad);font-size:14px"></p></div>
