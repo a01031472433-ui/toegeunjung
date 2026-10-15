@@ -179,11 +179,39 @@ function sajuFortune(birth,date){
    rel:REL[rs].name,relWord:{support:"나를 돕는 기운",same:"나와 같은 기운",output:"내가 쓰는 기운",wealth:"내가 다스리는 기운",pressure:"나를 누르는 기운"}[rs],basis:REL[rs].line(P.meEl,stemEl(T.s)),hap,chung,score}};
 }
 
+
+/* ---- v36: 조약돌 도감 (자갈복권 1장 = 조약돌 1개, 결과는 날짜로 고정) ---- */
+const STONE_TIERS={common:{name:"흔함",p:4},rare1:{name:"보통",p:3},rare2:{name:"희귀",p:2},legend:{name:"전설",p:3}};
+const STONES=[
+ ["s01","기본돌","common","오늘도 그냥 출근한 돌이돌."],["s02","자갈돌","common","어디에나 있지만 다 다르돌."],["s03","모래돌","common","바닷가 출신이라 말투가 느긋하돌."],
+ ["s04","띠돌","common","하얀 띠는 신입 연수 수료 기념이돌."],["s05","쌀알돌","common","점심밥 생각만 하는 돌이돌."],["s06","새벽돌","common","첫차 타고 출근하는 돌이돌."],
+ ["s07","길쭉돌","common","키가 커서 엘리베이터 버튼 담당이돌."],["s08","납작돌","common","회의 시간엔 최대한 납작해지돌."],["s09","황토돌","common","건강 챙기는 황토 출신이돌."],
+ ["s10","현무암돌","common","제주에서 전근 온 돌이돌."],["s11","벚꽃돌","common","봄만 되면 마음이 들뜨돌."],["s12","민트돌","common","민트초코 논쟁에선 늘 찬성이돌."],
+ ["s13","노을돌","common","퇴근길 하늘을 닮았돌."],["s14","이끼돌","common","한자리에 오래 있었더니 이끼가 꼈돌."],["s15","초코돌","common","당 떨어질 때 나타나는 돌이돌."],
+ ["s16","출근돌","rare1","사원증 목에 걸면 진짜 출근이돌."],["s17","기획돌","rare1","안경 고쳐 쓰면 기획서가 나오돌."],["s18","집중돌","rare1","헤드셋 쓰면 아무도 못 말리돌."],
+ ["s19","커피돌","rare1","커피 없인 부팅이 안 되돌."],["s20","임원돌","rare1","넥타이만 매도 결재가 빨라지돌."],["s21","월동돌","rare1","목도리는 사무실 에어컨 대비용이돌."],
+ ["s22","칼퇴돌","rare1","뒷모습만 남기고 이미 퇴근했돌."],["s23","월요돌","rare1","월요일 아침엔 일어날 수 없돌."],["s24","얼음돌","rare1","회의실 에어컨 바로 밑자리 출신이돌."],
+ ["s25","무지개돌","rare2","비 온 뒤 출근길에만 보이돌."],["s26","은빛돌","rare2","근속 10년 기념 은도금이돌."],["s27","루비돌","rare2","열정이 넘쳐서 빨개졌돌."],
+ ["s28","밤하늘돌","rare2","야근하다 별을 너무 많이 봤돌."],["s29","오로라돌","rare2","연차 쓰고 북쪽 나라 다녀왔돌."],["s30","황금연봉돌","legend","연봉협상에서 이긴 전설의 돌이돌."]
+].map(([id,name,tier,line])=>({id,name,tier,line,img:"stone-"+id.slice(1)+".webp"}));
+const STONE_PITY=60, STONE_DUP_COIN=10;
+/* 오늘 긁을 조약돌. since = 마지막 전설 이후 긁은 장 수(오늘 제외), hasLegend = 이미 전설 보유 */
+function stoneDraw(secret,date,since,hasLegend){
+ if(!hasLegend&&since>=STONE_PITY-1)return {stone:STONES[29],pity:true};
+ const r=rng(hash(secret+"|stone|"+date));
+ const w=STONES.map(s=>({s,p:STONE_TIERS[s.tier].p}));
+ return {stone:weighted(r,w,"p").s,pity:false};
+}
+/* 운세 미션: 날짜로 고정 */
+const MISSIONS=[{id:"vote",name:"행운의 점심",t:"구내식당에서 오늘 점심 메뉴에 투표하기"},{id:"lounge",name:"행운의 수다",t:"칼퇴상사 탕비실에 들르기"},{id:"q",name:"행운의 한마디",t:"오늘의 질문에 답하기"}];
+const MISSION_COIN=20;
+function missionOf(secret,date){return MISSIONS[Math.floor(rng(hash(secret+"|mission|"+date))()*MISSIONS.length)]}
+
 /* SERVER TODO (백엔드가 생기면):
    1) 결과 생성: 서버가 (사용자, 한국시간 날짜, 종류)로 결과를 만들고 저장 → 클라이언트는 받아서 보여주기만
    2) 1일 1회: (user_id, date, kind) 고유 키 테이블로 중복 참여 차단
    3) 지급: 같은 트랜잭션에서 claim 행 생성 + 잔액 증가 (멱등 키 = user_id:date:kind)
    4) 확률표 LOTTO는 서버 설정으로 이동, 클라이언트에는 결과만 전달 */
 
-window.TG_LUCK={GRADES,LINES,ITEMS,LOTTO,REWARD,PEBBLE_TO_COIN,kstDate,msToReset,fortune,lotto,newSecret,pillars,todayPillar,sajuFortune,relation,STEMS,BRANCHES,STEMS_KO,BRANCHES_KO,EL,EL_KO,stemEl,BR_EL};
+window.TG_LUCK={STONES,STONE_TIERS,STONE_PITY,STONE_DUP_COIN,stoneDraw,MISSIONS,MISSION_COIN,missionOf,GRADES,LINES,ITEMS,LOTTO,REWARD,PEBBLE_TO_COIN,kstDate,msToReset,fortune,lotto,newSecret,pillars,todayPillar,sajuFortune,relation,STEMS,BRANCHES,STEMS_KO,BRANCHES_KO,EL,EL_KO,stemEl,BR_EL};
 })();
