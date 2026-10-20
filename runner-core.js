@@ -74,9 +74,39 @@ const STAGES={
 STAGES[1].par=par(STAGES[1]);STAGES[4].par=par(STAGES[4]);STAGES[2].par=par(STAGES[2]);STAGES[3].par=par(STAGES[3]);STAGES.fri.par=par(STAGES.fri);
 function par(S){return S.len/((S.v0+S.v1)/2)*1.12}
 
+/* ---- v50: 퇴근길 이어 달리기 (1~4단계를 한 판으로) ----
+   구간마다 원래 스테이지의 장애물·간격을 쓰고, 속도는 거리에 따라 계속 올라가요. 결승선은 없고 ❤️ 3개를 다 쓰면 끝.
+   4구간(꿈) 뒤로는 「야근 N회차」가 사무실→지옥철→거리→꿈 순서로 계속 돌고, 더 빽빽하고 더 빨라져요. */
+const SEG_BASE=[{sid:1,len:4000},{sid:2,len:5000},{sid:3,len:6000},{sid:4,len:6000}];
+const LOOP_LEN=5000, RUN_LEN=200000;
+const SPD=[[0,245],[4000,300],[9000,345],[15000,388],[21000,425],[41000,480],[81000,540],[200000,580]];
+const SEGS=(function(){const a=[];let x=0;SEG_BASE.forEach((b,i)=>{a.push({i,sid:b.sid,key:STAGES[b.sid].key,name:STAGES[b.sid].name,x0:x,x1:x+b.len,loop:0});x+=b.len});
+ let k=0;while(x<RUN_LEN){const sid=[1,2,3,4][k%4];a.push({i:a.length,sid,key:STAGES[sid].key,name:STAGES[sid].name,x0:x,x1:Math.min(RUN_LEN,x+LOOP_LEN),loop:1+Math.floor(k/4)});x+=LOOP_LEN;k++}return a})();
+function segAt(x){let lo=0,hi=SEGS.length-1;while(lo<hi){const m=(lo+hi+1)>>1;if(SEGS[m].x0<=x)lo=m;else hi=m-1}return SEGS[lo]}
+/* 특수 구간 위치(절대 좌표): 원래 스테이지와 같은 장치를 그 구간 안에 */
+const RUN_FX=(function(){const zones=[],notes=[],twists=[],lids=[];
+ SEGS.forEach(g=>{const L=g.x1-g.x0,at=f=>Math.round(g.x0+L*f);
+  if(g.key==="office"){notes.push(at(.45));if(g.loop)zones.push(at(.6))}
+  else if(g.key==="subway"){notes.push(at(.3),at(.75))}
+  else if(g.key==="street"){zones.push(at(.5));notes.push(at(.2),at(.85))}
+  else if(g.key==="dream"){if(!g.loop){twists.push([g.x0+600,1000]);lids.push([g.x0+1900,1100]);zones.push(g.x0+3300);twists.push([g.x0+4400,1000])}
+   else{twists.push([at(.15),900]);lids.push([at(.55),1000])}}});
+ return {zones,notes,twists,lids}})();
+STAGES.run={id:"run",key:"office",name:"퇴근길 이어 달리기",goal:"갈 수 있는 데까지",win:"전설의 칼퇴!",len:RUN_LEN,v0:235,v1:560,first:760,endless:true,clear:0,
+ twistsAbs:RUN_FX.twists,lidsAbs:RUN_FX.lids,pool:STAGES[1].pool};
+STAGES.run.par=Infinity;
+/* 구간별 장애물 설정: 원래 스테이지 값 + 야근 회차가 올라갈수록 더 빽빽하게 */
+/* 난이도 손잡이(구간별): tight = 장애물 사이 간격 배율(작을수록 빽빽), pw = 몇 칸마다 아이템, pairAdd = 2연속 확률 추가 */
+const RUN_TUNE=[{tight:.98,pw:11,pairAdd:.04,ex:.8},{tight:.94,pw:12,pairAdd:.08,ex:.7},{tight:.9,pw:13,pairAdd:.1,ex:.6},{tight:.88,pw:14,pairAdd:.06,ex:.6}];
+function segParams(g){const S=STAGES[g.sid];if(!g.loop){const T=RUN_TUNE[g.i]||RUN_TUNE[3];return {pool:S.pool,extra:[S.extra[0]*T.ex,S.extra[1]*T.ex],pair:Math.min(.6,S.pair+T.pairAdd),tight:(S.tight||1)*T.tight,pwEvery:T.pw}}
+ const k=Math.min(4,g.loop);const pool=Object.assign({},S.pool);if(g.sid!==4){pool.plane=(pool.plane||0)+.8;pool.fpig=(pool.fpig||0)+.5}
+ return {pool,extra:[Math.max(14,44-k*8),Math.max(8,18-k*3)],pair:Math.min(.62,.46+k*.04),tight:Math.max(.8,.86-k*.02),pwEvery:15}}
+
 function rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
 const lerp=(a,b,p)=>a+(b-a)*p;
-function speedAt(S,x){return lerp(S.v0,S.v1,Math.min(1,Math.max(0,x/S.len)))}
+function speedAt(S,x){
+ if(S.endless){for(let i=1;i<SPD.length;i++){if(x<SPD[i][0]){const [a,va]=SPD[i-1],[b,vb]=SPD[i];return lerp(va,vb,(x-a)/(b-a))}}return SPD[SPD.length-1][1]}
+ return lerp(S.v0,S.v1,Math.min(1,Math.max(0,x/S.len)))}
 function pick(r,pool){const e=Object.entries(pool);let t=e.reduce((a,[,w])=>a+w,0)*r();for(const [k,w] of e){if((t-=w)<0)return k}return e[0][0]}
 
 /* 점프 궤적 (아이템 배치용): 길게 누른 점프의 시간별 높이 */
@@ -88,6 +118,7 @@ const ARC_HOLD=arc(true);
    그래서 아무리 운이 나빠도 "넘을 수 없는 조합"은 나오지 않아요. (tests/runner-fair.js 로봇이 수천 판으로 확인) */
 const T_AFTER={low:.71,tall:.82,wide:.77,fly:.64,pair:.83,duck:.7}; // v12 리듬 조이기 → v17 한 번 더 (약 4%)
 function course(sid,seed){
+ if(STAGES[sid]&&STAGES[sid].endless)return courseRun(sid,seed);
  const S=STAGES[sid], r=rng(seed>>>0), obs=[], items=[], zones=[], notes=(S.notes||[]).map(f=>({x:Math.round(S.len*f)}));
  let x=S.first, n=0, lastKind="low", zq=(S.zones||[]).slice(), aq=(S.alarms||[]).slice();
  const kindOf=o=>o.duck?"duck":o.fly?"fly":o.tall?"tall":o.wide?"wide":"low";
@@ -139,6 +170,53 @@ function course(sid,seed){
  return {sid,seed:seed>>>0,obs,items,zones,notes,len:S.len};
 }
 
+function courseRun(sid,seed){
+ const S=STAGES[sid], r=rng(seed>>>0), obs=[], items=[], zones=[], notes=RUN_FX.notes.map(x=>({x}));
+ let x=S.first, n=0, lastKind="low", zq=RUN_FX.zones.slice();
+ const kindOf=o=>o.duck?"duck":o.fly?"fly":o.tall?"tall":o.wide?"wide":"low";
+ const inFx=(x0,x1)=>S.twistsAbs.some(([a,l])=>x1>a-120&&x0<a+l+60)||S.lidsAbs.some(([a,l])=>x1>a-60&&x0<a+l+60);
+ while(x<S.len-520){
+  const g=segAt(x),G=segParams(g),p=(x-g.x0)/(g.x1-g.x0),vmax=speedAt(S,x+400)*PHY.BOOST_SPEED;
+  if(zq.length&&x>=zq[0]){zq.shift();
+   const z={x0:x,x1:x+ZONE.len};zones.push(z);
+   for(let zx=z.x0+60;zx<z.x1-40;zx+=48)items.push({t:"pebble",x:zx,y:12});
+   x=z.x1+speedAt(S,z.x1)*PHY.BOOST_SPEED*.8+120;lastKind="low";continue}
+  /* 구간이 바뀌는 자리는 숨 돌릴 빈 길 */
+  if(g.x0>0&&x-g.x0<40){x=g.x0+speedAt(S,g.x0)*1.1;lastKind="low";continue}
+  let t=pick(r,G.pool);
+  if(OBS[t].duck&&lastKind==="duck")t=Object.keys(G.pool)[0];
+  if(OBS[t].fly&&lastKind==="fly")t="cone"in G.pool?"cone":Object.keys(G.pool)[0];
+  /* 조작 반전·눈꺼풀 구간 안에서는 숙이기 장애물은 빼요 (반전 중에 숙이기는 너무 가혹) */
+  if(OBS[t].duck&&inFx(x,x+200))t=Object.keys(G.pool)[0];
+  const d=OBS[t];
+  const o={i:obs.length,t,x:x,w:d.w,h:d.h,y:d.y||0};obs.push(o);
+  let end=x+d.w, kind=kindOf(d);
+  if(d.low&&r()<G.pair*(.4+.6*p)){
+   const lows=Object.keys(G.pool).filter(k=>OBS[k].low);const t2=lows[Math.floor(r()*lows.length)]||t;
+   const gx=end+26+Math.floor(r()*10);const d2=OBS[t2];
+   obs.push({i:obs.length,t:t2,x:gx,w:d2.w,h:d2.h,y:0,pair:1});end=gx+d2.w;kind="pair";
+  }
+  if(kind!=="fly"&&r()<.62){
+   const v=speedAt(S,x), mid=(x+end)/2, apexT=ARC_HOLD.reduce((a,b)=>b[1]>a[1]?b:a)[0];
+   const n5=kind==="pair"?5:4;
+   for(let k=0;k<n5;k++){const tt=apexT*(0.3+1.4*k/(n5-1));const pt=ARC_HOLD[Math.min(ARC_HOLD.length-1,Math.round(tt/TICK))];
+    items.push({t:"pebble",x:mid-apexT*v+tt*v+PB.w/2-6,y:pt[1]+PB.h/2+4})}
+  }
+  lastKind=kind;
+  let gap=vmax*T_AFTER[kind]*G.tight+r()*lerp(G.extra[0],G.extra[1],p)+36;
+  const g0=end+70, g1=end+gap-70;
+  if(g1-g0>120){
+   n++;
+   if(n%G.pwEvery===3){const types=["coffee","shield","shoes"];items.push({t:types[Math.floor(r()*3)],x:(g0+g1)/2-11,y:58})}
+   else if(r()<.5){const cnt=3+Math.floor(r()*3);for(let k=0;k<cnt;k++)items.push({t:"pebble",x:g0+20+k*26,y:12})}
+   else if(r()<.25){const cnt=3;const hx=(g0+g1)/2-26;for(let k=0;k<cnt;k++)items.push({t:"pebble",x:hx+k*26,y:150})}
+  }
+  x=end+gap;
+ }
+ items.sort((a,b)=>a.x-b.x);
+ return {sid,seed:seed>>>0,obs,items,zones,notes,len:S.len};
+}
+
 /* ---- 한 판 상태 ---- */
 function newRun(sid,seed){
  const S=STAGES[sid], C=course(sid,seed);
@@ -156,8 +234,8 @@ function hurt(R,kind,ev){
  R.ev.push((kind==="zone"?"zhurt:":"hurt:")+ev);return false;
 }
 /* 한 틱 진행. press/release = 이번 틱에 점프 누름/뗌, o = {dd:숙이기 누름, du:숙이기 뗌, dis:알림 닫기} */
-function twistAt(R,x){const T=R.S.twists;if(!T)return 0;for(let k=0;k<T.length;k++){const a=R.S.len*T[k][0];if(x>=a&&x<a+T[k][1])return k+1}return 0}
-function lidAt(R,x){const L=R.S.lids;if(!L)return 0;for(let k=0;k<L.length;k++){const a=R.S.len*L[k][0];if(x>=a&&x<a+L[k][1])return k+1}return 0}
+function twistAt(R,x){if(R.S.twistsAbs){const T=R.S.twistsAbs;for(let k=0;k<T.length;k++){if(x>=T[k][0]&&x<T[k][0]+T[k][1])return k+1;if(T[k][0]>x)break}return 0}const T=R.S.twists;if(!T)return 0;for(let k=0;k<T.length;k++){const a=R.S.len*T[k][0];if(x>=a&&x<a+T[k][1])return k+1}return 0}
+function lidAt(R,x){if(R.S.lidsAbs){const L=R.S.lidsAbs;for(let k=0;k<L.length;k++){if(x>=L[k][0]&&x<L[k][0]+L[k][1])return k+1;if(L[k][0]>x)break}return 0}const L=R.S.lids;if(!L)return 0;for(let k=0;k<L.length;k++){const a=R.S.len*L[k][0];if(x>=a&&x<a+L[k][1])return k+1}return 0}
 function step(R,press,release,o){
  if(R.state!=="run")return;
  const dt=TICK;o=o||{};
@@ -165,7 +243,7 @@ function step(R,press,release,o){
  /* 😵 조작 반전: 탭 ↔ 숙이기 */
  const tw=twistAt(R,R.x);
  if(tw!==R.tw){R.ev.push(tw?"twist:on":"twist:off");if(!tw&&(R.duckHold||R.holdKey)){R.duckHold=false;R.holdKey=false;R.holding=false}R.tw=tw}
- else if(!tw&&R.S.twists){const nx=twistAt(R,R.x+TWIST.warn);if(nx&&R.twWarn!==nx){R.twWarn=nx;R.ev.push("twist:warn")}}
+ else if(!tw&&(R.S.twists||R.S.twistsAbs)){const nx=twistAt(R,R.x+TWIST.warn);if(nx&&R.twWarn!==nx){R.twWarn=nx;R.ev.push("twist:warn")}}
  if(tw){const p0=press,r0=release;press=!!o.dd;release=!!o.du;o={dis:o.dis,bl:o.bl,dd:p0,du:r0}}
  /* 😪 눈꺼풀 */
  const ld=lidAt(R,R.x);
@@ -259,7 +337,7 @@ function score(R){
 function ms(R){return Math.round(R.tick*TICK*1000)}
 /* 기록 검증: 입력 기록을 처음부터 다시 돌려서 결과가 같은지 확인 */
 function verify(sid,seed,inputs,claim){
- if(!STAGES[sid]||!Array.isArray(inputs)||inputs.length>12000)return {ok:false,why:"형식"};
+ if(!STAGES[sid]||!Array.isArray(inputs)||inputs.length>60000)return {ok:false,why:"형식"};
  const R=newRun(sid,seed);let k=0;const max=Math.ceil(R.S.len/(R.S.v0*ZONE.slow)/TICK)+10;
  while(R.state==="run"&&R.tick<max){
   let p=false,rl=false;const o={};
@@ -274,7 +352,7 @@ function verify(sid,seed,inputs,claim){
  return {ok:ok&&(res.state!=="win"||res.ms>=minMs),res,why:ok?"":"불일치"};
 }
 
-const API={twistAt,lidAt,TWIST,LID,TICK,M,PHY,LIVES,INV,NO_HIT,PB,ZONE,NOTE,OBS,ITEMS,STAGES,rng,course,newRun,step,speed,score,meters,ms,verify,obsY,speedAt};
+const API={segAt,SEGS,SEG_BASE,segParams,RUN_FX,twistAt,lidAt,TWIST,LID,TICK,M,PHY,LIVES,INV,NO_HIT,PB,ZONE,NOTE,OBS,ITEMS,STAGES,rng,course,newRun,step,speed,score,meters,ms,verify,obsY,speedAt};
 if(typeof module!=="undefined"&&module.exports)module.exports=API;
 root.TG_RUNNER_CORE=API;
 })(typeof window!=="undefined"?window:globalThis);
