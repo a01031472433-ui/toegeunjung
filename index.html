@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>퇴근중</title>
+<title>돌대리는 퇴근중</title>
 <meta name="description" content="출근하면 조약돌 돌대리도 출근한다. 직장인 출퇴근 연동 캐릭터 육성 게임.">
 <meta name="theme-color" content="#EDF2F8">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="퇴근중">
+<meta name="apple-mobile-web-app-title" content="돌대리">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" href="icon-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -60,6 +60,8 @@ button:focus-visible,summary:focus-visible,a:focus-visible{outline:3px solid var
 .top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:4px}
 .brand{display:flex;align-items:center;gap:6px;font-size:32px;line-height:1;letter-spacing:-.5px}
 .brand svg{width:40px;height:44px}
+.brand .bn{display:flex;flex-direction:column;white-space:nowrap}.brand .bn small{font-size:13px;color:var(--muted);letter-spacing:0;margin-bottom:3px}
+.top .coin{white-space:nowrap}
 .top-r{display:flex;align-items:center;gap:10px}
 .coin{display:inline-flex;align-items:center;gap:6px;background:var(--paper);color:var(--ink);border-radius:999px;padding:5px 12px 5px 5px;font-size:16px;box-shadow:0 1px 0 var(--hair)}
 .coin i{width:24px;height:24px;border-radius:50%;background:var(--yellow);display:inline-grid;place-items:center;font-style:normal;font-size:12px;color:#18212F}
@@ -426,7 +428,7 @@ details .law{font-size:12.5px;color:var(--blue);margin-top:6px}
 .lcd-row{margin:0;text-align:right}
 .stone-got{display:flex;gap:14px;align-items:center;width:100%;text-align:left;background:var(--surface-2);border:0;border-radius:16px;padding:12px 14px;font:inherit;color:inherit;cursor:pointer}
 .stone-got img{width:76px;height:76px;object-fit:contain;flex:none}
-.sg-t{display:flex;flex-direction:column;gap:2px;min-width:0}.sg-t b{font-size:18px}.sg-t em{font-style:normal;font-size:14px;color:var(--ink-2,#5A6576)}.sg-t small{font-size:13px;color:var(--blue,#3557D8);font-weight:700}
+.sg-t{display:flex;flex-direction:column;gap:2px;min-width:0}.sg-t b{font-size:18px}.sg-t em{font-style:normal;font-size:14px;color:var(--muted)}.sg-t small{font-size:13px;color:var(--blue,#3557D8);font-weight:700}
 .stier{display:inline-block;align-self:flex-start;font-size:11.5px;font-weight:700;padding:1px 8px;border-radius:999px;background:#E6EAF0;color:#5A6576}
 .t-r1 .stier,.stier.t-r1{background:#E3EAFF;color:#3557D8}.t-r2 .stier,.stier.t-r2{background:#F1E6FF;color:#7A3FD0}.t-lg .stier,.stier.t-lg{background:#FFF1C9;color:#9A6A00}
 .mission{display:flex;justify-content:space-between;align-items:center;gap:12px;background:#EAF6EF;border-radius:14px;padding:12px 14px}
@@ -634,7 +636,14 @@ svg .spark{animation:sparkTw 1.6s ease-in-out infinite;transform-origin:206px 16
 #tut .tut-skip{border:0;background:none;color:var(--muted);font-family:inherit;font-size:13px;text-decoration:underline;padding:4px}
 #tut .btn{padding:8px 14px;font-size:14.5px}
 /* v21: 출근 탭 · 칼퇴증시 */
-.pc-seg.pc3{display:grid;grid-template-columns:repeat(3,1fr)}
+.gl{display:flex;flex-direction:column;gap:6px}
+.gl-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.gl-t{position:relative;display:flex;align-items:center;gap:9px;border:1.5px solid transparent;background:var(--surface-2);border-radius:14px;padding:9px 10px;font:inherit;color:var(--ink);text-align:left;min-width:0;cursor:pointer}
+.gl-t .gl-e{font-size:22px;flex:none}.gl-t .gl-x{display:flex;flex-direction:column;min-width:0}.gl-t b{font-weight:400;font-size:15px}.gl-t small{font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gl-t.on{background:var(--blue);color:#fff;border-color:var(--blue)}.gl-t.on small{color:#DCE6FF}
+.gl-t .nbadge{position:absolute;top:6px;right:8px}
+.gl-st{width:100%}.gl-body{margin-top:4px}
+.pc-seg.pc3{display:grid;grid-template-columns:repeat(3,1fr)}.pc-seg.pc4{display:grid;grid-template-columns:repeat(4,1fr)}.pc-seg.pc5{display:grid;grid-template-columns:repeat(5,1fr);border-radius:16px}.pc-seg.pc5 button{padding:7px 1px;font-size:12px;white-space:nowrap;border-radius:13px;letter-spacing:-.02em}.pc-seg.pc4 button{padding:8px 2px;font-size:13px;white-space:nowrap}
 .pc-seg.pc3 button{padding:8px 4px}
 .pc-seg .nbadge{font-style:normal;background:var(--bad);color:#fff;border-radius:999px;padding:0 5px;font-size:11px}
 .condrow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:4px}
@@ -651,6 +660,70 @@ svg .spark{animation:sparkTw 1.6s ease-in-out infinite;transform-origin:206px 16
 .stnews{background:var(--blue-soft);border-radius:14px;padding:10px 12px;font-size:15px}
 .stnews small{display:block;color:var(--muted);font-size:12px;margin-bottom:3px}
 .stnews b{font-weight:400}
+
+/* v49 돌목 */
+.om{display:flex;flex-direction:column;gap:10px}
+.om-h{display:flex;justify-content:space-between;align-items:center;gap:8px}.om-h b{font-weight:400;font-size:16px}
+.om-modes{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.om-mode{border:0;border-radius:16px;background:var(--surface-2);padding:14px 10px;font:inherit;color:inherit;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer}
+.om-mode .e{font-size:28px}.om-mode b{font-weight:400;font-size:15.5px}.om-mode small{color:var(--muted);font-size:12px;text-align:center}
+.om-mode[aria-pressed="true"]{background:var(--blue);color:#fff}.om-mode[aria-pressed="true"] small{color:#DCE6FF}
+.om-lv{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.om-lv button{border:1.5px solid var(--line);background:var(--paper);border-radius:12px;padding:8px 4px;font:inherit;font-size:14px;color:var(--ink);display:flex;flex-direction:column;align-items:center;gap:1px}
+.om-lv button small{font-size:11.5px;color:var(--muted)}.om-lv button[aria-pressed="true"]{border-color:var(--blue);background:var(--blue-soft)}
+.om-vs{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:6px;font-size:14px}
+.om-p{display:flex;align-items:center;gap:6px;padding:6px 8px;border-radius:12px;background:var(--surface-2);min-width:0}
+.om-p span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.om-p.turn{background:var(--blue);color:#fff}.om-p.r{justify-content:flex-end}
+.om-dot{width:14px;height:14px;border-radius:50%;flex:none}.om-dot.b{background:radial-gradient(circle at 35% 30%,#7b8089,#22262d)}.om-dot.w{background:radial-gradient(circle at 35% 30%,#fff,#d4cdbd);box-shadow:inset 0 0 0 1px #c9c1ae}
+.om-board{width:100%;max-width:360px;margin:0 auto;display:block;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+.om-board .hit{fill:transparent;cursor:pointer}
+.om-msg{text-align:center;font-size:14px;color:var(--muted);margin:0;min-height:20px}.om-msg b{color:var(--ink);font-weight:400}
+.om-row{display:flex;gap:8px}.om-row .btn{flex:1}
+.om-code{font-size:40px;letter-spacing:.18em;text-align:center;color:var(--blue);margin:2px 0}
+.om-rooms{display:flex;flex-direction:column;gap:6px}
+.om-room{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border-radius:12px;background:var(--surface-2);font-size:14px}
+.om-res{text-align:center;padding:10px;border-radius:14px;background:var(--blue-soft)}.om-res b{display:block;font-weight:400;font-size:20px}
+.om-res.lose{background:var(--surface-2)}
+
+/* v52 돌야구 */
+.yg{display:flex;flex-direction:column;gap:10px}
+.yg-rules{background:var(--blue-soft);border-radius:14px;padding:10px 12px;font-size:13.5px;display:flex;flex-direction:column;gap:5px}.yg-rules>b{font-weight:400;font-size:15px}.yg-rules p{margin:0}.yg-rules ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:4px}.yg-rules li{display:flex;align-items:center;gap:6px}.yg-rules li .yg-hit b{min-width:34px;text-align:center}.yg-rules .ex{color:var(--muted);font-size:12.5px}.yg-rules .tip{font-size:12.5px}
+.yg-slots{display:flex;justify-content:center;gap:8px}
+.yg-slots i{width:52px;height:60px;border-radius:14px;background:var(--surface-2);display:grid;place-items:center;font-style:normal;font-size:30px;font-variant-numeric:tabular-nums;border:2px solid transparent}
+.yg-slots i.on{border-color:var(--blue);background:var(--paper)}
+.yg-pad{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.yg-pad button{border:0;border-radius:12px;background:var(--surface-2);font:inherit;font-size:20px;padding:10px 0;color:var(--ink);font-variant-numeric:tabular-nums}
+.yg-pad button:disabled{opacity:.3}
+.yg-pad button.x{background:#F3E1E1;color:#B54848}.yg-pad button.o{background:#E1F1E7;color:#2C8A57}
+.yg-memo{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.yg-memo button{border:0;background:var(--surface-2);border-radius:999px;padding:4px 10px;font:inherit;font-size:12px;color:var(--muted)}.yg-memo button[aria-pressed="true"]{background:var(--blue);color:#fff}
+.yg-log{display:flex;flex-direction:column;gap:4px;max-height:260px;overflow:auto}
+.yg-row{display:grid;grid-template-columns:22px 1fr auto auto;align-items:center;gap:8px;padding:6px 10px;border-radius:12px;background:var(--surface-2);font-size:14px}
+.yg-row.me{background:var(--blue-soft)}.yg-row .n{color:var(--muted);font-size:12px}.yg-row .g{font-size:18px;letter-spacing:.12em;font-variant-numeric:tabular-nums}
+.yg-row .who{color:var(--muted);font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.yg-hit{display:flex;gap:4px}.yg-hit b{font-weight:400;font-size:12.5px;padding:2px 7px;border-radius:999px}.yg-hit .s{background:#DDF1E5;color:#23794B}.yg-hit .b{background:#FFF0CC;color:#9A6B00}.yg-hit .out{background:#EEE;color:#888}
+.yg-ps{display:flex;flex-wrap:wrap;gap:6px}.yg-p{display:flex;align-items:center;gap:5px;padding:5px 10px;border-radius:999px;background:var(--surface-2);font-size:13px}.yg-p.turn{background:var(--blue);color:#fff}.yg-p.me{outline:1.5px solid var(--blue)}
+.yg-timer{font-variant-numeric:tabular-nums}
+
+/* v54 사내신문 접기 · 화장실 칸 */
+.newsfold{background:var(--paper);border-radius:18px;padding:4px 14px 10px;margin-bottom:10px}
+.newsfold>summary{list-style:none;display:flex;justify-content:space-between;align-items:center;padding:10px 0 6px;cursor:pointer}.newsfold>summary::-webkit-details-marker{display:none}
+.newsfold>summary b{font-weight:400;font-size:16px}.newsfold .paper{margin:0;box-shadow:none}
+.stl{display:flex;flex-direction:column;gap:6px}
+.stc{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;padding:10px 12px;border-radius:14px;background:var(--surface-2);border:0;font:inherit;color:inherit;text-align:left;width:100%}
+.stc .se{font-size:22px}.stc b{font-weight:400;font-size:15px;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.stc small{color:var(--muted);font-size:12px}
+.stc .btn{padding:7px 12px}
+.sthead{display:flex;flex-direction:column;gap:8px;background:var(--paper);border-radius:18px;padding:12px 14px}
+.sthead h2{margin:0;font-size:20px;font-weight:400;display:flex;align-items:center;gap:6px}.sthead .meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px;color:var(--muted)}
+.stcode{font-variant-numeric:tabular-nums;letter-spacing:.12em;color:var(--blue)}
+.stmem{display:flex;flex-wrap:wrap;gap:5px}.stmem button{border:0;background:var(--surface-2);border-radius:999px;padding:4px 10px;font:inherit;font-size:12.5px;color:var(--ink)}
+.stbox{display:flex;flex-direction:column;gap:6px;height:calc(100dvh - 500px);min-height:200px;overflow:auto;background:var(--surface-2);border-radius:18px;padding:12px}
+.stbox .bub{align-self:flex-start;max-width:80%;background:var(--paper);border-radius:14px 14px 14px 4px;padding:7px 11px}
+.stbox .bub.me{align-self:flex-end;background:var(--blue);color:#fff;border-radius:14px 14px 4px 14px}
+.stbox .bub i{display:block;font-style:normal;font-size:11.5px;color:var(--muted);margin-bottom:1px}.stbox .bub.me i{display:none}
+.stbox .bub p{margin:0;font-size:15px;word-break:break-word;white-space:pre-wrap}.stbox .bub span{font-size:10.5px;opacity:.6}
+.stbox .sys{align-self:center;font-size:12px;color:var(--muted);background:rgba(0,0,0,.04);border-radius:999px;padding:2px 10px}
+.stacts{display:flex;flex-wrap:wrap;gap:6px}
 .stflow{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}.stflow>div{background:var(--surface-2);border-radius:10px;padding:6px 4px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:1px;min-width:0}.stflow b{font-weight:400;font-size:12px;color:var(--muted)}.stflow span{font-size:13.5px}.stflow small{font-size:10.5px;color:var(--muted);line-height:1.2}.stflow .on{background:var(--blue);color:#fff}.stflow .on b,.stflow .on small{color:#DCE6FF}.stflow .dn{opacity:.45}.stlim{margin:0;font-size:12.5px;line-height:1.45;color:var(--muted)}
 .stmid{background:#FFF6DC;border-radius:14px;padding:10px 12px;font-size:14px;display:flex;flex-direction:column;gap:2px}.stmid b{font-weight:400;font-size:15px}.stmid span{color:var(--muted);font-size:13px}.stmid p{margin:4px 0 0}.stmid .up{color:#D93636}.stmid .dn{color:#2463EB}
 .stmidr{display:flex;align-items:center;flex:none;margin-left:auto}.strow .sn{flex:1;min-width:0}.strow .sn small.px{white-space:normal}.strow .sn small.px .stmine{white-space:nowrap;font-size:inherit}
@@ -852,6 +925,18 @@ svg .spark{animation:sparkTw 1.6s ease-in-out infinite;transform-origin:206px 16
 .pz-h{display:flex;justify-content:space-between;align-items:center;gap:8px}
 .pz .row{display:flex;gap:8px;flex-wrap:wrap}
 /* v10: 돌퇴근 카드 (앱의 파란 UI 그대로, 게임 화면만 크림색) */
+
+/* v50 이어 달리기 카드 */
+.rs-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
+.rs-seg{background:var(--surface-2);border-radius:12px;padding:6px 2px;display:flex;flex-direction:column;align-items:center;gap:1px;text-align:center;min-width:0}
+.rs-seg i{font-style:normal;font-size:17px}.rs-seg b{font-weight:400;font-size:12px;white-space:nowrap}.rs-seg small{font-size:10.5px;color:var(--muted)}
+.rs-seg.done{background:#E3F4EA}.rs-seg.done i{color:var(--good)}.rs-seg.now{background:var(--blue);color:#fff}.rs-seg.now small{color:#DCE6FF}.rs-seg.inf{background:#FFF1E2}.rs-seg.inf.now{background:#F28C38}
+.rs-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.rs-stats>div{background:var(--surface-2);border-radius:12px;padding:7px 6px;display:flex;flex-direction:column;align-items:center}
+.rs-stats span{font-size:11.5px;color:var(--muted)}.rs-stats b{font-weight:400;font-size:17px}.rs-stats small{font-size:11px;color:var(--muted)}
+.rs-rank{background:var(--surface-2);border-radius:12px;padding:8px 12px;font-size:14px}.rs-rank>span{color:var(--muted);font-size:13px}
+.rs-rank ol{list-style:none;margin:4px 0 0;padding:0;display:flex;flex-direction:column;gap:2px}.rs-rank li{display:flex;gap:8px;align-items:center}.rs-rank li em{font-style:normal;width:16px;color:var(--blue)}.rs-rank li b{margin-left:auto;font-weight:400}
+.rs-rank li.me{color:var(--blue)}.rs-rank p{margin:4px 0 0;color:var(--muted)}.rs-rank p b{color:var(--ink);font-weight:400}
 .rc-hero{position:relative;height:66px;border-radius:14px;background:var(--surface-2);overflow:hidden}
 .rc-hero::after{content:"";position:absolute;left:0;right:0;bottom:12px;border-top:2px dashed var(--line)}
 .rc-peb{position:absolute;left:20%;bottom:13px;width:34px;height:34px;background:url(pose-base.png) center 62%/150% no-repeat;border-radius:50%;animation:rcjump 1.6s linear infinite}
@@ -961,6 +1046,7 @@ svg .spark{animation:sparkTw 1.6s ease-in-out infinite;transform-origin:206px 16
 <script src="runner-core.js"></script>
 <script src="runner-art.js"></script>
 <script src="runner.js"></script>
+<script src="omok.js"></script>
 <script>
 (function(){
 "use strict";
@@ -1348,7 +1434,7 @@ const mark=`<svg viewBox="94 20 168 188" aria-hidden="true"><use href="#pose-bas
 /* ---------- views ---------- */
 function header(){
  const d=today();
- return `<header class="top"><div class="brand">${mark}<span>퇴근중</span></div>
+ return `<header class="top"><div class="brand">${mark}<span class="bn"><small>돌대리는</small>퇴근중</span></div>
  <div class="top-r"><div class="clock"><span class="mono">${d.slice(5).replace("-",".")}</span> (${WD[wd(d)]})<br><span class="mono">${state.demo?"체험 모드":nowHM()}</span></div>
  <div class="coin" title="월급코인"><i>₩</i><span id="coinv">${won(state.coins)}</span></div></div></header>`;
 }
@@ -1389,9 +1475,9 @@ function todayView(){
  const ev=day.lunch!=null?EVENTS[day.lunch]:null, mDone=ms.filter(m=>day.missions[m.id]).length;
  /* v29: 1 출근 → 2 근무 → 3 복지 → 4 퇴근 */
  const cd=day.cond&&COND[day.cond], wDone=(ev?1:0)+mDone;
- h+=stepHead(1,"출근",day.inAt?`${day.inAt} 출근${cd?` · 기분 ${cd[1]}`:""}`:"출근하고 오늘 기분 고르기",day.inAt?"done":"now");
+ h+=stepHead(1,"출근",day.inAt?`${day.inAt} 출근${cd?` · 기분 ${cd[1]}`:""}`:"출근하기 누르면 바로 근무 시작",day.inAt?"done":"now");
  if(!day.inAt)h+=condCard();
- h+=stepHead(2,"근무",day.outAt?"퇴근 후에도 할 수 있어요":"게임 2개 · 주식으로 코인 벌기",!day.inAt?"lock":"now");
+ h+=stepHead(2,"근무",day.outAt?"퇴근 후에도 할 수 있어요":"게임 4개 · 주식 1개로 코인 벌기",!day.inAt?"lock":"now");
  h+=day.inAt?workCard(false,true):lockCard();
  h+=stepHead(3,"복지",day.inAt?`점심 · 미션 ${wDone}/3`:"점심 이벤트 · 오늘의 미션",!day.inAt?"lock":wDone>=3?"done":"now");
  if(day.inAt)h+=`<section class="panel welfare" aria-label="복지">
@@ -1426,8 +1512,8 @@ function nowCard(day,ms){
 /* v24: 첫 실행 튜토리얼 · 돌대리 말풍선 + 반짝이는 버튼 */
 const TUT_BONUS=300;
 const TUT=[null,
- {sel:'.condrow, [data-act="clockGo"]',say:"안녕! 나는 {NAME}. 회사 왔으면 출근부터!",sub:"출근하기를 누르고 오늘 기분을 골라줘"},
- {sel:".playcard.work .pc-seg",say:"근무 중엔 여기서 코인을 벌어!",sub:"🏃 돌퇴근 · 🔤 퇴근각 게임 2개랑 📈 주식이 있어",next:true},
+ {sel:'.condrow, [data-act="clockGo"]',say:"안녕! 나는 {NAME}. 회사 왔으면 출근부터!",sub:"출근하기를 누르면 바로 근무 시작이야"},
+ {sel:".playcard.work .gl",say:"근무 중엔 여기서 코인을 벌어!",sub:"🏃 돌퇴근 · 🔤 퇴근각 · ⚫ 돌목 · ⚾ 돌야구 게임이랑 📈 주식이 있어",next:true},
  {sel:'#tabs [data-act="tab:shop"]',say:"번 코인은 꾸미기에서 써!",sub:"아래 꾸미기 탭을 눌러봐"},
  {sel:".enterhome",say:"여기가 우리 집이야. 들어가 볼래?",sub:"들어가기를 눌러봐"},
  {sel:null,say:"끝! 이제 혼자서도 잘하겠다 💪",sub:"집·가구·이사는 코인으로 하나씩 모아봐"}];
@@ -1435,7 +1521,7 @@ function tutStep(){if(state.tutDone||!state.onboarded)return 0;
  if(!state.tut){state.tut=1;state.gameTab="run"}
  return state.tut}
 function tutHook(name,arg){const t=tutStep();if(!t)return;
- if(t===1&&(name==="workStart"||name==="tutNext")){state.tut=2;state.gameTab="run"}
+ if(t===1&&(name==="workStart"||name==="clockGo"||name==="tutNext")){state.tut=2;state.gameTab="run"}
  else if(t===2&&name==="tutNext")state.tut=3;
  else if(t===3&&name==="tab"&&arg==="shop"){state.tut=4;state.shopIn=false}
  else if(t===4&&name==="shopIn")state.tut=5;
@@ -1478,15 +1564,25 @@ function condCard(){
 function stepHead(n,t,sub,st){return `<div class="stepline ${st}"><span class="sl-n">${st==="done"?"✓":n}</span><b>${t}</b><small>${sub||""}</small>${st==="lock"?`<span class="sl-lock">🔒</span>`:""}</div>`}
 function lockCard(){
  return `<section class="playcard locked" aria-label="근무 (잠김)">
- <div class="lockrow"><span>🏃<br>돌퇴근</span><span>🔤<br>퇴근각</span><span>📈<br>칼퇴증시</span></div>
+ <div class="lockrow"><span>🏃<br>돌퇴근</span><span>🔤<br>퇴근각</span><span>⚫<br>돌목</span><span>⚾<br>돌야구</span><span>📈<br>칼퇴증시</span></div>
  <p class="hint" style="margin:0">출근하면 게임과 주식으로 코인을 벌 수 있어요.</p></section>`;
 }
 function workCard(weekend,flow){
- const t=["run","word","stock"].includes(state.gameTab)?state.gameTab:"run", pend=stPending().length+(stIsMid()&&stState().midSeen!==LK.kstDate()&&t!=="stock"?1:0);
+ const t=["run","word","stock","omok","yagu"].includes(state.gameTab)?state.gameTab:"run", pend=stPending().length+(stIsMid()&&stState().midSeen!==LK.kstDate()&&t!=="stock"?1:0);
  const title=weekend?"🛋 주말 특근 · 돈 벌기":state.day.outAt?"🌙 퇴근 후 · 돈 벌기":"💼 근무 중 · 돈 벌기";
- const body=t==="word"?gameCard():t==="stock"?stockCard():runnerCard();
+ const body=t==="word"?gameCard():t==="stock"?stockCard():t==="omok"?omokCard():t==="yagu"?yaguCard():runnerCard();
+ /* 타일마다 오늘 상태 한 줄 */
+ const D=runDay(),g=gameState(),o=omS(),y=ygS(),ph=stPhase(),myTurn=!!(y.room&&ygMyTurn());
+ const tiles=[
+  ["run","🏃","돌퇴근",D.best?`오늘 최고 ${won(D.best)}m`:"이어 달리기",false],
+  ["word","🔤","퇴근각",g.solved?"오늘 완료 ✓":"오늘의 단어",false],
+  ["omok","⚫","돌목",`오늘 ${(o.aiWins||0)+(o.pvpWins||0)}승`,omBadge()],
+  ["yagu","⚾","돌야구",myTurn?"내 차례!":y.room?"대전 중":`오늘 ${y.wins||0}승`,ygBadge()]];
+ const stTxt={weekend:"주말 휴장",pre:"9시 개장",open:stIsMid()?"🍱 12시 중간점검":"장 열림 · 15:30 마감",done:"장 마감"}[ph]||"";
  return `<section class="playcard work" aria-label="${title}">${flow?"":`<div class="pc-h"><b>${title}</b></div>`}
- <div class="pc-seg pc3" role="tablist"><button role="tab" data-act="gameTab:run" aria-selected="${t==="run"}">🏃 돌퇴근</button><button role="tab" data-act="gameTab:word" aria-selected="${t==="word"}">🔤 퇴근각</button><button role="tab" data-act="gameTab:stock" aria-selected="${t==="stock"}">📈 주식${pend?` <i class="nbadge">!</i>`:""}</button></div>${body}</section>`;
+ <div class="gl" role="tablist" aria-label="게임과 주식"><div class="gl-grid">${tiles.map(([k,e,n,sub,b])=>`<button role="tab" class="gl-t ${t===k?"on":""}" data-act="gameTab:${k}" aria-selected="${t===k}"><span class="gl-e" aria-hidden="true">${e}</span><span class="gl-x"><b>${n}</b><small>${sub}</small></span>${b?`<i class="nbadge">!</i>`:""}</button>`).join("")}</div>
+ <button role="tab" class="gl-t gl-st ${t==="stock"?"on":""}" data-act="gameTab:stock" aria-selected="${t==="stock"}"><span class="gl-e" aria-hidden="true">📈</span><span class="gl-x"><b>칼퇴증시</b><small>${stTxt}</small></span>${pend?`<i class="nbadge">!</i>`:""}</button></div>
+ <div class="gl-body">${body}</div></section>`;
 }
 /* 칼퇴증시: 날짜로 결과가 정해져서 모두에게 똑같아요 */
 const STOCKS=[
@@ -1515,6 +1611,222 @@ function stDay(date){
  res[k[0]]=sign*mag;
  return ST_CACHE[date]={res,news:{id:k[0],text:line.replace("{n}",k[1])}};
 }
+
+
+
+
+/* ===== v54 🚽 화장실 칸 (단톡방) ===== */
+const ST_COST=100, ST_OPEN_MAX=2;
+function myOpenStalls(){const me=(CM.state.me||{}).anon;return myStalls().map(c=>MYST[c]).filter(d=>d&&Date.now()<d.expiresAt&&d.host&&d.host.anon===me).length}
+let STLIST=null,STLW=null,STD=null,STM=[],STW=null,STMW=null,STCODE=null;const MYST={},MYSTW={};
+function myStalls(){if(!Array.isArray(state.myStalls))state.myStalls=[];return state.myStalls}
+function stLeftTxt(exp){const l=Math.max(0,exp-Date.now()),h=Math.floor(l/36e5),m=Math.floor(l%36e5/6e4);return l<=0?"물 내려감":h?`${h}시간 ${m}분 남음`:`${m}분 남음`}
+function stallWatchAll(h){const shared=CM.state.mode==="shared";
+ const wantList=shared&&h.v==="stalls";if(wantList&&!STLW)STLW=CM.stallList(l=>{STLIST=l;if(state.tab==="local"&&hood().v==="stalls"&&!document.getElementById("modal").innerHTML)render()});
+ if(!wantList&&STLW){STLW();STLW=null}
+ if(shared)myStalls().forEach(c=>{if(!MYSTW[c])MYSTW[c]=CM.stallWatch(c,d=>{MYST[c]=d;if(!d||!d.members.some(m=>m.anon===(CM.state.me||{}).anon)){if(d===null||(d&&Date.now()>=d.expiresAt)||(d&&!d.members.some(m=>m.anon===(CM.state.me||{}).anon))){const i=myStalls().indexOf(c);if(i>=0&&(!d||Date.now()>=d.expiresAt||!d.members.some(m=>m.anon===(CM.state.me||{}).anon))){myStalls().splice(i,1);save()}if(MYSTW[c]){MYSTW[c]();delete MYSTW[c]}}}
+   if(state.tab==="local"&&hood().v==="stalls"&&!document.getElementById("modal").innerHTML)render()})});
+ const code=h.v==="stall"?h.code:null;
+ if(code!==STCODE){if(STW)STW();if(STMW)STMW();STW=STMW=null;STD=null;STM=[];STCODE=code;
+  if(code&&shared){STW=CM.stallWatch(code,d=>{STD=d;stHeadRe()});STMW=CM.stallMsgsWatch(code,m=>{STM=m;stMsgsRe()})}}}
+function stHeadRe(){if(state.tab!=="local"||hood().v!=="stall")return;const el=document.getElementById("sthead");if(!el||!STD||!STD.members.some(m=>m.anon===(CM.state.me||{}).anon)){if(!document.getElementById("modal").innerHTML)render();return}el.outerHTML=stHeadHTML(STD)}
+function stMsgsRe(){const b=document.getElementById("stbox");if(!b)return;const near=b.scrollHeight-b.scrollTop-b.clientHeight<80;b.innerHTML=stMsgsHTML();if(near)b.scrollTop=b.scrollHeight}
+function stMsgsHTML(){const me=(CM.state.me||{}).anon;if(!STM.length)return `<p class="hint" style="margin:auto;text-align:center">아직 조용해요. 첫 마디를 남겨 보세요 🚽</p>`;
+ let last="";return STM.map(m=>{if(m.by==="sys")return `<span class="sys">${esc(m.text)}</span>`;const mine=m.by===me,show=!mine&&last!==m.by;last=m.by;
+  return `<div class="bub ${mine?"me":""}">${show?`<i>${esc(m.nick)}</i>`:""}<p>${esc(m.text)}</p><span>${ago(m.at)}</span></div>`}).join("")}
+function stHeadHTML(d){const me=(CM.state.me||{}).anon,host=d.host&&d.host.anon===me;
+ return `<section class="sthead" id="sthead"><h2>${d.open==="secret"?"🔒":"🌐"} ${esc(d.title)}</h2>
+ <div class="meta"><span>${d.members.length}/${CM.ST_MAXM}명</span><span>·</span><span id="stLeft" data-exp="${d.expiresAt}">${stLeftTxt(d.expiresAt)}</span><span>·</span><span>코드 <b class="stcode">${d.code}</b></span></div>
+ <div class="stmem">${d.members.map(m=>`<button data-act="stMember:${esc(m.anon)}">${d.host&&m.anon===d.host.anon?"👑":"🪨"} ${esc(m.nick)}${m.anon===me?" (나)":""}</button>`).join("")}</div>
+ <div class="stacts"><button class="chipbtn" data-act="stCopy">📋 코드 복사</button><button class="chipbtn" data-act="stReportAsk">🚨 신고</button><button class="chipbtn" data-act="stLeaveAsk">🚪 나가기</button>
+ ${host?(d.joined?`<span class="hint" style="font-size:12px">누가 들어와서 환불은 안 돼요</span>`:`<button class="chipbtn" data-act="stRefundAsk">💸 칸 닫고 환불</button>`):""}</div></section>`}
+function stallsView(h){stallWatchAll(h);const S=CM.state,shared=S.mode==="shared",me=(S.me||{}).anon;
+ const mine=myStalls().map(c=>MYST[c]).filter(d=>d&&Date.now()<d.expiresAt&&d.members.some(m=>m.anon===me));
+ const pub=(STLIST||[]).filter(d=>!d.members.some(m=>m.anon===me)&&d.members.length<CM.ST_MAXM);
+ let x=`<button class="back" data-act="hoodHome">‹ 회사로</button>
+ <section class="lhead"><span class="le">🚽</span><div><b>화장실</b><small>칸마다 최대 ${CM.ST_MAXM}명 · 24시간 뒤 물 내려가요</small></div></section>`;
+ if(!shared)return x+`<section class="panel"><div class="om-res lose"><b>🔌 서버 연결 후 열려요</b><small>화장실 칸은 여러 돌이 같이 대화하는 곳이라 서버가 있어야 해요. 연결되면 바로 열려요!</small></div></section>`;
+ x+=`<section class="panel"><div class="om-row"><button class="btn" data-act="stNewAsk">🚽 칸 열기 · ${won(ST_COST)}코인</button><button class="btn ghost" data-act="stJoinAsk">코드로 들어가기</button></div>
+ <p class="hint" style="margin:0">들어가는 건 무료예요. 한 사람이 동시에 ${ST_OPEN_MAX}개까지 열 수 있어요. 칸을 연 돌은 아무도 안 들어왔으면 24시간 안에 언제든 닫고 환불받을 수 있어요.</p></section>`;
+ if(mine.length)x+=`<section class="panel"><b class="cm-h">내 칸</b><div class="stl">${mine.map(d=>`<button class="stc" data-act="stOpen:${d.code}"><span class="se">${d.open==="secret"?"🔒":"🌐"}</span><span><b>${esc(d.title)}</b><small>${d.members.length}/${CM.ST_MAXM}명 · ${stLeftTxt(d.expiresAt)}${d.host&&d.host.anon===me?" · 👑 내가 연 칸":""}</small></span><span aria-hidden="true">›</span></button>`).join("")}</div></section>`;
+ x+=`<section class="panel"><b class="cm-h">열려 있는 공개 칸 ${STLIST?pub.length:"…"}</b><div class="stl">${pub.slice(0,20).map(d=>`<div class="stc"><span class="se">🌐</span><span><b>${esc(d.title)}</b><small>${esc(d.host.nick)} · ${d.members.length}/${CM.ST_MAXM}명 · ${stLeftTxt(d.expiresAt)}</small></span><button class="btn ghost" data-act="stJoin:${d.code}">들어가기</button></div>`).join("")||`<p class="hint" style="margin:0">${STLIST?"지금 열린 공개 칸이 없어요. 첫 칸을 열어 보세요!":"불러오는 중…"}</p>`}</div></section>
+ <p class="hint" style="margin:0 4px">🔒 비밀 칸은 목록에 안 보이고 코드로만 들어와요 · 연락처 공유는 조심하고, 불편한 돌은 차단·신고할 수 있어요. 신고된 대화는 칸이 사라져도 운영자에게 전달돼요.</p>`;
+ return x}
+function stallView(h){stallWatchAll(h);const S=CM.state,d=STD,me=(S.me||{}).anon;
+ const back=`<button class="back" data-act="vGo:toilet">‹ 화장실</button>`;
+ if(S.mode!=="shared")return back+`<section class="panel"><p class="hint" style="margin:0">서버가 연결되면 열려요.</p></section>`;
+ if(!d)return back+`<section class="panel"><p class="hint" style="margin:0">칸을 불러오는 중이거나, 이미 물 내려간 칸이에요 🚽</p></section>`;
+ if(Date.now()>=d.expiresAt)return back+`<section class="panel"><div class="om-res lose"><b>🚽 물 내려갔어요</b><small>24시간이 지나 칸이 사라졌어요.</small></div></section>`;
+ if(!d.members.some(m=>m.anon===me))return back+`<section class="panel"><div class="om-res lose"><b>${esc(d.title)}</b><small>${d.kicked.includes(me)?"이 칸에서 내보내졌어요.":"이 칸에 들어가 있지 않아요."}</small></div>${d.kicked.includes(me)?"":`<button class="btn wide" data-act="stJoin:${d.code}" style="margin-top:8px">들어가기</button>`}</section>`;
+ setTimeout(()=>{const b=document.getElementById("stbox");if(b)b.scrollTop=b.scrollHeight},0);
+ return back+stHeadHTML(d)+`<section class="stbox" id="stbox">${stMsgsHTML()}</section>
+ <form id="stform" class="gform" autocomplete="off"><label for="stin" class="sr">메시지</label><input id="stin" maxlength="${CM.ST_MSG_MAX}" placeholder="몰래 한마디…"><button class="btn" type="submit">보내기</button></form>`}
+setInterval(()=>{const t=document.getElementById("stLeft");if(t)t.textContent=stLeftTxt(+t.dataset.exp)},30000);
+
+/* ===== v52 돌야구 (숫자야구 4자리 · 같은 숫자 레이스) ===== */
+const YG_WIN=50, YG_DAYMAX=3;
+let YGR=null,YGW=null,YGW_CODE=null,YGLIST=null,YGLW=null;
+function ygS(){const d=LK.kstDate(),o=state.yagu||(state.yagu={mode:"solo",solo:null,room:null,input:"",memo:{},paid:{},best:null});
+ if(o.day!==d){o.day=d;o.wins=0}if(!o.paid)o.paid={};if(!o.memo)o.memo={};if(o.input==null)o.input="";return o}
+function ygRand4(){const d=[0,1,2,3,4,5,6,7,8,9];for(let i=9;i>0;i--){const j=Math.floor(Math.random()*(i+1));[d[i],d[j]]=[d[j],d[i]]}return d.slice(0,4).join("")}
+function ygMyTurn(d){d=d||YGR;return !!(d&&d.status==="play"&&CM.state.me&&d.players[d.turn%d.players.length]&&d.players[d.turn%d.players.length].anon===CM.state.me.anon)}
+function ygBadge(){return state.gameTab!=="yagu"&&!!(state.yagu&&state.yagu.room)&&ygMyTurn()}
+function ygWatch(){const o=ygS();
+ if(o.room&&YGW_CODE!==o.room&&CM.state.mode==="shared"){if(YGW)YGW();YGW_CODE=o.room;YGW=CM.ygWatch(o.room,d=>{const prev=YGR;YGR=d;
+   if(!d){if(YGW){YGW();YGW=null}YGW_CODE=null;const was=ygS().room;ygS().room=null;save();if(was&&prev&&prev.status!=="end")toast("돌야구 방이 닫혔어요");ygRe();return}
+   if(prev&&(prev.game!==d.game||prev.guesses.length>d.guesses.length)){ygS().memo={};ygS().input=""}
+   /* 동시에 들어오다 이름이 빠졌으면 한 번 더 들어가요 */
+   if(d.status==="wait"&&CM.state.me&&!d.players.some(p=>p.anon===CM.state.me.anon)&&d.players.length<4&&Date.now()-(ygWatch.rj||0)>2500){ygWatch.rj=Date.now();CM.ygJoin(d.code).catch(()=>{})}
+   ygPay();ygRe()})}
+ if(!o.room&&YGW){YGW();YGW=null;YGW_CODE=null;YGR=null}
+ const want=o.mode==="pvp"&&!o.room&&CM.state.mode==="shared";
+ if(want&&!YGLW)YGLW=CM.ygOpenRooms(l=>{YGLIST=l;ygRe()});
+ if(!want&&YGLW){YGLW();YGLW=null;YGLIST=null}}
+function ygRe(){if(state.tab==="today"&&state.gameTab==="yagu"&&!document.getElementById("modal").innerHTML)render();else{const b=document.querySelector('[data-act="gameTab:yagu"]');if(b&&ygBadge()&&!b.querySelector(".nbadge"))b.insertAdjacentHTML("beforeend",' <i class="nbadge">!</i>')}}
+function ygPay(){const d=YGR;if(!d||d.status!=="end"||!CM.state.me)return;const o=ygS(),key=d.code+":"+d.createdAt+":"+d.game;if(o.paid[key])return;o.paid[key]=1;
+ const ks=Object.keys(o.paid);if(ks.length>40)ks.slice(0,ks.length-40).forEach(k=>delete o.paid[k]);
+ if(d.winner===CM.state.me.anon){if(o.wins<YG_DAYMAX){o.wins++;state.coins+=YG_WIN;toast(`⚾ 홈런! 이겼어요 +${YG_WIN}코인 (오늘 ${o.wins}/${YG_DAYMAX})`)}else toast("⚾ 이겼어요! 오늘 돌야구 보상은 다 받았어요")}
+ save()}
+function ygHit(s,b){return s===0&&b===0?`<span class="yg-hit"><b class="out">아웃</b></span>`:`<span class="yg-hit">${s?`<b class="s">${s}스트</b>`:""}${b?`<b class="b">${b}볼</b>`:""}</span>`}
+function ygInputUI(on){const o=ygS(),inp=o.input||"",M=o.memo||{};
+ return `<div class="yg-slots" aria-label="입력한 숫자">${[0,1,2,3].map(i=>`<i class="${i===inp.length&&on?"on":""}">${inp[i]||""}</i>`).join("")}</div>
+ <div class="yg-pad">${[1,2,3,4,5,6,7,8,9,0].map(n=>`<button data-act="ygKey:${n}" class="${M[n]||""}" ${!on||inp.includes(String(n))||inp.length>=4?"disabled":""}>${n}</button>`).join("")}</div>
+ <div class="yg-memo"><span>메모</span><button data-act="ygMemoMode" aria-pressed="${!!o.memoMode}">${o.memoMode?"✏️ 메모 중 · 숫자를 눌러 ✕/○":"✏️ 숫자에 ✕/○ 표시"}</button></div>
+ <div class="om-row"><button class="btn ghost" data-act="ygDel" ${!on||!inp.length?"disabled":""}>지우기</button><button class="btn" data-act="ygGo" ${!on||inp.length<4?"disabled":""}>찍기</button></div>`}
+function ygLog(list,meAnon,nickOf){if(!list.length)return `<p class="hint" style="margin:0;text-align:center">아직 아무도 안 찍었어요</p>`;
+ return `<div class="yg-log" id="yglog">${list.map((x,i)=>`<div class="yg-row ${x.by&&x.by===meAnon?"me":""}"><span class="n">${i+1}</span><span><span class="g mono">${x.g}</span>${nickOf?` <span class="who">${esc(nickOf(x.by))}</span>`:""}</span>${ygHit(x.s,x.b)}</div>`).join("")}</div>`}
+function ygRules(){return `<div class="yg-rules"><b>⚾ 이렇게 해요</b>
+ <p>서로 다른 숫자 <b>4개</b>로 된 비밀 숫자를 맞혀요. 숫자를 찍으면 힌트가 나와요.</p>
+ <ul><li><span class="yg-hit"><b class="s">스트</b></span> 숫자도 맞고 <b>자리도</b> 맞은 개수</li><li><span class="yg-hit"><b class="b">볼</b></span> 숫자는 있는데 <b>자리가 틀린</b> 개수</li><li><span class="yg-hit"><b class="out">아웃</b></span> 4개 다 하나도 없음</li></ul>
+ <p class="ex">정답이 <b class="mono">4719</b>일 때 · <b class="mono">4123</b> → 1스트 1볼 · <b class="mono">7419</b> → 2스트 2볼 · <b class="mono">5680</b> → 아웃</p>
+ <p class="tip">💡 4스트면 홈런! 아웃 난 숫자는 메모로 ✕ 해두면 쉬워져요.</p></div>`}
+function yaguCard(){const o=ygS();ygWatch();
+ let h=`<div class="yg"><div class="om-h"><b>⚾ 돌야구</b><button class="linkbtn sm" data-act="ygRulesShow">규칙 보기</button></div>`;
+ /* --- 방 --- */
+ if(o.room){const d=YGR,me=(CM.state.me||{}).anon;
+  if(!d)return h+`<p class="om-msg">방에 연결하는 중…</p><div class="om-row"><button class="btn ghost" data-act="ygLeave">나가기</button></div></div>`;
+  const nickOf=a=>{const p=d.players.find(x=>x.anon===a);return p?p.nick:"나간 돌"};
+  const isHost=d.host&&d.host.anon===me;
+  const ps=`<div class="yg-ps">${d.players.map((p,i)=>`<span class="yg-p ${d.status==="play"&&i===d.turn%d.players.length?"turn":""} ${p.anon===me?"me":""}">${d.host&&p.anon===d.host.anon?"👑":"🪨"} ${esc(p.nick)}</span>`).join("")}${d.status==="wait"?`<span class="yg-p" style="opacity:.5">빈자리 ${4-d.players.length}</span>`:""}</div>`;
+  if(d.status==="wait")return h+`<div class="om-res"><small>친구에게 이 코드를 알려 주세요 (2~4명)</small><div class="om-code mono">${d.code}</div><small>「⚾ 돌야구 → 친구랑 → 코드로 들어가기」에 넣으면 들어와요</small></div>${ps}
+   ${isHost?`<button class="btn wide" data-act="ygStart" ${d.players.length<2?"disabled":""}>${d.players.length<2?"한 명 더 오면 시작할 수 있어요":`${d.players.length}명으로 시작하기`}</button>`:`<p class="om-msg">방장이 시작하길 기다리는 중…</p>`}
+   <div class="om-row"><button class="btn ghost" data-act="ygLeave">${isHost?"방 닫기":"나가기"}</button></div></div>`;
+  h+=ps;
+  if(d.status==="end"){const won=d.winner===me,secret=CM.ygSecret(d.seed);
+   h+=`<div class="om-res ${won?"":"lose"}"><b>${won?"⚾ 홈런! 내가 맞혔어요":d.reason==="leave"?"다들 나갔어요":`${esc(nickOf(d.winner))} 승리!`}</b><small>정답 <b class="mono" style="display:inline;font-size:18px;letter-spacing:.1em">${secret}</b> · ${d.guesses.length}번 만에${won?` · 이기면 ${YG_WIN}코인 (하루 ${YG_DAYMAX}판)`:""}</small></div>
+    ${ygLog(d.guesses,me,nickOf)}
+    <div class="om-row">${d.players.length>=2?`<button class="btn" data-act="ygRematch">한 판 더</button>`:""}<button class="btn ghost" data-act="ygLeave">나가기</button></div></div>`;return h}
+  const my=ygMyTurn(d),cur=d.players[d.turn%d.players.length];
+  h+=`<p class="om-msg">${my?"<b>내 차례</b>예요! 숫자 4개를 찍어요":`<b>${esc(cur?cur.nick:"")}</b> 차례`} · <span class="yg-timer" id="ygT" data-at="${d.turnAt}"></span></p>`;
+  h+=ygLog(d.guesses,me,nickOf)+ygInputUI(my);
+  h+=`<div class="om-row">${my?"":`<button class="btn ghost" data-act="ygSkip" id="ygSkipB" disabled>차례 넘기기 (2분 지나면)</button>`}<button class="btn ghost" data-act="ygLeaveAsk">나가기</button></div>
+   <p class="hint" style="margin:0">스트 = 숫자·자리 다 맞음 · 볼 = 숫자만 맞음 · 모두 같은 숫자를 맞혀요. 남이 찍은 힌트도 다 보이니 같이 추리해요 · 먼저 4스트 낸 사람이 이겨요</p>`;
+  return h+`</div>`}
+ const shared=CM.state.mode==="shared";
+ if(!(o.mode!=="pvp"&&o.solo&&!o.solo.done))h+=ygRules();
+ h+=`<div class="om-modes"><button class="om-mode" data-act="ygMode:solo" aria-pressed="${o.mode!=="pvp"}"><span class="e">🎯</span><b>혼자 연습</b><small>몇 번 만에 맞히나</small></button>
+ <button class="om-mode" data-act="ygMode:pvp" aria-pressed="${o.mode==="pvp"}"><span class="e">👥</span><b>친구랑 2~4명</b><small>같은 숫자 레이스</small></button></div>`;
+ if(o.mode!=="pvp"){const S=o.solo;
+  if(!S||S.done){h+=`${S&&S.done?`<div class="om-res"><b>🎯 ${S.guesses.length}번 만에 맞혔어요!</b><small>정답 ${S.secret}${o.best?` · 내 최고 ${o.best}번`:""}</small></div>`:""}
+   <button class="btn wide" data-act="ygSolo">${S?"새 문제 풀기":"혼자 연습 시작"}</button><p class="hint" style="margin:0">컴퓨터가 정한 서로 다른 숫자 4개를 맞혀요. 스트 = 숫자·자리 다 맞음, 볼 = 숫자만 맞음. 혼자 연습은 코인 없이 기록만 남아요${o.best?` · 내 최고 ${o.best}번`:""}.</p>`}
+  else h+=ygLog(S.guesses,null,null)+ygInputUI(true)+`<div class="om-row"><button class="btn ghost" data-act="ygSoloGive">포기하고 정답 보기</button></div>`;
+  return h+`</div>`}
+ if(!shared)return h+`<div class="om-res lose"><b>🔌 서버 연결 후 열려요</b><small>친구랑 하는 돌야구는 서로 찍은 숫자를 주고받는 서버가 있어야 해요. 연결되면 바로 켜져요. 그동안 혼자 연습해 보세요!</small></div></div>`;
+ h+=`<div class="om-row"><button class="btn" data-act="ygCreate">방 만들기</button><button class="btn ghost" data-act="ygJoinAsk">코드로 들어가기</button></div>
+  <small class="hint">기다리는 방 ${YGLIST?YGLIST.length:"…"}개</small><div class="om-rooms">${(YGLIST||[]).filter(x=>!x.players.some(p=>p.anon===(CM.state.me||{}).anon)).slice(0,5).map(x=>`<div class="om-room"><span>${esc(x.host.nick)}의 방 <small class="hint">${x.players.length}/4명 · <span class="mono">${x.code}</span></small></span><button class="btn ghost" data-act="ygJoin:${x.code}">들어가기</button></div>`).join("")||`<p class="hint" style="margin:0">아직 기다리는 방이 없어요. 방을 만들어 보세요!</p>`}</div>
+  <p class="hint" style="margin:0">이기면 ${YG_WIN}코인 · 하루 ${YG_DAYMAX}판까지 (오늘 ${o.wins||0}/${YG_DAYMAX}). 차례마다 2분이 지나면 다른 사람이 넘길 수 있어요.</p>`;
+ return h+`</div>`}
+setInterval(()=>{const t=document.getElementById("ygT");if(!t)return;const at=+t.dataset.at,left=Math.max(0,(CM.YG_TURN_MS||120000)-(Date.now()-at));
+ t.textContent=left>0?`${Math.floor(left/60000)}:${String(Math.floor(left/1000)%60).padStart(2,"0")} 남음`:"시간 끝";const b=document.getElementById("ygSkipB");if(b)b.disabled=left>0},1000);
+
+/* ===== v49 돌목 (오목) ===== */
+const OM_LV=[["쉬움",20],["보통",40],["어려움",80]], OM_PVP=60, OM_DAYMAX=3, OM_BOT="컴퓨터돌";
+function omS(){const d=LK.kstDate(),o=state.omok||(state.omok={mode:null,lv:1,ai:null,room:null,paid:{}});
+ if(o.day!==d){o.day=d;o.aiWins=0;o.pvpWins=0}if(!o.paid)o.paid={};return o}
+let OMR=null,OMW=null,OMW_CODE=null,OMLIST=null,OMLW=null,OMAI_T=null;
+function omBadge(){const o=state.omok;if(!o||!o.room||!OMR)return false;const r=CM.omRole(OMR);if(!r||OMR.status!=="play")return false;const my=OMR.black===r?1:2;return (OMR.moves.length%2===0?1:2)===my&&state.gameTab!=="omok"}
+function omWatch(){const o=omS();
+ if(o.room&&OMW_CODE!==o.room&&CM.state.mode==="shared"){if(OMW)OMW();OMW_CODE=o.room;OMW=CM.omokWatch(o.room,d=>{const prev=OMR;OMR=d;
+   if(!d){if(OMW){OMW();OMW=null}OMW_CODE=null;const was=omS().room;omS().room=null;save();if(was&&prev&&prev.status!=="end")toast("방이 닫혔어요");omRe();return}
+   omBet();omPay();omRe()})}
+ if(!o.room&&OMW){OMW();OMW=null;OMW_CODE=null;OMR=null}
+ const wantList=o.mode==="pvp"&&!o.room&&CM.state.mode==="shared";
+ if(wantList&&!OMLW)OMLW=CM.omokOpenRooms(l=>{OMLIST=l;omRe()});
+ if(!wantList&&OMLW){OMLW();OMLW=null;OMLIST=null}}
+function omRe(){if(state.tab==="today"&&state.gameTab==="omok"&&!document.getElementById("modal").innerHTML)render();else{const b=document.querySelector('[data-act="gameTab:omok"]');if(b&&omBadge()&&!b.querySelector(".nbadge"))b.insertAdjacentHTML("beforeend",' <i class="nbadge">!</i>')}}
+/* v62: 돌목 친구 대전 = 친선전 또는 50코인 내기. 판이 시작되면 각자 판돈을 내고, 이긴 사람이 2명분을 가져가요 (비기면 돌려받기) */
+function omKey(d){return d.code+":"+d.createdAt+":"+d.game}
+function omBet(){const d=OMR;if(!d||!d.stake||d.status==="wait"||!d.guest)return;const o=omS(),r=CM.omRole(d);if(!r)return;o.bets=o.bets||{};const k=omKey(d);
+ if(!o.bets[k]){o.bets[k]={paid:d.stake,done:false};state.coins-=d.stake;save();if(d.status==="play")toast(`💰 판돈 ${d.stake}코인을 걸었어요 · 이기면 ${d.stake*2}코인`)}
+ const ks=Object.keys(o.bets);if(ks.length>40)ks.slice(0,ks.length-40).forEach(x=>delete o.bets[x])}
+function omPay(){const d=OMR;if(!d||d.status!=="end")return;const o=omS(),r=CM.omRole(d);if(!r)return;
+ {const k=omKey(d);if(!o.paid[k]){o.paid[k]=1;if(d.winner===r)o.pvpWins=(o.pvpWins||0)+1;const ks=Object.keys(o.paid);if(ks.length>40)ks.slice(0,ks.length-40).forEach(x=>delete o.paid[x]);save()}}
+ if(!d.stake){return}
+ omBet();const b=o.bets[omKey(d)];if(!b||b.done)return;b.done=true;
+ if(d.winner===r){state.coins+=d.stake*2;b.won=d.stake*2;toast(`🎉 이겼어요! 판돈 +${d.stake*2}코인`)}
+ else if(!d.winner){state.coins+=d.stake;b.won=d.stake;toast(`🤝 비겼어요 · ${d.stake}코인 돌려받았어요`)}
+ else b.won=0;
+ save()}
+function omCells(list){return list.map(v=>[v%OMOK.N,Math.floor(v/OMOK.N)])}
+function omBoard(moves,o){o=o||{};const N=OMOK.N,C=22,M=14,W=C*(N-1)+M*2,P=v=>M+v*C;
+ const R=OMOK.result(moves),win=R.win?R.win.line:[];
+ let g=`<svg class="om-board" viewBox="0 0 ${W} ${W}" role="img" aria-label="돌목 판"><defs>
+ <radialGradient id="omB" cx=".36" cy=".3" r=".75"><stop offset="0" stop-color="#868b94"/><stop offset=".55" stop-color="#3a3f47"/><stop offset="1" stop-color="#1c1f25"/></radialGradient>
+ <radialGradient id="omW" cx=".36" cy=".3" r=".8"><stop offset="0" stop-color="#ffffff"/><stop offset=".6" stop-color="#f1ece2"/><stop offset="1" stop-color="#cfc7b6"/></radialGradient></defs>
+ <rect width="${W}" height="${W}" rx="14" fill="#F2E3C2"/><rect x="${M}" y="${M}" width="${C*(N-1)}" height="${C*(N-1)}" fill="none" stroke="#B48F5C" stroke-width="1.4"/>`;
+ for(let i=1;i<N-1;i++)g+=`<line x1="${M}" y1="${P(i)}" x2="${P(N-1)}" y2="${P(i)}" stroke="#C3A272" stroke-width="1"/><line x1="${P(i)}" y1="${M}" x2="${P(i)}" y2="${P(N-1)}" stroke="#C3A272" stroke-width="1"/>`;
+ [[3,3],[11,3],[7,7],[3,11],[11,11]].forEach(([x,y])=>g+=`<circle cx="${P(x)}" cy="${P(y)}" r="2.6" fill="#A8834F"/>`);
+ const stone=(x,y,c,op)=>`<g opacity="${op||1}"><ellipse cx="${P(x)+.8}" cy="${P(y)+1.6}" rx="9.6" ry="8.6" fill="#000" opacity=".16"/><ellipse cx="${P(x)}" cy="${P(y)}" rx="9.8" ry="9" fill="url(#om${c===1?"B":"W"})"${c===2?' stroke="#c4bba7" stroke-width=".6"':""}/></g>`;
+ moves.forEach(([x,y],i)=>g+=stone(x,y,i%2===0?1:2));
+ if(moves.length&&!R.win){const [lx,ly]=moves[moves.length-1];g+=`<circle cx="${P(lx)}" cy="${P(ly)}" r="3" fill="#2F6BFF"/>`}
+ win.forEach(([x,y])=>g+=`<circle cx="${P(x)}" cy="${P(y)}" r="11.5" fill="none" stroke="#FFC933" stroke-width="2.6"/>`);
+ if(o.pick)g+=stone(o.pick[0],o.pick[1],o.color,.5)+`<circle cx="${P(o.pick[0])}" cy="${P(o.pick[1])}" r="12" fill="none" stroke="#2F6BFF" stroke-width="1.6" stroke-dasharray="3 2"/>`;
+ if(o.click){const taken=new Set(moves.map(([x,y])=>y*N+x));for(let y=0;y<N;y++)for(let x=0;x<N;x++){if(taken.has(y*N+x))continue;g+=`<rect class="hit" x="${P(x)-C/2}" y="${P(y)-C/2}" width="${C}" height="${C}" data-act="omTap:${x},${y}"/>`}}
+ return g+`</svg>`}
+function omVs(lName,lColor,rName,rColor,turnLeft,over){return `<div class="om-vs"><div class="om-p ${!over&&turnLeft?"turn":""}"><i class="om-dot ${lColor===1?"b":"w"}"></i><span>${esc(lName)}</span></div><small class="hint">vs</small><div class="om-p r ${!over&&!turnLeft?"turn":""}"><span>${esc(rName)}</span><i class="om-dot ${rColor===1?"b":"w"}"></i></div></div>`}
+function omokCard(){const o=omS();omWatch();
+ let h=`<div class="om"><div class="om-h"><b>⚫ 돌목</b><span class="hint">조약돌로 두는 오목 · 5개 먼저 잇기</span></div>`;
+ /* --- 컴퓨터 대전 중 --- */
+ if(o.ai){const a=o.ai,mv=a.moves,R=OMOK.result(mv),over=!!R.win||R.full||a.resign,myTurn=!over&&mv.length%2===0&&!a.thinking;
+  h+=omVs("나",1,`${OM_BOT} · ${OM_LV[a.lv][0]}`,2,mv.length%2===0,over);
+  h+=omBoard(mv,{click:myTurn,pick:myTurn?a.pick:null,color:1});
+  if(over){const won=R.win&&R.win.color===1;h+=`<div class="om-res ${won?"":"lose"}"><b>${won?"🎉 내가 이겼어요!":a.resign?"🏳️ 기권했어요":R.win?"😵 컴퓨터돌이 이겼어요":"🤝 비겼어요"}</b><small>${won?(a.paidC?`+${a.paidC}코인`:"오늘 컴퓨터 대전 보상은 다 받았어요"):"다시 도전해 보세요"}</small></div>
+   <div class="om-row"><button class="btn" data-act="omAiAgain">한 판 더</button><button class="btn ghost" data-act="omAiQuit">나가기</button></div>`}
+  else h+=`<p class="om-msg">${a.thinking?"컴퓨터돌이 생각 중…":a.pick?"<b>한 번 더 누르면</b> 거기에 둬요":"둘 곳을 눌러 주세요 · 내가 먼저(흑)"}</p><div class="om-row"><button class="btn ghost" data-act="omAiResign">기권</button></div>`;
+  return h+`</div>`}
+ /* --- 1:1 방 --- */
+ if(o.room){const d=OMR;
+  if(!d)return h+`<p class="om-msg">방에 연결하는 중…</p><div class="om-row"><button class="btn ghost" data-act="omLeave">나가기</button></div></div>`;
+  const r=CM.omRole(d);if(!r){return h+`<p class="om-msg">이 방에서 나왔어요.</p><div class="om-row"><button class="btn ghost" data-act="omLeave">돌아가기</button></div></div>`}
+  if(d.status==="wait")return h+`<div class="om-res"><small>${d.stake?`💰 ${d.stake}코인 내기 방 · `:"🤝 친선전 방 · "}친구에게 이 코드를 알려 주세요</small><div class="om-code mono">${d.code}</div><small>친구가 「⚫ 돌목 → 친구랑 1:1 → 코드로 들어가기」에 넣으면 시작돼요</small></div>
+   <p class="om-msg">상대를 기다리는 중…</p><div class="om-row"><button class="btn ghost" data-act="omLeave">방 닫기</button></div></div>`;
+  const me=d[r],op=d[r==="host"?"guest":"host"]||{nick:"상대"},myC=d.black===r?1:2,mv=omCells(d.moves),turn=mv.length%2===0?1:2,over=d.status==="end",myTurn=!over&&turn===myC;
+  h+=omVs(`나 · ${me.nick}`,myC,op.nick,myC===1?2:1,turn===myC,over)+`<p class="om-msg" style="margin:-4px 0 0">${d.stake?`💰 판돈 <b>${d.stake*2}코인</b> (각자 ${d.stake}) · 이긴 사람이 다 가져가요`:"🤝 친선전 · 코인 없이 하는 판"}</p>`;
+  h+=omBoard(mv,{click:myTurn,pick:myTurn?o.pick:null,color:myC});
+  if(over){const won=d.winner===r,oleft=d.left[r==="host"?"guest":"host"];
+   const why={five:won?"5개를 먼저 이었어요":"상대가 5개를 먼저 이었어요",resign:won?"상대가 기권했어요":"기권했어요",leave:won?"상대가 나갔어요":"방에서 나갔어요",timeout:won?"상대가 3분 넘게 안 둬서 이겼어요":"3분 넘게 안 둬서 졌어요"}[d.reason]||"비겼어요";
+   h+=`<div class="om-res ${won?"":"lose"}"><b>${d.winner?(won?"🎉 이겼어요!":"😵 졌어요"):"🤝 비겼어요"}</b><small>${why}${d.stake?(won?` · 판돈 +${d.stake*2}코인`:d.winner?` · 판돈 -${d.stake}코인`:` · 판돈 ${d.stake}코인 돌려받음`):" · 친선전"}</small></div>
+   ${oleft?`<p class="om-msg">상대가 방에서 나갔어요</p>`:""}<div class="om-row">${oleft?"":`<button class="btn" data-act="omRematch">한 판 더${d.stake?` · ${d.stake}코인`:""}</button>`}<button class="btn ghost" data-act="omLeave">나가기</button></div>${oleft?"":`<p class="hint" style="margin:0;text-align:center">한 판 더 하면 흑·백이 바뀌어요</p>`}`}
+  else{const idle=Date.now()-d.at;
+   h+=`<p class="om-msg">${myTurn?(o.pick?"<b>한 번 더 누르면</b> 거기에 둬요":"<b>내 차례</b>예요"):"상대 차례예요…"}</p>
+   <div class="om-row"><button class="btn ghost" data-act="omResign">기권</button>${!myTurn&&idle>3*6e4?`<button class="btn" data-act="omTimeout">상대가 없어요 · 승리로 끝내기</button>`:""}</div>`}
+  return h+`</div>`}
+ /* --- 처음 화면 --- */
+ const shared=CM.state.mode==="shared";
+ h+=`<div class="om-modes"><button class="om-mode" data-act="omMode:ai" aria-pressed="${o.mode!=="pvp"}"><span class="e">🤖</span><b>컴퓨터랑</b><small>혼자 연습 · 언제든</small></button>
+ <button class="om-mode" data-act="omMode:pvp" aria-pressed="${o.mode==="pvp"}"><span class="e">👥</span><b>친구랑 1:1</b><small>방 코드로 대전</small></button></div>`;
+ if(o.mode!=="pvp"){h+=`<div class="om-lv">${OM_LV.map(([n,c],i)=>`<button data-act="omLv:${i}" aria-pressed="${o.lv===i}">${n}<small>이기면 ${c}코인</small></button>`).join("")}</div>
+  <button class="btn wide" data-act="omAiStart">${OM_LV[o.lv][0]} 컴퓨터돌이랑 시작</button>
+  <p class="hint" style="margin:0">내가 먼저 둬요(흑). 판 위를 한 번 누르면 미리 보이고, 한 번 더 누르면 둬요. 이긴 보상은 하루 ${OM_DAYMAX}판까지 (오늘 ${o.aiWins}/${OM_DAYMAX}).</p>`}
+ else if(!shared)h+=`<div class="om-res lose"><b>🔌 서버 연결 후 열려요</b><small>친구랑 1:1 대전은 서로의 수를 주고받는 서버가 있어야 해요. 연결되면 바로 켜져요. 그동안 컴퓨터돌이랑 연습해 보세요!</small></div>`;
+ else{h+=`<div class="om-row"><button class="btn" data-act="omCreateAsk">방 만들기</button><button class="btn ghost" data-act="omJoinAsk">코드로 들어가기</button></div>
+  <small class="hint">기다리는 방 ${OMLIST?OMLIST.length:"…"}개</small><div class="om-rooms">${(OMLIST||[]).filter(x=>x.host.anon!==(CM.state.me||{}).anon).slice(0,5).map(x=>`<div class="om-room"><span>${esc(x.host.nick)}의 방 <small class="hint">${x.stake?`💰 ${x.stake}코인 내기`:"🤝 친선전"} · <span class="mono">${x.code}</span></small></span><button class="btn ghost" data-act="omJoin:${x.code}">${x.stake?`${x.stake}코인 걸고 들어가기`:"들어가기"}</button></div>`).join("")||`<p class="hint" style="margin:0">아직 기다리는 방이 없어요. 방을 만들어 보세요!</p>`}</div>
+  <p class="hint" style="margin:0">방을 만들 때 🤝 친선전(코인 없음) 또는 💰 50코인 내기를 골라요. 내기는 이긴 사람이 100코인을 다 가져가고, 비기면 돌려받아요. 기권·나가기·3분 넘게 안 두기는 진 걸로 처리돼요.</p>`}
+ return h+`</div>`}
+function omAiTurn(){const a=omS().ai;if(!a)return;clearTimeout(OMAI_T);a.thinking=true;
+ OMAI_T=setTimeout(()=>{const o=omS(),b=o.ai;if(!b||b!==a){return}const m=OMOK.aiMove(b.moves,b.lv);b.moves.push(m);b.thinking=false;omAiEnd();save();omRe()},380+Math.random()*320)}
+function omAiEnd(){const o=omS(),a=o.ai;if(!a||a.done)return;const R=OMOK.result(a.moves);if(!R.win&&!R.full&&!a.resign)return;a.done=true;
+ if(R.win&&R.win.color===1){if(o.aiWins<OM_DAYMAX){o.aiWins++;a.paidC=OM_LV[a.lv][1];state.coins+=a.paidC;toast(`🎉 컴퓨터돌을 이겼어요! +${a.paidC}코인`)}}}
 
 /* v33: 주가 — 회사마다 1주 가격이 있고, 매일 그날 변동률만큼 오르내려요 (모두에게 똑같아요) */
 const ST_BASE={samsong:720,lzui:480,hyundai:560,gukbap:300,posco:400,nemo:250,kakau:180,kuppang:120,baego:150,bio:330,hyper:280,ottuk:220,nongbu:160,byeol:190,toast:60,carrot:40,yageun:50,teslamyeon:90,nvbib:120,dolcoin:25};
@@ -1638,8 +1950,8 @@ function bookView(){
  <section class="panel ranks">${SEASON.map(s=>{const got=state.daysWorked>=s.d;return `<div class="rank ${got?"got":""}"><span class="d mono">${s.d}일</span><div><b>${s.t}</b><span>${got?s.s:"출근 "+(s.d-state.daysWorked)+"일 남음"}</span></div><span class="hint mono">${got&&state.promoDates[s.d]?state.promoDates[s.d].slice(5).replace("-","."):got?"달성":"+"+won(s.c)}</span></div>`}).join("")}</section>`;
 }
 /* ---------- v20: 동물의숲 같은 내 집 — 집 외관 고르기 → 들어가기 → 상하좌우로 걷는 방 ---------- */
-const HOMES=[{id:"gosi",name:"고시원",price:100,desc:"곰팡이 무료 · 화장실 공용",inside:"좁은 방 · 누런 벽지 · 이층 침대"},{id:"ruin",name:"폐가",price:200,desc:"귀신도 월세 내나요",inside:"좁은 방 · 금 간 벽 · 거미줄"},{id:"rooftop",name:"옥탑방",price:400,desc:"별 보며 퇴근 완료",inside:"기울어진 천장 · 창밖 빨랫줄"},{id:"villa",name:"빌라",price:900,desc:"계단이 무료 헬스장",inside:"꽃무늬 벽지 · 베란다 문"},
- {id:"apt",name:"아파트",price:2000,desc:"드디어 내 집 마련",inside:"넓은 원룸 · 부엌"},{id:"house",name:"단독주택",price:3000,desc:"층간소음 탈출",inside:"2층 · 로프트 침실 · 실내 수영장"},{id:"country",name:"고급주택",price:4500,desc:"야자수 마당에 수영장까지",inside:"2층 · 월넛 마루 · 실내 수영장"},{id:"mansion",name:"풀빌라",price:6500,desc:"통유리 오션뷰 · 돌생 성공",inside:"2층 · 대리석 홀 · 샹들리에"}];
+const HOMES=[{id:"gosi",name:"고시원",price:90,desc:"곰팡이 무료 · 화장실 공용",inside:"좁은 방 · 누런 벽지 · 이층 침대"},{id:"ruin",name:"폐가",price:270,desc:"귀신도 월세 내나요",inside:"좁은 방 · 금 간 벽 · 거미줄"},{id:"rooftop",name:"옥탑방",price:720,desc:"별 보며 퇴근 완료",inside:"기울어진 천장 · 창밖 빨랫줄"},{id:"villa",name:"빌라",price:1800,desc:"계단이 무료 헬스장",inside:"꽃무늬 벽지 · 베란다 문"},
+ {id:"apt",name:"아파트",price:4050,desc:"드디어 내 집 마련",inside:"넓은 원룸 · 부엌"},{id:"house",name:"단독주택",price:6750,desc:"층간소음 탈출",inside:"2층 · 로프트 침실 · 실내 수영장"},{id:"country",name:"고급주택",price:10800,desc:"야자수 마당에 수영장까지",inside:"2층 · 월넛 마루 · 실내 수영장"},{id:"mansion",name:"풀빌라",price:18000,desc:"통유리 오션뷰 · 돌생 성공",inside:"2층 · 대리석 홀 · 샹들리에"}];
 const homeOf=id=>HOMES.find(x=>x.id===id)||HOMES[0];
 /* 방 크기: k단계마다 가로 +90, 바닥 깊이 +70. 화면은 360×300 창으로 보고, 카메라가 돌대리를 따라가요 */
 /* v37: 집마다 다른 안쪽 · 집 넓히기 폐지 · 2층은 층 버튼 */
@@ -1765,7 +2077,7 @@ function acRoom(o){
  return s+`</svg>`;
 }
 /* v22: 이사 · 집 앞 배경 */
-const YARDS=[{id:"alley",name:"골목길",price:0,desc:"하늘 맑은 우리 동네"},{id:"hangang",name:"한강뷰",price:800,desc:"노을 지는 강변 · 다리 불빛"},{id:"night",name:"도심 야경",price:1500,desc:"빌딩 불빛 아래 퇴근 완료"},{id:"beach",name:"바닷가",price:2200,desc:"파도 소리 들리는 모래사장"},{id:"resort",name:"노을 리조트 부지",price:3000,desc:"노을 지는 바다 앞 대리석 테라스",img:"yard-resort.webp"}];
+const YARDS=[{id:"alley",name:"골목길",price:0,desc:"하늘 맑은 우리 동네"},{id:"hangang",name:"한강뷰",price:2000,desc:"노을 지는 강변 · 다리 불빛"},{id:"night",name:"도심 야경",price:4000,desc:"빌딩 불빛 아래 퇴근 완료"},{id:"beach",name:"바닷가",price:6000,desc:"파도 소리 들리는 모래사장"},{id:"resort",name:"노을 리조트 부지",price:9000,desc:"노을 지는 바다 앞 대리석 테라스",img:"yard-resort.webp"}];
 function yardOf(id){return YARDS.find(y=>y.id===id)||YARDS[0]}
 function yardSvg(id){
  const W=(x,y,w,h,c)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${c}"/>`;
@@ -1865,6 +2177,8 @@ function localView(){
  if(h.v==="vote")return voteView();
  if(h.v==="lounge")return loungeView(h);
  if(h.v==="news")return newsView();
+ if(h.v==="stalls")return stallsView(h);
+ if(h.v==="stall")return stallView(h);
  if(h.v==="space"&&!spaceOf(h.space).district)return loungeView(Object.assign(h,{v:"lounge",cat:h.space}));
  if(h.v==="nick")return nickView(h);
  if(h.v==="inbox")return inboxView(h);
@@ -1879,9 +2193,11 @@ function localView(){
 const VG=window.TG_VILLAGE;
 const pct=(v,max)=>(v/max*100).toFixed(2)+"%";
 function placeNew(p){if(p.kind==="lounge"){const since=Date.now()-864e5;return CM.recent(80).filter(x=>!spaceOf(x.space).district&&!spaceOf(x.space).hidden&&x.createdAt>=since&&!CM.isHidden(x)).length}if(p.kind!=="space")return p.kind==="inbox"?CM.unreadTotal():0;const since=Date.now()-864e5;return CM.bySpace(p.id,"new").filter(x=>x.createdAt>=since&&!CM.isHidden(x)).length}
+function newsPaper(){const h=newsView(),i=h.indexOf('<article class="paper">');return i<0?"":h.slice(i)}
 function villageView(){
  const S=CM.state,h=hood(),pos=h.pos||VG.SPAWN;
- return `${vBar()}
+ return `<details class="newsfold" ${state.newsOpen===true?"open":""}><summary data-act="newsToggle"><b>📰 오늘의 칼퇴상사 사내신문</b><span class="hint">${state.newsOpen===true?"접기":"펼치기"}</span></summary>${newsPaper()}</details>
+ ${vBar()}
  ${S.notice?`<p class="cm-note">${esc(S.notice)}</p>`:""}
  ${zoneGuide()}
  <div class="village" id="village" style="aspect-ratio:${VG.W}/${VG.H}">
@@ -1899,7 +2215,7 @@ function villageView(){
  ${S.isOwner&&S.mode==="shared"?`<button class="entry ops" data-act="hoodGo:ops"><span><b>🛡 운영자 신고함</b><span class="hint">대화 신고 ${S.opsReports.length}건 · 이용 제한 ${S.banned.length}명</span></span><span aria-hidden="true">›</span></button>`:""}`;
 }
 /* v28: 칼퇴상사 안내도 · 점심 투표존 */
-const ZONE_INFO=[["pantry","☕","탕비실","연애·회사생활·아무말 수다방"],["cafeteria","🍚","구내식당","오늘 점심 메뉴 실시간 투표"],["toilet","🚽","화장실","오늘의 칼퇴상사 사내신문"],["pond","🎣","휴게 정원","낚시하고 코인 받기"],
+const ZONE_INFO=[["pantry","☕","탕비실","연애·회사생활·아무말 수다방"],["cafeteria","🍚","구내식당","오늘 점심 메뉴 실시간 투표"],["toilet","🚽","화장실","칸 열고 몰래 단톡 · 최대 8명"],["pond","🎣","휴게 정원","낚시하고 코인 받기"],
  ["board","📋","회사 게시판","전체 글 모아보기 · 글쓰기"],["commute","🛗","퇴근 엘리베이터","회사 밖 업무지구 광장으로"]];
 function zoneGuide(){const open=state.zoneOpen===true;
  return `<details class="zguide" ${open?"open":""}><summary data-act="zoneToggle"><b>🗺 칼퇴상사 안내도</b><span class="hint">눌러서 바로 가기</span></summary>
@@ -2051,7 +2367,7 @@ function inboxView(h){const S=CM.state;
  const all=CM.convList(), req=all.filter(c=>c.status==="requested"&&!c.iStarted), rest=all.filter(c=>!(c.status==="requested"&&!c.iStarted)), tab=h.tab==="req"?"req":"talk", list=tab==="req"?req:rest;
  const st=c=>c.status==="requested"?(c.iStarted?"수락 대기 중":"새 요청"):c.status==="declined"?(c.iStarted?"상대가 거절함":"거절함"):c.status==="blocked"?"차단됨":"";
  return `<button class="back" data-act="hoodHome">‹ 회사로</button>
- <section class="cm-head"><div><h2>✉️ 대화함</h2><p>닉네임끼리 1:1로 대화해요. 내용은 두 돌만 볼 수 있게 암호화돼요. 새 대화 요청은 ${CHAT_COST}코인, 한 번 낸 돌과는 계속 무료예요.</p></div></section>
+ <section class="cm-head"><div><h2>✉️ 대화함</h2><p>닉네임끼리 1:1로 대화해요. 내용은 두 돌만 볼 수 있게 암호화돼요. 새 대화 요청은 하루 ${DM_FREE}명까지 무료, 그다음부터 ${CHAT_COST}코인이에요. 한 번 요청한 돌과는 계속 무료예요.</p></div></section>
  <section class="panel"><div class="switch"><div><b>대화 받기</b><div class="hint">${S.me.dmOpen?"다른 돌이 내 닉네임을 눌러 대화를 요청할 수 있어요":"꺼져 있어요. 내가 먼저 보낸 대화만 이어져요"}</div></div>
   <button class="tog light" data-act="dmOpen" aria-pressed="${!!S.me.dmOpen}" aria-label="대화 받기" ${S.canWrite?"":"disabled"}></button></div></section>
  <div class="seg seg2" role="group" aria-label="대화함"><button data-act="hoodInboxTab:talk" aria-pressed="${tab==="talk"}">대화</button><button data-act="hoodInboxTab:req" aria-pressed="${tab==="req"}">요청${req.length?` ${req.length}`:""}</button></div>
@@ -2257,7 +2573,7 @@ async function makeFortuneCard(F){
  const FF='"Jua","Apple SD Gothic Neo","Malgun Gothic",sans-serif';try{await document.fonts.load('48px "Jua"')}catch(e){}
  const img=new Image();img.src="pose-base.png";try{await img.decode()}catch(e){}
  c.fillStyle="#EDF2F8";c.fillRect(0,0,W,H);
- c.fillStyle="#18212F";c.font=`72px ${FF}`;c.fillText("퇴근중",90,170);
+ c.fillStyle="#18212F";c.font=`72px ${FF}`;c.fillText("퇴근중",90,170);c.fillStyle="#5A6576";c.font=`34px ${FF}`;c.fillText("돌대리는",94,96);
  c.fillStyle="#5A6576";c.font=`36px ${FF}`;c.textAlign="right";c.fillText(F.date.replace(/-/g,".")+" 오늘의 돌운세",W-90,165);c.textAlign="left";
  c.fillStyle="#D5E6F6";rrect(c,90,230,900,600,48);c.fill();
  if(img.naturalWidth){const ih=440,iw=ih*img.naturalWidth/img.naturalHeight;c.drawImage(img,(W-iw)/2,330,iw,ih)}
@@ -2267,7 +2583,7 @@ async function makeFortuneCard(F){
  const rows=[["💼 직장운",F.work],["🏃 퇴근운",F.off],["💘 연애운",F.love],["🍀 행운 아이템",F.item]];let y=1090;
  rows.forEach(([k,v])=>{c.fillStyle="#3557D8";c.font=`36px ${FF}`;c.fillText(k,130,y);c.fillStyle="#18212F";c.font=`38px ${FF}`;y=wrapL(c,v,130,y+56,820,50)+96});
  c.textAlign="center";c.fillStyle="#3557D8";c.font=`44px ${FF}`;c.fillText("출근은 현실, 성장은 게임.",W/2,H-150);
- c.fillStyle="#5A6576";c.font=`32px ${FF}`;c.fillText("오늘의 운을 뽑아돌! · 퇴근중",W/2,H-95);
+ c.fillStyle="#5A6576";c.font=`32px ${FF}`;c.fillText("오늘의 운을 뽑아돌! · 돌대리는 퇴근중",W/2,H-95);
  return new Promise(r=>cv.toBlob(r,"image/png"));
  function lines(t,maxW){const out=[];let cur="";for(const ch of t){if(c.measureText(cur+ch).width>maxW&&cur){out.push(cur);cur=ch}else cur+=ch}if(cur)out.push(cur);return out}
  function wrap(c2,t,x,y,maxW,lh){lines(t,maxW).forEach((l,i)=>c2.fillText(l,x,y+i*lh))}
@@ -2441,34 +2757,64 @@ function loadRunBoard(sid){const RS=runState(),key=RS.week.key+"_"+sid;
  if(runBoardCache.key===key&&Date.now()-runBoardCache.at<30000)return;
  runBoardCache={key,rows:runBoardCache.key===key?runBoardCache.rows:null,at:Date.now()};
  CM.runBoard(RS.week.key,sid).then(rows=>{runBoardCache.rows=rows;if(state.tab==="today"&&!document.getElementById("modal").innerHTML&&!document.querySelector(".rn"))render()})}
+/* v50: 이어 달리기 — 1~4단계가 한 판. 거리 코인은 「그날 최고 기록을 넘은 만큼」만, 순위는 매일 */
+const RUN_SEG_M=[200,450,750,1050], RUN_DIST_CAP=400;
+function runCoinAt(m){const T=[[0,0],[200,40],[450,100],[750,200],[1050,300]];
+ for(let k=1;k<T.length;k++)if(m<=T[k][0]){const [a,ca]=T[k-1],[b,cb]=T[k];return ca+(cb-ca)*(m-a)/(b-a)}
+ return Math.min(RUN_DIST_CAP,300+(m-1050)*.303)}
+function runDay(){const RS=runState(),d=LK.kstDate();if(!RS.day||RS.day.date!==d)RS.day={date:d,best:0,coins:0,xp:[],plays:0};return RS.day}
+function runSeed(){return stHash("tgj-run-"+LK.kstDate())>>>0}
+let runDayBoard={key:null,rows:null,at:0};
+function loadDayBoard(){const key=LK.kstDate()+"_run";
+ if(CM.state.mode!=="shared"||!CM.runBoard)return;
+ if(runDayBoard.key===key&&Date.now()-runDayBoard.at<30000)return;
+ runDayBoard={key,rows:runDayBoard.key===key?runDayBoard.rows:null,at:Date.now()};
+ CM.runBoard(LK.kstDate(),"run").then(rows=>{runDayBoard.rows=rows;if(state.tab==="today"&&!document.getElementById("modal").innerHTML&&!document.querySelector(".rn"))render()})}
 function runnerCard(){
- const RS=runState(),fri=isFriday(),sel=Math.min(RS.sel||1,RS.unlocked);
- const st=[1,2,3,4].map(n=>{const S=RK.STAGES[n],b=RS.best[n],lock=n>RS.unlocked;
-  return `<button class="rc-st ${n===4?"dream":""} ${n===sel?"on":""} ${lock?"lock":""}" data-act="runSel:${n}" ${lock?"disabled":""} aria-pressed="${n===sel}"><span>STAGE ${n}</span><b>${S.name}</b><small>${lock?(n===4?"🔒 3단계 클리어하면 꿈속으로":"🔒 앞 단계 클리어"):b?"최고 "+TG_RUNNER.fmt(b.ms):"아직 기록 없음"}</small></button>`}).join("");
- const boardSid=fri?"fri":sel;loadRunBoard(boardSid);
- const rows=runBoardCache.key===RS.week.key+"_"+boardSid?runBoardCache.rows:null;
- const mine=RS.week.best[boardSid];
+ const RS=runState(),D=runDay(),fri=isFriday(),best=D.best,all=RS.allBest||0;
+ const segs=[["🚪","사무실",200],["🚇","지옥철",450],["🏠","집까지",750],["⏰","꿈속 야근",1050]];
+ const cur=segs.findIndex(x=>best<x[2]);
+ const strip=segs.map(([e,n,m],k)=>`<div class="rs-seg ${best>=m?"done":k===cur?"now":""}"><i>${best>=m?"✓":e}</i><b>${n}</b><small>~${won(m)}m</small></div>`).join("")+`<div class="rs-seg inf ${best>=1050?"now":""}"><i>🔥</i><b>야근 N회차</b><small>끝없이</small></div>`;
+ loadDayBoard();
+ const rows=runDayBoard.key===LK.kstDate()+"_run"?runDayBoard.rows:null;
  let rank;
- if(CM.state.mode==="shared"&&rows&&rows.length){const me=rows.findIndex(x=>x.me);rank=`<span>🏆 이번 주 ${boardSid==="fri"?"불금 탈출":"STAGE "+boardSid} 랭킹</span><b>1위 ${esc(rows[0].nick)} · ${TG_RUNNER.fmt(rows[0].ms)}${me>0?` · 나 ${me+1}위`:me===0?" (나!)":""}</b>`}
- else if(CM.state.mode==="shared"&&!rows)rank=`<span>🏆 이번 주 ${boardSid==="fri"?"불금 탈출":"STAGE "+boardSid} 랭킹</span><b>불러오는 중…</b>`;
- else if(CM.state.mode==="shared")rank=`<span>🏆 이번 주 ${boardSid==="fri"?"불금 탈출":"STAGE "+boardSid} 랭킹</span><b>아직 기록이 없어요 · 첫 퇴근자가 되어 보세요</b>`;
- else rank=`<span>🏆 이번 주 내 기록 · ${boardSid==="fri"?"불금":"STAGE "+boardSid}</span><b>${mine?TG_RUNNER.fmt(mine):"아직 없음"}${RS.chainBest?` · 1~3 연속 ${TG_RUNNER.fmt(RS.chainBest)}`:""}</b>`;
- const title=RS.titles.includes(DREAM_TITLE)?`<span class="rc-title">🌙 ${DREAM_TITLE}</span>`:RS.titles.includes(FRI_TITLE)?`<span class="rc-title">🔥 ${FRI_TITLE}</span>`:"";
- return `<section class="gcard rcard" aria-labelledby="rc-t"><div class="gc-h"><b id="rc-t">🏃 돌퇴근</b>${title||`<span class="new">NEW</span>`}</div>
+ if(CM.state.mode==="shared"&&rows&&rows.length){const me=rows.findIndex(x=>x.me);
+  rank=`<div class="rs-rank"><span>🏆 오늘의 퇴근길 랭킹</span><ol>${rows.slice(0,3).map((r,k)=>`<li class="${r.me?"me":""}"><em>${k+1}</em>${esc(r.nick)}<b class="mono">${won(r.m)}m</b></li>`).join("")}</ol>${me>2?`<p>나는 <b>${me+1}위</b> · ${won(rows[me].m)}m</p>`:me<0?`<p>한 판 달리면 랭킹에 올라가요</p>`:""}</div>`}
+ else if(CM.state.mode==="shared")rank=`<div class="rs-rank"><span>🏆 오늘의 퇴근길 랭킹</span><p>${rows?"아직 아무도 안 달렸어요 · 첫 1등이 되어 보세요":"불러오는 중…"}</p></div>`;
+ else rank=`<div class="rs-rank"><span>🏆 오늘의 퇴근길 랭킹</span><p>서버가 연결되면 열려요 · 지금은 내 기록만 보여요</p></div>`;
+ const title=RS.titles.includes(DREAM_TITLE)?`<span class="rc-title">🌙 ${DREAM_TITLE}</span>`:RS.titles.includes(FRI_TITLE)?`<span class="rc-title">🔥 ${FRI_TITLE}</span>`:`<span class="new">NEW</span>`;
+ const capped=D.coins>=RUN_DIST_CAP;
+ return `<section class="gcard rcard" aria-labelledby="rc-t"><div class="gc-h"><b id="rc-t">🏃 돌퇴근 · 이어 달리기</b>${title}</div>
  <div class="rc-hero" aria-hidden="true"><i class="rc-o o1"></i><i class="rc-peb"></i><span class="rc-door">퇴근</span></div>
- <p class="gc-copy" style="margin:0"><b>오늘도 칼퇴 성공!</b> 화면을 눌러 점프하고 장애물을 피해 집까지 달려요</p>
- <div class="rc-sts">${st}</div>
- <button class="btn wide" data-act="run:${sel}">STAGE ${sel} 달리기 →</button>
+ <p class="gc-copy" style="margin:0"><b>1~4단계가 한 판으로!</b> 갈수록 빨라지고 ❤️ 3개를 다 쓰면 끝이에요. 오늘 코스는 모두 같아요.</p>
+ <div class="rs-strip">${strip}</div>
+ <div class="rs-stats"><div><span>오늘 최고</span><b class="mono">${won(best)}m</b></div><div><span>역대 최고</span><b class="mono">${won(all)}m</b></div><div><span>오늘 받은 코인</span><b class="mono">${won(D.coins)}<small>/${RUN_DIST_CAP}</small></b></div></div>
+ <button class="btn wide" data-act="run:run">${best?`오늘 최고 ${won(best)}m 넘으러 가기 →`:"달리기 시작 →"}</button>
+ <p class="hint" style="margin:0">${capped?"오늘 거리 코인은 다 받았어요. 랭킹 도전은 계속할 수 있어요!":`멀리 갈수록 코인을 받아요 · 같은 날엔 <b>오늘 최고 기록을 넘은 거리만큼만</b> 더 받아요 · 꿈속 야근(1,050m)까지 가면 300코인`}</p>
+ ${rank}
  ${fri?`<button class="btn gold wide rc-fri" data-act="run:fri">🔥 불금 탈출 열림${RS.best.fri?" · 최고 "+TG_RUNNER.fmt(RS.best.fri.ms):" · 금요일 한정"}</button>`:`<p class="hint rc-frih">🔥 금요일엔 특별 스테이지 「불금 탈출」이 열려요 · ${daysToFri()}일 남음</p>`}
- <div class="gc-rank">${rank}</div>
- <p class="hint" style="margin:0">오늘 클리어 보상 <span class="mono">${(RS.paid.stages||[]).filter(k=>/^[1-4]$/.test(k)).length}/4</span> · 스테이지마다 하루 처음 깰 때 월급코인 +${STAGE_COIN}</p></section>`;
+ </section>`;
 }
+function runEndRun(res,RS,info){
+ const D=runDay();D.plays++;const m=res.meters;
+ info.dayBest=D.best;RS.allBest=RS.allBest||0;info.allBest=RS.allBest;
+ if(m>RS.allBest){if(RS.allBest)info.newAll=true;RS.allBest=m}
+ if(m>D.best){const before=Math.floor(runCoinAt(D.best)),after=Math.floor(runCoinAt(m));info.newDay=D.best>0;info.gain=m-D.best;D.best=m;
+  const c=Math.max(0,Math.min(RUN_DIST_CAP-D.coins,after-before));
+  if(c>0){D.coins+=c;state.coins+=c;info.coins=c}
+  else info.capNote=D.coins>=RUN_DIST_CAP?"오늘 거리 코인은 다 받았어요. 내일 또 받아요!":`조금만 더! 10m쯤 더 가면 코인이 붙어요`;
+  if(CM.state.mode==="shared"&&CM.runSubmit){info.rank="오늘의 랭킹에 기록을 올렸어요.";CM.runSubmit({sid:"run",week:D.date,m:D.best,ms:res.ms,score:res.score}).then(()=>{runDayBoard.at=0})}}
+ else info.capNote=`오늘 최고 <b>${won(D.best)}m</b>를 넘으면 넘은 거리만큼 코인을 더 받아요`;
+ RUN_SEG_M.forEach((sm,k)=>{if(m>=sm&&!D.xp.includes(k)){D.xp.push(k);gainXp(15)}});
+ if(m>=1050&&!RS.titles.includes(DREAM_TITLE)){RS.titles.push(DREAM_TITLE);info.title=true}
+ save();return info}
 function runEnd(res){
  const RS=runState(),key=String(res.sid),info={};RS.plays++;
  const v=RK.verify(res.sid,res.seed,res.inputs,{state:res.state,ms:res.ms,score:res.score,pebbles:res.pebbles});
  if(!v.ok||res.wallMs<res.ms*.9-80){info.invalid=true;save();return info}
  if(RS.runs.includes(res.runId)){info.dup=true;return info}
  RS.runs.push(res.runId);if(RS.runs.length>40)RS.runs.shift();
+ if(res.sid==="run")return runEndRun(res,RS,info);
  const bs=RS.bestScore[key]||0;if(res.score>bs){RS.bestScore[key]=res.score;if(bs)info.newBestScore=true}info.bestScore=Math.max(bs,res.score);
  if(res.state==="win"){
   const b=RS.best[key];if(!b||res.ms<b.ms){info.newBest=true;RS.best[key]={ms:res.ms,score:res.score,at:Date.now()}}else info.bestMs=b.ms;
@@ -2490,6 +2836,7 @@ function runEnd(res){
 function openRunner(sid){
  const RS=runState();
  if(sid==="fri"&&!isFriday()){toast("불금 탈출은 금요일에만 열려요");return}
+ if(sid==="run"){TG_RUNNER.open({sid:"run",seed:runSeed(),best:runDay().best,mute:RS.mute,onMute:m=>{runState().mute=m;save()},onEnd:res=>{const r=runEnd(res);if(TG_RUNNER.current)TG_RUNNER.current.opt.best=runDay().best;return r},onExit:()=>{runDayBoard.at=0;render()}});return}
  if(sid!=="fri"&&(sid<1||sid>RS.unlocked))return;
  TG_RUNNER.open({sid,mute:RS.mute,onMute:m=>{runState().mute=m;save()},onEnd:runEnd,onExit:()=>{runBoardCache.at=0;render()}});
 }
@@ -2504,7 +2851,7 @@ function onbHTML(){
   <p>회사에서 매일 굴러다니는 조약돌 직장인, 돌대리예요. 당신이 출근해야 돌대리도 월급을 받고, 밥을 먹고, 언젠가 한강뷰로 이사를 가요. 아무도 칭찬해주지 않는 출근, 이제 돌대리가 알아줄게요.</p>
   <div class="grow"></div><button class="btn wide" data-act="onbNext">다음</button>`;
  else if(onbStep===1)b=`<span class="eyebrow">하루 사용법</span><h1>출근부터 퇴근까지<br>다섯 칸이면 끝나요</h1>
-  <div class="rules"><div><span class="num">1</span><p style="margin:0;color:var(--ink)">🏢 출근<span>출근하기 누르고 오늘 기분 고르기 · 코인 +100</span></p></div><div><span class="num">2</span><p style="margin:0;color:var(--ink)">💼 근무<span>달리기·단어 게임 2개와 주식으로 코인 벌기</span></p></div><div><span class="num">3</span><p style="margin:0;color:var(--ink)">🍚 점심<span>11시부터 랜덤 회사생활 이벤트</span></p></div><div><span class="num">4</span><p style="margin:0;color:var(--ink)">🧘 미션<span>오후 1시·3시, 돌을 따라 스트레칭</span></p></div><div><span class="num">5</span><p style="margin:0;color:var(--ink)">🏃 퇴근<span>급여명세서 + DAY CLEAR 도장</span></p></div></div>
+  <div class="rules"><div><span class="num">1</span><p style="margin:0;color:var(--ink)">🏢 출근<span>출근하기 누르기 · 코인 +100</span></p></div><div><span class="num">2</span><p style="margin:0;color:var(--ink)">💼 근무<span>게임 4개(돌퇴근·퇴근각·돌목·돌야구)와 주식으로 코인 벌기</span></p></div><div><span class="num">3</span><p style="margin:0;color:var(--ink)">🍚 점심<span>11시부터 랜덤 회사생활 이벤트</span></p></div><div><span class="num">4</span><p style="margin:0;color:var(--ink)">🧘 미션<span>오후 1시·3시, 돌을 따라 스트레칭</span></p></div><div><span class="num">5</span><p style="margin:0;color:var(--ink)">🏃 퇴근<span>급여명세서 + DAY CLEAR 도장</span></p></div></div>
   <p>경험치가 차면 승진 시험! 인턴에서 팀장까지 올라가고, 번 코인으로 집과 방을 꾸며요.</p>
   <div class="grow"></div><div class="confirm-row"><button class="btn ghost" data-act="onbBack">이전</button><button class="btn" data-act="onbNext">다음</button></div>`;
  else b=`<span class="eyebrow">입사 서류</span><h1>내 돌 이름은?</h1>
@@ -2514,7 +2861,7 @@ function onbHTML(){
   <p>업무지구 단위로만 쓰여요. 회사 이름이나 정확한 위치는 묻지 않아요.</p>
   <div class="districts" role="group" aria-label="업무지구">${Object.keys(DISTRICTS).map(k=>`<button data-act="dist:${k}" aria-pressed="${k===state.district}">${k}</button>`).join("")}</div>
   <div class="grow"></div><div class="confirm-row"><button class="btn ghost" data-act="onbBack">이전</button><button class="btn" data-act="onbDone">출근 준비 완료</button></div>`;
- return `<div class="onb" role="dialog" aria-modal="true" aria-label="퇴근중 시작하기"><div class="onb-in">${dots}${b}</div></div>`;
+ return `<div class="onb" role="dialog" aria-modal="true" aria-label="돌대리는 퇴근중 시작하기"><div class="onb-in">${dots}${b}</div></div>`;
 }
 
 /* ---------- v2: 인사발령 + 공유 카드 ---------- */
@@ -2533,7 +2880,7 @@ async function makeCard(sl){
  const img=new Image();img.src="pose-"+(POSES.off?"off":"base")+".png";
  try{await img.decode()}catch(e){}
  c.fillStyle="#EDF2F8";c.fillRect(0,0,W,H);
- c.fillStyle="#18212F";c.font=`72px ${FF}`;c.textBaseline="alphabetic";c.fillText("퇴근중",90,170);
+ c.fillStyle="#18212F";c.font=`72px ${FF}`;c.textBaseline="alphabetic";c.fillText("퇴근중",90,170);c.fillStyle="#5A6576";c.font=`34px ${FF}`;c.fillText("돌대리는",94,96);
  c.fillStyle="#5A6576";c.font=`36px ${FF}`;c.textAlign="right";c.fillText(`${sl.date.replace(/-/g,".")} (${WD[wd(sl.date)]})`,W-90,165);c.textAlign="left";
  c.fillStyle="#D5E6F6";rr(c,90,230,900,620,48);c.fill();
  c.fillStyle="#9EBEE3";c.save();rr(c,90,230,900,620,48);c.clip();c.fillRect(90,700,900,150);c.restore();
@@ -2550,7 +2897,7 @@ async function makeCard(sl){
  sl.ref.forEach(l=>{row(l[0],String(l[1]),32,"#5A6576");y+=58});
  c.save();c.translate(760,770);c.rotate(-0.17);c.strokeStyle="#DD4A4A";c.lineWidth=8;rr(c,-170,-55,340,110,16);c.stroke();c.fillStyle="#DD4A4A";c.font=`64px ${FF}`;c.textAlign="center";c.fillText("DAY CLEAR",0,22);c.restore();
  c.textAlign="center";c.fillStyle="#3557D8";c.font=`44px ${FF}`;c.fillText("출근은 현실, 성장은 게임.",W/2,H-150);
- c.fillStyle="#5A6576";c.font=`32px ${FF}`;c.fillText("내가 출근해야, 돌대리도 먹고삽니다 · 퇴근중",W/2,H-95);c.textAlign="left";
+ c.fillStyle="#5A6576";c.font=`32px ${FF}`;c.fillText("내가 출근해야, 돌대리도 먹고삽니다 · 돌대리는 퇴근중",W/2,H-95);c.textAlign="left";
  return new Promise(r=>cv.toBlob(r,"image/png"));
 }
 
@@ -2645,7 +2992,7 @@ function missionIcs(){
  const ymdc=d.date.replace(/-/g,""), t=m=>hm(m).replace(":","")+"00";
  const stamp=new Date().toISOString().replace(/[-:]/g,"").slice(0,15)+"Z";
  const ev=ms.map(m=>["BEGIN:VEVENT",`UID:${d.date}-${m.id}@toegeunjung`,`DTSTAMP:${stamp}`,`DTSTART:${ymdc}T${t(m.at)}`,`DTEND:${ymdc}T${t(m.at+5)}`,
-  `SUMMARY:퇴근중 · ${m.t}`,`DESCRIPTION:돌대리 따라 ${m.t}! 앱에서 끝내면 월급코인 +${m.c}`,"BEGIN:VALARM","ACTION:DISPLAY","TRIGGER:PT0M",`DESCRIPTION:${m.ico} ${m.t} 할 시간이돌!`,"END:VALARM","END:VEVENT"].join("\r\n"));
+  `SUMMARY:돌대리는 퇴근중 · ${m.t}`,`DESCRIPTION:돌대리 따라 ${m.t}! 앱에서 끝내면 월급코인 +${m.c}`,"BEGIN:VALARM","ACTION:DISPLAY","TRIGGER:PT0M",`DESCRIPTION:${m.ico} ${m.t} 할 시간이돌!`,"END:VALARM","END:VEVENT"].join("\r\n"));
  const ics=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//toegeunjung//mission//KO","CALSCALE:GREGORIAN",...ev,"END:VCALENDAR",""].join("\r\n");
  const name=`toegeunjung-mission-${d.date}.ics`, blob=new Blob([ics],{type:"text/calendar"});
  let file=null;try{file=new File([blob],name,{type:"text/calendar"})}catch(e){}
@@ -2671,7 +3018,107 @@ function slipHTML(sl,stamp){
 const act={
  fishCast(){fishCast();return "noRender"},
  fishPull(){fishPull();return "noRender"},
- gameTab(t){state.gameTab=["word","stock"].includes(t)?t:"run"},
+
+
+ ygRulesShow(){modal(ygRules().replace('class="yg-rules"','class="yg-rules" style="background:none;padding:0"')+`<button class="btn wide" data-act="close" style="margin-top:12px">알겠어요</button>`);return "noRender"},
+ ygMode(m){ygS().mode=m==="pvp"?"pvp":"solo"},
+ ygSolo(){const o=ygS();o.solo={secret:ygRand4(),guesses:[],done:false};o.input="";o.memo={}},
+ ygSoloGive(){const o=ygS();if(!o.solo)return;toast(`정답은 ${o.solo.secret}였어요`);o.solo=null;o.input="";o.memo={}},
+ ygKey(n){const o=ygS();n=String(n);if(o.memoMode){const c=o.memo[n];o.memo[n]=c==="x"?"o":c==="o"?"":"x";return}
+  if(o.input.length<4&&!o.input.includes(n))o.input+=n},
+ ygMemoMode(){const o=ygS();o.memoMode=!o.memoMode},
+ ygDel(){const o=ygS();o.input=o.input.slice(0,-1)},
+ ygGo(){const o=ygS(),g=o.input;if(!CM.ygValid(g))return "noRender";
+  if(o.room&&YGR){if(!ygMyTurn())return "noRender";o.input="";const d=YGR;CM.ygGuess(d.code,d,g).catch(e=>toast((e&&e.message)||"못 보냈어요. 다시 눌러 주세요."));return}
+  const S=o.solo;if(!S||S.done)return "noRender";const r=CM.ygJudge(S.secret,g);S.guesses.push({g,s:r.s,b:r.b});o.input="";
+  if(r.s===4){S.done=true;if(!o.best||S.guesses.length<o.best)o.best=S.guesses.length;toast(`🎯 ${S.guesses.length}번 만에 맞혔어요!`)}},
+ ygCreate(){CM.ygCreate().then(code=>{const o=ygS();o.room=code;o.input="";o.memo={};save();ygWatch();ygRe()}).catch(e=>toast((e&&e.message)||"방을 못 만들었어요"));return "noRender"},
+ ygJoinAsk(){modal(`<h2 style="margin:0 0 6px">돌야구 방 들어가기</h2><p class="hint" style="margin:0 0 10px">친구가 알려준 숫자 4자리를 넣어 주세요.</p>
+  <input id="ygcode" class="fin mono" inputmode="numeric" maxlength="4" placeholder="0000" style="font-size:28px;letter-spacing:.3em;text-align:center;width:100%">
+  <button class="btn wide" data-act="ygJoinGo" style="margin-top:10px">들어가기</button><button class="btn ghost wide" data-act="close" style="margin-top:8px">취소</button>`);
+  setTimeout(()=>{const i=document.getElementById("ygcode");if(i)i.focus()},50);return "noRender"},
+ ygJoinGo(){const i=document.getElementById("ygcode");const v=i?i.value:"";closeModal();return act.ygJoin(v)},
+ ygJoin(code){CM.ygJoin(code).then(c=>{const o=ygS();o.room=c;o.input="";o.memo={};save();ygWatch();ygRe()}).catch(e=>toast((e&&e.message)||"못 들어갔어요"));return "noRender"},
+ ygStart(){if(YGR)CM.ygStart(YGR.code,YGR).catch(()=>{});return "noRender"},
+ ygSkip(){if(YGR)CM.ygSkip(YGR.code,YGR).catch(()=>{});return "noRender"},
+ ygRematch(){if(YGR)CM.ygRematch(YGR.code,YGR).catch(()=>{});return "noRender"},
+ ygLeaveAsk(){modal(`<h2 style="margin:0 0 6px">방에서 나갈까요?</h2><p class="hint" style="margin:0 0 12px">게임 중에 나가면 이번 판은 빠지게 돼요.</p><button class="btn wide" data-act="ygLeaveOk">나가기</button><button class="btn ghost wide" data-act="close" style="margin-top:8px">계속하기</button>`);return "noRender"},
+ ygLeaveOk(){closeModal();return act.ygLeave()},
+ ygLeave(){const o=ygS(),d=YGR;if(d)CM.ygLeave(d.code,d);o.room=null;o.input="";o.memo={};YGR=null;ygWatch()},
+
+ newsToggle(){state.newsOpen=state.newsOpen!==true},
+ stOpen(code){Object.assign(hood(),{v:"stall",code:String(code)});window.scrollTo(0,0)},
+ stNewAsk(){if(myOpenStalls()>=ST_OPEN_MAX){toast(`칸은 한 번에 ${ST_OPEN_MAX}개까지 열 수 있어요`);return "noRender"}if(state.coins<ST_COST){toast(`칸을 열려면 ${won(ST_COST)}코인이 필요해요`);return "noRender"}
+  modal(`<h2 style="margin:0 0 6px">🚽 칸 열기</h2><p class="hint" style="margin:0 0 10px">${won(ST_COST)}코인 · 최대 ${CM.ST_MAXM}명 · 24시간 뒤 물 내려가요. 아무도 안 들어오면 언제든 닫고 환불받을 수 있어요.</p>
+  <label class="hint" for="sttitle">칸 이름</label><input id="sttitle" class="fin" maxlength="20" placeholder="예) 3층 동기방, 점심 뭐 먹지" style="width:100%">
+  <div class="om-modes" style="margin-top:10px"><button class="om-mode" data-act="stPick:public" id="stpPub" aria-pressed="true"><span class="e">🌐</span><b>공개 칸</b><small>목록에 보여요</small></button><button class="om-mode" data-act="stPick:secret" id="stpSec" aria-pressed="false"><span class="e">🔒</span><b>비밀 칸</b><small>코드로만 들어와요</small></button></div>
+  <button class="btn wide" data-act="stNewGo" style="margin-top:10px">${won(ST_COST)}코인 내고 열기</button><button class="btn ghost wide" data-act="close" style="margin-top:8px">취소</button>`);
+  window.__stOpen="public";setTimeout(()=>{const i=document.getElementById("sttitle");if(i)i.focus()},50);return "noRender"},
+ stPick(v){window.__stOpen=v==="secret"?"secret":"public";const a=document.getElementById("stpPub"),b=document.getElementById("stpSec");if(a)a.setAttribute("aria-pressed",v!=="secret");if(b)b.setAttribute("aria-pressed",v==="secret");return "noRender"},
+ stNewGo(){const i=document.getElementById("sttitle"),title=(i&&i.value||"").trim();if(!title){toast("칸 이름을 지어 주세요");return "noRender"}
+  if(state.coins<ST_COST){toast(`${won(ST_COST)}코인이 필요해요`);return "noRender"}
+  if(myOpenStalls()>=ST_OPEN_MAX){closeModal();toast(`칸은 한 번에 ${ST_OPEN_MAX}개까지 열 수 있어요`);return "noRender"}
+  state.coins-=ST_COST;save();closeModal();
+  CM.stallCreate({title,open:window.__stOpen}).then(code=>{myStalls().push(code);state.stallPaid=state.stallPaid||{};state.stallPaid[code]=ST_COST;save();Object.assign(hood(),{v:"stall",code});render();toast(`칸을 열었어요 · -${won(ST_COST)}코인`)})
+   .catch(e=>{state.coins+=ST_COST;save();render();toast((e&&e.message)||"칸을 못 열었어요. 코인은 돌려드렸어요")});return "noRender"},
+ stJoinAsk(){modal(`<h2 style="margin:0 0 6px">코드로 들어가기</h2><p class="hint" style="margin:0 0 10px">친구가 알려준 칸 코드 6자리를 넣어 주세요.</p>
+  <input id="stcode" class="fin mono" maxlength="6" placeholder="ABC234" style="font-size:24px;letter-spacing:.25em;text-align:center;width:100%;text-transform:uppercase">
+  <button class="btn wide" data-act="stJoinGo" style="margin-top:10px">들어가기</button><button class="btn ghost wide" data-act="close" style="margin-top:8px">취소</button>`);
+  setTimeout(()=>{const i=document.getElementById("stcode");if(i)i.focus()},50);return "noRender"},
+ stJoinGo(){const i=document.getElementById("stcode"),v=i?i.value:"";closeModal();return act.stJoin(v)},
+ stJoin(code){CM.stallJoin(code).then(c=>{if(!myStalls().includes(c))myStalls().push(c);save();Object.assign(hood(),{v:"stall",code:c});render();window.scrollTo(0,0)}).catch(e=>toast((e&&e.message)||"못 들어갔어요"));return "noRender"},
+ stCopy(){const c=STD&&STD.code;if(!c)return "noRender";try{navigator.clipboard.writeText(c).then(()=>toast(`칸 코드 ${c} 복사했어요`),()=>toast(`칸 코드: ${c}`))}catch(e){toast(`칸 코드: ${c}`)}return "noRender"},
+ stMember(anon){const d=STD,me=(CM.state.me||{}).anon;if(!d||anon===me)return "noRender";const m=d.members.find(x=>x.anon===anon);if(!m)return "noRender";const host=d.host&&d.host.anon===me;
+  modal(`<h2 style="margin:0 0 10px">🪨 ${esc(m.nick)}</h2>${host?`<button class="btn wide" data-act="stKick:${esc(anon)}">이 칸에서 내보내기</button>`:""}
+  <button class="btn ghost wide" data-act="stBlock:${esc(anon)}" style="margin-top:8px">차단하기 (이 돌 말이 안 보여요)</button><button class="btn ghost wide" data-act="stReportAsk:${esc(anon)}" style="margin-top:8px">🚨 이 돌 신고하기</button><button class="btn ghost wide" data-act="close" style="margin-top:8px">닫기</button>`);return "noRender"},
+ stKick(anon){closeModal();if(STD)CM.stallKick(STD.code,STD,anon).then(()=>toast("내보냈어요")).catch(()=>toast("못 내보냈어요"));return "noRender"},
+ stBlock(anon){closeModal();CM.block(anon).then(()=>{toast("차단했어요. 이 돌의 말은 안 보여요");if(STMW){STMW();STMW=null;STCODE=null}render()});return "noRender"},
+ stReportAsk(anon){const R=CM.DM_REPORT_REASONS;closeModal();
+  modal(`<h2 style="margin:0 0 6px">🚨 칸 신고</h2><p class="hint" style="margin:0 0 10px">최근 대화가 운영자만 볼 수 있게 암호화돼서 전달돼요. 칸이 사라져도 남아요.</p>
+  <form id="stRform" class="reasons"><input type="hidden" name="target" value="${esc(anon||"")}">${R.map((r,i)=>`<label><input type="radio" name="reason" value="${r.id}" ${i===0?"checked":""}><span>${r.label}</span></label>`).join("")}
+  <button class="btn wide" type="submit" style="margin-top:10px">신고하기</button><button class="btn ghost wide" type="button" data-act="close" style="margin-top:8px">취소</button></form>`);return "noRender"},
+ stLeaveAsk(){const d=STD,me=(CM.state.me||{}).anon,host=d&&d.host&&d.host.anon===me;
+  modal(`<h2 style="margin:0 0 6px">칸에서 나갈까요?</h2><p class="hint" style="margin:0 0 12px">${host?"방장이 나가면 다음 돌이 방장이 돼요. "+(d&&!d.joined?"아직 아무도 안 들어왔으니 「칸 닫고 환불」을 쓰면 코인을 돌려받아요.":"환불은 안 돼요."):"다시 들어오려면 코드가 필요해요."}</p><button class="btn wide" data-act="stLeaveOk">나가기</button><button class="btn ghost wide" data-act="close" style="margin-top:8px">취소</button>`);return "noRender"},
+ stLeaveOk(){closeModal();const d=STD;if(d)CM.stallLeave(d.code,d);const i=myStalls().indexOf(d&&d.code);if(i>=0)myStalls().splice(i,1);Object.assign(hood(),{v:"stalls",code:null})},
+ stRefundAsk(){const d=STD;if(!d||d.joined)return "noRender";
+  modal(`<h2 style="margin:0 0 6px">💸 칸 닫고 환불할까요?</h2><p class="hint" style="margin:0 0 12px">아직 아무도 안 들어왔어요. 칸을 닫으면 ${won((state.stallPaid||{})[d.code]||ST_COST)}코인을 돌려받아요.</p><button class="btn wide" data-act="stRefundOk">닫고 환불받기</button><button class="btn ghost wide" data-act="close" style="margin-top:8px">취소</button>`);return "noRender"},
+ stRefundOk(){closeModal();const d=STD;if(!d)return "noRender";
+  CM.stallCloseRefund(d.code,d).then(ok=>{if(!ok){toast("누가 들어와서 환불할 수 없어요");return}
+   const paid=(state.stallPaid||{})[d.code]||0;if(paid){state.coins+=paid;delete state.stallPaid[d.code]}const i=myStalls().indexOf(d.code);if(i>=0)myStalls().splice(i,1);save();
+   Object.assign(hood(),{v:"stalls",code:null});render();toast(paid?`칸을 닫고 ${won(paid)}코인을 돌려받았어요`:"칸을 닫았어요")}).catch(()=>toast("못 닫았어요"));return "noRender"},
+ omMode(m){omS().mode=m==="pvp"?"pvp":"ai"},
+ omLv(i){i=+i;if(i>=0&&i<3)omS().lv=i},
+ omAiStart(){const o=omS();o.ai={lv:o.lv,moves:[],pick:null,thinking:false,resign:false,done:false,paidC:0}},
+ omAiAgain(){const o=omS(),lv=o.ai?o.ai.lv:o.lv;o.ai={lv,moves:[],pick:null,thinking:false,resign:false,done:false,paidC:0}},
+ omAiQuit(){clearTimeout(OMAI_T);omS().ai=null},
+ omAiResign(){const a=omS().ai;if(!a)return;clearTimeout(OMAI_T);a.thinking=false;a.resign=true;omAiEnd()},
+ omTap(v){const [x,y]=String(v).split(",").map(Number),o=omS();
+  if(o.ai){const a=o.ai;if(a.thinking||a.done||a.moves.length%2!==0||!OMOK.legal(a.moves,x,y))return "noRender";
+   if(!a.pick||a.pick[0]!==x||a.pick[1]!==y){a.pick=[x,y];return}
+   a.pick=null;a.moves.push([x,y]);omAiEnd();if(!a.done)omAiTurn();return}
+  if(o.room&&OMR){const d=OMR,r=CM.omRole(d);if(!r||d.status!=="play")return "noRender";const mv=omCells(d.moves);if(!OMOK.legal(mv,x,y))return "noRender";
+   if(!o.pick||o.pick[0]!==x||o.pick[1]!==y){o.pick=[x,y];return}
+   o.pick=null;const cell=y*OMOK.N+x;
+   /* 바로 판에 보이게 하고 저장소로 보내요 */
+   OMR=Object.assign({},d,{moves:d.moves.concat([cell]),at:Date.now()});
+   CM.omokMove(d.code,d,cell).catch(e=>toast((e&&e.message)||"수를 못 보냈어요. 다시 눌러 주세요."));return}
+  return "noRender"},
+ omCreateAsk(){modal(`<h2 style="margin:0 0 6px">⚫ 돌목 방 만들기</h2><p class="hint" style="margin:0 0 12px">어떻게 둘까요?</p>
+  <div class="om-modes"><button class="om-mode" data-act="omCreate:0"><span class="e">🤝</span><b>친선전</b><small>코인 없이 재미로</small></button><button class="om-mode" data-act="omCreate:50" ${state.coins<50?"disabled":""}><span class="e">💰</span><b>50코인 내기</b><small>${state.coins<50?"코인이 모자라요":"이긴 사람이 100코인"}</small></button></div>
+  <button class="btn ghost wide" data-act="close" style="margin-top:10px">취소</button>`);return "noRender"},
+ omCreate(st){st=+st||0;closeModal();if(st&&state.coins<st){toast(`${st}코인이 필요해요`);return "noRender"}CM.omokCreate(st).then(code=>{const o=omS();o.room=code;o.pick=null;save();omWatch();omRe()}).catch(e=>toast((e&&e.message)||"방을 못 만들었어요"));return "noRender"},
+ omJoinAsk(){modal(`<h2 style="margin:0 0 6px">코드로 들어가기</h2><p class="hint" style="margin:0 0 10px">친구가 알려준 숫자 4자리를 넣어 주세요.</p>
+  <input id="omcode" class="fin mono" inputmode="numeric" maxlength="4" placeholder="0000" style="font-size:28px;letter-spacing:.3em;text-align:center;width:100%">
+  <button class="btn wide" data-act="omJoinGo" style="margin-top:10px">들어가기</button><button class="btn ghost wide" data-act="close" style="margin-top:8px">취소</button>`);
+  setTimeout(()=>{const i=document.getElementById("omcode");if(i)i.focus()},50);return "noRender"},
+ omJoinGo(){const i=document.getElementById("omcode");const v=i?i.value:"";closeModal();return act.omJoin(v)},
+ omJoin(code){CM.omokJoin(code,state.coins).then(c=>{const o=omS();o.room=c;o.pick=null;save();omWatch();omRe()}).catch(e=>toast((e&&e.message)||"못 들어갔어요"));return "noRender"},
+ omResign(){if(!OMR)return "noRender";modal(`<h2 style="margin:0 0 6px">기권할까요?</h2><p class="hint" style="margin:0 0 12px">이번 판은 상대가 이겨요.</p><button class="btn wide" data-act="omResignOk">기권하기</button><button class="btn ghost wide" data-act="close" style="margin-top:8px">계속 두기</button>`);return "noRender"},
+ omResignOk(){closeModal();if(OMR)CM.omokResign(OMR.code,OMR).catch(()=>{});return "noRender"},
+ omTimeout(){if(OMR)CM.omokClaimTimeout(OMR.code,OMR).catch(()=>{});return "noRender"},
+ omRematch(){if(!OMR)return "noRender";if(OMR.stake&&state.coins<OMR.stake){toast(`판돈 ${OMR.stake}코인이 모자라요`);return "noRender"}CM.omokRematch(OMR.code,OMR).catch(()=>{});return "noRender"},
+ omLeave(){const o=omS(),d=OMR;if(d)CM.omokLeave(d.code,d);o.room=null;o.pick=null;OMR=null;omWatch()},
+ gameTab(t){state.gameTab=["word","stock","omok","yagu"].includes(t)?t:"run"},
  examGo(){if(state.examFail===today()){toast("오늘은 이미 응시했어요. 내일 다시 볼 수 있어요");return}examStart();return "noRender"},
  examAns(k){const E=EXAM;if(!E||E.pick!=null)return "noRender";E.pick=+k;if(E.pick===E.qs[E.i].ans)E.score++;modal(examHTML());return "noRender"},
  examNext(){const E=EXAM;if(!E)return "noRender";E.i++;E.pick=null;if(E.i>=E.qs.length&&E.score<4){state.examFail=today();save()}modal(examHTML());return "noRender"},
@@ -2692,8 +3139,8 @@ const act={
  tutNext(){},
  tutSkip(){state.tutDone=true;state.tut=0;const b=document.getElementById("tut");if(b){b.innerHTML="";b.className=""}toast("튜토리얼을 건너뛰었어요")},
  tutEnd(){if(state.tutDone)return;state.tutDone=true;state.tut=0;state.coins+=TUT_BONUS;const b=document.getElementById("tut");if(b){b.innerHTML="";b.className=""}toast(`튜토리얼 완료! 보너스 +${TUT_BONUS}코인`)},
- clockGo(){goingIn=true},
- workStart(c){goingIn=false;if(state.day.inAt)return;state.day.cond=COND[c]?c:"soso";act.clockIn();window.scrollTo({top:0,behavior:"smooth"})},
+ clockGo(){return act.workStart()},
+ workStart(c){goingIn=false;if(state.day.inAt)return;if(COND[c])state.day.cond=c;act.clockIn();window.scrollTo({top:0,behavior:"smooth"})},
  stockPick(id){if(stPhase()!=="open"){toast("지금은 장이 닫혀 있어요");return}modal(stockPickHTML(id));return "noRender"},
  stockBuy(a){const [id,v]=String(a).split(","),q=Math.floor(+v),K=kstNow(),S=stState();
   if(!STOCKS.some(x=>x[0]===id)||!(q>=1)){closeModal();return}
@@ -2726,7 +3173,7 @@ const act={
 
  stepsToggle(){state.stepsOpen=!state.stepsOpen},
  runSel(n){const RS=runState();n=+n;if(n>=1&&n<=RS.unlocked)RS.sel=n},
- run(n){openRunner(n==='fri'?'fri':+n);return "noRender"},
+ run(n){openRunner(n==='fri'||n==='run'?n:+n);return "noRender"},
  tab(k){if(k==="local"&&state.tab!=="local")state.hood={v:"main",space:null,pid:null,sort:(state.hood||{}).sort||"new",pos:(state.hood||{}).pos};state.tab=k;window.scrollTo(0,0)},
  cat(k){state.shopCat=k},
  cal(ym){state.calMonth=ym},
@@ -2750,7 +3197,7 @@ const act={
    const file=new File([b],`toegeunjung-fortune-${F.date}.png`,{type:"image/png"});const can=!!(navigator.canShare&&navigator.canShare({files:[file]}));
    modal(`<div class="sec-h"><h2>운세 공유 카드</h2><small>인스타 스토리 비율</small></div><div class="share-prev"><img src="${shareURL}" alt="오늘의 돌운세 공유 카드"></div>
    <div class="confirm-row">${can?`<button class="btn" data-act="luckShareGo">공유하기</button>`:""}<a class="btn ${can?"ghost":""}" href="${shareURL}" download="toegeunjung-fortune-${F.date}.png" style="text-decoration:none">이미지 저장</a></div><button class="btn ghost wide" data-act="close">닫기</button>`)});return "noRender"},
- luckShareGo(){if(!shareBlob)return "noRender";const f=new File([shareBlob],"toegeunjung-fortune.png",{type:"image/png"});navigator.share({files:[f],title:"퇴근중 · 오늘의 돌운세",text:"오늘의 운을 뽑아돌!"}).catch(()=>{});return "noRender"},
+ luckShareGo(){if(!shareBlob)return "noRender";const f=new File([shareBlob],"toegeunjung-fortune.png",{type:"image/png"});navigator.share({files:[f],title:"돌대리는 퇴근중 · 오늘의 돌운세",text:"오늘의 운을 뽑아돌!"}).catch(()=>{});return "noRender"},
  hoodHome(){Object.assign(hood(),{v:"main",pid:null});window.scrollTo(0,0)},
  ownerCoins(){if(!CM.state.isOwner)return;state.coins+=5000;toast("테스트 코인 5,000을 넣었어요")},
  roomSize(k){k=+k;const cur=state.roomSize||0,z=ROOMSZ[k];if(!z||k!==cur+1)return;if(state.coins<z.price){toast(`코인이 ${won(z.price-state.coins)} 모자라요`);return}
@@ -2805,7 +3252,7 @@ const act={
   if(!t.ok){toast(t.why);return "noRender"}
   dmDraft={anon,warned:false};const paid=chatPaid(anon);
   modal(`<div class="sec-h"><h2>대화 요청</h2><small>받는 돌: ${esc(t.nick||CM.nickOf(anon)||"")}</small></div>
-  ${paid?`<p class="dmcost free">💬 이 돌과는 이미 대화권을 냈어요 · 무료</p>`:`<p class="dmcost">💰 대화 요청 <b class="mono">${won(CHAT_COST)}</b>코인 · 한 번 내면 이 돌과는 계속 무료예요<br><small>보유 ${won(state.coins)}코인${state.coins<CHAT_COST?" · 코인이 모자라요":""} · 상대가 거절해도 돌려받지 않아요</small></p>`}
+  ${paid?`<p class="dmcost free">💬 이 돌과는 이미 대화한 적이 있어요 · 무료</p>`:dmFreeLeft()>0?`<p class="dmcost free">💬 무료 대화 요청 · 오늘 <b class="mono">${dmFreeLeft()}</b>/${DM_FREE}번 남음<br><small>한 번 요청한 돌과는 계속 무료예요 · ${DM_FREE}명이 넘으면 ${won(CHAT_COST)}코인</small></p>`:`<p class="dmcost">💰 오늘 무료 ${DM_FREE}번을 다 썼어요 · 대화 요청 <b class="mono">${won(CHAT_COST)}</b>코인<br><small>보유 ${won(state.coins)}코인${state.coins<CHAT_COST?" · 코인이 모자라요":""} · 상대가 거절해도 돌려받지 않아요 · 내일 다시 ${DM_FREE}번 무료</small></p>`}
   <form id="dmfirst" class="reasons"><label for="dmfin" class="sr">첫 메시지</label><textarea id="dmfin" class="fin" rows="4" maxlength="${CM.CFG.dmMax}" placeholder="상대가 수락해야 대화가 열려요. 첫 메시지는 하나만 보낼 수 있어요."></textarea>
   <p class="hint" style="margin:0">닉네임 <b>${esc(CM.state.me.nick)}</b>(으)로 보내져요. 실명·회사·연락처는 쓰지 않는 걸 권해요.</p><p class="cm-err" id="dmerr" aria-live="polite"></p>
   <div class="confirm-row"><button type="button" class="btn ghost" data-act="close">취소</button><button class="btn" type="submit">보내기</button></div></form>`);
@@ -2914,7 +3361,7 @@ const act={
  shareGo(){
   if(!shareBlob)return "noRender";
   const f=new File([shareBlob],`toegeunjung-${state.day.date}.png`,{type:"image/png"});
-  navigator.share({files:[f],title:"퇴근중",text:"오늘도 DAY CLEAR. 출근은 현실, 성장은 게임."}).catch(()=>{});
+  navigator.share({files:[f],title:"돌대리는 퇴근중",text:"오늘도 DAY CLEAR. 출근은 현실, 성장은 게임."}).catch(()=>{});
   return "noRender";
  },
  box(){
@@ -2976,7 +3423,7 @@ function vNear(){if(VIL.sit)return VG.PLACES.find(p=>p.kind==="work");const insi
 function vLabels(){VG.PLACES.forEach(p=>{const el=document.querySelector(`[data-vlabel="${p.id}"]`);if(!el)return;const d=Math.hypot(p.door.x-VIL.x,p.door.y-VIL.y);el.classList.toggle("on",d<90&&!(VIL.near&&VIL.near.id===p.id))})}
 function vShowEnter(){const {btn}=vEls();if(!btn)return;const p=vNear();VIL.near=p;vLabels();
  if(!p){btn.hidden=true;return}
- btn.hidden=false;btn.textContent=p.kind==="work"?(VIL.sit?`💻 오늘 근무 보기`:`💻 자리로 가서 일하기`):p.kind==="exit"?`🛗 회사 밖으로 나가기`:p.kind==="vote"?`🍚 점심 투표하러 가기`:p.kind==="lounge"?`☕ 탕비실에서 수다 떨기`:p.kind==="news"?`🚽 사내신문 읽기`:p.kind==="fish"?`🎣 낚시하기${fishLeft()?` · ${fishLeft()}번 남음`:" · 오늘은 끝"}`:`${p.emoji} ${p.name} 들어가기`;const bx=p.area?VIL.x:p.door.x,by=p.area?VIL.y-34:p.door.y-30;btn.style.left=pct(bx,VG.W);btn.style.top=pct(Math.max(30,by),VG.H);btn.classList.toggle("al",bx<VG.W*.3);btn.classList.toggle("ar",bx>VG.W*.7);btn.dataset.place=p.id}
+ btn.hidden=false;btn.textContent=p.kind==="work"?(VIL.sit?`💻 오늘 근무 보기`:`💻 자리로 가서 일하기`):p.kind==="exit"?`🛗 회사 밖으로 나가기`:p.kind==="vote"?`🍚 점심 투표하러 가기`:p.kind==="lounge"?`☕ 탕비실에서 수다 떨기`:p.kind==="news"?`🚽 화장실 칸 들어가기`:p.kind==="fish"?`🎣 낚시하기${fishLeft()?` · ${fishLeft()}번 남음`:" · 오늘은 끝"}`:`${p.emoji} ${p.name} 들어가기`;const bx=p.area?VIL.x:p.door.x,by=p.area?VIL.y-34:p.door.y-30;btn.style.left=pct(bx,VG.W);btn.style.top=pct(Math.max(30,by),VG.H);btn.classList.toggle("al",bx<VG.W*.3);btn.classList.toggle("ar",bx>VG.W*.7);btn.dataset.place=p.id}
 function vPresence(force){const now=Date.now();if(!force&&now-VIL.pres<350)return;VIL.pres=now;CM.presence({x:Math.round(VIL.x),y:Math.round(VIL.y),nick:CM.state.me.nick||"돌",anon:CM.state.me.anon||null,eq:myEq()})}
 function vLoop(t){
  const {me}=vEls();if(!me){VIL.raf=0;return}
@@ -3130,7 +3577,7 @@ function vEnter(id){
  const h=hood();h.pos={x:p.door.x,y:Math.min(VG.BOUNDS.y1,p.door.y+14)};
  if(p.kind==="fish"){openFish();return}
  if(p.kind==="work"){if(VIL.sit)h.pos=null;state.tab="today";save();render();window.scrollTo(0,0);toast("업무존 도착! 오늘의 근무를 시작해요");return}
- const go=()=>{if(p.kind==="space")Object.assign(h,{v:"space",space:p.id,pid:null});else if(p.kind==="board")h.v="board";else if(p.kind==="vote")h.v="vote";else if(p.kind==="lounge"){Object.assign(h,{v:"lounge",cat:"all"});missionAct("lounge")}else if(p.kind==="news")h.v="news";else if(p.kind==="exit")Object.assign(h,{v:"plaza",pstep:"pick"});else{h.v="inbox";if(!h.tab)h.tab="talk"}save();render();window.scrollTo(0,0)};
+ const go=()=>{if(p.kind==="space")Object.assign(h,{v:"space",space:p.id,pid:null});else if(p.kind==="board")h.v="board";else if(p.kind==="vote")h.v="vote";else if(p.kind==="lounge"){Object.assign(h,{v:"lounge",cat:"all"});missionAct("lounge")}else if(p.kind==="news")h.v="stalls";else if(p.kind==="exit")Object.assign(h,{v:"plaza",pstep:"pick"});else{h.v="inbox";if(!h.tab)h.tab="talk"}save();render();window.scrollTo(0,0)};
  if(box&&!matchMedia("(prefers-reduced-motion: reduce)").matches){box.dataset.enter=`${p.emoji} ${p.name}에 들어가는 중…`;box.classList.add("entering");setTimeout(go,420)}else go();
 }
 function vPeers(){const {peers}=vEls();if(!peers)return;const ps=CM.state.peers||[];
@@ -3179,7 +3626,9 @@ document.addEventListener("keydown",e=>{
 document.addEventListener("keyup",e=>{const k=e.key.length===1?e.key.toLowerCase():e.key;delete VIL.keys[k]});
 let dmDraft={anon:null,warned:false};
 /* v19.2: 대화 요청은 300코인 (v30.2에서 500→300). 한 번 낸 돌과는 계속 무료 (돌퇴근·출근으로 모은 코인을 쓰는 곳) */
-const CHAT_COST=300;
+const CHAT_COST=100, DM_FREE=5;
+function dmFreeLeft(){const d=LK.kstDate(),x=state.dmFree||{};return x.date===d?Math.max(0,DM_FREE-(x.n||0)):DM_FREE}
+function dmUseFree(){const d=LK.kstDate();if(!state.dmFree||state.dmFree.date!==d)state.dmFree={date:d,n:0};state.dmFree.n++}
 const chatPaid=anon=>(state.paidChats||[]).includes(anon)||CM.convList().some(c=>c.other===anon&&c.iStarted);
 function scrollChat(){const b=document.getElementById("chatbox");if(b)b.scrollTop=b.scrollHeight}
 function keepDraft(){const t=document.getElementById("wtitle"),b=document.getElementById("wbody"),h=hood();if(t)h.dTitle=t.value;if(b)h.dBody=b.value}
@@ -3199,16 +3648,21 @@ document.addEventListener("submit",e=>{
  if(f.id==="dmfirst"){e.preventDefault();const v=document.getElementById("dmfin").value,err=document.getElementById("dmerr");
   if(CM.contactRisk(v)&&!dmDraft.warned){dmDraft.warned=true;err.textContent="연락처처럼 보이는 내용이 있어요. 익명 커뮤니티에서는 연락처를 주고받지 않는 걸 권해요. 그래도 보내려면 한 번 더 누르세요.";return}
   const btn=f.querySelector('[type=submit]');btn.disabled=true;
-  const anon=dmDraft.anon,pay=CHAT_COST>0&&!chatPaid(anon);
+  const anon=dmDraft.anon,isNew=!chatPaid(anon),free=isNew&&dmFreeLeft()>0,pay=isNew&&!free&&CHAT_COST>0;
   if(pay&&state.coins<CHAT_COST){btn.disabled=false;err.textContent=`대화 요청에는 ${won(CHAT_COST)}코인이 필요해요. 지금 ${won(state.coins)}코인이 있어요.`;return}
   if(pay){state.coins-=CHAT_COST;save()} /* 먼저 내고, 실패하면 돌려줘요 */
-  CM.startDm(anon,v).then(cid=>{if(pay){(state.paidChats||(state.paidChats=[])).push(anon);save()}closeModal();toast(pay?`${won(CHAT_COST)}코인으로 대화를 요청했어요. 이제 이 돌과는 계속 무료예요`:"대화를 요청했어요. 상대가 수락하면 대화가 열려요");Object.assign(hood(),{v:"chat",cid});render()})
+  CM.startDm(anon,v).then(cid=>{if(free)dmUseFree();if(isNew){(state.paidChats||(state.paidChats=[])).push(anon);save()}closeModal();toast(pay?`${won(CHAT_COST)}코인으로 대화를 요청했어요. 이제 이 돌과는 계속 무료예요`:free?`대화를 요청했어요 · 오늘 무료 ${dmFreeLeft()}번 남음`:"대화를 요청했어요. 상대가 수락하면 대화가 열려요");Object.assign(hood(),{v:"chat",cid});render()})
    .catch(x=>{if(pay){state.coins+=CHAT_COST;save()}btn.disabled=false;err.textContent=(x&&x.code==="dm")?x.message:"보내지 못했어요. 잠시 뒤 다시 해 주세요."});return}
  if(f.id==="gbform"){e.preventDefault();const i=document.getElementById("gbin"),v=i.value.trim(),h=hood();if(!v)return;
   if(CM.contactRisk(v)&&i.dataset.warned!=="1"){i.dataset.warned="1";toast("연락처처럼 보여요. 그래도 남기려면 한 번 더 누르세요");return}
   if(state.coins<GB_COST){toast(`방명록에는 ${GB_COST}코인이 필요해요`);return}
   state.coins-=GB_COST;save();const btn=f.querySelector("[type=submit]");btn.disabled=true;
   CM.addGuest(h.anon,v).then(()=>{toast(`방명록을 남겼어요 · -${GB_COST}코인`);loadRoom(h.anon,true);render()}).catch(x=>{state.coins+=GB_COST;save();btn.disabled=false;toast((x&&x.message)||"남기지 못했어요")});return}
+ if(f.id==="stform"){e.preventDefault();const i=document.getElementById("stin"),v=i.value;if(!v.trim()||!STD)return;
+  if(CM.contactRisk(v)&&i.dataset.warned!=="1"){i.dataset.warned="1";toast("연락처처럼 보여요. 그래도 보내려면 한 번 더 보내기를 누르세요");return}
+  i.value="";i.dataset.warned="";CM.stallSend(STD.code,STD,v).catch(x=>{i.value=v;toast((x&&x.message)||"보내지 못했어요")});return}
+ if(f.id==="stRform"){e.preventDefault();const fd=new FormData(f);closeModal();const t=fd.get("target")||null;
+  CM.stallReport(STD&&STD.code,STD,fd.get("reason"),STM,t).then(()=>toast("신고가 접수됐어요. 고마워요")).catch(x=>toast((x&&x.message)||"신고하지 못했어요"));return}
  if(f.id==="dmform"){e.preventDefault();const i=document.getElementById("dmin"),v=i.value;if(!v.trim())return;
   if(CM.contactRisk(v)&&i.dataset.warned!=="1"){i.dataset.warned="1";toast("연락처처럼 보여요. 그래도 보내려면 한 번 더 보내기를 누르세요");return}
   i.value="";i.dataset.warned="";const cid=hood().cid;CM.sendDm(cid,v).then(()=>{CM.markRead(cid)}).catch(x=>{i.value=v;toast((x&&x.code==="dm")?x.message:"보내지 못했어요")});return}

@@ -51,7 +51,7 @@ const CFG={
 const ADJ=["졸린","배고픈","퇴근하고픈","월급 기다리는","커피 수혈한","눈치 보는","칼퇴하는","멍때리는","출근한","점심 고민하는","회의 탈출한","야근 피한"];
 const STONE=["몽돌","차돌","자갈","조약돌","짱돌","맷돌","공깃돌","디딤돌","주춧돌","섬돌"];
 const SURNAMES="김이박최정강조윤장임한오서신권황안송류유전홍고문양손배백허남심노하곽성차주우구민진나지엄채원천방공현함변염여추도소석선설마길연위표명기반왕금옥육인맹제모탁국어은편용예경봉";
-const RESERVED=["운영자","관리자","admin","퇴근중","돌대리","공지"];
+const RESERVED=["운영자","관리자","admin","퇴근중","돌대리","돌대리는퇴근중","공지"];
 
 const rid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,9);
 const pick=a=>a[Math.floor(Math.random()*a.length)];
@@ -391,13 +391,17 @@ async function mark(pid,on){guard();if(on===false)await backend.del("likes",mark
 async function runSubmit(r){
  if(!backend||backend.mode!=="shared"||!S.canWrite||!S.me.anon)return false;
  const wk=r.week+"_"+r.sid, id=(wk+"_"+S.me.anon).replace(/[^\w-]/g,"_");
- try{const ref=backend.db.collection("runs").doc(id);const cur=await ref.get();if(cur.exists&&cur.data().ms<=r.ms)return true;
-  await ref.set({wk,week:r.week,sid:String(r.sid),ms:r.ms,score:r.score,nick:S.me.nick||"익명의 돌",anon:S.me.anon,at:Date.now()});return true}catch(e){return false}
+ try{const ref=backend.db.collection("runs").doc(id);const cur=await ref.get();
+  if(r.m!=null){if(cur.exists&&typeof cur.data().m==="number"&&cur.data().m>=r.m)return true}else if(cur.exists&&cur.data().ms<=r.ms)return true;
+  const doc={wk,week:r.week,sid:String(r.sid),ms:r.ms,score:r.score,nick:S.me.nick||"익명의 돌",anon:S.me.anon,at:Date.now()};if(r.m!=null)doc.m=Math.max(0,Math.min(100000,Math.floor(r.m)));
+  await ref.set(doc);return true}catch(e){return false}
 }
 async function runBoard(week,sid){
  if(!backend||backend.mode!=="shared")return null;
  try{const s=await backend.db.collection("runs").where("wk","==",week+"_"+sid).limit(300).get();
-  return s.docs.map(d=>d.data()).filter(x=>typeof x.ms==="number"&&!S.banned.includes(x.anon)).sort((a,b)=>a.ms-b.ms||a.at-b.at).map(x=>Object.assign({me:x.anon===S.me.anon},x))}catch(e){return []}
+  const rows=s.docs.map(d=>d.data()).filter(x=>!S.banned.includes(x.anon)&&!blocked(x.anon));
+  const out=sid==="run"?rows.filter(x=>typeof x.m==="number").sort((a,b)=>b.m-a.m||a.at-b.at):rows.filter(x=>typeof x.ms==="number").sort((a,b)=>a.ms-b.ms||a.at-b.at);
+  return out.map(x=>Object.assign({me:x.anon===S.me.anon},x))}catch(e){return []}
 }
 
 /* ---- 시작: 쓸 수 있는 저장소를 고름 ---- */
@@ -425,10 +429,196 @@ async function castVote(date,menu){guard();if(!backend||!voteMenus(date).include
 function watchVotes(date,fn){if(!backend)return ()=>{};
  if(backend.mode==="shared"&&backend.db){try{return backend.db.collection("votes").where("date","==",date).limit(2000).onSnapshot(s=>fn(s.docs.map(x=>Object.assign({id:x.id},x.data()))),()=>{})}catch(e){return ()=>{}}}
  let d={};try{d=JSON.parse(localStorage.getItem("toegeunjung-community-v1"))||{}}catch(e){}fn((d.votes||[]).filter(v=>v.date===date));return ()=>{}}
+
+/* v49: 돌목 1:1 방 — omok 컬렉션: id = 4자리 코드
+   {code, game, host:{anon,nick}, guest, black:"host"|"guest", moves:[칸 번호…], status:"wait"|"play"|"end", winner, reason, left, at, createdAt}
+   지금은 Claude 플레이 페이지의 공유 저장소로 돌아가고, 서버(Supabase)를 붙이면 같은 함수만 바꿔 끼우면 돼요 */
+const OM_N=15;
+function omOnline(){return !!(backend&&backend.mode==="shared"&&backend.db)}
+function omOff(){throw {code:"offline",message:"1:1 대전은 서버가 연결되면 열려요."}}
+function omRef(code){return backend.db.collection("omok").doc(String(code))}
+function omMe(){return {anon:S.me.anon,nick:S.me.nick||"익명의 돌"}}
+function omClean(d){if(!d||typeof d!=="object")return null;const p=x=>x&&typeof x==="object"&&typeof x.anon==="string"?{anon:x.anon.slice(0,40),nick:String(x.nick||"익명의 돌").slice(0,16)}:null;
+ const mv=Array.isArray(d.moves)?d.moves.filter(v=>Number.isInteger(v)&&v>=0&&v<OM_N*OM_N).slice(0,OM_N*OM_N):[];
+ if(new Set(mv).size!==mv.length)mv.length=0;
+ return {code:String(d.code||"").slice(0,6),game:Number.isInteger(d.game)?d.game:1,stake:OM_STAKES.includes(+d.stake)?+d.stake:0,host:p(d.host),guest:p(d.guest),black:d.black==="guest"?"guest":"host",moves:mv,
+  status:["wait","play","end"].includes(d.status)?d.status:"wait",winner:["host","guest"].includes(d.winner)?d.winner:null,reason:["five","resign","leave","timeout"].includes(d.reason)?d.reason:null,
+  left:d.left&&typeof d.left==="object"?{host:!!d.left.host,guest:!!d.left.guest}:{host:false,guest:false},at:typeof d.at==="number"?d.at:0,createdAt:typeof d.createdAt==="number"?d.createdAt:0}}
+function omRole(d){if(!d||!S.me)return null;if(d.host&&d.host.anon===S.me.anon)return "host";if(d.guest&&d.guest.anon===S.me.anon)return "guest";return null}
+const OM_STAKES=[0,50];
+async function omokCreate(stake){if(!omOnline())omOff();guard();stake=OM_STAKES.includes(+stake)?+stake:0;
+ for(let i=0;i<8;i++){const code=String(1000+Math.floor(Math.random()*9000));const ref=omRef(code);
+  let ok=true;try{const s=await ref.get();if(s.exists){const d=omClean(s.data());if(d&&Date.now()-d.at<36e5)ok=false}}catch(e){}
+  if(!ok)continue;
+  await ref.set({code,game:1,stake,host:omMe(),guest:null,black:"host",moves:[],status:"wait",winner:null,reason:null,left:{host:false,guest:false},at:Date.now(),createdAt:Date.now()});
+  return code}
+ throw {code:"busy",message:"방을 못 만들었어요. 잠시 뒤에 다시 해 주세요."}}
+async function omokJoin(code,myCoins){if(!omOnline())omOff();guard();code=String(code||"").replace(/\D/g,"");
+ if(code.length!==4)throw {code:"code",message:"방 코드는 숫자 4자리예요."};
+ const ref=omRef(code);let lock=null;try{lock=await ref.acquire({holder:S.me.anon,ttlMs:4000})}catch(e){}
+ if(lock&&lock.acquired===false)throw {code:"busy",message:"누가 먼저 들어가고 있어요. 다시 해 주세요."};
+ const s=await ref.get();const d=s.exists?omClean(s.data()):null;
+ if(!d||(d.status==="wait"&&Date.now()-d.at>36e5))throw {code:"none",message:"없는 방이에요. 코드를 확인해 주세요."};
+ const r=omRole(d);if(r)return code;
+ if(d.guest||d.status!=="wait")throw {code:"full",message:"이미 대전 중인 방이에요."};
+ if(d.stake&&myCoins!=null&&myCoins<d.stake)throw {code:"coins",message:`이 방은 ${d.stake}코인 내기예요. 코인이 모자라요.`};
+ await ref.update({guest:omMe(),status:"play",at:Date.now()});return code}
+function omokWatch(code,fn){if(!omOnline())return ()=>{};try{return omRef(code).onSnapshot(s=>fn(s.exists?omClean(s.data()):null),()=>fn(null))}catch(e){return ()=>{}}}
+function omokOpenRooms(fn){if(!omOnline())return ()=>{};
+ try{return backend.db.collection("omok").where("status","==","wait").limit(30).onSnapshot(s=>{const now=Date.now();
+  fn(s.docs.map(x=>omClean(x.data())).filter(d=>d&&d.host&&now-d.at<15*6e4&&!blocked(d.host.anon)&&!(S.banned||[]).includes(d.host.anon)).sort((a,b)=>b.at-a.at))},()=>fn([]))}catch(e){return ()=>{}}}
+async function omokMove(code,d,cell){if(!omOnline())omOff();const r=omRole(d);if(!r||d.status!=="play")return false;
+ const myColor=d.black===r?1:2,turn=d.moves.length%2===0?1:2;if(myColor!==turn||d.moves.includes(cell))return false;
+ const moves=d.moves.concat([cell]);const b=new Array(OM_N*OM_N).fill(0);moves.forEach((v,i)=>b[v]=i%2===0?1:2);
+ const x=cell%OM_N,y=Math.floor(cell/OM_N);let win=false;
+ for(const [dx,dy] of [[1,0],[0,1],[1,1],[1,-1]]){let n=1;for(const sg of [1,-1])for(let k=1;k<5;k++){const nx=x+dx*k*sg,ny=y+dy*k*sg;if(nx<0||ny<0||nx>=OM_N||ny>=OM_N||b[ny*OM_N+nx]!==myColor)break;n++}if(n>=5)win=true}
+ const patch={moves,at:Date.now()};if(win){patch.status="end";patch.winner=r;patch.reason="five"}else if(moves.length>=OM_N*OM_N){patch.status="end";patch.winner=null;patch.reason=null}
+ await omRef(code).update(patch);return true}
+async function omokResign(code,d,reason){if(!omOnline())omOff();const r=omRole(d);if(!r||d.status!=="play")return;
+ await omRef(code).update({status:"end",winner:r==="host"?"guest":"host",reason:reason||"resign",at:Date.now()})}
+async function omokClaimTimeout(code,d){if(!omOnline())omOff();const r=omRole(d);if(!r||d.status!=="play")return;
+ const turn=d.moves.length%2===0?1:2,myColor=d.black===r?1:2;if(turn===myColor||Date.now()-d.at<3*6e4)return;
+ await omRef(code).update({status:"end",winner:r,reason:"timeout",at:Date.now()})}
+async function omokRematch(code,d){if(!omOnline())omOff();const r=omRole(d);if(!r||d.status!=="end"||!d.guest||d.left.host||d.left.guest)return;
+ await omRef(code).update({game:d.game+1,moves:[],status:"play",winner:null,reason:null,black:d.black==="host"?"guest":"host",at:Date.now()})}
+async function omokLeave(code,d){if(!omOnline()||!d)return;const r=omRole(d);if(!r)return;
+ try{if(d.status==="wait"&&r==="host"){await omRef(code).delete();return}
+  const left=Object.assign({},d.left,{[r]:true});const patch={left,at:Date.now()};
+  if(d.status==="play"){patch.status="end";patch.winner=r==="host"?"guest":"host";patch.reason="leave"}
+  await omRef(code).update(patch)}catch(e){}}
+
+/* v52: 돌야구(숫자야구 4자리 · 같은 숫자 레이스) — yagu 컬렉션: id = 4자리 코드
+   {code, game, seed, host, players:[{anon,nick}](최대 4), status:"wait"|"play"|"end", turn, turnAt, guesses:[{by,g,s,b,at}], winner, at, createdAt}
+   비밀 숫자는 seed로 만들어요. (서버를 붙이면 서버만 알게 바꾸면 돼요) */
+const YG_MAX=4, YG_TURN_MS=120000;
+function ygRef(code){return backend.db.collection("yagu").doc(String(code))}
+function ygSecret(seed){let a=(seed>>>0)||1;const r=()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
+ const d=[0,1,2,3,4,5,6,7,8,9];for(let i=9;i>0;i--){const j=Math.floor(r()*(i+1));[d[i],d[j]]=[d[j],d[i]]}return d.slice(0,4).join("")}
+function ygJudge(secret,g){let s=0,b=0;for(let i=0;i<4;i++){if(g[i]===secret[i])s++;else if(secret.includes(g[i]))b++}return {s,b}}
+function ygValid(g){return /^\d{4}$/.test(g)&&new Set(g).size===4}
+function ygClean(d){if(!d||typeof d!=="object")return null;const p=x=>x&&typeof x==="object"&&typeof x.anon==="string"?{anon:x.anon.slice(0,40),nick:String(x.nick||"익명의 돌").slice(0,16)}:null;
+ const players=(Array.isArray(d.players)?d.players.map(p).filter(Boolean):[]).slice(0,YG_MAX);
+ const guesses=(Array.isArray(d.guesses)?d.guesses:[]).filter(x=>x&&typeof x.by==="string"&&ygValid(String(x.g))).slice(0,300).map(x=>({by:x.by.slice(0,40),g:String(x.g),s:+x.s|0,b:+x.b|0,at:+x.at||0}));
+ return {code:String(d.code||"").slice(0,6),game:Number.isInteger(d.game)?d.game:1,seed:(+d.seed)>>>0,host:p(d.host),players,status:["wait","play","end"].includes(d.status)?d.status:"wait",
+  turn:Number.isInteger(d.turn)?d.turn:0,turnAt:+d.turnAt||0,guesses,winner:typeof d.winner==="string"?d.winner.slice(0,40):null,reason:typeof d.reason==="string"?d.reason.slice(0,12):null,at:+d.at||0,createdAt:+d.createdAt||0}}
+function ygIn(d){return !!(d&&S.me&&d.players.some(p=>p.anon===S.me.anon))}
+async function ygCreate(){if(!omOnline())omOff();guard();
+ for(let i=0;i<8;i++){const code=String(1000+Math.floor(Math.random()*9000));const ref=ygRef(code);let ok=true;
+  try{const s=await ref.get();if(s.exists){const d=ygClean(s.data());if(d&&Date.now()-d.at<36e5)ok=false}}catch(e){}
+  if(!ok)continue;const now=Date.now();
+  await ref.set({code,game:1,seed:(Math.random()*4294967296)>>>0,host:omMe(),players:[omMe()],status:"wait",turn:0,turnAt:0,guesses:[],winner:null,reason:null,at:now,createdAt:now});return code}
+ throw {code:"busy",message:"방을 못 만들었어요. 잠시 뒤에 다시 해 주세요."}}
+async function ygJoin(code){if(!omOnline())omOff();guard();code=String(code||"").replace(/\D/g,"");
+ if(code.length!==4)throw {code:"code",message:"방 코드는 숫자 4자리예요."};
+ const ref=ygRef(code);let lock=null;
+ /* 여러 명이 동시에 들어와도 한 명씩 차례로 (잠깐 잠그고 들어가요) */
+ for(let k=0;k<6;k++){try{lock=await ref.acquire({holder:S.me.anon,ttlMs:4000})}catch(e){lock=null}if(!lock||lock.acquired!==false)break;await new Promise(r=>setTimeout(r,500+Math.random()*400))}
+ if(lock&&lock.acquired===false)throw {code:"busy",message:"사람이 몰려서 못 들어갔어요. 다시 눌러 주세요."};
+ const s=await ref.get();const d=s.exists?ygClean(s.data()):null;
+ if(!d||(d.status==="wait"&&Date.now()-d.at>36e5))throw {code:"none",message:"없는 방이에요. 코드를 확인해 주세요."};
+ if(ygIn(d))return code;
+ if(d.status!=="wait")throw {code:"full",message:"이미 시작한 방이에요."};
+ if(d.players.length>=YG_MAX)throw {code:"full",message:"방이 꽉 찼어요 (최대 4명)."};
+ await ref.update({players:d.players.concat([omMe()]),at:Date.now()});try{if(lock&&lock.release)await lock.release()}catch(e){}return code}
+function ygWatch(code,fn){if(!omOnline())return ()=>{};try{return ygRef(code).onSnapshot(s=>fn(s.exists?ygClean(s.data()):null),()=>fn(null))}catch(e){return ()=>{}}}
+function ygOpenRooms(fn){if(!omOnline())return ()=>{};
+ try{return backend.db.collection("yagu").where("status","==","wait").limit(30).onSnapshot(s=>{const now=Date.now();
+  fn(s.docs.map(x=>ygClean(x.data())).filter(d=>d&&d.host&&d.players.length<YG_MAX&&now-d.at<15*6e4&&!blocked(d.host.anon)).sort((a,b)=>b.at-a.at))},()=>fn([]))}catch(e){return ()=>{}}}
+async function ygStart(code,d){if(!omOnline())omOff();if(!d||!d.host||d.host.anon!==S.me.anon||d.status!=="wait"||d.players.length<2)return;
+ await ygRef(code).update({status:"play",turn:0,turnAt:Date.now(),guesses:[],at:Date.now()})}
+async function ygGuess(code,d,g){if(!omOnline())omOff();if(!d||d.status!=="play"||!ygValid(g))return false;
+ const me=d.players[d.turn%d.players.length];if(!me||me.anon!==S.me.anon)return false;
+ const {s,b}=ygJudge(ygSecret(d.seed),g),now=Date.now();
+ const patch={guesses:d.guesses.concat([{by:S.me.anon,g,s,b,at:now}]),turn:(d.turn+1)%d.players.length,turnAt:now,at:now};
+ if(s===4){patch.status="end";patch.winner=S.me.anon;patch.reason="hit"}
+ await ygRef(code).update(patch);return true}
+async function ygSkip(code,d){if(!omOnline())omOff();if(!d||d.status!=="play"||!ygIn(d))return;if(Date.now()-d.turnAt<YG_TURN_MS)return;
+ await ygRef(code).update({turn:(d.turn+1)%d.players.length,turnAt:Date.now(),at:Date.now()})}
+async function ygRematch(code,d){if(!omOnline())omOff();if(!d||d.status!=="end"||!ygIn(d)||d.players.length<2)return;
+ await ygRef(code).update({game:d.game+1,seed:(Math.random()*4294967296)>>>0,status:"play",turn:d.game%d.players.length,turnAt:Date.now(),guesses:[],winner:null,reason:null,at:Date.now()})}
+async function ygLeave(code,d){if(!omOnline()||!d||!ygIn(d))return;
+ try{const rest=d.players.filter(p=>p.anon!==S.me.anon);
+  if(!rest.length||(d.status==="wait"&&d.host&&d.host.anon===S.me.anon)){await ygRef(code).delete();return}
+  const idx=d.players.findIndex(p=>p.anon===S.me.anon);const patch={players:rest,at:Date.now()};
+  if(d.host&&d.host.anon===S.me.anon)patch.host=rest[0];
+  if(d.status==="play"){if(rest.length<2){patch.status="end";patch.winner=rest[0].anon;patch.reason="leave"}else{let t=d.turn;if(idx<t)t--;patch.turn=((t%rest.length)+rest.length)%rest.length;if(idx===d.turn)patch.turnAt=Date.now()}}
+  await ygRef(code).update(patch)}catch(e){}}
+
+/* v54: 🚽 화장실 칸(단톡방) — stalls 컬렉션(id = 6자리 코드), 메시지는 stallMsgs
+   칸 = 최대 8명 · 방장이 200코인 내고 열기 · 들어가기는 무료 · 24시간 뒤 물 내려가요(사라짐)
+   아무도 안 들어왔으면 24시간 안에 언제든 「칸 닫고 환불」. 한 명이라도 들어왔으면 환불 없음 */
+const ST_MAXM=8, ST_LIFE=864e5, ST_MSG_MAX=200;
+const ST_CODE="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+function stRef(code){return backend.db.collection("stalls").doc(String(code))}
+function stCode(){let c="";const a=crypto.getRandomValues(new Uint8Array(6));for(const v of a)c+=ST_CODE[v%ST_CODE.length];return c}
+function stClean(d){if(!d||typeof d!=="object")return null;const p=x=>x&&typeof x==="object"&&typeof x.anon==="string"?{anon:x.anon.slice(0,40),nick:String(x.nick||"익명의 돌").slice(0,16)}:null;
+ return {code:String(d.code||"").slice(0,8),title:clean(String(d.title||"이름 없는 칸"),20)||"이름 없는 칸",open:d.open==="secret"?"secret":"public",host:p(d.host),
+  members:(Array.isArray(d.members)?d.members.map(p).filter(Boolean):[]).slice(0,ST_MAXM),kicked:(Array.isArray(d.kicked)?d.kicked.filter(x=>typeof x==="string"):[]).slice(0,50),
+  joined:!!d.joined,createdAt:+d.createdAt||0,expiresAt:+d.expiresAt||((+d.createdAt||0)+ST_LIFE),at:+d.at||0}}
+function stAlive(d){return !!(d&&Date.now()<d.expiresAt)}
+function stIn(d){return !!(d&&S.me&&d.members.some(m=>m.anon===S.me.anon))}
+async function stallCreate(o){if(!omOnline())omOff();guard();const title=clean(String(o&&o.title||""),20);if(!title)throw {code:"title",message:"칸 이름을 지어 주세요."};
+ if(contactRisk(title))throw {code:"title",message:"칸 이름에 연락처는 넣을 수 없어요."};
+ for(let i=0;i<6;i++){const code=stCode(),ref=stRef(code);try{const s=await ref.get();if(s.exists)continue}catch(e){}
+  const now=Date.now();await ref.set({code,title,open:o.open==="secret"?"secret":"public",host:omMe(),members:[omMe()],kicked:[],joined:false,createdAt:now,expiresAt:now+ST_LIFE,at:now});return code}
+ throw {code:"busy",message:"칸을 못 열었어요. 잠시 뒤에 다시 해 주세요."}}
+async function stallJoin(code){if(!omOnline())omOff();guard();code=String(code||"").toUpperCase().replace(/[^A-Z0-9]/g,"");
+ if(code.length!==6)throw {code:"code",message:"칸 코드는 6자리예요."};
+ const ref=stRef(code);let lock=null;
+ for(let k=0;k<6;k++){try{lock=await ref.acquire({holder:S.me.anon,ttlMs:4000})}catch(e){lock=null}if(!lock||lock.acquired!==false)break;await new Promise(r=>setTimeout(r,500+Math.random()*400))}
+ if(lock&&lock.acquired===false)throw {code:"busy",message:"사람이 몰려서 못 들어갔어요. 다시 눌러 주세요."};
+ const s=await ref.get();const d=s.exists?stClean(s.data()):null;
+ if(!d||!stAlive(d))throw {code:"none",message:"없거나 물 내려간 칸이에요."};
+ if(stIn(d))return code;
+ if(d.kicked.includes(S.me.anon))throw {code:"kicked",message:"이 칸에는 들어갈 수 없어요."};
+ if(d.host&&blocked(d.host.anon))throw {code:"blocked",message:"차단한 돌의 칸이에요."};
+ if(d.members.length>=ST_MAXM)throw {code:"full",message:"칸이 꽉 찼어요 (최대 8명)."};
+ await ref.update({members:d.members.concat([omMe()]),joined:true,at:Date.now()});try{if(lock&&lock.release)await lock.release()}catch(e){}
+ try{await backend.db.collection("stallMsgs").doc(rid()).set({code,by:"sys",nick:"",text:`${S.me.nick||"익명의 돌"} 님이 들어왔어요`,at:Date.now()})}catch(e){}
+ return code}
+function stallWatch(code,fn){if(!omOnline())return ()=>{};try{return stRef(code).onSnapshot(s=>fn(s.exists?stClean(s.data()):null),()=>fn(null))}catch(e){return ()=>{}}}
+function stallMsgsWatch(code,fn){if(!omOnline())return ()=>{};
+ try{return backend.db.collection("stallMsgs").where("code","==",String(code)).limit(400).onSnapshot(s=>{
+  fn(s.docs.map(x=>{const m=x.data()||{};return {id:x.id,by:String(m.by||"").slice(0,40),nick:String(m.nick||"").slice(0,16),text:String(m.text||"").slice(0,ST_MSG_MAX),at:+m.at||0}})
+   .filter(m=>m.text&&(m.by==="sys"||!blocked(m.by))).sort((a,b)=>a.at-b.at))},()=>fn([]))}catch(e){return ()=>{}}}
+function stallList(fn){if(!omOnline())return ()=>{};
+ try{return backend.db.collection("stalls").where("open","==","public").limit(60).onSnapshot(s=>{
+  fn(s.docs.map(x=>stClean(x.data())).filter(d=>d&&d.host&&stAlive(d)&&!blocked(d.host.anon)).sort((a,b)=>b.at-a.at))},()=>fn([]))}catch(e){return ()=>{}}}
+let stLastSend=0;
+async function stallSend(code,d,raw){if(!omOnline())omOff();guard();if(!d||!stAlive(d)||!stIn(d))throw {code:"out",message:"이 칸에 있을 때만 말할 수 있어요."};
+ const text=clean(String(raw||""),ST_MSG_MAX);if(!text)return;if(Date.now()-stLastSend<800)throw {code:"slow",message:"조금만 천천히 보내 주세요."};stLastSend=Date.now();
+ await backend.db.collection("stallMsgs").doc(rid()).set({code:String(code),by:S.me.anon,nick:S.me.nick||"익명의 돌",text,at:Date.now()});
+ try{await stRef(code).update({at:Date.now()})}catch(e){}}
+async function stDelMsgs(code){try{const s=await backend.db.collection("stallMsgs").where("code","==",String(code)).limit(400).get();for(const x of s.docs){try{await backend.db.collection("stallMsgs").doc(x.id).delete()}catch(e){}}}catch(e){}}
+/* 방장: 아무도 안 들어왔을 때만 닫고 환불 (true = 환불 가능해서 닫음) */
+async function stallCloseRefund(code,d){if(!omOnline())omOff();if(!d||!d.host||d.host.anon!==S.me.anon)return false;if(d.joined||!stAlive(d))return false;
+ const s=await stRef(code).get();const cur=s.exists?stClean(s.data()):null;if(!cur||cur.joined)return false;
+ await stRef(code).delete();await stDelMsgs(code);return true}
+async function stallLeave(code,d){if(!omOnline()||!d||!stIn(d))return;
+ try{const rest=d.members.filter(m=>m.anon!==S.me.anon);
+  if(!rest.length){await stRef(code).delete();await stDelMsgs(code);return}
+  const patch={members:rest,at:Date.now()};if(d.host&&d.host.anon===S.me.anon)patch.host=rest[0];
+  await stRef(code).update(patch);
+  try{await backend.db.collection("stallMsgs").doc(rid()).set({code,by:"sys",nick:"",text:`${S.me.nick||"익명의 돌"} 님이 나갔어요`,at:Date.now()})}catch(e){}}catch(e){}}
+async function stallKick(code,d,anon){if(!omOnline())omOff();if(!d||!d.host||d.host.anon!==S.me.anon||anon===S.me.anon)return;
+ const m=d.members.find(x=>x.anon===anon);if(!m)return;
+ await stRef(code).update({members:d.members.filter(x=>x.anon!==anon),kicked:d.kicked.concat([anon]).slice(-50),at:Date.now()});
+ try{await backend.db.collection("stallMsgs").doc(rid()).set({code,by:"sys",nick:"",text:`${m.nick} 님을 방장이 내보냈어요`,at:Date.now()})}catch(e){}}
+/* 신고: 최근 대화를 운영자만 열 수 있게 암호화해서 보내요 (칸이 사라져도 남아요) */
+async function stallReport(code,d,reason,msgs,target){if(!DM_REPORT_REASONS.some(r=>r.id===reason))return;
+ const ops=await backend.db.doc("ops/key").get();if(!ops.exists)throw {code:"dm",message:"아직 운영자 신고함이 열리지 않았어요. 차단은 바로 할 수 있어요."};
+ const transcript=(msgs||[]).filter(m=>m.by!=="sys").slice(-40).map(m=>({from:m.by===S.me.anon?"신고자":(m.nick||"익명"),text:m.text,at:m.at}));
+ const eph=await genKeys();const k=await derive(eph.priv,ops.data().pub);
+ const e=await enc(k,JSON.stringify({otherNick:`🚽 칸 「${d?d.title:code}」${target?" · "+(nickOf(target)||""):""}`,messages:transcript}));
+ await backend.put("dmReports",rid(),{cid:"stall:"+code,reported:target||(d&&d.host?d.host.anon:""),reason,eph:eph.pub,iv:e.iv,ct:e.ct,at:Date.now()})}
+window.TG_OM_STAKES=OM_STAKES;
 window.TG_COMMUNITY={SPACES,REPORT_REASONS,DM_REPORT_REASONS,CFG,state:S,subscribe:f=>{subs.add(f);return()=>subs.delete(f)},init,
  likeCount,commentCount,commentsOf,liked,reportedByMe,isHidden,mine,hot,recent,bySpace,post,nickOf,blocked,
  addPost,deletePost,addComment,deleteComment,toggleLike,report,
  nickProblem,nickChange,setNickname,contactRisk,
  setDmOpen,dmTarget,startDm,sendDm,acceptDm,declineDm,block,unblock,reportDm,convList,messages,markRead,unreadTotal,
- ban,unban,presence,runSubmit,runBoard,EMOTES,cleanEq,DISTRICTS,marked,countMark,mark,putRoom,getRoom,gbList,addGuest,delGuest,cleanRoom,voteMenus,castVote,watchVotes};
+ ban,unban,presence,runSubmit,runBoard,EMOTES,cleanEq,DISTRICTS,marked,countMark,mark,putRoom,getRoom,gbList,addGuest,delGuest,cleanRoom,voteMenus,castVote,watchVotes,
+ omokCreate,omokJoin,omokWatch,omokOpenRooms,omokMove,omokResign,omokClaimTimeout,omokRematch,omokLeave,omRole,
+ ygCreate,ygJoin,ygWatch,ygOpenRooms,ygStart,ygGuess,ygSkip,ygRematch,ygLeave,ygSecret,ygJudge,ygValid,YG_TURN_MS,
+ stallCreate,stallJoin,stallWatch,stallMsgsWatch,stallList,stallSend,stallCloseRefund,stallLeave,stallKick,stallReport,ST_MAXM,ST_MSG_MAX,ST_LIFE};
 })();

@@ -1,6 +1,6 @@
 {
-  "name": "퇴근중",
-  "short_name": "퇴근중",
+  "name": "돌대리는 퇴근중",
+  "short_name": "돌대리",
   "description": "출근하면 조약돌 돌대리도 출근한다. 직장인 출퇴근 연동 캐릭터 육성 게임.",
   "lang": "ko",
   "start_url": "./",
