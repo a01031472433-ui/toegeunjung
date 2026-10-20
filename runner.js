@@ -60,7 +60,7 @@ const CSS=`
 .rn-bar>span{position:absolute;top:50%;width:20px;height:20px;border-radius:50%;background:#A8A49E;border:2px solid #fff;transform:translate(-50%,-50%);left:0;box-shadow:0 1px 2px rgba(0,0,0,.15)}
 .rn-bar>em{position:absolute;right:-6px;top:50%;transform:translateY(-50%);font-style:normal;font-size:16px}
 .rn-left{font-size:14px;white-space:nowrap;min-width:92px;text-align:right}
-.rn-left b{font-weight:400;font-size:17px;font-variant-numeric:tabular-nums}
+.rn-left i{font-style:normal}.rn-left b{font-weight:400;font-size:17px;font-variant-numeric:tabular-nums}
 .rn-stats{display:flex;gap:6px}
 .rn-stats>span{flex:1;background:#fff;border:1px solid #EADCC4;border-radius:10px;padding:4px 8px;font-size:12px;color:#8B7F70;display:flex;justify-content:space-between;align-items:baseline;gap:4px}
 .rn-stats b{font-weight:400;font-size:16px;color:#4A3F35;font-variant-numeric:tabular-nums}
@@ -154,7 +154,7 @@ function Game(opt){
  const root=this.root=el(`<div class="rn" role="application" aria-label="돌퇴근 게임"><div class="rn-in">
   <div class="rn-top">
    <div class="rn-r1"><span class="rn-stage" id="rnStage"></span><span class="rn-lives" id="rnLives" aria-label="남은 목숨"></span><div class="rn-btns"><button class="rn-ib" data-rn="mute" aria-label="소리 켜기/끄기"></button><button class="rn-ib" data-rn="pause" aria-label="일시정지">⏸</button></div></div>
-   <div class="rn-prog"><div class="rn-bar" aria-hidden="true"><i></i><span></span><em></em></div><span class="rn-left">퇴근까지 <b id="rnLeft">0</b>m</span></div>
+   <div class="rn-prog"><div class="rn-bar" aria-hidden="true"><i></i><span></span><em></em></div><span class="rn-left"><i class="rn-lt">퇴근까지</i> <b id="rnLeft">0</b>m</span></div>
    <div class="rn-stats"><span>점수 <b id="rnScore">0</b></span><span>⚪ 자갈 <b id="rnPeb">0</b></span><span>⏱ <b id="rnTime">0:00.00</b></span></div>
   </div>
   <div class="rn-play"><canvas></canvas><div class="rn-notes" aria-live="polite"></div><div class="rn-zone" hidden><b>🍖 연타해서 버텨요!</b><div class="m"><i></i></div></div><div class="rn-lids" hidden><i class="t"></i><i class="b"></i><span>😪 눈꺼풀을 톡톡 눌러 눈 떠요!</span></div><div class="rn-twist" hidden></div><div class="rn-cd" aria-live="assertive"></div></div>
@@ -171,20 +171,23 @@ function Game(opt){
  this.raf=requestAnimationFrame(t=>this.frame(t));
 }
 const P=Game.prototype;
+function segLabel(g){return g.loop?`야근 ${g.loop}회차 · ${g.name}`:`${g.i+1}구간 · ${g.name}`}
 P.start=function(sid){
- this.sid=sid;this.S=K.STAGES[sid];
- const seed=(Math.random()*4294967296)>>>0;
+ this.sid=sid;this.S=Object.assign({},K.STAGES[sid]);
+ const seed=this.opt.seed!=null?(this.opt.seed>>>0):(Math.random()*4294967296)>>>0;
+ if(this.S.endless){this.seg=K.segAt(0);this.S.key=this.seg.key}
+ {const lt=this.root.querySelector(".rn-lt");if(lt)lt.textContent=this.S.endless?"달린 거리":"퇴근까지"}
  this.R=K.newRun(sid,seed);this.runId=Date.now().toString(36)+Math.random().toString(36).slice(2,8);
  this.parts=[];this.vis={sx:1,sy:1,ph:0,mood:"run",moodT:0,dx:0,dy:0,dvx:0,dvy:0,rot:0,fade:1,shake:0,t:0};
  this.wallMs=0;this.acc=0;this.over(null);
  this.layersFor();
  this.stageLabel();this.root.classList.remove("twisted");if(this.$.twist){this.$.twist.hidden=true;this.$.lids.hidden=true;this.$.dl.textContent="숙이기"}
  {const zb=this.$.zone&&this.$.zone.querySelector("b");if(zb)zb.textContent=this.S.key==="dream"?"🛏 연타해서 일어나요!":"🍖 연타해서 버텨요!"}
- this.$.goal.textContent=GOAL_ICON[this.S.key];
+ this.$.goal.textContent=this.S.endless?GOAL_ICON[K.SEGS[1].key]:GOAL_ICON[this.S.key];
  this.cache={};this.hud(true);
  this.count(3,"run");
 };
-P.stageLabel=function(){const sid=this.sid,R=this.R;this.$.stage.innerHTML=this.S.need?`STAGE ${sid} · 꿈 · ⏰ <b>${R?R.alarms:0}/${this.S.need}</b>`:`STAGE ${sid==="fri"?"🔥":sid} · <b>${this.S.name}</b>`};
+P.stageLabel=function(){const sid=this.sid,R=this.R;if(this.S.endless){this.$.stage.innerHTML=`🏃 <b>${segLabel(this.seg)}</b>`;return}this.$.stage.innerHTML=this.S.need?`STAGE ${sid} · 꿈 · ⏰ <b>${R?R.alarms:0}/${this.S.need}</b>`:`STAGE ${sid==="fri"?"🔥":sid} · <b>${this.S.name}</b>`};
 P.layersFor=function(){const k=this.S.key+"|"+this.LH+"|"+this.scale;if(this.Lkey===k)return;this.Lkey=k;this.L=A.layers(this.S.key,this.LH,this.gy,this.scale*this.dpr)};
 P.count=function(n,next){this.phase="count";this.cdLeft=n;this.cdNext=next;this.cdShown=null;this.q.length=0;this.pointers.clear();this.keyDown=false;this.duckKey=false;this.duckPtr=null;if(this.$.duck)this.$.duck.classList.remove("on");if(this.R&&this.R.duckHold)this.q.push(3)};
 P.resize=function(){
@@ -260,7 +263,7 @@ P.pause=function(){
  if(this.phase!=="run"&&this.phase!=="count")return;
  this.pausedFrom=this.phase;this.phase="paused";this.q.length=0;this.pointers.clear();this.keyDown=false;this.duckKey=false;this.duckPtr=null;this.$.duck.classList.remove("on");this.$.cd.innerHTML="";
  this.over(`<div class="rn-card" role="dialog" aria-label="일시정지"><p class="eb">일시정지</p><h2>잠깐 숨 돌리돌</h2>
-  <p class="sub">STAGE ${this.sid==="fri"?"불금":this.sid} · ${this.S.name} · 퇴근까지 ${won(Math.max(0,Math.round((this.S.len-this.R.x)/K.M)))}m</p>
+  <p class="sub">${this.S.endless?`${segLabel(this.seg)} · 지금 ${won(K.meters(this.R))}m`:`STAGE ${this.sid==="fri"?"불금":this.sid} · ${this.S.name} · 퇴근까지 ${won(Math.max(0,Math.round((this.S.len-this.R.x)/K.M)))}m`}</p>
   <button class="rn-b" data-rn="resume">계속 달리기</button><div class="rn-row"><button class="rn-b ghost" data-rn="retry">처음부터</button><button class="rn-b ghost" data-rn="exit">게임 나가기</button></div></div>`);
 };
 P.resume=function(){if(this.phase!=="paused")return;this.over(null);this.count(3,"run")};
@@ -274,7 +277,7 @@ P.frame=function(ts){
  if(this.phase==="count"){
   this.cdLeft-=dt;const n=Math.ceil(this.cdLeft);
   if(n!==this.cdShown){this.cdShown=n;
-   if(n>0){this.$.cd.innerHTML=`<span>${n}${this.pausedFrom?"":(n===3?`<small>${this.S.goal}까지 달려요<br>화면을 누르면 점프!${TIP[this.sid]?`<br>${TIP[this.sid]}`:""}</small>`:"")}</span>`;SFX.play("count")}
+   if(n>0){this.$.cd.innerHTML=`<span>${n}${this.pausedFrom?"":(n===3?(this.S.endless?`<small>갈 수 있는 데까지 달려요<br>갈수록 빨라지고 ❤️는 3개뿐!<br>화면을 누르면 점프!</small>`:`<small>${this.S.goal}까지 달려요<br>화면을 누르면 점프!${TIP[this.sid]?`<br>${TIP[this.sid]}`:""}</small>`):"")}</span>`;SFX.play("count")}
    else{this.$.cd.innerHTML=`<span style="font-size:52px">퇴근 시작!</span>`;SFX.play("go");this.phase=this.cdNext;this.pausedFrom=null;this.acc=0;setTimeout(()=>{if(this.phase!=="count")this.$.cd.innerHTML=""},700)}}
  }else if(this.phase==="run"){
   this.wallMs+=dt*1000;this.acc+=dt;
@@ -294,6 +297,10 @@ P.tick=function(){
   else{const k=e===2?"dd":e===3?"du":e===5?"bl":"dis";if(o[k]||(k==="dd"&&o.du))break;o[k]=1;this.q.shift()}}
  K.step(R,p,r,o);
  if(R.ev.length){for(const e of R.ev)this.event(e);R.ev.length=0}
+ if(this.S.endless){const g=K.segAt(R.x);if(g!==this.seg){this.seg=g;this.S.key=g.key;this.layersFor();this.stageLabel();
+  {const zb=this.$.zone&&this.$.zone.querySelector("b");if(zb)zb.textContent=g.key==="dream"?"🛏 연타해서 일어나요!":"🍖 연타해서 버텨요!"}
+  this.$.goal.textContent=GOAL_ICON[K.SEGS[g.i+1]?K.SEGS[g.i+1].key:g.key];SFX.play("item");
+  this.float(R.x+120,120,(g.loop?`🔥 야근 ${g.loop}회차!`:`${GOAL_ICON[g.key]} ${g.name}`)+" · 더 빨라져요","#C8641C",1);this.cache={};}}
 };
 P.event=function(e){
  const R=this.R,V=this.vis,[k,a,b]=e.split(":");
@@ -344,7 +351,8 @@ P.animWinning=function(dt){const V=this.vis;this.winT+=dt;V.ph+=dt*28;V.dx+=dt*1
 P.hud=function(force){
  const R=this.R,c=this.cache;
  if(force||c.lives!==R.lives){c.lives=R.lives;this.$.lives.textContent="❤️".repeat(Math.max(0,R.lives))+"🤍".repeat(Math.max(0,K.LIVES-R.lives))}
- const left=Math.max(0,Math.ceil((this.S.len-R.x)/K.M)),sc=K.score(R),pct=Math.min(100,R.x/this.S.len*100);
+ const g=this.S.endless?this.seg:null;
+ const left=g?K.meters(R):Math.max(0,Math.ceil((this.S.len-R.x)/K.M)),sc=K.score(R),pct=g?Math.min(100,(R.x-g.x0)/(g.x1-g.x0)*100):Math.min(100,R.x/this.S.len*100);
  if(force||c.left!==left){c.left=left;this.$.left.textContent=won(left)}
  if(force||c.sc!==sc){c.sc=sc;this.$.score.textContent=won(sc)}
  if(force||c.peb!==R.pebbles){c.peb=R.pebbles;this.$.peb.textContent=R.pebbles}
@@ -374,6 +382,9 @@ P.draw=function(){
  /* 도착지 */
  const gx=S.len+PX+40-camX-PX;if(gx<this.LW+40)A.GOAL[S.key](ctx,gx,gy+1,t);
  for(const z of R.C.zones){const a=z.x0-camX,b=z.x1-camX;if(b<-20||a>this.LW+20)continue;if(S.key==="dream")A.zoneDream(ctx,a,b,gy,t);else A.zoneShop(ctx,a,b,gy,t,S.key==="friday")}
+ /* 오늘 최고 기록 깃발 */
+ if(S.endless&&this.opt.best>0){const fx=this.opt.best*K.M-camX;if(fx>-40&&fx<this.LW+80){ctx.save();ctx.strokeStyle="#3557D8";ctx.lineWidth=2.2;ctx.beginPath();ctx.moveTo(fx,gy);ctx.lineTo(fx,gy-96);ctx.stroke();ctx.fillStyle="#3557D8";ctx.beginPath();ctx.moveTo(fx,gy-96);ctx.lineTo(fx+30,gy-87);ctx.lineTo(fx,gy-78);ctx.closePath();ctx.fill();
+  A.txt(ctx,`오늘 최고 ${won(this.opt.best)}m`,fx,gy-106,11,"#3557D8");ctx.restore()}}
  /* 아이템 */
  const it=R.C.items;for(let i=0;i<it.length;i++){if(R.got[i])continue;const a=it[i],sx=a.x-camX;if(sx>this.LW+30)break;if(sx<-30)continue;
   if(a.t==="pebble")A.pebbleItem(ctx,sx,gy-a.y-12,t);else if(a.t==="alarm")A.alarmItem(ctx,sx,gy-a.y-24,t);else A.powerItem(ctx,a.t,sx,gy-a.y-22,t)}
@@ -416,12 +427,24 @@ P.finish=function(){
  res.chainTotal=chainTotal;
  const info=(this.opt.onEnd&&this.opt.onEnd(res))||{};
  this.result={res,info};
- if(win&&this.sid==3){this.showEnding();return}
+ if(win&&this.sid==3&&!this.S.endless){this.showEnding();return}
  this.phase="over";this.showResult();
 };
 P.peb=function(mood){const c=document.createElement("canvas");c.className="peb";const d=Math.min(2,window.devicePixelRatio||1);c.width=110*d;c.height=100*d;const x=c.getContext("2d");x.scale(d,d);A.pebble(x,55,92,{mood,air:mood==="hit",scale:1.55,res:1.55*d,t:0});return c};
 P.showResult=function(){
  const {res,info}=this.result,S=this.S,win=res.state==="win";
+ if(S.endless){const g=this.seg,dr=g.key==="dream";
+  const reward=info.invalid?`<p class="rn-note">기록을 확인하지 못해서 이번 판은 저장하지 않았어요.</p>`
+   :info.coins?`<p class="rn-note">오늘 기록을 <b>${won(info.gain||0)}m</b> 넘었어요 → <b>월급코인 +${won(info.coins)}</b></p>`
+   :info.capNote?`<p class="rn-note">${info.capNote}</p>`:"";
+  this.over(`<div class="rn-card" role="dialog" aria-label="결과"><p class="eb">${segLabel(g)}</p><div class="pebslot"></div><h2>${win?"🏆 전설의 칼퇴!":dr?"🌙 꿈속 야근 확정!":"🚨 야근 확정!"}</h2>
+   <p class="sub">${win?"끝까지 달렸어요. 믿을 수 없어요!":`<small>마지막 실수: ${CAUSE[res.hitBy]||"앗, 부딪혔어요"}</small>`}</p>
+   <div class="rn-grid"><div><span>달린 거리</span><b>${won(res.meters)}m</b>${info.newDay?`<em>NEW 오늘 최고</em>`:info.dayBest?`<em>오늘 최고 ${won(info.dayBest)}m</em>`:""}</div><div><span>점수</span><b>${won(res.score)}</b>${info.newAll?`<em>역대 최고!</em>`:info.allBest?`<em>역대 ${won(info.allBest)}m</em>`:""}</div><div><span>자갈</span><b>${res.pebbles}개</b></div></div>
+   ${reward}${info.rank?`<p class="rn-note">${info.rank}</p>`:""}
+   <button class="rn-b" data-rn="retry">다시 달리기</button>
+   <button class="rn-b ghost" data-rn="share">📤 친구에게 결과 공유</button>
+   <div class="rn-row rn-links"><button class="rn-link" data-rn="exit">게임 나가기</button></div></div>`);
+  this.root.querySelector(".pebslot").replaceWith(this.peb(win?"win":"hit"));return}
  if(!win){
   const dr=S.key==="dream",slept=res.hitBy==="sleep";
   this.over(`<div class="rn-card" role="dialog" aria-label="실패"><div class="pebslot"></div><h2>${slept?"😴 다시 잠들었어요…":dr?"🌙 꿈속 야근 확정!":"🚨 야근 확정!"}</h2><p class="sub">${slept?`알람시계를 ${res.alarms||0}개만 모았어요. ⏰ ${S.need}개를 모아야 깨요`:dr?"꿈속 팀장님에게 붙잡혔어요":"팀장님에게 붙잡혔어요"}${slept?"":`<br><small>마지막 실수: ${CAUSE[res.hitBy]||"앗, 부딪혔어요"}</small>`}</p>
@@ -456,18 +479,18 @@ P.share=async function(btn){
  const W=1080,H=1350,c=document.createElement("canvas");c.width=W;c.height=H;const x=c.getContext("2d");
  try{await document.fonts.load(`40px ${A.FONT}`)}catch(e){}
  x.fillStyle="#FBF5EA";x.fillRect(0,0,W,H);x.fillStyle="#EFE3CF";A.rr(x,60,60,W-120,H-120,60);x.fill();
- A.txt(x,"퇴근중 · 돌퇴근",W/2,170,46,"#8B7F70");
- A.txt(x,`STAGE ${this.sid==="fri"?"불금":this.sid} · ${S.name}`,W/2,250,44,"#C8641C");
+ A.txt(x,"돌대리는 퇴근중 · 돌퇴근",W/2,170,46,"#8B7F70");
+ A.txt(x,S.endless?`이어 달리기 · ${segLabel(this.seg)}`:`STAGE ${this.sid==="fri"?"불금":this.sid} · ${S.name}`,W/2,250,44,"#C8641C");
  A.pebble(x,W/2,640,{mood:win?"win":"hit",scale:6.4,res:6.4,t:.4});
- A.txt(x,win?"오늘도 칼퇴 성공!":"야근 확정…",W/2,760,84,"#4A3F35");
- const rows=win?[["클리어 시간",fmt(res.ms)],["점수",won(res.score)],["자갈",res.pebbles+"개"]]:[["달린 거리",won(res.meters)+"m"],["점수",won(res.score)],["",""]];
+ A.txt(x,S.endless?`${won(res.meters)}m 질주!`:win?"오늘도 칼퇴 성공!":"야근 확정…",W/2,760,84,"#4A3F35");
+ const rows=S.endless?[["달린 거리",won(res.meters)+"m"],["점수",won(res.score)],["자갈",res.pebbles+"개"]]:win?[["클리어 시간",fmt(res.ms)],["점수",won(res.score)],["자갈",res.pebbles+"개"]]:[["달린 거리",won(res.meters)+"m"],["점수",won(res.score)],["",""]];
  rows.filter(r=>r[0]).forEach((r,i,arr)=>{const cx=W/2+(i-(arr.length-1)/2)*300;x.fillStyle="#FFFDF8";A.rr(x,cx-130,850,260,170,36);x.fill();A.txt(x,r[0],cx,900,34,"#8B7F70");A.txt(x,r[1],cx,965,54,"#4A3F35")});
  A.txt(x,win?"너도 오늘 칼퇴했어?":"내 대신 퇴근시켜 줄 사람?",W/2,1110,44,"#4A3F35");
- A.txt(x,"#퇴근중 #돌퇴근",W/2,1190,36,"#8B7F70");
+ A.txt(x,"#돌대리는퇴근중 #돌퇴근",W/2,1190,36,"#8B7F70");
  const blob=await new Promise(r=>c.toBlob(r,"image/png"));if(!blob)return;
  const file=new File([blob],"toegeunjung-runner.png",{type:"image/png"});
- const text=win?`돌퇴근 STAGE ${this.sid==="fri"?"불금":this.sid} ${S.name} ${fmt(res.ms)} · ${won(res.score)}점! 오늘도 칼퇴 성공 🏃`:`돌퇴근 ${won(res.meters)}m에서 야근 확정… 😵`;
- if(navigator.canShare&&navigator.canShare({files:[file]})){navigator.share({files:[file],title:"퇴근중 · 돌퇴근",text}).catch(()=>{});return}
+ const text=S.endless?`돌퇴근 이어 달리기 ${won(res.meters)}m! 🏃 너는 몇 m까지 가?`:win?`돌퇴근 STAGE ${this.sid==="fri"?"불금":this.sid} ${S.name} ${fmt(res.ms)} · ${won(res.score)}점! 오늘도 칼퇴 성공 🏃`:`돌퇴근 ${won(res.meters)}m에서 야근 확정… 😵`;
+ if(navigator.canShare&&navigator.canShare({files:[file]})){navigator.share({files:[file],title:"돌대리는 퇴근중 · 돌퇴근",text}).catch(()=>{});return}
  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="toegeunjung-runner.png";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000);
  if(btn)btn.textContent="이미지를 저장했어요";
 };
